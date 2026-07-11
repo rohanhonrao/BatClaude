@@ -21,6 +21,12 @@ const S = {
   txSearch: '',
 };
 
+// Module lifecycle (managed by the shell)
+let financeMounted = false;
+let financeWired = false;
+let onExitHub = null;
+export function setHubHandler(fn) { onExitHub = fn; }
+
 const $app = () => document.getElementById('app');
 
 async function refresh() {
@@ -557,8 +563,11 @@ VIEWS.settings.after = function () {
 // --- Headers ----------------------------------------------------------------
 function header(title) {
   return `<div class="app-header">
-    <div class="title">${BAT_SVG(20)}<h1>${escapeHtml(title)}</h1></div>
-    <button class="header-btn" data-nav-link="settings">⚙️</button>
+    <div class="title">
+      <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
+      <h1 class="mod-title">${escapeHtml(title)}</h1>
+    </div>
+    <button class="header-btn" data-nav-link="settings" aria-label="Settings"><i class="ti ti-settings"></i></button>
   </div>`;
 }
 function subHeader(title) {
@@ -932,6 +941,9 @@ async function onRestoreFile(e) {
 // Global event delegation
 // ============================================================================
 document.addEventListener('click', async (e) => {
+  if (!financeMounted) return;
+  const hb = e.target.closest('[data-hub]');
+  if (hb) { financeMounted = false; document.getElementById('chrome').style.display = 'none'; closeSheet(); return onExitHub && onExitHub(); }
   const t = e.target.closest('[data-close]'); if (t) return closeSheet();
   const b = e.target.closest('[data-back]'); if (b) return navigate('more');
   const nl = e.target.closest('[data-nav-link]'); if (nl) return navigate(nl.dataset.navLink);
@@ -1020,7 +1032,7 @@ function wipeData() {
 function onboarding() {
   $app().innerHTML = `<div class="view onboard">
     ${BAT_SVG(46, 'bat-lg')}
-    <h1>Bat<span class="gold">Vault</span></h1>
+    <h1 class="brand">BATVAULT</h1>
     <p>A private, offline finance tracker. Every dollar, rupee, and holding stays on <b>your</b> phone — no accounts, no servers.</p>
     <div class="field" style="width:100%;max-width:320px;text-align:left;margin-top:10px">
       <label>What should I call you?</label>
@@ -1053,18 +1065,20 @@ function onboarding() {
 // Snyder/Affleck-inspired elongated bat emblem — wide angular blade wings,
 // sharp swept-up tips, a low sleek head, twin membrane points per wing.
 // Shared point set (viewBox 0 0 120 46) so the app logo and PNG icons match.
-const BAT_POINTS = '60,7 70,15 82,8 118,6 99,27 91,20 75,34 66,25 60,41 54,25 45,34 29,20 21,27 2,6 38,8 50,15';
+const BAT_D = 'M100,20 C104,14 110,16 114,24 C118,30 120,30 126,26 C150,16 178,14 196,22 C184,34 172,40 160,40 C154,40 150,36 146,34 C140,44 128,54 118,54 C112,54 108,50 106,46 C104,52 102,58 100,64 C98,58 96,52 94,46 C92,50 88,54 82,54 C72,54 60,44 54,34 C50,36 46,40 40,40 C28,40 16,34 4,22 C22,14 50,16 74,26 C80,30 82,30 86,24 C90,16 96,14 100,20 Z';
 function BAT_SVG(height = 22, cls = 'bat') {
-  const w = Math.round(height * 120 / 46);
-  return `<svg class="${cls}" width="${w}" height="${height}" viewBox="0 0 120 46" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <polygon points="${BAT_POINTS}"/>
+  const w = Math.round(height * 200 / 62);
+  return `<svg class="${cls}" width="${w}" height="${height}" viewBox="0 8 200 62" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="${BAT_D}"/>
   </svg>`;
 }
 
 // ============================================================================
 // Boot
 // ============================================================================
-async function boot() {
+// Entry point when the Finance module is opened from the hub.
+export async function mountFinance() {
+  financeMounted = true;
   await loadSettings();
   if (!getSetting('onboarded')) {
     document.getElementById('chrome').style.display = 'none';
@@ -1072,15 +1086,12 @@ async function boot() {
   } else {
     await seedIfEmpty();
     await refresh();
+    document.getElementById('chrome').style.display = '';
     render();
   }
-  // Nav + FAB wiring
-  document.querySelectorAll('.nav button').forEach((b) => b.addEventListener('click', () => navigate(b.dataset.nav)));
-  document.getElementById('fab').addEventListener('click', () => txSheet());
-
-  // Register service worker for offline (only over http/https, not file://)
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  if (!financeWired) {
+    document.querySelectorAll('.nav button').forEach((b) => b.addEventListener('click', () => navigate(b.dataset.nav)));
+    document.getElementById('fab').addEventListener('click', () => txSheet());
+    financeWired = true;
   }
 }
-boot();

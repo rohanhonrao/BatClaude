@@ -1,6 +1,6 @@
 {
-  "name": "BatVault — Finance",
-  "short_name": "BatVault",
+  "name": "BATVAULT",
+  "short_name": "BATVAULT",
   "description": "A private, offline personal finance tracker. Your data stays on your device.",
   "start_url": "./index.html",
   "scope": "./",

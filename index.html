@@ -8,16 +8,17 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>BatVault</title>
+  <title>BATVAULT</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/tabler-icons.min.css">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
   <main id="app"><!-- rendered by app.js --></main>
 
-  <div id="chrome">
+  <div id="chrome" style="display:none">
     <button class="fab" id="fab" aria-label="Add transaction">+</button>
     <nav class="nav">
       <button data-nav="dashboard" class="active"><span class="ni">🏠</span>Home</button>
@@ -29,6 +30,6 @@
 
   <div id="toast"></div>
 
-  <script type="module" src="./js/app.js"></script>
+  <script type="module" src="./js/shell.js"></script>
 </body>
 </html>

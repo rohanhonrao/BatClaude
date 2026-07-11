@@ -7,7 +7,8 @@ $mime = @{
   ".html"="text/html; charset=utf-8"; ".js"="text/javascript; charset=utf-8";
   ".css"="text/css; charset=utf-8"; ".json"="application/json; charset=utf-8";
   ".webmanifest"="application/manifest+json; charset=utf-8"; ".png"="image/png";
-  ".svg"="image/svg+xml"; ".ico"="image/x-icon"; ".txt"="text/plain; charset=utf-8"
+  ".svg"="image/svg+xml"; ".ico"="image/x-icon"; ".txt"="text/plain; charset=utf-8";
+  ".woff2"="font/woff2"; ".woff"="font/woff"; ".ttf"="font/ttf"
 }
 
 $listener = New-Object System.Net.HttpListener

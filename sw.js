@@ -1,10 +1,19 @@
 // sw.js — offline cache. Bump CACHE when you change app files.
-const CACHE = 'batvault-v2';
+const CACHE = 'batvault-v4';
 const ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
   './css/styles.css',
+  './css/tabler-icons.min.css',
+  './css/fonts/tabler-icons.woff2',
+  './fonts/inter-400.woff2',
+  './fonts/inter-500.woff2',
+  './fonts/inter-600.woff2',
+  './fonts/inter-700.woff2',
+  './fonts/grotesk-500.woff2',
+  './fonts/grotesk-700.woff2',
+  './js/shell.js',
   './js/app.js',
   './js/db.js',
   './js/util.js',
@@ -12,6 +21,10 @@ const ASSETS = [
   './js/charts.js',
   './js/csv.js',
   './js/rates.js',
+  './js/crypto.js',
+  './js/shamir.js',
+  './js/ui.js',
+  './js/passwords.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
 ];

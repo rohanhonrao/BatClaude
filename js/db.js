@@ -2,7 +2,7 @@
 // Nothing here ever leaves the phone. No network, no accounts.
 
 const DB_NAME = 'batvault';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 // Object stores and their keyPaths. All records use a string `id`.
 const STORES = {
@@ -14,6 +14,7 @@ const STORES = {
   goals: 'id',
   holdings: 'id',
   settings: 'key',    // key/value store for app settings
+  vault: 'id',        // encrypted password entries: {id, blob:{iv,ct}, updatedAt}
 };
 
 let _dbPromise = null;

@@ -1,5 +1,16 @@
+/* BatVault — bundled fonts (offline) */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/inter-400.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/inter-500.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/inter-600.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/inter-700.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/grotesk-500.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/grotesk-700.woff2') format('woff2')}
+
 /* BatVault — dark, mobile-first finance UI */
 :root {
+  --font-sans: 'Inter', -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --bg: #0a0c10;
   --bg-elev: #12151d;
   --surface: #161a24;
@@ -27,16 +38,18 @@ html, body {
   margin: 0; padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
-  font-size: 15px; line-height: 1.4;
+  font-family: var(--font-sans);
+  font-size: 15.5px; line-height: 1.5; letter-spacing: -0.011em;
   overscroll-behavior-y: none;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
 body { max-width: 560px; margin: 0 auto; min-height: 100vh; }
 button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
 button { cursor: pointer; border: none; background: none; }
 a { color: var(--gold); }
-h1, h2, h3 { margin: 0; font-weight: 650; }
+h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
+h1 { font-family: var(--font-display); }
+.ti { line-height: 1; vertical-align: -0.09em; }
 ::selection { background: var(--gold); color: #000; }
 
 /* Scrollbar (desktop) */
@@ -244,3 +257,85 @@ textarea.input { resize: vertical; min-height: 60px; }
 .tiny { font-size: 12px; }
 .mt { margin-top: 12px; } .mt2 { margin-top: 22px; }
 .center { text-align: center; }
+
+/* --- Display font for numerals & brand --------------------------------- */
+.hero .amount, .amount-input, .donut-center, .lock h1, .app-header .title h1 {
+  font-family: var(--font-display); font-feature-settings: 'tnum';
+}
+.tabular, .amt, .stat .v, .hero .breakdown b, .gen-out .mono { font-variant-numeric: tabular-nums; }
+.app-header .title h1 { font-weight: 600; }
+.mod-title { font-size: 20px; display: inline-flex; align-items: center; gap: 8px; }
+
+/* --- Hub ---------------------------------------------------------------- */
+.hub-greet { color: var(--muted); margin: 6px 4px 18px; font-size: 15px; }
+.hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hub-card {
+  position: relative; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 18px; padding: 17px 15px; display: flex; flex-direction: column;
+  align-items: flex-start; gap: 7px; text-align: left; min-height: 122px; color: var(--text);
+  transition: transform .12s ease, border-color .2s;
+}
+.hub-card:active { transform: scale(.97); }
+.hub-card:not(.soon):hover { border-color: var(--gold-dim); }
+.hub-ic { width: 46px; height: 46px; border-radius: 14px; background: rgba(245,197,66,.12);
+  color: var(--gold); display: grid; place-items: center; font-size: 25px; }
+.hub-name { font-weight: 600; font-size: 16px; }
+.hub-desc { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.hub-card.soon { opacity: .6; }
+.hub-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .6px; background: var(--surface-2); color: var(--muted);
+  padding: 3px 8px; border-radius: 20px; }
+
+/* --- Lock / setup ------------------------------------------------------- */
+.lock { display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 84vh; text-align: center; gap: 4px; }
+.lock h1 { font-size: 33px; letter-spacing: -.02em; margin-top: 4px; }
+.lock .gold { color: var(--gold); }
+.lock p { color: var(--muted); max-width: 330px; margin: 4px auto 16px; font-size: 14px; }
+.lock-form { width: 100%; max-width: 330px; text-align: left; }
+
+/* --- Vault / passwords -------------------------------------------------- */
+.avatar { font-weight: 700; font-family: var(--font-display); }
+.mini-btn { width: 38px; height: 38px; border-radius: 11px; background: var(--surface-2);
+  border: 1px solid var(--line); color: var(--muted); display: grid; place-items: center;
+  font-size: 17px; flex: none; }
+.mini-btn:active { transform: scale(.93); }
+.input-row { display: flex; gap: 8px; align-items: center; }
+.input-row .input { flex: 1; }
+.mono { font-family: var(--font-mono); letter-spacing: .01em; }
+.gen-out { display: flex; align-items: center; gap: 10px; justify-content: space-between;
+  word-break: break-all; padding: 16px; min-height: 58px; }
+.gen-out .mono { font-size: 17px; line-height: 1.4; }
+
+/* --- Toggle switch ------------------------------------------------------ */
+.switch { position: relative; width: 46px; height: 28px; flex: none; }
+.switch input { display: none; }
+.switch > span { position: absolute; inset: 0; background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 20px; transition: .2s; }
+.switch > span::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--muted); top: 3px; left: 3px; transition: .2s; }
+.switch input:checked + span { background: rgba(245,197,66,.25); border-color: var(--gold); }
+.switch input:checked + span::after { background: var(--gold); transform: translateX(18px); }
+.switch input:disabled + span { opacity: .4; }
+
+/* --- Strength meter & range slider ------------------------------------- */
+.strength-bar { display: flex; gap: 5px; }
+.strength-bar span { flex: 1; height: 6px; border-radius: 4px; background: var(--surface-2); transition: .25s; }
+.range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 5px;
+  background: var(--surface-2); outline: none; margin-top: 6px; }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold); cursor: pointer; border: 2px solid var(--bg); }
+.range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--gold); border: 2px solid var(--bg); }
+
+/* --- Brand wordmark ----------------------------------------------------- */
+.brand { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.18em;
+  font-weight: 600; }
+.lock h1.brand { font-size: 30px; letter-spacing: 0.2em; }
+.app-header .title h1.brand { font-size: 19px; }
+.onboard h1.brand { font-size: 28px; letter-spacing: 0.2em; }
+
+/* --- Recovery kit ------------------------------------------------------- */
+.share-text { font-size: 13px; word-break: break-all; background: var(--surface-2);
+  padding: 11px 12px; border-radius: 10px; letter-spacing: .04em; color: var(--gold); }
+.check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+.check-row input { width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
