@@ -18,19 +18,21 @@ const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
 
-const BAT_D = 'M100,20 C104,14 110,16 114,24 C118,30 120,30 126,26 C150,16 178,14 196,22 C184,34 172,40 160,40 C154,40 150,36 146,34 C140,44 128,54 118,54 C112,54 108,50 106,46 C104,52 102,58 100,64 C98,58 96,52 94,46 C92,50 88,54 82,54 C72,54 60,44 54,34 C50,36 46,40 40,40 C28,40 16,34 4,22 C22,14 50,16 74,26 C80,30 82,30 86,24 C90,16 96,14 100,20 Z';
+// Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
+const BAT_D = 'M150 12 L166 3 L178 16 C210 12 262 16 300 26 L282 36 L270 30 L246 48 L228 34 C210 40 196 44 186 46 L166 64 L150 82 L134 64 L114 46 C104 44 90 40 72 34 L54 48 L30 30 L18 36 L0 26 C38 16 90 12 122 16 L134 3 L150 12 Z';
 function BAT(size = 46) {
-  const w = Math.round(size * 200 / 62);
-  return `<svg width="${w}" height="${size}" viewBox="0 8 200 62" fill="var(--gold)" aria-hidden="true"><path d="${BAT_D}"/></svg>`;
+  const w = Math.round(size * 300 / 86);
+  return `<svg width="${w}" height="${size}" viewBox="0 0 300 86" fill="var(--gold)" aria-hidden="true"><path d="${BAT_D}"/></svg>`;
 }
 
 // --- Modules registry -------------------------------------------------------
 const MODULES = [
   { id: 'finance', name: 'Finance', icon: 'ti-wallet', desc: 'Net worth, budgets, converter', ready: true },
   { id: 'passwords', name: 'Passwords', icon: 'ti-lock', desc: 'Encrypted vault', ready: true },
-  { id: 'docs', name: 'Documents', icon: 'ti-id', desc: 'IDs & records · passcode‑locked', ready: true },
-  { id: 'move', name: 'Move HQ', icon: 'ti-map-pin', desc: 'Moving checklist · LA → NJ', ready: true },
+  { id: 'docs', name: 'Documents', icon: 'ti-id', desc: 'IDs & records · biometric‑locked', ready: true },
   { id: 'grocery', name: 'Grocery', icon: 'ti-shopping-cart', desc: 'Shared shopping list', ready: true },
+  // Move HQ hidden for now — code stays wired (openModule + import) to re-enable later.
+  // { id: 'move', name: 'Move HQ', icon: 'ti-map-pin', desc: 'Moving checklist · LA → NJ', ready: true },
   { id: 'movies', name: 'Movies', icon: 'ti-movie', desc: 'Ratings, watchlist, radar', ready: false },
   { id: 'sports', name: 'Sports', icon: 'ti-ball-basketball', desc: 'Teams, fixtures, analysis', ready: false },
   { id: 'stocks', name: 'Stocks', icon: 'ti-chart-candle', desc: 'Daily buy/sell signals', ready: false },

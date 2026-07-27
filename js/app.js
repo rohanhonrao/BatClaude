@@ -1064,11 +1064,12 @@ function onboarding() {
 // ============================================================================
 // Snyder/Affleck-inspired elongated bat emblem — wide angular blade wings,
 // sharp swept-up tips, a low sleek head, twin membrane points per wing.
-// Shared point set (viewBox 0 0 120 46) so the app logo and PNG icons match.
-const BAT_D = 'M100,20 C104,14 110,16 114,24 C118,30 120,30 126,26 C150,16 178,14 196,22 C184,34 172,40 160,40 C154,40 150,36 146,34 C140,44 128,54 118,54 C112,54 108,50 106,46 C104,52 102,58 100,64 C98,58 96,52 94,46 C92,50 88,54 82,54 C72,54 60,44 54,34 C50,36 46,40 40,40 C28,40 16,34 4,22 C22,14 50,16 74,26 C80,30 82,30 86,24 C90,16 96,14 100,20 Z';
+// Wide, sharp bat emblem (viewBox 0 0 300 86, symmetric about x=150) — shared
+// so the in-app logo and PNG icons match.
+const BAT_D = 'M150 12 L166 3 L178 16 C210 12 262 16 300 26 L282 36 L270 30 L246 48 L228 34 C210 40 196 44 186 46 L166 64 L150 82 L134 64 L114 46 C104 44 90 40 72 34 L54 48 L30 30 L18 36 L0 26 C38 16 90 12 122 16 L134 3 L150 12 Z';
 function BAT_SVG(height = 22, cls = 'bat') {
-  const w = Math.round(height * 200 / 62);
-  return `<svg class="${cls}" width="${w}" height="${height}" viewBox="0 8 200 62" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  const w = Math.round(height * 300 / 86);
+  return `<svg class="${cls}" width="${w}" height="${height}" viewBox="0 0 300 86" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="${BAT_D}"/>
   </svg>`;
 }
