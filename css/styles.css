@@ -387,3 +387,52 @@ textarea.input { resize: vertical; min-height: 60px; }
 .mv-subitem span { flex: 1; }
 .mv-struck { text-decoration: line-through; color: var(--faint); }
 .mini-btn.ghost { background: transparent; width: 30px; height: 30px; color: var(--muted); }
+
+/* --- Documents --------------------------------------------------------- */
+.header-actions { display: flex; gap: 8px; }
+.lock-ic { font-size: 42px; color: var(--gold); margin-bottom: 6px; }
+.hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.linkbtn { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 600; cursor: pointer; }
+
+.doc-list { display: flex; flex-direction: column; gap: 9px; }
+.doc-card { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 13px; cursor: pointer; }
+.doc-card:active { transform: scale(.99); background: var(--surface-2); }
+.doc-ic { width: 40px; height: 40px; border-radius: 11px; background: var(--surface-2); display: grid;
+  place-items: center; font-size: 20px; color: var(--gold); flex: none; }
+.doc-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.doc-t { font-size: 14.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.doc-s { font-size: 12px; color: var(--muted); margin-top: 1px; }
+.doc-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; }
+.doc-exp { font-size: 10.5px; padding: 2px 7px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.doc-exp.red { background: rgba(255,90,95,.14); color: var(--red); }
+.doc-exp.gold { background: rgba(245,197,66,.14); color: var(--gold); }
+.doc-exp.muted { background: var(--surface-2); color: var(--muted); }
+
+.doc-notes { font-size: 13.5px; color: var(--text); line-height: 1.5; white-space: pre-wrap; background: var(--surface-2); padding: 10px 12px; border-radius: 10px; }
+.doc-files { display: flex; flex-wrap: wrap; gap: 8px; }
+.doc-thumb { width: 76px; height: 76px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); padding: 0; cursor: pointer; }
+.doc-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.doc-file { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; cursor: pointer; }
+.doc-fileedit { position: relative; }
+.doc-fileedit img { width: 76px; height: 76px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); display: block; }
+.doc-fileedit .mini-btn { position: absolute; top: -8px; right: -8px; width: 26px; height: 26px; background: var(--red); color: #fff; border-radius: 50%; }
+.doc-full { width: 100%; border-radius: 12px; border: 1px solid var(--line); }
+
+/* --- Grocery ----------------------------------------------------------- */
+.groc-add { display: flex; gap: 8px; align-items: center; }
+.groc-add .input { flex: 1; }
+.mini-btn.primary { background: var(--gold); color: #1a1400; border-color: var(--gold); }
+.groc-group { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.groc-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.groc-item:last-child { border-bottom: none; }
+.groc-item:active { background: var(--surface-2); }
+.groc-check { width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--faint); background: transparent;
+  display: grid; place-items: center; color: #04120a; font-size: 14px; flex: none; cursor: pointer; }
+.groc-item.checked .groc-check { background: var(--green); border-color: var(--green); }
+.groc-name { flex: 1; font-size: 14.5px; }
+.groc-item.checked .groc-name { text-decoration: line-through; color: var(--faint); }
+.groc-qty { color: var(--gold); font-weight: 600; font-size: 13px; }
+.groc-price { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.section-title.spread { display: flex; align-items: center; justify-content: space-between; }
