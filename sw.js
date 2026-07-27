@@ -1,5 +1,5 @@
 // sw.js — offline cache. Bump CACHE when you change app files.
-const CACHE = 'batvault-v5';
+const CACHE = 'batvault-v6';
 const ASSETS = [
   './',
   './index.html',

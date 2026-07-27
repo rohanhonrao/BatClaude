@@ -106,6 +106,10 @@ function render() {
     </div>
 
     <button class="btn primary mt2" data-add><i class="ti ti-plus"></i> Add task</button>
+    <div class="btn-row">
+      <button class="btn ghost" data-share><i class="ti ti-send"></i> Share list</button>
+      <button class="btn ghost" data-import><i class="ti ti-download"></i> Import</button>
+    </div>
     <div class="center muted tiny mt2"><i class="ti ti-shield-check" style="color:var(--green)"></i> Saved on this device</div>
   </div>`;
   bind();
@@ -170,6 +174,8 @@ function bind() {
   root.querySelector('[data-hub]')?.addEventListener('click', () => hubHandler && hubHandler());
   root.querySelectorAll('[data-add]').forEach((b) => b.addEventListener('click', () => taskSheet()));
   root.querySelector('[data-setdate]')?.addEventListener('click', (e) => { e.stopPropagation(); moveDateSheet(); });
+  root.querySelector('[data-share]')?.addEventListener('click', () => shareSheet());
+  root.querySelector('[data-import]')?.addEventListener('click', () => importSheet());
   root.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.filter; render(); }));
   root.querySelectorAll('[data-cycle]').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); cycleStatus(b.dataset.cycle); }));
   root.querySelectorAll('[data-open]').forEach((el) => el.addEventListener('click', (ev) => {
@@ -316,6 +322,91 @@ function moveDateSheet() {
   });
   sheet.querySelector('#md-clear')?.addEventListener('click', async () => {
     await setSetting('moveDate', ''); closeSheet(); render();
+  });
+}
+
+// --- Share / import (phone-to-phone, no server) -----------------------------
+// The list travels as a small JSON payload — sent as a file via the OS share
+// sheet, or as a copy-paste base64 code. Importing replaces the list on the
+// receiving phone. Nothing leaves the device except when the user shares.
+function buildPayload() {
+  return { app: 'batvault-move', v: 1, exportedAt: new Date().toISOString(), moveDate: getSetting('moveDate') || '', tasks };
+}
+function b64encode(s) { return btoa(unescape(encodeURIComponent(s))); }
+function b64decode(s) { return decodeURIComponent(escape(atob(s))); }
+function parsePayload(raw) {
+  let json;
+  try { json = JSON.parse(raw); } catch { /* not raw JSON */ }
+  if (!json) { try { json = JSON.parse(b64decode(raw)); } catch { /* not base64 */ } }
+  if (!json || json.app !== 'batvault-move' || !Array.isArray(json.tasks)) throw new Error('That doesn’t look like a Move HQ list');
+  return json;
+}
+function downloadText(name, text) {
+  const b = new Blob([text], { type: 'text/plain' });
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.href = u; a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(u), 1000);
+}
+
+function shareSheet() {
+  const json = JSON.stringify(buildPayload());
+  const code = b64encode(json);
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Share list</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <p class="muted tiny">Send your ${tasks.length}-task list to another phone. There, open Move HQ → <b>Import</b> and pick the file or paste the code. It replaces the list on that phone.</p>
+    <button class="btn primary mt" id="sh-share"><i class="ti ti-send"></i> Share…</button>
+    <div class="btn-row">
+      <button class="btn ghost" id="sh-copy"><i class="ti ti-copy"></i> Copy code</button>
+      <button class="btn ghost" id="sh-file"><i class="ti ti-file-download"></i> Save file</button>
+    </div>
+    <div class="field mt"><label>Or copy this code manually</label>
+      <div class="mono share-text" style="max-height:120px;overflow:auto">${escapeHtml(code)}</div></div>
+  `);
+  const copyCode = async () => {
+    try { await navigator.clipboard.writeText(code); toast('Code copied — send it to her'); }
+    catch { toast('Copy failed', true); }
+  };
+  sheet.querySelector('#sh-copy').addEventListener('click', copyCode);
+  sheet.querySelector('#sh-file').addEventListener('click', () => downloadText('move-hq.json', json));
+  sheet.querySelector('#sh-share').addEventListener('click', async () => {
+    const file = new File([json], 'move-hq.json', { type: 'application/json' });
+    try {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: 'Move HQ list' }); return; }
+      if (navigator.share) { await navigator.share({ title: 'Move HQ list', text: code }); return; }
+    } catch { return; /* user cancelled the share sheet */ }
+    copyCode(); // no native share available
+  });
+}
+
+function importSheet() {
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Import a list</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <p class="muted tiny">Paste a shared code, or choose a shared file. This <b>replaces</b> your current Move HQ list.</p>
+    <div class="field mt"><label>Paste code</label><textarea class="input mono" id="im-code" rows="4" placeholder="Paste the code she sent…"></textarea></div>
+    <div class="field"><label>…or choose a file</label><input class="input" type="file" id="im-file" accept=".json,.txt,application/json,text/plain"></div>
+    <button class="btn primary" id="im-go"><i class="ti ti-arrow-bar-to-down"></i> Replace my list</button>
+  `);
+  let fileText = '';
+  sheet.querySelector('#im-file').addEventListener('change', async (e) => {
+    const f = e.target.files[0];
+    if (f) { try { fileText = await f.text(); } catch { toast('Could not read that file', true); } }
+  });
+  sheet.querySelector('#im-go').addEventListener('click', () => {
+    const raw = sheet.querySelector('#im-code').value.trim() || fileText.trim();
+    if (!raw) return toast('Paste a code or choose a file', true);
+    let payload;
+    try { payload = parsePayload(raw); } catch (err) { return toast(err.message, true); }
+    const n = payload.tasks.length;
+    const s2 = openSheet(`<div class="center"><div style="font-size:30px;color:var(--gold)"><i class="ti ti-alert-triangle"></i></div>
+      <h2 style="margin:10px 0 6px">Replace your list?</h2><p class="muted tiny">Imports ${n} task${n === 1 ? '' : 's'} and removes what's on this phone now.</p></div>
+      <button class="btn primary" id="ir-yes">Replace list</button><button class="btn ghost mt" data-close>Cancel</button>`);
+    s2.querySelector('#ir-yes').addEventListener('click', async () => {
+      await db.clear('tasks');
+      if (payload.tasks.length) await db.bulkPut('tasks', payload.tasks);
+      await setSetting('moveDate', payload.moveDate || '');
+      await load(); closeSheet(); render(); toast(`Imported ${n} task${n === 1 ? '' : 's'}`);
+    });
   });
 }
 
