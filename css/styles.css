@@ -339,3 +339,51 @@ textarea.input { resize: vertical; min-height: 60px; }
   padding: 11px 12px; border-radius: 10px; letter-spacing: .04em; color: var(--gold); }
 .check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
 .check-row input { width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
+
+/* --- Move HQ ------------------------------------------------------------ */
+.mt-xs { margin-top: 6px; }
+.mv-big { font-family: var(--font-display); font-size: 26px; font-weight: 500; letter-spacing: -.5px; }
+.mv-hero .bar { margin-top: 10px; }
+.mv-setdate { background: transparent; border: none; color: var(--muted); font-size: 12px;
+  font-weight: 600; display: inline-flex; align-items: center; gap: 5px; padding: 2px 0; cursor: pointer; }
+
+.mv-filters { flex-wrap: nowrap; overflow-x: auto; padding: 2px 2px 10px; margin: 8px 0 2px;
+  -ms-overflow-style: none; scrollbar-width: none; }
+.mv-filters::-webkit-scrollbar { display: none; }
+.mv-filters .chip { flex: none; display: inline-flex; align-items: center; gap: 5px; }
+
+.mv-list { display: flex; flex-direction: column; gap: 9px; }
+.mv-task { background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 13px; cursor: pointer; transition: background .12s, transform .08s; }
+.mv-task:active { transform: scale(.992); background: var(--surface-2); }
+.mv-task.is-blocked { background: #12100a; border-color: #3a2f12; }
+.mv-task.is-done { opacity: .62; }
+.mv-task.is-done .mv-title { text-decoration: line-through; text-decoration-color: var(--faint); }
+
+.mv-row { display: flex; align-items: center; gap: 10px; }
+.mv-title { flex: 1; font-size: 14.5px; font-weight: 500; line-height: 1.3; }
+.mv-tickbtn { background: none; border: none; padding: 0; flex: none; cursor: pointer; }
+.mv-tick { width: 23px; height: 23px; border-radius: 7px; border: 2px solid var(--muted);
+  color: var(--muted); display: grid; place-items: center; font-size: 13px; }
+.mv-tick.done { background: var(--green); border-color: var(--green); color: #04120a; }
+.mv-tickbtn:active .mv-tick { transform: scale(.9); }
+
+.mv-pill { flex: none; font-size: 11px; padding: 3px 9px; border-radius: 12px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.mv-detail { margin-left: 33px; margin-top: 8px; }
+.mv-sub { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+.mv-sub b { color: var(--text); font-weight: 600; }
+.mv-subwrap { }
+.mv-subbar { height: 5px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+.mv-subbar > span { display: block; height: 100%; border-radius: 4px; transition: width .3s ease; }
+.mv-spin { animation: mvspin 1.1s linear infinite; }
+@keyframes mvspin { to { transform: rotate(360deg); } }
+
+/* Task editor: subtask rows */
+.mv-subedit { display: flex; flex-direction: column; gap: 6px; }
+.mv-subitem { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text);
+  background: var(--surface-2); border-radius: 10px; padding: 9px 10px; }
+.mv-subitem input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
+.mv-subitem span { flex: 1; }
+.mv-struck { text-decoration: line-through; color: var(--faint); }
+.mini-btn.ghost { background: transparent; width: 30px; height: 30px; color: var(--muted); }

@@ -9,6 +9,7 @@ import {
 import { toast, openSheet, closeSheet } from './ui.js';
 import { mountFinance, setHubHandler } from './app.js';
 import { mountPasswords, setPwHubHandler } from './passwords.js';
+import { mountMove, setMoveHubHandler } from './move.js';
 
 const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
@@ -25,6 +26,7 @@ function BAT(size = 46) {
 const MODULES = [
   { id: 'finance', name: 'Finance', icon: 'ti-wallet', desc: 'Net worth, budgets, converter', ready: true },
   { id: 'passwords', name: 'Passwords', icon: 'ti-lock', desc: 'Encrypted vault', ready: true },
+  { id: 'move', name: 'Move HQ', icon: 'ti-map-pin', desc: 'Moving checklist · LA → NJ', ready: true },
   { id: 'movies', name: 'Movies', icon: 'ti-movie', desc: 'Ratings, watchlist, radar', ready: false },
   { id: 'sports', name: 'Sports', icon: 'ti-ball-basketball', desc: 'Teams, fixtures, analysis', ready: false },
   { id: 'stocks', name: 'Stocks', icon: 'ti-chart-candle', desc: 'Daily buy/sell signals', ready: false },
@@ -202,6 +204,7 @@ function showHub() {
   hideChrome();
   setHubHandler(showHub);
   setPwHubHandler(showHub);
+  setMoveHubHandler(showHub);
   const name = getSetting('name') || 'Wayne';
   $app().innerHTML = `<div class="view">
     <div class="app-header">
@@ -227,6 +230,7 @@ function openModule(id) {
   if (!m.ready) return toast(`${m.name} — coming soon`);
   if (id === 'finance') mountFinance();
   else if (id === 'passwords') mountPasswords();
+  else if (id === 'move') mountMove();
 }
 
 // --- Security sheet ---------------------------------------------------------
