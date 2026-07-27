@@ -3,8 +3,18 @@
 // each entry is an AES-GCM blob (see crypto.js).
 import { db, uid } from './db.js';
 import { encryptJSON, decryptJSON, getKey } from './crypto.js';
+import { makeVault } from './vaultlock.js';
 import { toast, openSheet, closeSheet } from './ui.js';
 import { escapeHtml } from './util.js';
+
+// Biometric-only lock for the password vault. Entries are re-encrypted under
+// this vault's key once biometric is enabled; until then (or on devices without
+// biometrics) they stay under the app device key, which loadEntries still reads.
+const vault = makeVault('pw');
+const AUTO_LOCK_MS = 90 * 1000;
+let active = false;
+let idleTimer = null;
+let listenersReady = false;
 
 const CATEGORIES = ['Login', 'Card', 'Bank', 'Email', 'Social', 'Work', 'Wi‑Fi', 'Secure note', 'Other'];
 const CAT_ICON = { Login: 'ti-key', Card: 'ti-credit-card', Bank: 'ti-building-bank', Email: 'ti-mail', Social: 'ti-share', Work: 'ti-briefcase', 'Wi‑Fi': 'ti-wifi', 'Secure note': 'ti-note', Other: 'ti-lock' };
@@ -18,27 +28,102 @@ export function setPwHubHandler(fn) { hubHandler = fn; }
 const $app = () => document.getElementById('app');
 
 export async function mountPasswords() {
-  await loadEntries();
+  active = true;
+  ensureListeners();
   search = '';
+  // If biometrics exist and a lock is set up, require unlock. If not set up,
+  // offer to turn it on. On devices without biometrics, open directly (legacy).
+  if (await vault.bio.available()) {
+    if (!(await vault.isSetUp())) return showEnable();
+    if (!vault.isUnlocked()) return showLock();
+  }
+  await loadEntries();
   render();
+  armIdle();
+}
+
+// --- lock lifecycle ---------------------------------------------------------
+function ensureListeners() {
+  if (listenersReady) return;
+  listenersReady = true;
+  document.addEventListener('visibilitychange', () => { if (document.hidden && active) lockNow(); });
+  document.addEventListener('pointerdown', () => { if (active && vault.isUnlocked()) armIdle(); }, true);
+}
+function armIdle() { clearTimeout(idleTimer); idleTimer = setTimeout(() => { if (active && vault.isUnlocked()) lockNow(); }, AUTO_LOCK_MS); }
+function lockNow() { vault.lock(); entries = []; clearTimeout(idleTimer); closeSheet(); if (active) showLock(); }
+function leaveToHub() { active = false; vault.lock(); entries = []; clearTimeout(idleTimer); closeSheet(); hubHandler && hubHandler(); }
+
+const $id = (id) => document.getElementById(id);
+
+function showEnable() {
+  $app().innerHTML = `<div class="view lock">
+    <div class="lock-ic"><i class="ti ti-fingerprint"></i></div>
+    <h1>Lock your passwords</h1>
+    <p class="muted">Open your vault with this device's Face ID / fingerprint. Your entries are re-encrypted so they can only be read here, with your biometrics.</p>
+    <p class="muted tiny" style="color:var(--gold)"><i class="ti ti-alert-triangle"></i> For now there's no backup unlock — if this device's biometrics are reset, the vault can't be recovered. Recovery is coming later.</p>
+    <div class="lock-form">
+      <button class="btn primary" id="pw-enable"><i class="ti ti-fingerprint"></i> Turn on biometric lock</button>
+      <button class="btn ghost mt" data-hub>Back</button>
+    </div>
+  </div>`;
+  $app().querySelector('[data-hub]').addEventListener('click', leaveToHub);
+  $id('pw-enable').addEventListener('click', async () => {
+    try {
+      await vault.setupBiometric();
+      await migrateToVault();     // re-encrypt existing entries under the biometric key
+      toast('Biometric lock on');
+      await loadEntries(); render(); armIdle();
+    } catch (e) { toast(e.message || 'Could not enable biometric lock', true); }
+  });
+}
+
+function showLock() {
+  $app().innerHTML = `<div class="view lock">
+    <div class="lock-ic"><i class="ti ti-lock"></i></div>
+    <h1>Locked</h1>
+    <p class="muted">Unlock your passwords with Face ID / fingerprint.</p>
+    <div class="lock-form">
+      <button class="btn primary" id="pw-unlock"><i class="ti ti-fingerprint"></i> Unlock</button>
+      <button class="btn ghost mt" data-hub>Back</button>
+    </div>
+  </div>`;
+  $app().querySelector('[data-hub]').addEventListener('click', leaveToHub);
+  $id('pw-unlock').addEventListener('click', async () => {
+    try { if (await vault.bio.unlock()) { await loadEntries(); render(); armIdle(); } else toast('Unlock failed', true); }
+    catch { toast('Unlock cancelled', true); }
+  });
+}
+
+// Re-encrypt every entry that's still under the device key so it's protected by
+// the biometric vault key instead. Idempotent: entries already under the vault
+// key fail the device-key decrypt and are left as-is.
+async function migrateToVault() {
+  const rows = await db.all('vault');
+  for (const r of rows) {
+    let data = null;
+    try { data = await decryptJSON(r.blob, getKey()); } catch { continue; }
+    await db.put('vault', { id: r.id, blob: await vault.encrypt(data), updatedAt: r.updatedAt || Date.now() });
+  }
 }
 
 async function loadEntries() {
   const rows = await db.all('vault');
-  const key = getKey();
   const out = [];
   for (const r of rows) {
-    try { out.push({ id: r.id, updatedAt: r.updatedAt, ...(await decryptJSON(r.blob, key)) }); }
-    catch { /* skip undecryptable */ }
+    let data = null;
+    if (vault.isUnlocked()) { try { data = await vault.decrypt(r.blob); } catch { /* try legacy */ } }
+    if (!data) { try { data = await decryptJSON(r.blob, getKey()); } catch { /* skip */ } }
+    if (data) out.push({ id: r.id, updatedAt: r.updatedAt, ...data });
   }
   entries = out.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
 }
 
 async function saveEntry(e) {
-  const blob = await encryptJSON({
+  const data = {
     title: e.title, username: e.username, password: e.password,
     url: e.url, notes: e.notes, category: e.category,
-  }, getKey());
+  };
+  const blob = vault.isUnlocked() ? await vault.encrypt(data) : await encryptJSON(data, getKey());
   await db.put('vault', { id: e.id, blob, updatedAt: Date.now() });
   await loadEntries();
 }
@@ -56,7 +141,10 @@ function render() {
         <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
         <h1 class="mod-title"><i class="ti ti-lock" style="color:var(--gold)"></i> Passwords</h1>
       </div>
-      <button class="header-btn" data-add aria-label="Add"><i class="ti ti-plus"></i></button>
+      <div class="header-actions">
+        ${vault.isUnlocked() ? '<button class="header-btn" data-lock aria-label="Lock now"><i class="ti ti-lock"></i></button>' : ''}
+        <button class="header-btn" data-add aria-label="Add"><i class="ti ti-plus"></i></button>
+      </div>
     </div>
     <div class="field"><input class="input" id="pw-search" placeholder="Search vault…" value="${escapeHtml(search)}"></div>
     <div class="tiny muted spread" style="margin:2px 4px 10px">
@@ -91,7 +179,8 @@ function hueOf(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + 
 
 function bind() {
   const root = $app();
-  root.querySelector('[data-hub]')?.addEventListener('click', () => hubHandler && hubHandler());
+  root.querySelector('[data-hub]')?.addEventListener('click', leaveToHub);
+  root.querySelector('[data-lock]')?.addEventListener('click', lockNow);
   root.querySelectorAll('[data-add]').forEach((b) => b.addEventListener('click', () => entrySheet()));
   root.querySelector('[data-gen]')?.addEventListener('click', () => generatorSheet());
   const s = root.querySelector('#pw-search');

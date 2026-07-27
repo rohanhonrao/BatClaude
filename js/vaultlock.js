@@ -92,6 +92,19 @@ export function makeVault(ns) {
       return true;
     },
 
+    // Biometric-only setup: the DEK is wrapped ONLY by the device biometric
+    // (WebAuthn PRF). No passcode, so no fallback — if the biometric credential
+    // is ever lost, the data is unrecoverable. (A recovery path is future work.)
+    async mode() { const m = await meta(K.meta); return m ? (m.mode || 'passcode') : null; },
+    async setupBiometric() {
+      if (!(await this.bio.available())) throw new Error('Biometric unlock isn’t available on this device/browser.');
+      dek = await newDEK();
+      try { await this.bio.enable(); }   // wraps dek under the biometric PRF secret
+      catch (e) { dek = null; throw e; }
+      await setMeta(K.meta, { mode: 'biometric' });
+      return true;
+    },
+
     bio: {
       async available() {
         try { return !!window.PublicKeyCredential && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable(); }

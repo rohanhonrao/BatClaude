@@ -31,7 +31,8 @@ const $id = (id) => document.getElementById(id);
 export async function mountDocs() {
   active = true;
   ensureListeners();
-  if (!(await vault.isSetUp())) return showSetup();
+  if (!(await vault.bio.available())) return showNoBio();
+  if (!(await vault.isSetUp())) return showEnable();
   if (!vault.isUnlocked()) return showLock();
   await loadItems();
   renderList();
@@ -51,64 +52,50 @@ function armIdle() { clearTimeout(idleTimer); idleTimer = setTimeout(() => { if 
 function lockNow() { vault.lock(); items = []; clearTimeout(idleTimer); closeSheet(); if (active) showLock(); }
 function leaveToHub() { active = false; vault.lock(); items = []; clearTimeout(idleTimer); closeSheet(); hubHandler && hubHandler(); }
 
-// --- setup / unlock screens -------------------------------------------------
-function showSetup() {
+// --- setup / unlock screens (biometric-only) --------------------------------
+function showEnable() {
   $app().innerHTML = `<div class="view lock">
-    <div class="lock-ic"><i class="ti ti-shield-lock"></i></div>
+    <div class="lock-ic"><i class="ti ti-fingerprint"></i></div>
     <h1>Private documents</h1>
-    <p class="muted">Set a passcode for this vault. It encrypts your IDs and is <b>never stored</b> — without it, no one can read them, not even from this phone's storage. If you forget it, these documents can't be recovered, so make it memorable.</p>
+    <p class="muted">Lock your IDs behind this device's Face ID / fingerprint. They're encrypted so they can only be opened here, with your biometrics.</p>
+    <p class="muted tiny" style="color:var(--gold)"><i class="ti ti-alert-triangle"></i> For now there's no backup unlock — if this device's biometrics are reset, these documents can't be recovered. Recovery is coming later.</p>
     <div class="lock-form">
-      <div class="field"><input class="input" type="password" id="d-pw" placeholder="Passcode (6+ characters)" autocomplete="new-password"></div>
-      <div class="field"><input class="input" type="password" id="d-pw2" placeholder="Confirm passcode" autocomplete="new-password"></div>
-      <button class="btn primary" id="d-go"><i class="ti ti-lock"></i> Create vault</button>
+      <button class="btn primary" id="d-enable"><i class="ti ti-fingerprint"></i> Turn on biometric lock</button>
       <button class="btn ghost mt" data-hub>Back</button>
     </div>
   </div>`;
   $app().querySelector('[data-hub]').addEventListener('click', leaveToHub);
-  const go = async () => {
-    const pw = $id('d-pw').value, pw2 = $id('d-pw2').value;
-    if (pw.length < 6) return toast('Use at least 6 characters', true);
-    if (pw !== pw2) return toast('Passcodes don’t match', true);
-    await vault.setup(pw);
-    toast('Vault created');
-    await maybeOfferBio();
-    await loadItems(); renderList(); armIdle();
-  };
-  $id('d-go').addEventListener('click', go);
-  $id('d-pw2').addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+  $id('d-enable').addEventListener('click', async () => {
+    try { await vault.setupBiometric(); toast('Biometric lock on'); await loadItems(); renderList(); armIdle(); }
+    catch (e) { toast(e.message || 'Could not enable biometric lock', true); }
+  });
 }
 
 function showLock() {
   $app().innerHTML = `<div class="view lock">
     <div class="lock-ic"><i class="ti ti-lock"></i></div>
     <h1>Locked</h1>
-    <p class="muted">Enter your documents passcode.</p>
+    <p class="muted">Unlock your documents with Face ID / fingerprint.</p>
     <div class="lock-form">
-      <div class="field"><input class="input" type="password" id="d-pw" placeholder="Passcode" autofocus></div>
-      <button class="btn primary" id="d-go"><i class="ti ti-lock-open"></i> Unlock</button>
-      <button class="btn ghost mt" id="d-bio" style="display:none"><i class="ti ti-fingerprint"></i> Unlock with biometrics</button>
+      <button class="btn primary" id="d-unlock"><i class="ti ti-fingerprint"></i> Unlock</button>
       <button class="btn ghost mt" data-hub>Back</button>
     </div>
   </div>`;
   $app().querySelector('[data-hub]').addEventListener('click', leaveToHub);
-  const tryPw = async () => {
-    const pw = $id('d-pw').value;
-    if (!pw) return;
-    if (await vault.unlock(pw)) { await loadItems(); renderList(); armIdle(); }
-    else toast('Incorrect passcode', true);
-  };
-  $id('d-go').addEventListener('click', tryPw);
-  $id('d-pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryPw(); });
-  (async () => {
-    if (await vault.bio.enabled() && await vault.bio.available()) {
-      const b = $id('d-bio');
-      b.style.display = '';
-      b.addEventListener('click', async () => {
-        try { if (await vault.bio.unlock()) { await loadItems(); renderList(); armIdle(); } else toast('Biometric unlock failed', true); }
-        catch { toast('Biometric unlock cancelled', true); }
-      });
-    }
-  })();
+  $id('d-unlock').addEventListener('click', async () => {
+    try { if (await vault.bio.unlock()) { await loadItems(); renderList(); armIdle(); } else toast('Unlock failed', true); }
+    catch { toast('Unlock cancelled', true); }
+  });
+}
+
+function showNoBio() {
+  $app().innerHTML = `<div class="view lock">
+    <div class="lock-ic"><i class="ti ti-mood-sad"></i></div>
+    <h1>Biometrics needed</h1>
+    <p class="muted">This module unlocks with your device's Face ID / fingerprint, which isn't available in this browser. Open BATVAULT on your phone to set it up.</p>
+    <button class="btn ghost mt" data-hub>Back to apps</button>
+  </div>`;
+  $app().querySelector('[data-hub]').addEventListener('click', leaveToHub);
 }
 
 // --- data -------------------------------------------------------------------
@@ -144,7 +131,7 @@ function renderList() {
     </div>
     ${items.length ? `<div class="doc-list">${items.map(cardHTML).join('')}</div>` : emptyHTML()}
     <button class="btn primary mt2" data-add><i class="ti ti-plus"></i> Add document</button>
-    <button class="btn ghost mt" data-settings><i class="ti ti-settings"></i> Vault settings</button>
+    <button class="btn ghost mt" data-lock><i class="ti ti-lock"></i> Lock now</button>
   </div>`;
   bindList();
 }
@@ -162,9 +149,8 @@ function cardHTML(d) {
 function bindList() {
   const r = $app();
   r.querySelector('[data-hub]').addEventListener('click', leaveToHub);
-  r.querySelector('[data-lock]').addEventListener('click', lockNow);
   r.querySelectorAll('[data-add]').forEach((b) => b.addEventListener('click', () => editorSheet()));
-  r.querySelector('[data-settings]').addEventListener('click', settingsSheet);
+  r.querySelectorAll('[data-lock]').forEach((b) => b.addEventListener('click', lockNow));
   r.querySelectorAll('[data-open]').forEach((b) => b.addEventListener('click', () => detailSheet(items.find((x) => x.id === b.dataset.open))));
 }
 
@@ -269,55 +255,6 @@ function confirmDelete(d) {
     <button class="btn danger" id="dd-yes">Delete</button><button class="btn ghost mt" data-close>Cancel</button>`);
   s.querySelector('#dd-yes').addEventListener('click', async () => {
     await db.del('docs', d.id); await loadItems(); closeSheet(); renderList(); toast('Deleted');
-  });
-}
-
-// --- settings ---------------------------------------------------------------
-async function settingsSheet() {
-  const bioAvail = await vault.bio.available();
-  const bioOn = await vault.bio.enabled();
-  const s = openSheet(`
-    <div class="sheet-title-row"><h2>Vault settings</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
-    <div class="row" style="border:none"><div class="ic" style="background:var(--surface-2)"><i class="ti ti-fingerprint"></i></div>
-      <div class="main"><div class="t">Biometric unlock</div><div class="s">${bioAvail ? 'Fingerprint / Face ID on this device' : 'Not available on this device/browser'}</div></div>
-      <label class="switch"><input type="checkbox" id="s-bio" ${bioOn ? 'checked' : ''} ${bioAvail ? '' : 'disabled'}><span></span></label></div>
-    <button class="btn mt" id="s-pass"><i class="ti ti-key"></i> Change passcode</button>
-    <button class="btn danger mt" id="s-lock"><i class="ti ti-lock"></i> Lock now</button>
-    <div class="hint center mt2">Documents use AES‑256‑GCM. The passcode is never stored; forgetting it means the documents can't be recovered.</div>
-  `);
-  s.querySelector('#s-bio').addEventListener('change', async (e) => {
-    if (e.target.checked) {
-      try { await vault.bio.enable(); toast('Biometric unlock enabled'); }
-      catch (err) { e.target.checked = false; toast(err.message || 'Could not enable biometrics', true); }
-    } else { await vault.bio.disable(); toast('Biometric unlock disabled'); }
-  });
-  s.querySelector('#s-lock').addEventListener('click', () => { closeSheet(); lockNow(); });
-  s.querySelector('#s-pass').addEventListener('click', changePassSheet);
-}
-function changePassSheet() {
-  const s = openSheet(`<div class="sheet-title-row"><h2>Change passcode</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
-    <div class="field"><label>New passcode</label><input class="input" type="password" id="cp-pw" placeholder="6+ characters"></div>
-    <div class="field"><label>Confirm</label><input class="input" type="password" id="cp-pw2"></div>
-    <button class="btn primary" id="cp-go">Update passcode</button>
-    <div class="hint mt">Biometric unlock keeps working — the vault key doesn't change.</div>`);
-  s.querySelector('#cp-go').addEventListener('click', async () => {
-    const pw = $id('cp-pw').value, pw2 = $id('cp-pw2').value;
-    if (pw.length < 6) return toast('Use at least 6 characters', true);
-    if (pw !== pw2) return toast('Passcodes don’t match', true);
-    await vault.changePasscode(pw); closeSheet(); toast('Passcode updated');
-  });
-}
-async function maybeOfferBio() {
-  if (!(await vault.bio.available())) return;
-  return new Promise((res) => {
-    const s = openSheet(`<div class="center"><div style="font-size:34px;color:var(--gold)"><i class="ti ti-fingerprint"></i></div>
-      <h2 style="margin:10px 0 6px">Enable biometric unlock?</h2><p class="muted tiny">Use fingerprint / Face ID to open your documents instead of typing the passcode.</p></div>
-      <button class="btn primary" id="b-yes">Enable</button><button class="btn ghost mt" id="b-no">Not now</button>`);
-    s.querySelector('#b-yes').addEventListener('click', async () => {
-      try { await vault.bio.enable(); toast('Biometric unlock enabled'); } catch (err) { toast(err.message || 'Could not enable', true); }
-      closeSheet(); res();
-    });
-    s.querySelector('#b-no').addEventListener('click', () => { closeSheet(); res(); });
   });
 }
 
