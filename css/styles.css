@@ -680,3 +680,23 @@ h3 { font-size: 15px; font-weight: 600; }
   vertical-align: 1px; margin-right: 2px; }
 #tx-when button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; }
 #tx-when button.active[data-w="upcoming"] { color: var(--accent); }
+
+/* --- Account row: full width unless a transfer needs two ----------------- */
+.acct-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.acct-row.transfer { grid-template-columns: 1fr 1fr; }
+@media (max-width: 400px) { .acct-row.transfer { grid-template-columns: 1fr; } }
+select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-right: 34px; }
+
+/* --- Page headers: give them room to breathe ---------------------------- */
+.app-header h1, .mod-title, .app-header .title h1 {
+  font-family: var(--font-sans); font-size: 21px; font-weight: 600;
+  letter-spacing: -0.002em; line-height: 1.25; }
+.app-header { padding: 8px 2px 16px; }
+.app-header .title { gap: 10px; min-width: 0; }
+.app-header .title h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Keep the serif wordmark — the rule above would otherwise out-specify .brand */
+.app-header .title h1.brand {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 18px; letter-spacing: 0.24em; text-transform: uppercase;
+}
+.lock h1.brand, .onboard h1.brand { font-family: var(--font-display); font-weight: 400; }

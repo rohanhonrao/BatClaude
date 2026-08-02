@@ -751,7 +751,15 @@ function emptyState(em, title, sub) {
 // Editors (sheets)
 // ============================================================================
 function txSheet(existing) {
-  const t = existing || { type: 'expense', amount: '', accountId: S.accounts[0]?.id, categoryId: null, date: todayISO(), note: '' };
+  // Account preselection, best context first: the account you're viewing in
+  // Cash flow -> the one you last used -> your first checking account -> first.
+  const live = (id) => S.accounts.some((a) => a.id === id && !a.archived);
+  const defaultAccount =
+    (live(S.cfAccount) && S.cfAccount) ||
+    (live(getSetting('lastAccountId')) && getSetting('lastAccountId')) ||
+    S.accounts.find((a) => !a.archived && kindOf(a) === 'checking')?.id ||
+    S.accounts.find((a) => !a.archived)?.id;
+  const t = existing || { type: 'expense', amount: '', accountId: defaultAccount, categoryId: null, date: todayISO(), note: '' };
   const cats = (type) => S.categories.filter((c) => c.type === type && !c.archived);
   const accountOpts = (sel) => S.accounts.filter(a=>!a.archived).map((a) => `<option value="${a.id}" ${a.id === sel ? 'selected' : ''}>${escapeHtml(a.name)}</option>`).join('');
 
@@ -762,14 +770,14 @@ function txSheet(existing) {
     </div>
     <input class="input amount-input mt" id="f-amount" inputmode="decimal" placeholder="${currencySymbol()}0" value="${t.amount || ''}">
     <div class="seg mt" id="tx-when">
-      <button data-w="past" class="${t.date > todayISO() ? '' : 'active'}"><i class="ti ti-check"></i> Already happened</button>
+      <button data-w="past" class="${t.date > todayISO() ? '' : 'active'}"><i class="ti ti-check"></i> Done</button>
       <button data-w="upcoming" class="${t.date > todayISO() ? 'active' : ''}"><i class="ti ti-clock"></i> Upcoming</button>
     </div>
     <div id="cat-wrap">
       <label class="tiny muted">Category</label>
       <div class="chips mt" id="f-cats"></div>
     </div>
-    <div class="grid2 mt">
+    <div class="acct-row mt" id="acct-row">
       <div class="field" id="acct-wrap"><label>Account</label><select class="input" id="f-account">${accountOpts(t.accountId)}</select></div>
       <div class="field" id="toacct-wrap" style="display:none"><label>To account</label><select class="input" id="f-toaccount">${accountOpts(t.toAccountId)}</select></div>
     </div>
@@ -796,11 +804,14 @@ function txSheet(existing) {
     const wrap = sheet.querySelector('#f-cats');
     const catWrap = sheet.querySelector('#cat-wrap');
     const toWrap = sheet.querySelector('#toacct-wrap');
+    const acctRow = sheet.querySelector('#acct-row');
     if (state.type === 'transfer') {
       catWrap.style.display = 'none'; toWrap.style.display = '';
+      acctRow.classList.add('transfer'); // two columns only when both are shown
       return;
     }
     catWrap.style.display = ''; toWrap.style.display = 'none';
+    acctRow.classList.remove('transfer');
     const list = cats(state.type);
     if (!state.categoryId || !list.find((c) => c.id === state.categoryId)) state.categoryId = list[0]?.id;
     wrap.innerHTML = list.map((c) => `<button class="chip ${c.id === state.categoryId ? 'active' : ''}" data-cat="${c.id}">${ico(c.icon)} ${escapeHtml(c.name)}</button>`).join('');
@@ -884,6 +895,7 @@ function txSheet(existing) {
     else rec.categoryId = state.categoryId;
     // Preserve the link to a schedule if this row came from one.
     if (existing?.recurringId) { rec.recurringId = existing.recurringId; rec.scheduledFor = existing.scheduledFor; }
+    setSetting('lastAccountId', accountId);
     await db.put('transactions', rec);
     closeSheet(); await refresh(); render();
     toast(existing ? 'Updated' : (date > todayISO() ? 'Added to upcoming' : 'Added'));
