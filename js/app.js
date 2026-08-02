@@ -161,7 +161,7 @@ function groupByDate(list) {
 // ============================================================================
 VIEWS.dashboard = function () {
   return `<div class="view">
-    ${header('Welcome back, ' + (getSetting('name') || 'Wayne'))}
+    ${header('Finance')}
     <div class="seg" id="home-toggle">
       <button data-home-view="cashflow" class="${S.homeView === 'cashflow' ? 'active' : ''}"><i class="ti ti-wave-sine"></i> Cash flow</button>
       <button data-home-view="expenses" class="${S.homeView === 'expenses' ? 'active' : ''}"><i class="ti ti-chart-donut"></i> Expenses</button>
@@ -721,7 +721,7 @@ function header(title) {
 }
 function subHeader(title) {
   return `<div class="app-header">
-    <div class="title"><button class="header-btn" data-back>‹</button><h1 style="font-size:19px">${escapeHtml(title)}</h1></div>
+    <div class="title"><button class="header-btn" data-back><i class="ti ti-chevron-left"></i></button><h1 class="mod-title">${escapeHtml(title)}</h1></div>
   </div>`;
 }
 // Icon picker — a grid of Tabler icons backed by a hidden input.
