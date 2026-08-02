@@ -1,5 +1,10 @@
 // compute.js — derived financial calculations from raw records.
-import { monthKey, thisMonth } from './util.js';
+//
+// Transactions may be dated in the FUTURE (scheduled one-offs entered from the
+// add sheet). Those must never count as money already held or already spent, so
+// every "as of now" calculation cuts off at today. The cash-flow projection is
+// the only place future-dated entries are counted — see projection.js.
+import { monthKey, thisMonth, todayISO } from './util.js';
 
 // Signed effect of a transaction on a given account's balance.
 function effectOn(t, accountId) {
@@ -12,9 +17,12 @@ function effectOn(t, accountId) {
   return 0;
 }
 
-export function accountBalance(account, transactions) {
+export function accountBalance(account, transactions, asOf = todayISO()) {
   let bal = account.balance || 0; // opening balance
-  for (const t of transactions) bal += effectOn(t, account.id);
+  for (const t of transactions) {
+    if (asOf && t.date > asOf) continue; // future-dated: not money you hold yet
+    bal += effectOn(t, account.id);
+  }
   return bal;
 }
 
@@ -31,10 +39,11 @@ export function netWorth(accounts, transactions, holdings) {
 }
 
 // Income/expense totals for a given YYYY-MM (or all-time if mk is null).
-export function monthlyFlow(transactions, mk = thisMonth()) {
+export function monthlyFlow(transactions, mk = thisMonth(), asOf = todayISO()) {
   let income = 0, expense = 0;
   for (const t of transactions) {
     if (t.type === 'transfer') continue;
+    if (asOf && t.date > asOf) continue; // hasn't happened yet
     if (mk && monthKey(t.date) !== mk) continue;
     if (t.type === 'income') income += t.amount;
     else if (t.type === 'expense') expense += t.amount;
@@ -43,10 +52,11 @@ export function monthlyFlow(transactions, mk = thisMonth()) {
 }
 
 // Spending grouped by category for a month. Returns [{categoryId, total}] desc.
-export function spendByCategory(transactions, mk = thisMonth()) {
+export function spendByCategory(transactions, mk = thisMonth(), asOf = todayISO()) {
   const map = new Map();
   for (const t of transactions) {
     if (t.type !== 'expense') continue;
+    if (asOf && t.date > asOf) continue; // budgets track actual spend, not planned
     if (mk && monthKey(t.date) !== mk) continue;
     map.set(t.categoryId, (map.get(t.categoryId) || 0) + t.amount);
   }

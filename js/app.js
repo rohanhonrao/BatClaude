@@ -141,9 +141,11 @@ function txRow(t) {
   const sub = isTransfer ? 'Transfer' : `${catName(t.categoryId)} · ${acct(t.accountId)?.name || ''}`;
   const amtCls = t.type === 'income' ? 'pos' : t.type === 'transfer' ? 'muted' : 'neg';
   const amtStr = (t.type === 'income' ? '+' : t.type === 'expense' ? '-' : '') + fmtMoney(t.amount);
-  return `<div class="row tappable" data-edit-tx="${t.id}">
+  const upcoming = t.date > todayISO();
+  return `<div class="row tappable ${upcoming ? 'upcoming' : ''}" data-edit-tx="${t.id}">
     <div class="ic" style="background:${color}22;color:${color}">${icon}</div>
-    <div class="main"><div class="t">${escapeHtml(title)}</div><div class="s">${escapeHtml(sub)}</div></div>
+    <div class="main"><div class="t">${escapeHtml(title)}</div>
+      <div class="s">${upcoming ? `<span class="pill up">Upcoming</span> ` : ''}${escapeHtml(sub)}</div></div>
     <div class="amt ${amtCls}">${amtStr}</div>
   </div>`;
 }
@@ -249,8 +251,9 @@ function expensesBody() {
   const flow = C.monthlyFlow(S.transactions, S.month);
   const byCat = C.spendByCategory(S.transactions, S.month).slice(0, 6);
   const budgets = C.budgetStatus(S.budgets, S.transactions, S.categories, S.month);
+  // Backward-looking view: only what has actually happened.
   const recent = [...S.transactions]
-    .filter((t) => monthKey(t.date) === S.month && t.type !== 'transfer')
+    .filter((t) => monthKey(t.date) === S.month && t.type !== 'transfer' && t.date <= todayISO())
     .sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id)).slice(0, 6);
 
   const segs = byCat.map((r) => ({ label: catName(r.categoryId), value: r.total, color: catColor(r.categoryId) }));
@@ -758,6 +761,10 @@ function txSheet(existing) {
       ${['expense', 'income', 'transfer'].map((v) => `<button data-v="${v}" class="${t.type === v ? 'active' : ''}">${v[0].toUpperCase()+v.slice(1)}</button>`).join('')}
     </div>
     <input class="input amount-input mt" id="f-amount" inputmode="decimal" placeholder="${currencySymbol()}0" value="${t.amount || ''}">
+    <div class="seg mt" id="tx-when">
+      <button data-w="past" class="${t.date > todayISO() ? '' : 'active'}"><i class="ti ti-check"></i> Already happened</button>
+      <button data-w="upcoming" class="${t.date > todayISO() ? 'active' : ''}"><i class="ti ti-clock"></i> Upcoming</button>
+    </div>
     <div id="cat-wrap">
       <label class="tiny muted">Category</label>
       <div class="chips mt" id="f-cats"></div>
@@ -766,7 +773,19 @@ function txSheet(existing) {
       <div class="field" id="acct-wrap"><label>Account</label><select class="input" id="f-account">${accountOpts(t.accountId)}</select></div>
       <div class="field" id="toacct-wrap" style="display:none"><label>To account</label><select class="input" id="f-toaccount">${accountOpts(t.toAccountId)}</select></div>
     </div>
-    <div class="field"><label>Date</label><input class="input" type="date" id="f-date" value="${t.date}" max="${todayISO()}"></div>
+    <div class="field"><label id="f-date-label">Date</label><input class="input" type="date" id="f-date" value="${t.date}"></div>
+    <div class="field" id="rep-wrap" style="display:none"><label>Repeats</label>
+      <select class="input" id="f-repeat">
+        <option value="once">Just once</option>
+        <option value="weekly">Weekly</option>
+        <option value="biweekly">Every 2 weeks</option>
+        <option value="semimonthly">Twice a month</option>
+        <option value="monthly">Monthly</option>
+        <option value="quarterly">Quarterly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+      <div class="hint" id="rep-hint"></div>
+    </div>
     <div class="field"><label>Note</label><input class="input" id="f-note" value="${escapeHtml(t.note || '')}" placeholder="Optional"></div>
     <button class="btn primary" id="f-save">${existing ? 'Save' : 'Add'} transaction</button>
     ${existing ? `<button class="btn danger mt" id="f-delete">Delete</button>` : ''}
@@ -795,27 +814,79 @@ function txSheet(existing) {
     renderCats();
   }));
 
+  // --- when: already happened vs upcoming --------------------------------
+  const dateEl = sheet.querySelector('#f-date');
+  const repWrap = sheet.querySelector('#rep-wrap');
+  const repSel = sheet.querySelector('#f-repeat');
+  const tomorrow = addDays(todayISO(), 1);
+  let when = t.date > todayISO() ? 'upcoming' : 'past';
+
+  const syncWhen = () => {
+    if (when === 'past') {
+      dateEl.max = todayISO(); dateEl.removeAttribute('min');
+      if (dateEl.value > todayISO()) dateEl.value = todayISO();
+      sheet.querySelector('#f-date-label').textContent = 'Date';
+      repWrap.style.display = 'none';
+    } else {
+      dateEl.min = tomorrow; dateEl.removeAttribute('max');
+      if (!dateEl.value || dateEl.value <= todayISO()) dateEl.value = tomorrow;
+      sheet.querySelector('#f-date-label').textContent = 'Due date';
+      // Repeating only makes sense when creating something new.
+      repWrap.style.display = existing ? 'none' : '';
+    }
+    const rep = repSel.value;
+    sheet.querySelector('#rep-hint').textContent = rep === 'once'
+      ? 'Shows in Cash flow, then becomes a normal transaction on that date.'
+      : 'Saved as a scheduled item so it repeats in your projection.';
+    sheet.querySelector('#f-save').textContent =
+      existing ? 'Save transaction'
+      : (when === 'upcoming' && rep !== 'once') ? 'Schedule it' : 'Add transaction';
+  };
+  sheet.querySelectorAll('#tx-when button').forEach((b) => b.addEventListener('click', () => {
+    when = b.dataset.w;
+    sheet.querySelectorAll('#tx-when button').forEach((x) => x.classList.toggle('active', x === b));
+    syncWhen();
+  }));
+  repSel.addEventListener('change', syncWhen);
+  syncWhen();
+
   sheet.querySelector('#f-save').addEventListener('click', async () => {
     const amount = parseAmount(sheet.querySelector('#f-amount').value);
     if (!amount || amount <= 0) return toast('Enter an amount', true);
+    const date = sheet.querySelector('#f-date').value || todayISO();
+    const note = sheet.querySelector('#f-note').value.trim();
+    const accountId = sheet.querySelector('#f-account').value;
+    const toAccountId = state.type === 'transfer' ? sheet.querySelector('#f-toaccount').value : null;
+    if (state.type === 'transfer' && toAccountId === accountId) return toast('Pick two different accounts', true);
+
+    const repeat = repSel.value;
+    // Upcoming + repeating -> a scheduled item, so it recurs in the projection.
+    if (!existing && when === 'upcoming' && repeat !== 'once') {
+      const rule = {
+        id: uid('r_'),
+        name: note || (state.type === 'transfer' ? 'Transfer' : catName(state.categoryId)),
+        type: state.type, amount, accountId,
+        frequency: repeat, nextDate: date, endDate: '', paused: false,
+      };
+      if (state.type === 'transfer') rule.toAccountId = toAccountId;
+      else rule.categoryId = state.categoryId;
+      await db.put('recurring', rule);
+      closeSheet(); await refresh(); render();
+      return toast('Scheduled');
+    }
+
     const rec = {
       id: existing?.id || uid('t_'),
-      type: state.type,
-      amount,
-      accountId: sheet.querySelector('#f-account').value,
-      date: sheet.querySelector('#f-date').value || todayISO(),
-      note: sheet.querySelector('#f-note').value.trim(),
+      type: state.type, amount, accountId, date, note,
       createdAt: existing?.createdAt || Date.now(),
     };
-    if (state.type === 'transfer') {
-      rec.toAccountId = sheet.querySelector('#f-toaccount').value;
-      if (rec.toAccountId === rec.accountId) return toast('Pick two different accounts', true);
-    } else {
-      rec.categoryId = state.categoryId;
-    }
+    if (state.type === 'transfer') rec.toAccountId = toAccountId;
+    else rec.categoryId = state.categoryId;
+    // Preserve the link to a schedule if this row came from one.
+    if (existing?.recurringId) { rec.recurringId = existing.recurringId; rec.scheduledFor = existing.scheduledFor; }
     await db.put('transactions', rec);
     closeSheet(); await refresh(); render();
-    toast(existing ? 'Updated' : 'Added');
+    toast(existing ? 'Updated' : (date > todayISO() ? 'Added to upcoming' : 'Added'));
   });
 
   const del = sheet.querySelector('#f-delete');

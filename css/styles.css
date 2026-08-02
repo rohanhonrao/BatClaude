@@ -670,3 +670,13 @@ h3 { font-size: 15px; font-weight: 600; }
 .icon-opt.active { border-color: var(--accent-dim); background: var(--accent-tint); color: var(--text); }
 .icon-opt:active { transform: scale(.9); }
 @media (max-width: 380px) { .icon-grid { grid-template-columns: repeat(6, 1fr); } }
+
+/* --- Upcoming (future-dated) transactions -------------------------------- */
+.row.upcoming .ic { opacity: .72; }
+.row.upcoming .amt { color: var(--muted); }
+.pill.up { display: inline-block; background: var(--accent-tint); color: var(--accent-dim);
+  border: 1px solid rgba(233,228,218,.22); padding: 1px 7px; border-radius: 20px;
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: .1em; font-weight: 600;
+  vertical-align: 1px; margin-right: 2px; }
+#tx-when button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; }
+#tx-when button.active[data-w="upcoming"] { color: var(--accent); }
