@@ -96,7 +96,7 @@ export function uid(prefix = '') {
 // --- Backup / restore -------------------------------------------------------
 
 export async function exportAll() {
-  const out = { app: 'BatVault', version: DB_VERSION, exportedAt: new Date().toISOString(), data: {} };
+  const out = { app: 'Sanctum', version: DB_VERSION, exportedAt: new Date().toISOString(), data: {} };
   for (const store of db.stores) {
     out.data[store] = await db.all(store);
   }

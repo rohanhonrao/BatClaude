@@ -19,10 +19,13 @@ let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
-const BAT_D = 'M150 12 L166 3 L178 16 C210 12 262 16 300 26 L282 36 L270 30 L246 48 L228 34 C210 40 196 44 186 46 L166 64 L150 82 L134 64 L114 46 C104 44 90 40 72 34 L54 48 L30 30 L18 36 L0 26 C38 16 90 12 122 16 L134 3 L150 12 Z';
+// Sanctum mark — a minimal pointed arch (a doorway to a private room),
+// drawn as a single stroke so it stays crisp from favicon to splash.
+const ARCH_D = 'M6,43 L6,24 C6,13 12.5,6.5 20,2.5 C27.5,6.5 34,13 34,24 L34,43';
 function BAT(size = 46) {
-  const w = Math.round(size * 300 / 86);
-  return `<svg width="${w}" height="${size}" viewBox="0 0 300 86" fill="var(--gold)" aria-hidden="true"><path d="${BAT_D}"/></svg>`;
+  const w = Math.round(size * 40 / 46);
+  return `<svg width="${w}" height="${size}" viewBox="0 0 40 46" fill="none" stroke="var(--accent)"
+    stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ARCH_D}"/></svg>`;
 }
 
 // --- Modules registry -------------------------------------------------------
@@ -43,7 +46,7 @@ function showSetup() {
   hideChrome();
   $app().innerHTML = `<div class="view lock">
     ${BAT(52)}
-    <h1 class="brand">BATVAULT</h1>
+    <h1 class="brand">SANCTUM</h1>
     <p class="muted">Create a master password. It encrypts everything and is never stored. Next, you'll get a recovery kit in case you forget it.</p>
     <div class="lock-form">
       <div class="field"><label>Master password</label><input class="input" type="password" id="s-pw" placeholder="At least 8 characters"></div>
@@ -68,7 +71,7 @@ function showLock() {
   hideChrome();
   $app().innerHTML = `<div class="view lock">
     ${BAT(52)}
-    <h1 class="brand">BATVAULT</h1>
+    <h1 class="brand">SANCTUM</h1>
     <p class="muted">Locked. Enter your master password to continue.</p>
     <div class="lock-form">
       <div class="field"><input class="input" type="password" id="l-pw" placeholder="Master password" autofocus></div>
@@ -125,7 +128,7 @@ async function showRecoveryKit(onDone) {
     const i = +b.dataset.copyShare;
     try { await navigator.clipboard.writeText(shares[i]); toast(`Share ${i + 1} copied`); } catch { toast('Copy failed', true); }
   }));
-  document.getElementById('rk-download').addEventListener('click', () => downloadText('batvault-recovery-kit.txt', recoveryFileText(shares)));
+  document.getElementById('rk-download').addEventListener('click', () => downloadText('sanctum-recovery-kit.txt', recoveryFileText(shares)));
   const ok = document.getElementById('rk-ok');
   const cont = document.getElementById('rk-continue');
   ok.addEventListener('change', () => { cont.disabled = !ok.checked; });
@@ -185,7 +188,7 @@ function downloadText(name, text) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 function recoveryFileText(shares) {
-  return `BATVAULT RECOVERY KIT
+  return `SANCTUM RECOVERY KIT
 =====================
 Keep these safe. Anyone with ANY TWO of the three shares below can unlock your
 vault, so store the three pieces in THREE DIFFERENT places. One share alone is
@@ -200,7 +203,7 @@ ${shares[1]}
 Share 3:
 ${shares[2]}
 
-To recover: open BatVault, tap "Forgot master password?", enter any two shares,
+To recover: open Sanctum, tap "Forgot master password?", enter any two shares,
 then choose a new master password.
 `;
 }
@@ -216,7 +219,7 @@ function showHub() {
   const name = getSetting('name') || 'Wayne';
   $app().innerHTML = `<div class="view">
     <div class="app-header">
-      <div class="title">${BAT(24)}<h1 class="brand">BATVAULT</h1></div>
+      <div class="title">${BAT(24)}<h1 class="brand">SANCTUM</h1></div>
     </div>
     <div class="hub-greet">Good to see you, <b>${escapeHtml(name)}</b>.</div>
     <div class="hub-grid">

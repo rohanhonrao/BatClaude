@@ -136,6 +136,25 @@ export function escapeHtml(s) {
   }[c]));
 }
 
+// Render an icon that may be a Tabler name ("ti-wallet") or a legacy emoji
+// left over from earlier versions — so existing data keeps rendering.
+export function icon(name, fallback = 'ti-point') {
+  const n = String(name || fallback);
+  return /^ti-/.test(n) ? `<i class="ti ${escapeHtml(n)}"></i>` : escapeHtml(n);
+}
+
+// Curated set offered by the icon pickers.
+export const ICON_CHOICES = [
+  'ti-tools-kitchen-2', 'ti-shopping-cart', 'ti-shopping-bag', 'ti-car', 'ti-gas-station',
+  'ti-home', 'ti-bolt', 'ti-droplet', 'ti-wifi', 'ti-device-mobile',
+  'ti-movie', 'ti-music', 'ti-device-gamepad-2', 'ti-barbell', 'ti-pill',
+  'ti-stethoscope', 'ti-plane', 'ti-bed', 'ti-book', 'ti-school',
+  'ti-briefcase', 'ti-building-bank', 'ti-cash', 'ti-credit-card', 'ti-pig-money',
+  'ti-chart-line', 'ti-gift', 'ti-heart', 'ti-paw', 'ti-baby-carriage',
+  'ti-scissors', 'ti-shirt', 'ti-tools', 'ti-repeat', 'ti-receipt',
+  'ti-coffee', 'ti-beer', 'ti-package', 'ti-dots', 'ti-star',
+];
+
 export function debounce(fn, ms = 200) {
   let t;
   return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
@@ -144,27 +163,27 @@ export function debounce(fn, ms = 200) {
 // --- Seed defaults ----------------------------------------------------------
 
 export const DEFAULT_CATEGORIES = [
-  { name: 'Salary', type: 'income', color: '#4ade80', icon: '💼' },
-  { name: 'Business', type: 'income', color: '#34d399', icon: '📈' },
-  { name: 'Interest', type: 'income', color: '#22d3ee', icon: '🏦' },
-  { name: 'Gifts', type: 'income', color: '#a78bfa', icon: '🎁' },
-  { name: 'Food & Dining', type: 'expense', color: '#f97316', icon: '🍽️' },
-  { name: 'Groceries', type: 'expense', color: '#84cc16', icon: '🛒' },
-  { name: 'Transport', type: 'expense', color: '#38bdf8', icon: '🚗' },
-  { name: 'Shopping', type: 'expense', color: '#e879f9', icon: '🛍️' },
-  { name: 'Bills & Utilities', type: 'expense', color: '#fbbf24', icon: '💡' },
-  { name: 'Rent', type: 'expense', color: '#f43f5e', icon: '🏠' },
-  { name: 'Entertainment', type: 'expense', color: '#c084fc', icon: '🎬' },
-  { name: 'Health', type: 'expense', color: '#fb7185', icon: '💊' },
-  { name: 'Travel', type: 'expense', color: '#2dd4bf', icon: '✈️' },
-  { name: 'Education', type: 'expense', color: '#60a5fa', icon: '📚' },
-  { name: 'Subscriptions', type: 'expense', color: '#f472b6', icon: '🔁' },
-  { name: 'Other', type: 'expense', color: '#94a3b8', icon: '📦' },
+  { name: 'Salary', type: 'income', color: '#4ade80', icon: 'ti-briefcase' },
+  { name: 'Business', type: 'income', color: '#34d399', icon: 'ti-chart-line' },
+  { name: 'Interest', type: 'income', color: '#22d3ee', icon: 'ti-building-bank' },
+  { name: 'Gifts', type: 'income', color: '#a78bfa', icon: 'ti-gift' },
+  { name: 'Food & Dining', type: 'expense', color: '#f97316', icon: 'ti-tools-kitchen-2' },
+  { name: 'Groceries', type: 'expense', color: '#84cc16', icon: 'ti-shopping-cart' },
+  { name: 'Transport', type: 'expense', color: '#38bdf8', icon: 'ti-car' },
+  { name: 'Shopping', type: 'expense', color: '#e879f9', icon: 'ti-shopping-bag' },
+  { name: 'Bills & Utilities', type: 'expense', color: '#fbbf24', icon: 'ti-bolt' },
+  { name: 'Rent', type: 'expense', color: '#f43f5e', icon: 'ti-home' },
+  { name: 'Entertainment', type: 'expense', color: '#c084fc', icon: 'ti-movie' },
+  { name: 'Health', type: 'expense', color: '#fb7185', icon: 'ti-pill' },
+  { name: 'Travel', type: 'expense', color: '#2dd4bf', icon: 'ti-plane' },
+  { name: 'Education', type: 'expense', color: '#60a5fa', icon: 'ti-book' },
+  { name: 'Subscriptions', type: 'expense', color: '#f472b6', icon: 'ti-repeat' },
+  { name: 'Other', type: 'expense', color: '#94a3b8', icon: 'ti-package' },
 ];
 
 export const DEFAULT_ACCOUNTS = [
-  { name: 'Cash', type: 'cash', balance: 0, icon: '💵' },
-  { name: 'Bank Account', type: 'bank', balance: 0, icon: '🏦' },
+  { name: 'Cash', type: 'cash', balance: 0, icon: 'ti-cash' },
+  { name: 'Bank Account', type: 'bank', balance: 0, icon: 'ti-building-bank' },
 ];
 
 export async function seedIfEmpty() {

@@ -1,10 +1,10 @@
-// app.js — BatVault application shell, router, and views.
+// app.js — Sanctum finance module, router, and views.
 import { db, uid, exportAll, importAll } from './db.js';
 import {
   loadSettings, getSetting, setSetting, settings, seedIfEmpty,
   fmtMoney, parseAmount, todayISO, fmtDate, fmtDateShort, monthKey, thisMonth,
   monthLabel, addMonths, addDays, relativeDay, escapeHtml, currencySymbol,
-  CURRENCIES, isoDate, fmtMoneyIn, currencyName, currencySymbolOf,
+  CURRENCIES, isoDate, fmtMoneyIn, currencyName, currencySymbolOf, icon as ico, ICON_CHOICES,
 } from './util.js';
 import * as C from './compute.js';
 import * as Rates from './rates.js';
@@ -68,7 +68,7 @@ async function refresh() {
 const cat = (id) => S.categories.find((c) => c.id === id);
 const acct = (id) => S.accounts.find((a) => a.id === id);
 const catName = (id) => (cat(id) || {}).name || 'Uncategorized';
-const catIcon = (id) => (cat(id) || {}).icon || '📦';
+const catIcon = (id) => (cat(id) || {}).icon || 'ti-package';
 const catColor = (id) => (cat(id) || {}).color || 'var(--faint)';
 
 // --- Render -----------------------------------------------------------------
@@ -134,7 +134,7 @@ function monthNav(onLabel) {
 function txRow(t) {
   const isTransfer = t.type === 'transfer';
   const sign = t.type === 'income' ? 1 : -1;
-  const icon = isTransfer ? '🔄' : catIcon(t.categoryId);
+  const icon = isTransfer ? ico('ti-arrows-exchange') : ico(catIcon(t.categoryId));
   const color = isTransfer ? 'var(--blue)' : catColor(t.categoryId);
   const title = isTransfer ? `${acct(t.accountId)?.name || '?'} → ${acct(t.toAccountId)?.name || '?'}`
     : (t.note || catName(t.categoryId));
@@ -172,7 +172,7 @@ VIEWS.dashboard = function () {
 function cashflowBody() {
   const accts = cashAccounts();
   if (!accts.length) {
-    return `${emptyState('🏦', 'No accounts yet', 'Add a checking or savings account to project your cash flow')}
+    return `${emptyState('ti-building-bank', 'No accounts yet', 'Add a checking or savings account to project your cash flow')}
       <button class="btn primary" data-add-account><i class="ti ti-plus"></i> Add account</button>`;
   }
   const sel = cfSelection();
@@ -217,7 +217,7 @@ function cashflowBody() {
         <div class="amt ${e.delta > 0 ? 'pos' : 'neg'}">${e.delta > 0 ? '+' : '−'}${fmtMoney(Math.abs(e.delta))}</div>
         <div class="cf-run ${e.balance < buffer ? 'warn' : ''}">${fmtMoney(e.balance, { compact: true })}</div>
       </div>`).join('')
-    : `<div class="empty"><span class="em">🗓️</span><div>Nothing scheduled</div>
+    : `<div class="empty"><span class="em"><i class="ti ti-calendar"></i></span><div>Nothing scheduled</div>
         <div class="tiny mt">Add your rent, salary and bills to see the road ahead</div></div>`;
 
   return `${chips}
@@ -269,13 +269,13 @@ function expensesBody() {
     <div class="card"><div class="donut-wrap">
       ${charts.donut(segs, { centerLabel: fmtMoney(flow.expense, { compact: true }), centerSub: 'spent' })}
       <div class="legend">${legend}</div>
-    </div></div>` : emptyState('📊', 'No spending this month', 'Tap + to log an expense')}
+    </div></div>` : emptyState('ti-chart-donut', 'No spending this month', 'Tap + to log an expense')}
 
     ${budgets.length ? `<div class="section-title spread"><span>Budgets</span><a data-nav-link="budgets">All ›</a></div>
     <div class="card">${budgets.slice(0, 3).map(budgetRow).join('')}</div>` : ''}
 
     <div class="section-title spread"><span>Recent</span><a data-nav-link="transactions">All ›</a></div>
-    <div class="card">${recent.length ? recent.map(txRow).join('') : emptyState('🦇', 'No transactions yet', 'Tap + to add your first one')}</div>`;
+    <div class="card">${recent.length ? recent.map(txRow).join('') : emptyState('ti-receipt', 'No transactions yet', 'Tap + to add your first one')}</div>`;
 }
 
 // ============================================================================
@@ -306,7 +306,7 @@ VIEWS.networth = function () {
 
 function budgetRow(b) {
   return `<div class="mt" style="margin-bottom:14px" data-edit-budget="${b.id}">
-    <div class="spread"><span>${b.category.icon} ${escapeHtml(b.category.name)}</span>
+    <div class="spread"><span>${ico(b.category.icon)} ${escapeHtml(b.category.name)}</span>
     <span class="tiny tabular ${b.over ? '' : 'muted'}" style="${b.over ? 'color:var(--red)' : ''}">${fmtMoney(b.used)} / ${fmtMoney(b.amount)}</span></div>
     <div class="bar ${b.over ? 'over' : ''}"><span style="width:${Math.round(b.pct * 100)}%"></span></div>
   </div>`;
@@ -316,7 +316,7 @@ const FREQ_LABEL = { once: 'one-off', weekly: 'weekly', biweekly: 'every 2 weeks
 function recurringRow(r) {
   const c = cat(r.categoryId);
   const isTransfer = r.type === 'transfer';
-  const icon = isTransfer ? '🔄' : (c?.icon || '🔁');
+  const icon = isTransfer ? ico('ti-arrows-exchange') : ico(c?.icon, 'ti-calendar-repeat');
   const sub = `${relativeDay(r.nextDate)} · ${escapeHtml(FREQ_LABEL[r.frequency] || r.frequency)}${r.paused ? ' · paused' : ''}`;
   const sign = r.type === 'income' ? '+' : '−';
   return `<div class="row tappable ${r.paused ? 'dim' : ''}" data-edit-recurring="${r.id}">
@@ -357,7 +357,7 @@ VIEWS.transactions = function () {
     ${groups.length ? groups.map((g) => `
       <div class="section-title">${dateHeading(g.date)}</div>
       <div class="card">${g.items.map(txRow).join('')}</div>
-    `).join('') : emptyState('🔍', 'Nothing here', 'No transactions match this view')}
+    `).join('') : emptyState('ti-search', 'Nothing here', 'No transactions match this view')}
   </div>`;
 };
 VIEWS.transactions.after = function () {
@@ -397,7 +397,7 @@ VIEWS.budgets = function () {
       <div class="tiny muted mt">${totalBudget > 0 ? fmtMoney(Math.max(0, totalBudget - totalUsed)) + ' left this month' : 'Set budgets to track spending limits'}</div>
     </div>
     ${statuses.length ? `<div class="section-title">Category budgets</div>
-    <div class="card">${statuses.map((b) => `<div data-edit-budget="${b.id}" class="tappable" style="padding:6px 4px">${budgetRow(b)}</div>`).join('')}</div>` : emptyState('🎯', 'No budgets yet', 'Add a monthly limit for a category')}
+    <div class="card">${statuses.map((b) => `<div data-edit-budget="${b.id}" class="tappable" style="padding:6px 4px">${budgetRow(b)}</div>`).join('')}</div>` : emptyState('ti-target-arrow', 'No budgets yet', 'Add a monthly limit for a category')}
     ${unbudgeted.length ? `<button class="btn mt2" data-add-budget>+ Add category budget</button>` : ''}
   </div>`;
 };
@@ -408,27 +408,27 @@ VIEWS.budgets = function () {
 VIEWS.more = function () {
   const nw = C.netWorth(S.accounts, S.transactions, S.holdings);
   const items = [
-    ['networth', '💎', 'Net Worth', fmtMoney(nw.total)],
-    ['accounts', '🏦', 'Accounts', `${S.accounts.filter(a=>!a.archived).length} · ${fmtMoney(nw.liquid)}`],
-    ['investments', '📈', 'Investments', fmtMoney(nw.invest)],
-    ['goals', '🎯', 'Goals', `${S.goals.length}`],
-    ['recurring', '🔁', 'Scheduled items', `${S.recurring.length}`],
-    ['converter', '💱', 'Currency Converter', 'live'],
-    ['categories', '🏷️', 'Categories', `${S.categories.filter(c=>!c.archived).length}`],
-    ['import', '📥', 'Import CSV', ''],
-    ['settings', '⚙️', 'Settings & Backup', ''],
+    ['networth', 'ti-diamond', 'Net Worth', fmtMoney(nw.total)],
+    ['accounts', 'ti-building-bank', 'Accounts', `${S.accounts.filter(a=>!a.archived).length} · ${fmtMoney(nw.liquid)}`],
+    ['investments', 'ti-chart-line', 'Investments', fmtMoney(nw.invest)],
+    ['goals', 'ti-target-arrow', 'Goals', `${S.goals.length}`],
+    ['recurring', 'ti-calendar-repeat', 'Scheduled items', `${S.recurring.length}`],
+    ['converter', 'ti-arrows-exchange', 'Currency Converter', 'live'],
+    ['categories', 'ti-tag', 'Categories', `${S.categories.filter(c=>!c.archived).length}`],
+    ['import', 'ti-file-import', 'Import CSV', ''],
+    ['settings', 'ti-settings', 'Settings & Backup', ''],
   ];
   return `<div class="view">
     ${header('More')}
     <div class="card">
       ${items.map(([r, ic, t, s]) => `<div class="row tappable" data-nav-link="${r}">
-        <div class="ic" style="background:var(--surface-2)">${ic}</div>
+        <div class="ic" style="background:var(--surface-2)">${ico(ic)}</div>
         <div class="main"><div class="t">${t}</div></div>
         <div class="s muted tiny">${escapeHtml(s)}</div>
         <div class="muted" style="margin-left:8px">›</div>
       </div>`).join('')}
     </div>
-    <div class="center muted tiny mt2">BatVault · v1 · 100% on your device</div>
+    <div class="center muted tiny mt2">Sanctum · private · on this device</div>
   </div>`;
 };
 
@@ -446,12 +446,12 @@ VIEWS.accounts = function () {
       const k = kindOf(a);
       const low = a.buffer > 0 && bal < a.buffer;
       return `<div class="row tappable" data-edit-account="${a.id}">
-        <div class="ic" style="background:var(--surface-2)">${a.icon || '🏦'}</div>
+        <div class="ic" style="background:var(--surface-2)">${ico(a.icon, 'ti-building-bank')}</div>
         <div class="main"><div class="t">${escapeHtml(a.name)}</div>
           <div class="s">${k}${a.buffer > 0 ? ` · buffer ${fmtMoney(a.buffer)}` : ''}</div></div>
         <span class="amt ${low ? 'neg' : 'pos'}">${fmtMoney(bal)}</span>
       </div>`;
-    }).join('') : emptyState('🏦', 'No accounts', 'Add checking, savings or cash accounts')}</div>
+    }).join('') : emptyState('ti-building-bank', 'No accounts', 'Add checking, savings or cash accounts')}</div>
     <button class="btn primary mt2" data-add-account><i class="ti ti-plus"></i> Add account</button>
     <div class="hint center mt">Set a low-balance buffer per account to get warned before you dip under it.</div>
   </div>`;
@@ -467,10 +467,10 @@ VIEWS.investments = function () {
     <div class="hero"><div class="label">Portfolio value</div><div class="amount">${fmtMoney(total)}</div></div>
     <div class="card mt">${S.holdings.length ? S.holdings.map((h) => `
       <div class="row tappable" data-edit-holding="${h.id}">
-        <div class="ic" style="background:var(--surface-2)">${h.icon || '📈'}</div>
+        <div class="ic" style="background:var(--surface-2)">${ico(h.icon, 'ti-chart-line')}</div>
         <div class="main"><div class="t">${escapeHtml(h.name)}</div><div class="s">${h.quantity} × ${fmtMoney(h.price)}</div></div>
         ${money(C.holdingValue(h))}
-      </div>`).join('') : emptyState('📈', 'No holdings', 'Track stocks, funds, crypto, gold…')}</div>
+      </div>`).join('') : emptyState('ti-chart-line', 'No holdings', 'Track stocks, funds, crypto, gold…')}</div>
     <button class="btn mt2" data-add-holding>+ Add holding</button>
   </div>`;
 };
@@ -489,7 +489,7 @@ VIEWS.goals = function () {
         <div class="spread tiny muted mt"><span>${fmtMoney(g.saved)} saved</span><span>Goal ${fmtMoney(g.target)}</span></div>
         ${g.targetDate ? `<div class="tiny muted mt">Target: ${fmtDate(g.targetDate)}</div>` : ''}
       </div>`;
-    }).join('') : emptyState('🎯', 'No goals yet', 'Set a savings target to work toward')}
+    }).join('') : emptyState('ti-target-arrow', 'No goals yet', 'Set a savings target to work toward')}
     <button class="btn mt2" data-add-goal>+ Add goal</button>
   </div>`;
 };
@@ -512,7 +512,7 @@ VIEWS.recurring = function () {
     </div>` : ''}
     <div class="section-title">Repeating</div>
     <div class="card">${repeating.length ? repeating.map(recurringRow).join('')
-      : emptyState('🔁', 'Nothing repeating', 'Add rent, salary, subscriptions…')}</div>
+      : emptyState('ti-calendar-repeat', 'Nothing repeating', 'Add rent, salary, subscriptions…')}</div>
     ${oneOffs.length ? `<div class="section-title">One-off</div>
     <div class="card">${oneOffs.map(recurringRow).join('')}</div>` : ''}
     <button class="btn primary mt2" data-add-recurring><i class="ti ti-plus"></i> Add scheduled item</button>
@@ -526,7 +526,7 @@ VIEWS.recurring = function () {
 VIEWS.categories = function () {
   const render = (type) => S.categories.filter((c) => c.type === type && !c.archived).map((c) => `
     <div class="row tappable" data-edit-category="${c.id}">
-      <div class="ic" style="background:${c.color}22;color:${c.color}">${c.icon}</div>
+      <div class="ic" style="background:${c.color}22;color:${c.color}">${ico(c.icon)}</div>
       <div class="main"><div class="t">${escapeHtml(c.name)}</div></div>
       <div class="muted">›</div>
     </div>`).join('');
@@ -547,7 +547,7 @@ VIEWS.import = function () {
     return `<div class="view">
       ${subHeader('Import CSV')}
       <div class="card center">
-        <div style="font-size:34px">📥</div>
+        <div style="font-size:34px"><i class="ti ti-file-import"></i></div>
         <p class="muted">Import transactions from a bank statement or CSV export. Everything is parsed on your phone.</p>
         <label class="btn primary" style="display:inline-flex;width:auto;padding:12px 22px">Choose CSV file
           <input type="file" id="csv-file" accept=".csv,text/csv" hidden></label>
@@ -698,7 +698,7 @@ VIEWS.settings = function () {
 
     <div class="section-title">Danger zone</div>
     <div class="card"><button class="btn danger" data-wipe>Erase all data</button></div>
-    <div class="center muted tiny mt2">BatVault — built for ${escapeHtml(s.name || 'you')} 🦇</div>
+    <div class="center muted tiny mt2">Sanctum — built for ${escapeHtml(s.name || 'you')}</div>
   </div>`;
 };
 VIEWS.settings.after = function () {
@@ -721,8 +721,27 @@ function subHeader(title) {
     <div class="title"><button class="header-btn" data-back>‹</button><h1 style="font-size:19px">${escapeHtml(title)}</h1></div>
   </div>`;
 }
+// Icon picker — a grid of Tabler icons backed by a hidden input.
+function iconPickerHTML(id, current) {
+  const cur = current && /^ti-/.test(current) ? current : ICON_CHOICES[0];
+  return `<input type="hidden" id="${id}" value="${cur}">
+    <div class="icon-grid" data-picker="${id}">
+      ${ICON_CHOICES.map((n) => `<button type="button" class="icon-opt ${n === cur ? 'active' : ''}" data-icon="${n}" aria-label="${n}"><i class="ti ${n}"></i></button>`).join('')}
+    </div>`;
+}
+function wireIconPicker(sheet, id) {
+  const grid = sheet.querySelector(`[data-picker="${id}"]`);
+  if (!grid) return;
+  grid.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-icon]');
+    if (!b) return;
+    sheet.querySelector('#' + id).value = b.dataset.icon;
+    grid.querySelectorAll('.icon-opt').forEach((x) => x.classList.toggle('active', x === b));
+  });
+}
+
 function emptyState(em, title, sub) {
-  return `<div class="empty"><span class="em">${em}</span><div>${escapeHtml(title)}</div>${sub ? `<div class="tiny mt">${escapeHtml(sub)}</div>` : ''}</div>`;
+  return `<div class="empty"><span class="em">${ico(em)}</span><div>${escapeHtml(title)}</div>${sub ? `<div class="tiny mt">${escapeHtml(sub)}</div>` : ''}</div>`;
 }
 
 // ============================================================================
@@ -765,7 +784,7 @@ function txSheet(existing) {
     catWrap.style.display = ''; toWrap.style.display = 'none';
     const list = cats(state.type);
     if (!state.categoryId || !list.find((c) => c.id === state.categoryId)) state.categoryId = list[0]?.id;
-    wrap.innerHTML = list.map((c) => `<button class="chip ${c.id === state.categoryId ? 'active' : ''}" data-cat="${c.id}">${c.icon} ${escapeHtml(c.name)}</button>`).join('');
+    wrap.innerHTML = list.map((c) => `<button class="chip ${c.id === state.categoryId ? 'active' : ''}" data-cat="${c.id}">${ico(c.icon)} ${escapeHtml(c.name)}</button>`).join('');
     wrap.querySelectorAll('[data-cat]').forEach((b) => b.addEventListener('click', () => { state.categoryId = b.dataset.cat; renderCats(); }));
   };
   renderCats();
@@ -807,7 +826,7 @@ function txSheet(existing) {
 }
 
 function accountSheet(existing) {
-  const a = existing || { name: '', kind: 'checking', balance: 0, icon: '🏦', buffer: 0 };
+  const a = existing || { name: '', kind: 'checking', balance: 0, icon: 'ti-building-bank', buffer: 0 };
   const curKind = existing ? kindOf(existing) : 'checking';
   const KINDS = [['checking', 'Checking'], ['savings', 'Savings'], ['cash', 'Cash']];
   const curBal = existing ? P.balanceAsOf(existing, S.transactions, todayISO()) : 0;
@@ -817,7 +836,7 @@ function accountSheet(existing) {
     <div class="field"><label>Type</label>
       <div class="seg" id="a-kind">${KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === curKind ? 'active' : ''}">${l}</button>`).join('')}</div></div>
     <div class="grid2">
-      <div class="field"><label>Icon</label><input class="input" id="a-icon" value="${a.icon || '🏦'}" maxlength="2"></div>
+      <div class="field"><label>Icon</label>${iconPickerHTML('a-icon', a.icon)}</div>
       <div class="field"><label>Low-balance buffer</label><input class="input" id="a-buffer" inputmode="decimal" value="${a.buffer || 0}"></div>
     </div>
     <div class="field"><label>Opening balance</label><input class="input" id="a-balance" inputmode="decimal" value="${a.balance || 0}"></div>
@@ -826,6 +845,7 @@ function accountSheet(existing) {
     <button class="btn primary mt" id="a-save">${existing ? 'Save' : 'Add'}</button>
     ${existing ? `<button class="btn danger mt" id="a-delete">Delete</button>` : ''}
   `);
+  wireIconPicker(sheet, 'a-icon');
   let kind = curKind;
   sheet.querySelectorAll('#a-kind button').forEach((b) => b.addEventListener('click', () => {
     kind = b.dataset.k;
@@ -839,7 +859,7 @@ function accountSheet(existing) {
     await db.put('accounts', {
       id: existing?.id || uid('a_'), name,
       kind, type: kind,
-      icon: sheet.querySelector('#a-icon').value.trim() || '🏦',
+      icon: sheet.querySelector('#a-icon').value || 'ti-building-bank',
       balance: parseAmount(sheet.querySelector('#a-balance').value),
       buffer: parseAmount(sheet.querySelector('#a-buffer').value),
       currency: getSetting('currency'), archived: existing?.archived || false,
@@ -889,7 +909,7 @@ function reconcileSheet(account, currentBal) {
 }
 
 function holdingSheet(existing) {
-  const h = existing || { name: '', quantity: 1, price: 0, icon: '📈' };
+  const h = existing || { name: '', quantity: 1, price: 0, icon: 'ti-chart-line' };
   const sheet = openSheet(`
     <div class="sheet-title-row"><h2>${existing ? 'Edit' : 'Add'} holding</h2><button class="close" data-close>✕</button></div>
     <div class="field"><label>Name</label><input class="input" id="h-name" value="${escapeHtml(h.name)}" placeholder="e.g. Nifty 50 Index Fund"></div>
@@ -897,10 +917,11 @@ function holdingSheet(existing) {
       <div class="field"><label>Quantity / units</label><input class="input" id="h-qty" inputmode="decimal" value="${h.quantity}"></div>
       <div class="field"><label>Price per unit</label><input class="input" id="h-price" inputmode="decimal" value="${h.price}"></div>
     </div>
-    <div class="field"><label>Icon</label><input class="input" id="h-icon" value="${h.icon || '📈'}" maxlength="2"></div>
+    <div class="field"><label>Icon</label>${iconPickerHTML('h-icon', h.icon)}</div>
     <button class="btn primary" id="h-save">${existing ? 'Save' : 'Add'}</button>
     ${existing ? `<button class="btn danger mt" id="h-delete">Delete</button>` : ''}
   `);
+  wireIconPicker(sheet, 'h-icon');
   sheet.querySelector('#h-save').addEventListener('click', async () => {
     const name = sheet.querySelector('#h-name').value.trim();
     if (!name) return toast('Enter a name', true);
@@ -908,7 +929,7 @@ function holdingSheet(existing) {
       id: existing?.id || uid('h_'), name,
       quantity: parseAmount(sheet.querySelector('#h-qty').value),
       price: parseAmount(sheet.querySelector('#h-price').value),
-      icon: sheet.querySelector('#h-icon').value.trim() || '📈',
+      icon: sheet.querySelector('#h-icon').value || 'ti-chart-line',
     });
     closeSheet(); await refresh(); render(); toast('Saved');
   });
@@ -990,7 +1011,7 @@ function recurringSheet(existing) {
     const sel = sheet.querySelector('#r-cat');
     const list = S.categories.filter((c) => c.type === curType && !c.archived);
     if (!curCat || !list.find((c) => c.id === curCat)) curCat = list[0]?.id;
-    sel.innerHTML = list.map((c) => `<option value="${c.id}" ${c.id === curCat ? 'selected' : ''}>${c.icon} ${escapeHtml(c.name)}</option>`).join('');
+    sel.innerHTML = list.map((c) => `<option value="${c.id}" ${c.id === curCat ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('');
   };
   fillCats(); syncType();
   sheet.querySelector('#r-cat').addEventListener('change', (e) => { curCat = e.target.value; });
@@ -1047,13 +1068,13 @@ function recurringSheet(existing) {
 }
 
 function categorySheet(existing) {
-  const c = existing || { name: '', type: 'expense', color: '#f97316', icon: '📦' };
+  const c = existing || { name: '', type: 'expense', color: '#f97316', icon: 'ti-package' };
   const palette = ['#f97316','#84cc16','#38bdf8','#e879f9','#fbbf24','#f43f5e','#c084fc','#fb7185','#2dd4bf','#60a5fa','#4ade80','#94a3b8'];
   const sheet = openSheet(`
     <div class="sheet-title-row"><h2>${existing ? 'Edit' : 'Add'} category</h2><button class="close" data-close>✕</button></div>
     <div class="grid2">
       <div class="field"><label>Name</label><input class="input" id="c-name" value="${escapeHtml(c.name)}"></div>
-      <div class="field"><label>Icon</label><input class="input" id="c-icon" value="${c.icon}" maxlength="2"></div>
+      <div class="field"><label>Icon</label>${iconPickerHTML('c-icon', c.icon)}</div>
     </div>
     <div class="field"><label>Type</label><div class="seg type-seg" id="c-type">
       ${['expense', 'income'].map((v) => `<button data-v="${v}" class="${c.type === v ? 'active' : ''}">${v[0].toUpperCase()+v.slice(1)}</button>`).join('')}</div></div>
@@ -1062,6 +1083,7 @@ function categorySheet(existing) {
     <button class="btn primary" id="c-save">${existing ? 'Save' : 'Add'}</button>
     ${existing ? `<button class="btn danger mt" id="c-delete">Delete</button>` : ''}
   `);
+  wireIconPicker(sheet, 'c-icon');
   let curType = c.type, curColor = c.color;
   sheet.querySelectorAll('#c-type button').forEach((b) => b.addEventListener('click', () => {
     curType = b.dataset.v; sheet.querySelectorAll('#c-type button').forEach((x) => x.classList.toggle('active', x === b));
@@ -1075,7 +1097,7 @@ function categorySheet(existing) {
     if (!name) return toast('Enter a name', true);
     await db.put('categories', {
       id: existing?.id || uid('c_'), name, type: curType, color: curColor,
-      icon: sheet.querySelector('#c-icon').value.trim() || '📦', archived: existing?.archived || false,
+      icon: sheet.querySelector('#c-icon').value || 'ti-package', archived: existing?.archived || false,
     });
     closeSheet(); await refresh(); render(); toast('Saved');
   });
@@ -1096,7 +1118,7 @@ function budgetSheet(existing) {
   const sheet = openSheet(`
     <div class="sheet-title-row"><h2>${existing ? 'Edit' : 'Add'} budget</h2><button class="close" data-close>✕</button></div>
     <div class="field"><label>Category</label><select class="input" id="b-cat" ${existing ? 'disabled' : ''}>
-      ${available.map((c) => `<option value="${c.id}" ${c.id === b.categoryId ? 'selected' : ''}>${c.icon} ${escapeHtml(c.name)}</option>`).join('')}</select></div>
+      ${available.map((c) => `<option value="${c.id}" ${c.id === b.categoryId ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('')}</select></div>
     <div class="field"><label>Monthly limit</label><input class="input amount-input" id="b-amount" inputmode="decimal" value="${b.amount || ''}" placeholder="${currencySymbol()}0"></div>
     <button class="btn primary" id="b-save">${existing ? 'Save' : 'Add'}</button>
     ${existing ? `<button class="btn danger mt" id="b-delete">Remove budget</button>` : ''}
@@ -1138,12 +1160,12 @@ function downloadFile(name, content, type = 'application/json') {
 }
 async function doExportJSON() {
   const data = await exportAll();
-  downloadFile(`batvault-backup-${todayISO()}.json`, JSON.stringify(data, null, 2));
+  downloadFile(`sanctum-backup-${todayISO()}.json`, JSON.stringify(data, null, 2));
   toast('Backup downloaded');
 }
 async function doExportCSV() {
   const csv = transactionsToCSV(S.transactions, { categories: S.categories, accounts: S.accounts });
-  downloadFile(`batvault-transactions-${todayISO()}.csv`, csv, 'text/csv');
+  downloadFile(`sanctum-transactions-${todayISO()}.csv`, csv, 'text/csv');
   toast('CSV downloaded');
 }
 async function onRestoreFile(e) {
@@ -1270,7 +1292,7 @@ function wipeData() {
 function onboarding() {
   $app().innerHTML = `<div class="view onboard">
     ${BAT_SVG(46, 'bat-lg')}
-    <h1 class="brand">BATVAULT</h1>
+    <h1 class="brand">SANCTUM</h1>
     <p>A private, offline finance tracker. Every dollar, rupee, and holding stays on <b>your</b> phone — no accounts, no servers.</p>
     <div class="field" style="width:100%;max-width:320px;text-align:left;margin-top:10px">
       <label>What should I call you?</label>
@@ -1302,12 +1324,12 @@ function onboarding() {
 // ============================================================================
 // Snyder/Affleck-inspired elongated bat emblem — wide angular blade wings,
 // sharp swept-up tips, a low sleek head, twin membrane points per wing.
-// Wide, sharp bat emblem (viewBox 0 0 300 86, symmetric about x=150) — shared
-// so the in-app logo and PNG icons match.
-const BAT_D = 'M150 12 L166 3 L178 16 C210 12 262 16 300 26 L282 36 L270 30 L246 48 L228 34 C210 40 196 44 186 46 L166 64 L150 82 L134 64 L114 46 C104 44 90 40 72 34 L54 48 L30 30 L18 36 L0 26 C38 16 90 12 122 16 L134 3 L150 12 Z';
-function BAT_SVG(height = 22, cls = 'bat') {
-  const w = Math.round(height * 300 / 86);
-  return `<svg class="${cls}" width="${w}" height="${height}" viewBox="0 0 300 86" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+// Sanctum mark — minimal pointed arch, shared with shell.js and the PNG icons.
+const BAT_D = 'M6,43 L6,24 C6,13 12.5,6.5 20,2.5 C27.5,6.5 34,13 34,24 L34,43';
+function BAT_SVG(height = 22, cls = 'mark') {
+  const w = Math.round(height * 40 / 46);
+  return `<svg class="${cls}" width="${w}" height="${height}" viewBox="0 0 40 46" fill="none" stroke="var(--accent)"
+    stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="${BAT_D}"/>
   </svg>`;
 }

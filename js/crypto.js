@@ -169,8 +169,8 @@ export async function enableBiometric() {
   const cred = await navigator.credentials.create({
     publicKey: {
       challenge: randomBytes(32),
-      rp: { name: 'BatVault', id: location.hostname },
-      user: { id: randomBytes(16), name: 'batvault-owner', displayName: 'BatVault' },
+      rp: { name: 'Sanctum', id: location.hostname },
+      user: { id: randomBytes(16), name: 'batvault-owner', displayName: 'Sanctum' },
       pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
       authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' },
       timeout: 60000, extensions: { prf: {} },

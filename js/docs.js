@@ -92,7 +92,7 @@ function showNoBio() {
   $app().innerHTML = `<div class="view lock">
     <div class="lock-ic"><i class="ti ti-mood-sad"></i></div>
     <h1>Biometrics needed</h1>
-    <p class="muted">This module unlocks with your device's Face ID / fingerprint, which isn't available in this browser. Open BATVAULT on your phone to set it up.</p>
+    <p class="muted">This module unlocks with your device's Face ID / fingerprint, which isn't available in this browser. Open Sanctum on your phone to set it up.</p>
     <button class="btn ghost mt" data-hub>Back to apps</button>
   </div>`;
   $app().querySelector('[data-hub]').addEventListener('click', leaveToHub);

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0a0c10">
-  <meta name="description" content="BatVault — a private, offline personal finance tracker. Your data never leaves your phone.">
+  <meta name="theme-color" content="#0A0A0B">
+  <meta name="description" content="Sanctum — a private, offline vault for your money, passwords and documents. Your data never leaves your device.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>BATVAULT</title>
+  <title>Sanctum</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
@@ -21,10 +21,10 @@
   <div id="chrome" style="display:none">
     <button class="fab" id="fab" aria-label="Add transaction">+</button>
     <nav class="nav">
-      <button data-nav="dashboard" class="active"><span class="ni">🏠</span>Home</button>
-      <button data-nav="transactions"><span class="ni">🧾</span>Activity</button>
-      <button data-nav="budgets"><span class="ni">🎯</span>Budgets</button>
-      <button data-nav="more"><span class="ni">☰</span>More</button>
+      <button data-nav="dashboard" class="active"><span class="ni"><i class="ti ti-wave-sine"></i></span>Money</button>
+      <button data-nav="transactions"><span class="ni"><i class="ti ti-list-details"></i></span>Activity</button>
+      <button data-nav="budgets"><span class="ni"><i class="ti ti-target-arrow"></i></span>Budgets</button>
+      <button data-nav="more"><span class="ni"><i class="ti ti-dots"></i></span>More</button>
     </nav>
   </div>
 
@@ -51,11 +51,11 @@
       var app = document.getElementById('app');
       if (app && app.children.length === 0) {
         var w = document.createElement('div');
-        w.style.cssText = 'margin:48px 16px;text-align:center;font-family:system-ui,sans-serif;color:#e8ebf2';
-        w.innerHTML = '<div style="font-size:15px;margin-bottom:6px">BATVAULT didn’t finish loading.</div><div style="font-size:13px;color:#8b93a7;margin-bottom:16px">Clear the cached version and reload.</div>';
+        w.style.cssText = 'margin:48px 16px;text-align:center;font-family:system-ui,sans-serif;color:#EDEBE7';
+        w.innerHTML = '<div style="font-size:15px;margin-bottom:6px">Sanctum didn’t finish loading.</div><div style="font-size:13px;color:#9A958C;margin-bottom:16px">Clear the cached version and reload.</div>';
         var b = document.createElement('button');
         b.textContent = 'Reset app & reload';
-        b.style.cssText = 'padding:12px 20px;border-radius:12px;background:#f5c542;color:#1a1400;font-weight:600;border:none;font-size:15px';
+        b.style.cssText = 'padding:12px 20px;border-radius:12px;background:#E9E4DA;color:#121212;font-weight:600;border:none;font-size:15px';
         b.onclick = async function () {
           try { if ('serviceWorker' in navigator) { var rs = await navigator.serviceWorker.getRegistrations(); for (var i = 0; i < rs.length; i++) await rs[i].unregister(); } } catch (x) {}
           try { if (window.caches) { var ks = await caches.keys(); for (var j = 0; j < ks.length; j++) await caches.delete(ks[j]); } } catch (x) {}

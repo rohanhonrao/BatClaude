@@ -1,13 +1,13 @@
 {
-  "name": "BATVAULT",
-  "short_name": "BATVAULT",
-  "description": "A private, offline personal finance tracker. Your data stays on your device.",
+  "name": "Sanctum",
+  "short_name": "Sanctum",
+  "description": "A private, offline vault for your money, passwords and documents.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0a0c10",
-  "theme_color": "#0a0c10",
+  "background_color": "#0A0A0B",
+  "theme_color": "#0A0A0B",
   "categories": ["finance", "productivity"],
   "icons": [
     { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },

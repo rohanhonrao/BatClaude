@@ -1,36 +1,56 @@
-/* BatVault — bundled fonts (offline) */
+/* Sanctum — bundled fonts (offline) */
 @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/inter-400.woff2') format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/inter-500.woff2') format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/inter-600.woff2') format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/inter-700.woff2') format('woff2')}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/grotesk-500.woff2') format('woff2')}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/grotesk-700.woff2') format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/instrument-400.woff2') format('woff2')}
 
-/* BatVault — dark, mobile-first finance UI */
+/* Sanctum — dark, mobile-first personal vault.
+   Palette is deliberately near-monochrome: ivory carries interaction,
+   colour is reserved for meaning (money in/out, warnings). */
 :root {
   --font-sans: 'Inter', -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
-  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  --bg: #0a0c10;
-  --bg-elev: #12151d;
-  --surface: #161a24;
-  --surface-2: #1d222e;
-  --line: #262c3a;
-  --text: #e8ebf2;
-  --muted: #8b93a7;
-  --faint: #5a6478;
-  --gold: #f5c542;
-  --gold-dim: #b8922a;
-  --green: #3ddc84;
-  --red: #ff5a5f;
-  --blue: #4aa8ff;
-  --purple: #b98bff;
-  --radius: 16px;
-  --radius-sm: 11px;
-  --shadow: 0 8px 30px rgba(0,0,0,0.45);
+
+  /* Surfaces — near-black, very slightly warm */
+  --bg: #0A0A0B;
+  --bg-elev: #101011;
+  --surface: #141416;
+  --surface-2: #1B1B1E;
+  --surface-3: #232327;
+  --line: #26262B;
+  --line-soft: #1D1D21;
+  --hairline: rgba(255,255,255,0.06);
+
+  /* Text */
+  --text: #EDEBE7;
+  --muted: #9A958C;
+  --faint: #6A665F;
+
+  /* Accent — platinum/ivory. `--gold` kept as an alias so existing
+     inline styles keep working after the rebrand. */
+  --accent: #E9E4DA;
+  --accent-dim: #B3ADA2;
+  --accent-tint: rgba(233,228,218,0.10);
+  --gold: #E9E4DA;
+  --gold-dim: #B3ADA2;
+
+  /* Semantic — muted, never neon */
+  --green: #63C99A;
+  --red: #E8695F;
+  --warn: #D9A441;
+  --blue: #7FA8D9;
+  --purple: #A99BD6;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 18px;
+  --shadow: 0 10px 34px rgba(0,0,0,0.55);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --nav-h: 62px;
+  --nav-h: 64px;
+  --ease: cubic-bezier(.22,.61,.36,1);
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -39,9 +59,10 @@ html, body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 15.5px; line-height: 1.5; letter-spacing: -0.011em;
+  font-size: 15px; line-height: 1.5; letter-spacing: -0.006em;
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
 }
 body { max-width: 560px; margin: 0 auto; min-height: 100vh; }
 button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
@@ -455,3 +476,197 @@ textarea.input { resize: vertical; min-height: 60px; }
 .groc-qty { color: var(--gold); font-weight: 600; font-size: 13px; }
 .groc-price { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .section-title.spread { display: flex; align-items: center; justify-content: space-between; }
+
+/* ==========================================================================
+   Sanctum v2 — design system refinements
+   Later rules intentionally override the earlier component styles.
+   ========================================================================== */
+
+/* --- Type scale ---------------------------------------------------------- */
+h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; font-family: var(--font-sans); }
+h2 { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+h3 { font-size: 15px; font-weight: 600; }
+.tiny { font-size: 12px; letter-spacing: 0; }
+.hint { font-size: 12.5px; color: var(--faint); line-height: 1.5; }
+
+/* Numbers stay in Inter with tabular figures — the serif is for the wordmark. */
+.hero .amount, .amount-input, .donut-center, .stat .v, .amt, .tabular {
+  font-family: var(--font-sans); font-variant-numeric: tabular-nums;
+}
+.hero .amount { font-size: 32px; font-weight: 600; letter-spacing: -0.028em; }
+.stat .v { font-size: 19px; font-weight: 600; letter-spacing: -0.02em; }
+.amt { font-weight: 500; letter-spacing: -0.01em; }
+
+.section-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--faint); font-weight: 500; margin: 26px 4px 10px;
+}
+
+/* --- Wordmark ------------------------------------------------------------ */
+.brand {
+  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+  letter-spacing: 0.26em; font-size: 19px; color: var(--text);
+}
+.lock h1.brand, .onboard h1.brand { font-size: 30px; letter-spacing: 0.3em; }
+.app-header .title h1.brand { font-size: 17px; letter-spacing: 0.24em; }
+.brand .gold, .lock .gold { color: var(--text); }
+
+/* --- Surfaces ------------------------------------------------------------ */
+.card, .stat, .hero {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 var(--hairline);
+}
+.card { padding: 14px 16px; }
+.hero {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.035), transparent 46%),
+    var(--surface);
+  border-radius: var(--radius-lg); padding: 20px;
+}
+.hero .label, .stat .k {
+  font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--faint); font-weight: 500;
+}
+.stat { padding: 13px 14px; border-radius: var(--radius-sm); }
+.stat-row { gap: 10px; }
+
+/* --- Rows ---------------------------------------------------------------- */
+.row { padding: 11px 2px; border-bottom: 1px solid var(--line-soft); gap: 13px; }
+.row .ic {
+  width: 36px; height: 36px; border-radius: 10px; font-size: 17px;
+  background: var(--surface-2); color: var(--muted);
+  box-shadow: inset 0 1px 0 var(--hairline);
+}
+.row .main .t { font-weight: 500; font-size: 14.5px; letter-spacing: -0.008em; }
+.row .main .s { font-size: 12px; color: var(--faint); margin-top: 2px; }
+.row.tappable { border-radius: 10px; transition: background .16s var(--ease); }
+.row.tappable:active { background: var(--surface-2); }
+
+/* --- Buttons ------------------------------------------------------------- */
+.btn {
+  padding: 13px 18px; border-radius: 12px; font-weight: 500; font-size: 14.5px;
+  background: var(--surface-2); border: 1px solid var(--line);
+  transition: transform .12s var(--ease), background .16s var(--ease);
+  box-shadow: inset 0 1px 0 var(--hairline);
+}
+.btn.primary { background: var(--accent); color: #121212; border-color: var(--accent); font-weight: 600; }
+.btn.primary:active { background: var(--accent-dim); }
+.btn.ghost { background: transparent; border-color: var(--line); color: var(--muted); }
+.btn.danger { color: var(--red); border-color: rgba(232,105,95,.35); background: transparent; }
+.btn:active { transform: scale(.98); }
+.btn i.ti { font-size: 17px; }
+
+.header-btn, .mini-btn {
+  border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line-soft);
+  color: var(--muted); transition: background .16s var(--ease), color .16s var(--ease);
+}
+.header-btn { width: 36px; height: 36px; font-size: 16px; }
+.header-btn:active, .mini-btn:active { background: var(--surface-3); color: var(--text); }
+
+/* --- Segmented + chips --------------------------------------------------- */
+.seg { background: var(--surface-2); border-radius: 11px; padding: 3px; gap: 2px;
+  box-shadow: inset 0 1px 0 var(--hairline); }
+.seg button {
+  padding: 9px 10px; border-radius: 9px; font-size: 13.5px; font-weight: 500;
+  color: var(--faint); transition: background .18s var(--ease), color .18s var(--ease);
+}
+.seg button.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 8px rgba(0,0,0,.4); }
+.seg.type-seg button.active[data-v="income"] { color: var(--green); }
+.seg.type-seg button.active[data-v="expense"] { color: var(--red); }
+.seg.type-seg button.active[data-v="transfer"] { color: var(--blue); }
+
+.chip {
+  padding: 7px 12px; border-radius: 10px; font-size: 13px; font-weight: 500;
+  background: var(--surface-2); border: 1px solid var(--line-soft); color: var(--muted);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.chip.active { border-color: var(--accent-dim); background: var(--accent-tint); color: var(--text); }
+.chip i.ti { font-size: 15px; }
+
+/* --- Inputs -------------------------------------------------------------- */
+.input, select.input, textarea.input {
+  padding: 12px 13px; border-radius: 11px; font-size: 15px;
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  transition: border-color .16s var(--ease), background .16s var(--ease);
+}
+.input:focus { border-color: var(--accent-dim); background: var(--surface-3); }
+.field label { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--faint); font-weight: 500; margin-bottom: 7px; }
+.amount-input { font-size: 30px; font-weight: 600; letter-spacing: -0.03em; padding: 16px; }
+
+/* --- Bottom nav ---------------------------------------------------------- */
+.nav {
+  background: rgba(10,10,11,.86); backdrop-filter: blur(20px) saturate(1.2);
+  border-top: 1px solid var(--line-soft);
+}
+.nav button { gap: 4px; font-size: 10px; font-weight: 500; letter-spacing: 0.02em;
+  color: var(--faint); transition: color .16s var(--ease); }
+.nav button .ni { font-size: 21px; line-height: 1; }
+.nav button.active { color: var(--text); }
+
+/* --- FAB ----------------------------------------------------------------- */
+.fab {
+  width: 54px; height: 54px; border-radius: 17px;
+  background: var(--accent); color: #121212;
+  box-shadow: 0 8px 26px rgba(0,0,0,.5); font-size: 26px;
+}
+.fab:active { transform: scale(.94); background: var(--accent-dim); }
+
+/* --- Sheets -------------------------------------------------------------- */
+.sheet {
+  background: var(--bg-elev); border-radius: 20px 20px 0 0;
+  border: 1px solid var(--line); border-bottom: none;
+  box-shadow: 0 -16px 50px rgba(0,0,0,.6);
+}
+.sheet-backdrop { background: rgba(0,0,0,.68); backdrop-filter: blur(3px); }
+.sheet .grabber { background: var(--line); width: 36px; }
+
+/* --- Hub ----------------------------------------------------------------- */
+.hub-greet { color: var(--muted); font-size: 14.5px; margin: 4px 4px 20px; }
+.hub-card {
+  background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 var(--hairline); min-height: 128px; padding: 16px 15px;
+  transition: transform .14s var(--ease), border-color .2s var(--ease);
+}
+.hub-card:active { transform: scale(.975); }
+.hub-ic {
+  width: 42px; height: 42px; border-radius: 12px; font-size: 22px;
+  background: var(--surface-2); color: var(--accent);
+  box-shadow: inset 0 1px 0 var(--hairline);
+}
+.hub-name { font-size: 15px; font-weight: 600; letter-spacing: -0.012em; }
+.hub-desc { font-size: 12px; color: var(--faint); }
+.hub-badge { background: var(--surface-2); color: var(--faint); font-size: 9.5px; letter-spacing: 0.09em; }
+
+/* --- Misc ---------------------------------------------------------------- */
+.empty { padding: 44px 20px; color: var(--faint); }
+.empty .em { font-size: 26px; opacity: .5; margin-bottom: 10px; display: block; }
+.empty .em i.ti { font-size: 30px; }
+.bar { background: var(--surface-2); height: 6px; border-radius: 4px; }
+.bar > span { background: var(--accent-dim); }
+.bar.over > span { background: var(--red); }
+.pill { background: var(--surface-2); color: var(--muted); font-size: 10.5px; letter-spacing: 0.06em; }
+.alert { border-radius: 12px; font-size: 13px; }
+#toast {
+  background: var(--surface-3); border: 1px solid var(--line);
+  border-radius: 11px; font-size: 13.5px; font-weight: 500;
+}
+.donut-center { font-size: 17px; font-weight: 600; fill: var(--text); }
+.donut-sub { fill: var(--faint); font-size: 9.5px; }
+.legend .li { font-size: 13px; }
+.legend .dot { width: 8px; height: 8px; border-radius: 2px; }
+.axis-label { fill: var(--faint); font-size: 9px; }
+.view { animation: rise .24s var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* --- Icon picker --------------------------------------------------------- */
+.icon-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px;
+  max-height: 168px; overflow-y: auto; padding: 4px 2px; }
+.icon-opt { aspect-ratio: 1; border-radius: 9px; background: var(--surface-2);
+  border: 1px solid transparent; color: var(--muted); font-size: 17px;
+  display: grid; place-items: center; transition: all .14s var(--ease); }
+.icon-opt.active { border-color: var(--accent-dim); background: var(--accent-tint); color: var(--text); }
+.icon-opt:active { transform: scale(.9); }
+@media (max-width: 380px) { .icon-grid { grid-template-columns: repeat(6, 1fr); } }

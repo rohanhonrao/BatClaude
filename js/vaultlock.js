@@ -117,8 +117,8 @@ export function makeVault(ns) {
         const cred = await navigator.credentials.create({
           publicKey: {
             challenge: rb(32),
-            rp: { name: 'BatVault', id: location.hostname },
-            user: { id: rb(16), name: `batvault-${ns}`, displayName: 'BatVault' },
+            rp: { name: 'Sanctum', id: location.hostname },
+            user: { id: rb(16), name: `batvault-${ns}`, displayName: 'Sanctum' },
             pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
             authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' },
             timeout: 60000, extensions: { prf: {} },
