@@ -9,6 +9,7 @@ import {
 import * as C from './compute.js';
 import * as Rates from './rates.js';
 import * as charts from './charts.js';
+import * as P from './projection.js';
 import { csvToObjects, guessMapping, rowsToTransactions, transactionsToCSV } from './csv.js';
 
 // --- Global state -----------------------------------------------------------
@@ -19,7 +20,33 @@ const S = {
   month: thisMonth(),
   txFilter: 'all',
   txSearch: '',
+  homeView: 'cashflow',   // 'cashflow' | 'expenses'
+  cfAccount: 'all',       // 'all' or an account id
+  cfHorizon: 60,          // days
 };
+
+// --- Account kinds ----------------------------------------------------------
+// Derived so legacy accounts (which only had `type`) work with no migration.
+const CASH_KINDS = ['checking', 'savings', 'cash'];
+export function kindOf(a) {
+  if (a.kind) return a.kind;
+  const t = String(a.type || '').toLowerCase();
+  if (t === 'savings') return 'savings';
+  if (t === 'cash' || t === 'wallet') return 'cash';
+  if (t === 'credit') return 'credit';
+  return 'checking';
+}
+const KIND_ICON = { checking: 'ti-building-bank', savings: 'ti-pig-money', cash: 'ti-cash', credit: 'ti-credit-card' };
+// Accounts that participate in cash flow (credit cards deliberately excluded for now).
+function cashAccounts() {
+  return S.accounts.filter((a) => !a.archived && CASH_KINDS.includes(kindOf(a)));
+}
+function cfSelection() {
+  const list = cashAccounts();
+  if (S.cfAccount === 'all') return list;
+  const one = list.find((a) => a.id === S.cfAccount);
+  return one ? [one] : list;
+}
 
 // Module lifecycle (managed by the shell)
 let financeMounted = false;
@@ -131,22 +158,135 @@ function groupByDate(list) {
 // VIEW: Dashboard
 // ============================================================================
 VIEWS.dashboard = function () {
-  const nw = C.netWorth(S.accounts, S.transactions, S.holdings);
+  return `<div class="view">
+    ${header('Welcome back, ' + (getSetting('name') || 'Wayne'))}
+    <div class="seg" id="home-toggle">
+      <button data-home-view="cashflow" class="${S.homeView === 'cashflow' ? 'active' : ''}"><i class="ti ti-wave-sine"></i> Cash flow</button>
+      <button data-home-view="expenses" class="${S.homeView === 'expenses' ? 'active' : ''}"><i class="ti ti-chart-donut"></i> Expenses</button>
+    </div>
+    ${S.homeView === 'cashflow' ? cashflowBody() : expensesBody()}
+  </div>`;
+};
+
+// --- Cash flow (forward-looking) -------------------------------------------
+function cashflowBody() {
+  const accts = cashAccounts();
+  if (!accts.length) {
+    return `${emptyState('🏦', 'No accounts yet', 'Add a checking or savings account to project your cash flow')}
+      <button class="btn primary" data-add-account><i class="ti ti-plus"></i> Add account</button>`;
+  }
+  const sel = cfSelection();
+  const today = todayISO();
+  const proj = P.project({
+    accounts: sel, transactions: S.transactions, rules: S.recurring,
+    today, horizonDays: S.cfHorizon,
+  });
+  const buffer = sel.reduce((s, a) => s + (a.buffer || 0), 0);
+  const belowBuffer = proj.lowest.balance < buffer && buffer > 0;
+  const negative = proj.lowest.balance < 0;
+
+  const chips = `<div class="chips mt">
+    <button class="chip ${S.cfAccount === 'all' ? 'active' : ''}" data-cf-account="all">All</button>
+    ${accts.map((a) => `<button class="chip ${S.cfAccount === a.id ? 'active' : ''}" data-cf-account="${a.id}">
+      <i class="ti ${KIND_ICON[kindOf(a)] || 'ti-wallet'}"></i>${escapeHtml(a.name)}</button>`).join('')}
+  </div>`;
+
+  const horizons = `<div class="seg mt" id="cf-horizon">
+    ${[30, 60, 90].map((d) => `<button data-cf-horizon="${d}" class="${S.cfHorizon === d ? 'active' : ''}">${d} days</button>`).join('')}
+  </div>`;
+
+  // Spendable vs reserves split (only meaningful on the combined view)
+  let split = '';
+  if (S.cfAccount === 'all') {
+    const spendable = accts.filter((a) => kindOf(a) !== 'savings')
+      .reduce((s, a) => s + P.balanceAsOf(a, S.transactions, today), 0);
+    const reserves = accts.filter((a) => kindOf(a) === 'savings')
+      .reduce((s, a) => s + P.balanceAsOf(a, S.transactions, today), 0);
+    split = `<div class="hero-split">
+      <div><span class="label">Spendable</span><b>${fmtMoney(spendable)}</b></div>
+      <div><span class="label">Reserves</span><b>${fmtMoney(reserves)}</b></div>
+    </div>`;
+  }
+
+  const ledger = proj.events.length
+    ? proj.events.map((e) => `<div class="row ${e.logged || e.ruleId ? 'tappable' : ''}" ${
+        e.logged && e.txId ? `data-edit-tx="${e.txId}"` : e.ruleId ? `data-edit-recurring="${e.ruleId}"` : ''}>
+        <div class="cf-date">${escapeHtml(fmtDateShort(e.date))}</div>
+        <div class="main"><div class="t">${escapeHtml(e.name || catName(e.categoryId))}</div>
+          ${e.logged ? '<div class="s">logged</div>' : ''}</div>
+        <div class="amt ${e.delta > 0 ? 'pos' : 'neg'}">${e.delta > 0 ? '+' : '−'}${fmtMoney(Math.abs(e.delta))}</div>
+        <div class="cf-run ${e.balance < buffer ? 'warn' : ''}">${fmtMoney(e.balance, { compact: true })}</div>
+      </div>`).join('')
+    : `<div class="empty"><span class="em">🗓️</span><div>Nothing scheduled</div>
+        <div class="tiny mt">Add your rent, salary and bills to see the road ahead</div></div>`;
+
+  return `${chips}
+    <div class="hero mt">
+      <div class="label">${sel.length === 1 ? escapeHtml(sel[0].name) : 'All cash accounts'} · today</div>
+      <div class="amount">${fmtMoney(proj.start)}</div>
+      ${split}
+    </div>
+    ${horizons}
+    <div class="stat-row">
+      <div class="stat"><div class="k">Lowest point</div>
+        <div class="v ${negative || belowBuffer ? 'neg' : ''}">${fmtMoney(proj.lowest.balance)}</div>
+        <div class="tiny muted">${proj.lowest.date === today ? 'today' : fmtDateShort(proj.lowest.date)}${belowBuffer ? ' · below buffer' : ''}</div></div>
+      <div class="stat"><div class="k">In ${S.cfHorizon} days</div>
+        <div class="v ${proj.totals.net >= 0 ? 'pos' : 'neg'}">${fmtMoney(proj.endBalance)}</div>
+        <div class="tiny muted">${fmtMoney(proj.totals.net, { sign: true })} net</div></div>
+    </div>
+    ${negative ? `<div class="alert danger mt"><i class="ti ti-alert-triangle"></i> Projected to go negative on ${escapeHtml(fmtDate(proj.lowest.date))}.</div>`
+      : belowBuffer ? `<div class="alert warn mt"><i class="ti ti-alert-triangle"></i> Dips below your ${fmtMoney(buffer)} buffer on ${escapeHtml(fmtDate(proj.lowest.date))}.</div>` : ''}
+    <div class="card mt">${charts.projectionChart(proj.points, { buffer, lowest: proj.lowest })}
+      <div class="tiny muted center">Projected from scheduled items only · dashed = future</div></div>
+    <div class="section-title spread"><span>Upcoming</span><a data-nav-link="recurring">Manage ›</a></div>
+    <div class="card">${ledger}</div>
+    <button class="btn mt2" data-add-recurring><i class="ti ti-calendar-plus"></i> Add scheduled item</button>`;
+}
+
+// --- Expenses (backward-looking) -------------------------------------------
+function expensesBody() {
   const flow = C.monthlyFlow(S.transactions, S.month);
   const byCat = C.spendByCategory(S.transactions, S.month).slice(0, 6);
-  const nwTrend = C.netWorthTrend(S.accounts, S.transactions, S.holdings, 6);
-  const upcoming = C.upcomingRecurring(S.recurring, 14);
   const budgets = C.budgetStatus(S.budgets, S.transactions, S.categories, S.month);
-  const recent = [...S.transactions].sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id)).slice(0, 6);
+  const recent = [...S.transactions]
+    .filter((t) => monthKey(t.date) === S.month && t.type !== 'transfer')
+    .sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id)).slice(0, 6);
 
   const segs = byCat.map((r) => ({ label: catName(r.categoryId), value: r.total, color: catColor(r.categoryId) }));
   const legend = byCat.map((r) => `<div class="li"><span class="dot" style="background:${catColor(r.categoryId)}"></span>
     ${escapeHtml(catName(r.categoryId))}<span class="lv">${fmtMoney(r.total)}</span></div>`).join('');
 
-  const greeting = `Welcome back, ${escapeHtml(getSetting('name') || 'Wayne')}`;
+  return `<div class="mt">${monthNav()}</div>
+    <div class="stat-row">
+      <div class="stat"><div class="k">↓ Income</div><div class="v pos">${fmtMoney(flow.income)}</div></div>
+      <div class="stat"><div class="k">↑ Expenses</div><div class="v neg">${fmtMoney(flow.expense)}</div></div>
+    </div>
+    <div class="tiny muted center mt">Net this month:
+      <b style="color:${flow.net >= 0 ? 'var(--green)' : 'var(--red)'}">${fmtMoney(flow.net, { sign: true })}</b></div>
 
+    ${segs.length ? `<div class="section-title">Spending by category</div>
+    <div class="card"><div class="donut-wrap">
+      ${charts.donut(segs, { centerLabel: fmtMoney(flow.expense, { compact: true }), centerSub: 'spent' })}
+      <div class="legend">${legend}</div>
+    </div></div>` : emptyState('📊', 'No spending this month', 'Tap + to log an expense')}
+
+    ${budgets.length ? `<div class="section-title spread"><span>Budgets</span><a data-nav-link="budgets">All ›</a></div>
+    <div class="card">${budgets.slice(0, 3).map(budgetRow).join('')}</div>` : ''}
+
+    <div class="section-title spread"><span>Recent</span><a data-nav-link="transactions">All ›</a></div>
+    <div class="card">${recent.length ? recent.map(txRow).join('') : emptyState('🦇', 'No transactions yet', 'Tap + to add your first one')}</div>`;
+}
+
+// ============================================================================
+// VIEW: Net worth (moved out of Home)
+// ============================================================================
+VIEWS.networth = function () {
+  const nw = C.netWorth(S.accounts, S.transactions, S.holdings);
+  const nwTrend = C.netWorthTrend(S.accounts, S.transactions, S.holdings, 6);
+  const flowTrend = C.flowTrend(S.transactions, 6);
   return `<div class="view">
-    ${header(greeting)}
+    ${subHeader('Net Worth')}
     <div class="hero">
       <div class="label">Net Worth</div>
       <div class="amount">${fmtMoney(nw.total)}</div>
@@ -155,30 +295,12 @@ VIEWS.dashboard = function () {
         <div>Investments<b>${fmtMoney(nw.invest)}</b></div>
       </div>
     </div>
-
-    <div class="stat-row">
-      <div class="stat"><div class="k">↓ Income</div><div class="v pos">${fmtMoney(flow.income)}</div></div>
-      <div class="stat"><div class="k">↑ Expenses</div><div class="v neg">${fmtMoney(flow.expense)}</div></div>
-    </div>
-    <div class="tiny muted center mt">Net this month: <b class="${flow.net >= 0 ? '' : ''}" style="color:${flow.net >= 0 ? 'var(--green)' : 'var(--red)'}">${fmtMoney(flow.net, { sign: true })}</b></div>
-
-    ${segs.length ? `<div class="section-title">Spending · ${escapeHtml(monthLabel(S.month))}</div>
-    <div class="card"><div class="donut-wrap">
-      ${charts.donut(segs, { centerLabel: fmtMoney(flow.expense, { compact: true }), centerSub: 'spent' })}
-      <div class="legend">${legend}</div>
-    </div></div>` : ''}
-
-    ${budgets.length ? `<div class="section-title spread"><span>Budgets</span><a data-nav-link="budgets">All ›</a></div>
-    <div class="card">${budgets.slice(0, 3).map(budgetRow).join('')}</div>` : ''}
-
-    ${upcoming.length ? `<div class="section-title spread"><span>Upcoming Bills</span><a data-nav-link="recurring">All ›</a></div>
-    <div class="card">${upcoming.slice(0, 4).map(recurringRow).join('')}</div>` : ''}
-
-    <div class="section-title">Net Worth Trend</div>
+    <div class="section-title">Trend</div>
     <div class="card">${charts.lineChart(nwTrend)}</div>
-
-    <div class="section-title spread"><span>Recent</span><a data-nav-link="transactions">All ›</a></div>
-    <div class="card">${recent.length ? recent.map(txRow).join('') : emptyState('🦇', 'No transactions yet', 'Tap + to add your first one')}</div>
+    <div class="section-title">Income vs expenses</div>
+    <div class="card">${charts.barsIncomeExpense(flowTrend)}</div>
+    <button class="btn mt2" data-nav-link="accounts"><i class="ti ti-building-bank"></i> Accounts</button>
+    <button class="btn mt" data-nav-link="investments"><i class="ti ti-chart-line"></i> Investments</button>
   </div>`;
 };
 
@@ -189,12 +311,18 @@ function budgetRow(b) {
     <div class="bar ${b.over ? 'over' : ''}"><span style="width:${Math.round(b.pct * 100)}%"></span></div>
   </div>`;
 }
+const FREQ_LABEL = { once: 'one-off', weekly: 'weekly', biweekly: 'every 2 weeks',
+  semimonthly: 'twice a month', monthly: 'monthly', quarterly: 'quarterly', yearly: 'yearly' };
 function recurringRow(r) {
   const c = cat(r.categoryId);
-  return `<div class="row tappable" data-edit-recurring="${r.id}">
-    <div class="ic" style="background:var(--surface-2)">${c?.icon || '🔁'}</div>
-    <div class="main"><div class="t">${escapeHtml(r.name)}</div><div class="s">${relativeDay(r.nextDate)} · ${escapeHtml(r.frequency)}</div></div>
-    <div class="amt ${r.type === 'income' ? 'pos' : 'neg'}">${r.type === 'income' ? '+' : '-'}${fmtMoney(r.amount)}</div>
+  const isTransfer = r.type === 'transfer';
+  const icon = isTransfer ? '🔄' : (c?.icon || '🔁');
+  const sub = `${relativeDay(r.nextDate)} · ${escapeHtml(FREQ_LABEL[r.frequency] || r.frequency)}${r.paused ? ' · paused' : ''}`;
+  const sign = r.type === 'income' ? '+' : '−';
+  return `<div class="row tappable ${r.paused ? 'dim' : ''}" data-edit-recurring="${r.id}">
+    <div class="ic" style="background:var(--surface-2)">${icon}</div>
+    <div class="main"><div class="t">${escapeHtml(r.name)}</div><div class="s">${sub}</div></div>
+    <div class="amt ${r.type === 'income' ? 'pos' : isTransfer ? 'muted' : 'neg'}">${isTransfer ? '' : sign}${fmtMoney(r.amount)}</div>
   </div>`;
 }
 
@@ -280,10 +408,11 @@ VIEWS.budgets = function () {
 VIEWS.more = function () {
   const nw = C.netWorth(S.accounts, S.transactions, S.holdings);
   const items = [
+    ['networth', '💎', 'Net Worth', fmtMoney(nw.total)],
     ['accounts', '🏦', 'Accounts', `${S.accounts.filter(a=>!a.archived).length} · ${fmtMoney(nw.liquid)}`],
     ['investments', '📈', 'Investments', fmtMoney(nw.invest)],
     ['goals', '🎯', 'Goals', `${S.goals.length}`],
-    ['recurring', '🔁', 'Recurring & Bills', `${S.recurring.length}`],
+    ['recurring', '🔁', 'Scheduled items', `${S.recurring.length}`],
     ['converter', '💱', 'Currency Converter', 'live'],
     ['categories', '🏷️', 'Categories', `${S.categories.filter(c=>!c.archived).length}`],
     ['import', '📥', 'Import CSV', ''],
@@ -314,13 +443,17 @@ VIEWS.accounts = function () {
     <div class="hero"><div class="label">Liquid balance</div><div class="amount">${fmtMoney(nw.liquid)}</div></div>
     <div class="card mt">${active.length ? active.map((a) => {
       const bal = C.accountBalance(a, S.transactions);
+      const k = kindOf(a);
+      const low = a.buffer > 0 && bal < a.buffer;
       return `<div class="row tappable" data-edit-account="${a.id}">
         <div class="ic" style="background:var(--surface-2)">${a.icon || '🏦'}</div>
-        <div class="main"><div class="t">${escapeHtml(a.name)}</div><div class="s">${escapeHtml(a.type)}</div></div>
-        ${money(bal)}
+        <div class="main"><div class="t">${escapeHtml(a.name)}</div>
+          <div class="s">${k}${a.buffer > 0 ? ` · buffer ${fmtMoney(a.buffer)}` : ''}</div></div>
+        <span class="amt ${low ? 'neg' : 'pos'}">${fmtMoney(bal)}</span>
       </div>`;
-    }).join('') : emptyState('🏦', 'No accounts', '')}</div>
-    <button class="btn mt2" data-add-account>+ Add account</button>
+    }).join('') : emptyState('🏦', 'No accounts', 'Add checking, savings or cash accounts')}</div>
+    <button class="btn primary mt2" data-add-account><i class="ti ti-plus"></i> Add account</button>
+    <div class="hint center mt">Set a low-balance buffer per account to get warned before you dip under it.</div>
   </div>`;
 };
 
@@ -365,12 +498,25 @@ VIEWS.goals = function () {
 // VIEW: Recurring
 // ============================================================================
 VIEWS.recurring = function () {
-  const sorted = [...S.recurring].sort((a, b) => a.nextDate.localeCompare(b.nextDate));
+  const sorted = [...S.recurring].sort((a, b) => (a.nextDate || '').localeCompare(b.nextDate || ''));
+  const repeating = sorted.filter((r) => r.frequency !== 'once');
+  const oneOffs = sorted.filter((r) => r.frequency === 'once');
+  const monthlyIn = repeating.filter((r) => r.type === 'income' && r.frequency === 'monthly').reduce((s, r) => s + r.amount, 0);
+  const monthlyOut = repeating.filter((r) => r.type === 'expense' && r.frequency === 'monthly').reduce((s, r) => s + r.amount, 0);
   return `<div class="view">
-    ${subHeader('Recurring & Bills')}
-    <div class="card">${sorted.length ? sorted.map(recurringRow).join('') : emptyState('🔁', 'No recurring items', 'Track subscriptions & bills')}</div>
-    <button class="btn mt2" data-add-recurring>+ Add recurring</button>
-    <div class="hint center mt">Due items can be posted as transactions from here.</div>
+    ${subHeader('Scheduled items')}
+    <div class="hint">These drive your cash-flow projection. Nothing is estimated — only what you add here appears in the future.</div>
+    ${repeating.length ? `<div class="stat-row">
+      <div class="stat"><div class="k">Monthly in</div><div class="v pos">${fmtMoney(monthlyIn)}</div></div>
+      <div class="stat"><div class="k">Monthly out</div><div class="v neg">${fmtMoney(monthlyOut)}</div></div>
+    </div>` : ''}
+    <div class="section-title">Repeating</div>
+    <div class="card">${repeating.length ? repeating.map(recurringRow).join('')
+      : emptyState('🔁', 'Nothing repeating', 'Add rent, salary, subscriptions…')}</div>
+    ${oneOffs.length ? `<div class="section-title">One-off</div>
+    <div class="card">${oneOffs.map(recurringRow).join('')}</div>` : ''}
+    <button class="btn primary mt2" data-add-recurring><i class="ti ti-plus"></i> Add scheduled item</button>
+    <div class="hint center mt">Tap an item to edit, post it early, or delete it.</div>
   </div>`;
 };
 
@@ -661,27 +807,41 @@ function txSheet(existing) {
 }
 
 function accountSheet(existing) {
-  const a = existing || { name: '', type: 'bank', balance: 0, icon: '🏦' };
-  const types = ['cash', 'bank', 'credit', 'wallet', 'savings', 'other'];
+  const a = existing || { name: '', kind: 'checking', balance: 0, icon: '🏦', buffer: 0 };
+  const curKind = existing ? kindOf(existing) : 'checking';
+  const KINDS = [['checking', 'Checking'], ['savings', 'Savings'], ['cash', 'Cash']];
+  const curBal = existing ? P.balanceAsOf(existing, S.transactions, todayISO()) : 0;
   const sheet = openSheet(`
     <div class="sheet-title-row"><h2>${existing ? 'Edit' : 'Add'} account</h2><button class="close" data-close>✕</button></div>
-    <div class="field"><label>Name</label><input class="input" id="a-name" value="${escapeHtml(a.name)}" placeholder="e.g. HDFC Savings"></div>
+    <div class="field"><label>Name</label><input class="input" id="a-name" value="${escapeHtml(a.name)}" placeholder="e.g. Chase Checking"></div>
+    <div class="field"><label>Type</label>
+      <div class="seg" id="a-kind">${KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === curKind ? 'active' : ''}">${l}</button>`).join('')}</div></div>
     <div class="grid2">
-      <div class="field"><label>Type</label><select class="input" id="a-type">${types.map((tp) => `<option ${tp === a.type ? 'selected' : ''}>${tp}</option>`).join('')}</select></div>
       <div class="field"><label>Icon</label><input class="input" id="a-icon" value="${a.icon || '🏦'}" maxlength="2"></div>
+      <div class="field"><label>Low-balance buffer</label><input class="input" id="a-buffer" inputmode="decimal" value="${a.buffer || 0}"></div>
     </div>
     <div class="field"><label>Opening balance</label><input class="input" id="a-balance" inputmode="decimal" value="${a.balance || 0}"></div>
-    <button class="btn primary" id="a-save">${existing ? 'Save' : 'Add'}</button>
+    ${existing ? `<div class="hint">Current balance is <b>${fmtMoney(curBal)}</b>. If that's wrong, reconcile it below — an adjustment entry is added so projections start from reality.</div>
+      <button class="btn mt" id="a-reconcile"><i class="ti ti-scale"></i> Set current balance…</button>` : ''}
+    <button class="btn primary mt" id="a-save">${existing ? 'Save' : 'Add'}</button>
     ${existing ? `<button class="btn danger mt" id="a-delete">Delete</button>` : ''}
   `);
+  let kind = curKind;
+  sheet.querySelectorAll('#a-kind button').forEach((b) => b.addEventListener('click', () => {
+    kind = b.dataset.k;
+    sheet.querySelectorAll('#a-kind button').forEach((x) => x.classList.toggle('active', x === b));
+  }));
+  const rec = sheet.querySelector('#a-reconcile');
+  if (rec) rec.addEventListener('click', () => reconcileSheet(existing, curBal));
   sheet.querySelector('#a-save').addEventListener('click', async () => {
     const name = sheet.querySelector('#a-name').value.trim();
     if (!name) return toast('Enter a name', true);
     await db.put('accounts', {
       id: existing?.id || uid('a_'), name,
-      type: sheet.querySelector('#a-type').value,
+      kind, type: kind,
       icon: sheet.querySelector('#a-icon').value.trim() || '🏦',
       balance: parseAmount(sheet.querySelector('#a-balance').value),
+      buffer: parseAmount(sheet.querySelector('#a-buffer').value),
       currency: getSetting('currency'), archived: existing?.archived || false,
     });
     closeSheet(); await refresh(); render(); toast('Saved');
@@ -692,6 +852,39 @@ function accountSheet(existing) {
     confirmDelete(hasTx ? 'account (its transactions stay)' : 'account', async () => {
       await db.del('accounts', existing.id); closeSheet(); await refresh(); render(); toast('Deleted');
     });
+  });
+}
+
+// Reconcile: tell the app what the account ACTUALLY holds right now, and it
+// writes a balancing adjustment so projections start from the true number.
+function reconcileSheet(account, currentBal) {
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Set current balance</h2><button class="close" data-close>✕</button></div>
+    <div class="hint">App thinks <b>${escapeHtml(account.name)}</b> holds <b>${fmtMoney(currentBal)}</b>. Enter the real balance from your bank.</div>
+    <div class="field mt"><label>Actual balance today</label>
+      <input class="input amount-input" id="rc-bal" inputmode="decimal" value="${currentBal}"></div>
+    <div id="rc-diff" class="tiny muted center"></div>
+    <button class="btn primary mt" id="rc-go">Reconcile</button>
+  `);
+  const input = sheet.querySelector('#rc-bal');
+  const diffEl = sheet.querySelector('#rc-diff');
+  const show = () => {
+    const d = parseAmount(input.value) - currentBal;
+    diffEl.innerHTML = Math.abs(d) < 0.005 ? 'Already matches — nothing to adjust.'
+      : `Adds a <b style="color:${d > 0 ? 'var(--green)' : 'var(--red)'}">${fmtMoney(d, { sign: true })}</b> adjustment.`;
+  };
+  input.addEventListener('input', show); show();
+  sheet.querySelector('#rc-go').addEventListener('click', async () => {
+    const diff = parseAmount(input.value) - currentBal;
+    if (Math.abs(diff) < 0.005) { closeSheet(); return toast('Already up to date'); }
+    const adjCat = S.categories.find((c) => c.type === (diff > 0 ? 'income' : 'expense') && /other|misc/i.test(c.name))
+      || S.categories.find((c) => c.type === (diff > 0 ? 'income' : 'expense'));
+    await db.put('transactions', {
+      id: uid('t_'), type: diff > 0 ? 'income' : 'expense', amount: Math.abs(diff),
+      accountId: account.id, categoryId: adjCat?.id, date: todayISO(),
+      note: 'Balance adjustment', adjustment: true, createdAt: Date.now(),
+    });
+    closeSheet(); await refresh(); render(); toast('Balance reconciled');
   });
 }
 
@@ -756,65 +949,99 @@ function goalSheet(existing) {
 }
 
 function recurringSheet(existing) {
-  const r = existing || { name: '', type: 'expense', amount: 0, accountId: S.accounts[0]?.id, categoryId: null, frequency: 'monthly', nextDate: todayISO(), paused: false };
-  const freqs = ['weekly', 'monthly', 'quarterly', 'yearly'];
-  const cats = S.categories.filter((c) => c.type === (existing?.type || 'expense') && !c.archived);
+  const r = existing || { name: '', type: 'expense', amount: 0, accountId: S.accounts[0]?.id, toAccountId: null, categoryId: null, frequency: 'monthly', nextDate: todayISO(), endDate: '', paused: false };
+  const FREQS = [['once', 'One-off (no repeat)'], ['weekly', 'Weekly'], ['biweekly', 'Every 2 weeks'],
+    ['semimonthly', 'Twice a month'], ['monthly', 'Monthly'], ['quarterly', 'Quarterly'], ['yearly', 'Yearly']];
+  const acctOpts = (sel) => S.accounts.filter((a) => !a.archived)
+    .map((a) => `<option value="${a.id}" ${a.id === sel ? 'selected' : ''}>${escapeHtml(a.name)}</option>`).join('');
   const sheet = openSheet(`
-    <div class="sheet-title-row"><h2>${existing ? 'Edit' : 'Add'} recurring</h2><button class="close" data-close>✕</button></div>
-    <div class="field"><label>Name</label><input class="input" id="r-name" value="${escapeHtml(r.name)}" placeholder="e.g. Netflix"></div>
+    <div class="sheet-title-row"><h2>${existing ? 'Edit' : 'Add'} scheduled item</h2><button class="close" data-close>✕</button></div>
+    <div class="field"><label>Name</label><input class="input" id="r-name" value="${escapeHtml(r.name)}" placeholder="e.g. Rent, Salary, Flight"></div>
     <div class="seg type-seg" id="r-type">
-      ${['expense', 'income'].map((v) => `<button data-v="${v}" class="${r.type === v ? 'active' : ''}">${v[0].toUpperCase()+v.slice(1)}</button>`).join('')}
+      ${['expense', 'income', 'transfer'].map((v) => `<button data-v="${v}" class="${r.type === v ? 'active' : ''}">${v[0].toUpperCase() + v.slice(1)}</button>`).join('')}
     </div>
     <div class="grid2 mt">
       <div class="field"><label>Amount</label><input class="input" id="r-amount" inputmode="decimal" value="${r.amount}"></div>
-      <div class="field"><label>Frequency</label><select class="input" id="r-freq">${freqs.map((f) => `<option ${f === r.frequency ? 'selected' : ''}>${f}</option>`).join('')}</select></div>
+      <div class="field"><label>Repeats</label><select class="input" id="r-freq">${FREQS.map(([f, l]) => `<option value="${f}" ${f === r.frequency ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
     </div>
-    <div class="field"><label>Category</label><select class="input" id="r-cat"></select></div>
-    <div class="field"><label>From account</label><select class="input" id="r-account">${S.accounts.filter(a=>!a.archived).map((a) => `<option value="${a.id}" ${a.id === r.accountId ? 'selected' : ''}>${escapeHtml(a.name)}</option>`).join('')}</select></div>
-    <div class="field"><label>Next due date</label><input class="input" type="date" id="r-date" value="${r.nextDate}"></div>
-    ${existing ? `<button class="btn primary" id="r-post">Post now as transaction</button>` : ''}
+    <div class="field" id="r-cat-wrap"><label>Category</label><select class="input" id="r-cat"></select></div>
+    <div class="field"><label id="r-acct-label">From account</label><select class="input" id="r-account">${acctOpts(r.accountId)}</select></div>
+    <div class="field" id="r-to-wrap" style="display:none"><label>To account</label><select class="input" id="r-toaccount">${acctOpts(r.toAccountId)}</select></div>
+    <div class="grid2">
+      <div class="field"><label id="r-date-label">Next due date</label><input class="input" type="date" id="r-date" value="${r.nextDate}"></div>
+      <div class="field" id="r-end-wrap"><label>Ends (optional)</label><input class="input" type="date" id="r-end" value="${r.endDate || ''}"></div>
+    </div>
+    ${existing ? `<button class="btn primary" id="r-post"><i class="ti ti-check"></i> Post now as transaction</button>` : ''}
     <button class="btn ${existing ? 'mt' : 'primary'}" id="r-save">${existing ? 'Save changes' : 'Add'}</button>
     ${existing ? `<button class="btn danger mt" id="r-delete">Delete</button>` : ''}
   `);
   let curType = r.type, curCat = r.categoryId;
+  const syncType = () => {
+    const isTransfer = curType === 'transfer';
+    const isOnce = sheet.querySelector('#r-freq').value === 'once';
+    sheet.querySelector('#r-cat-wrap').style.display = isTransfer ? 'none' : '';
+    sheet.querySelector('#r-to-wrap').style.display = isTransfer ? '' : 'none';
+    sheet.querySelector('#r-acct-label').textContent = isTransfer ? 'From account' : (curType === 'income' ? 'Into account' : 'From account');
+    sheet.querySelector('#r-end-wrap').style.display = isOnce ? 'none' : '';
+    sheet.querySelector('#r-date-label').textContent = isOnce ? 'Date' : 'Next due date';
+  };
+  sheet.querySelector('#r-freq').addEventListener('change', syncType);
   const fillCats = () => {
     const sel = sheet.querySelector('#r-cat');
     const list = S.categories.filter((c) => c.type === curType && !c.archived);
     if (!curCat || !list.find((c) => c.id === curCat)) curCat = list[0]?.id;
     sel.innerHTML = list.map((c) => `<option value="${c.id}" ${c.id === curCat ? 'selected' : ''}>${c.icon} ${escapeHtml(c.name)}</option>`).join('');
   };
-  fillCats();
+  fillCats(); syncType();
   sheet.querySelector('#r-cat').addEventListener('change', (e) => { curCat = e.target.value; });
   sheet.querySelectorAll('#r-type button').forEach((b) => b.addEventListener('click', () => {
-    curType = b.dataset.v; sheet.querySelectorAll('#r-type button').forEach((x) => x.classList.toggle('active', x === b)); fillCats();
+    curType = b.dataset.v; sheet.querySelectorAll('#r-type button').forEach((x) => x.classList.toggle('active', x === b));
+    fillCats(); syncType();
   }));
-  const collect = () => ({
-    id: existing?.id || uid('r_'), name: sheet.querySelector('#r-name').value.trim(), type: curType,
-    amount: parseAmount(sheet.querySelector('#r-amount').value), frequency: sheet.querySelector('#r-freq').value,
-    categoryId: sheet.querySelector('#r-cat').value, accountId: sheet.querySelector('#r-account').value,
-    nextDate: sheet.querySelector('#r-date').value || todayISO(), paused: existing?.paused || false,
-  });
+  const collect = () => {
+    const type = curType;
+    const rec = {
+      id: existing?.id || uid('r_'), name: sheet.querySelector('#r-name').value.trim(), type,
+      amount: parseAmount(sheet.querySelector('#r-amount').value), frequency: sheet.querySelector('#r-freq').value,
+      accountId: sheet.querySelector('#r-account').value,
+      nextDate: sheet.querySelector('#r-date').value || todayISO(),
+      endDate: sheet.querySelector('#r-end').value || '',
+      paused: existing?.paused || false,
+    };
+    if (type === 'transfer') rec.toAccountId = sheet.querySelector('#r-toaccount').value;
+    else rec.categoryId = sheet.querySelector('#r-cat').value;
+    return rec;
+  };
   sheet.querySelector('#r-save').addEventListener('click', async () => {
     const rec = collect();
     if (!rec.name) return toast('Enter a name', true);
+    if (!rec.amount) return toast('Enter an amount', true);
+    if (rec.type === 'transfer' && rec.toAccountId === rec.accountId) return toast('Pick two different accounts', true);
     await db.put('recurring', rec); closeSheet(); await refresh(); render(); toast('Saved');
   });
   const post = sheet.querySelector('#r-post');
   if (post) post.addEventListener('click', async () => {
     const rec = collect();
-    await db.put('transactions', {
+    const tx = {
       id: uid('t_'), type: rec.type, amount: rec.amount, accountId: rec.accountId,
-      categoryId: rec.categoryId, date: todayISO(), note: rec.name, createdAt: Date.now(),
-    });
-    // advance next date
-    const step = { weekly: () => addDays(rec.nextDate, 7), monthly: () => addMonths(rec.nextDate, 1),
-      quarterly: () => addMonths(rec.nextDate, 3), yearly: () => addMonths(rec.nextDate, 12) }[rec.frequency];
-    rec.nextDate = step();
+      date: todayISO(), note: rec.name, createdAt: Date.now(),
+      // Link back to the schedule so the projection never counts it twice.
+      recurringId: rec.id, scheduledFor: rec.nextDate,
+    };
+    if (rec.type === 'transfer') tx.toAccountId = rec.toAccountId; else tx.categoryId = rec.categoryId;
+    await db.put('transactions', tx);
+    if (rec.frequency === 'once') {
+      await db.del('recurring', rec.id);
+      closeSheet(); await refresh(); render(); return toast('Posted');
+    }
+    // Advance to the next occurrence using the same expansion rules as the projection.
+    const next = P.expandRule({ ...rec, endDate: '' }, P.plusDays(rec.nextDate, 1), P.plusDays(rec.nextDate, 400))[0];
+    rec.nextDate = next || P.plusDays(rec.nextDate, 30);
     await db.put('recurring', rec);
     closeSheet(); await refresh(); render(); toast('Posted & rescheduled');
   });
   const del = sheet.querySelector('#r-delete');
-  if (del) del.addEventListener('click', () => confirmDelete('recurring item', async () => {
+  if (del) del.addEventListener('click', () => confirmDelete('scheduled item', async () => {
     await db.del('recurring', existing.id); closeSheet(); await refresh(); render(); toast('Deleted');
   }));
 }
@@ -951,6 +1178,13 @@ document.addEventListener('click', async (e) => {
   const mn = e.target.closest('[data-month]');
   if (mn) { S.month = addMonths(S.month + '-01', parseInt(mn.dataset.month)).slice(0, 7); if (S.month > thisMonth()) S.month = thisMonth(); return render(); }
 
+  const hv = e.target.closest('[data-home-view]');
+  if (hv) { S.homeView = hv.dataset.homeView; setSetting('homeView', S.homeView); return render(); }
+  const ca = e.target.closest('[data-cf-account]');
+  if (ca) { S.cfAccount = ca.dataset.cfAccount; return render(); }
+  const ch = e.target.closest('[data-cf-horizon]');
+  if (ch) { S.cfHorizon = parseInt(ch.dataset.cfHorizon); setSetting('cfHorizon', S.cfHorizon); return render(); }
+
   const tf = e.target.closest('#tx-filter [data-f]');
   if (tf) { S.txFilter = tf.dataset.f; return render(); }
 
@@ -966,7 +1200,11 @@ document.addEventListener('click', async (e) => {
   ];
   for (const [attr, store, fn] of map) {
     const el = e.target.closest(`[${attr}]`);
-    if (el) { const rec = S[store].find((r) => r.id === el.getAttribute(attr)); return fn(rec); }
+    if (el) {
+      const rec = S[store].find((r) => r.id === el.getAttribute(attr));
+      if (!rec) return; // stale/missing id — never fall through to a blank "add" sheet
+      return fn(rec);
+    }
   }
 
   // Add handlers
@@ -1087,6 +1325,10 @@ export async function mountFinance() {
   } else {
     await seedIfEmpty();
     await refresh();
+    // Restore last-used view preferences
+    const hv = getSetting('homeView'); if (hv === 'cashflow' || hv === 'expenses') S.homeView = hv;
+    const hz = getSetting('cfHorizon'); if (hz) S.cfHorizon = hz;
+    S.route = 'dashboard';
     document.getElementById('chrome').style.display = '';
     render();
   }

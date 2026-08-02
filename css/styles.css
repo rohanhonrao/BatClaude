@@ -327,6 +327,25 @@ textarea.input { resize: vertical; min-height: 60px; }
   background: var(--gold); cursor: pointer; border: 2px solid var(--bg); }
 .range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--gold); border: 2px solid var(--bg); }
 
+/* --- Cash flow ---------------------------------------------------------- */
+.hero-split { display: flex; gap: 22px; margin-top: 14px; }
+.hero-split .label { display: block; font-size: 12px; color: var(--muted); }
+.hero-split b { font-size: 15px; font-weight: 600; }
+.cf-date { width: 46px; flex: none; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cf-run { width: 58px; flex: none; text-align: right; font-size: 12px; color: var(--muted);
+  font-variant-numeric: tabular-nums; }
+.cf-run.warn { color: var(--red); }
+.stat .tiny { margin-top: 2px; }
+.row.dim { opacity: .55; }
+.alert { display: flex; align-items: flex-start; gap: 9px; padding: 12px 14px; border-radius: 12px;
+  font-size: 13.5px; line-height: 1.45; }
+.alert i { margin-top: 1px; flex: none; }
+.alert.danger { background: rgba(255,90,95,.13); border: 1px solid rgba(255,90,95,.4); color: #ffb3b5; }
+.alert.warn { background: rgba(245,197,66,.11); border: 1px solid rgba(245,197,66,.36); color: #f3d489; }
+#home-toggle { margin-bottom: 4px; }
+#home-toggle button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+#home-toggle button.active { color: var(--gold); }
+
 /* --- Brand wordmark ----------------------------------------------------- */
 .brand { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.18em;
   font-weight: 600; }
