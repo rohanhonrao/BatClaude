@@ -100,8 +100,10 @@ function render() {
 
     <div class="field mt"><input class="input" id="c-search" placeholder="Search artist or venue…" value="${escapeHtml(search)}"></div>
 
-    ${data ? `<div class="tiny muted" style="margin:-4px 4px 8px">
-      ${list.length} show${list.length === 1 ? '' : 's'} · next 4 weeks · updated ${freshness(data.generatedAt)}</div>` : ''}
+    ${data ? `<div class="tiny muted spread" style="margin:-4px 4px 8px">
+      <span>${list.length} show${list.length === 1 ? '' : 's'} · compiled ${freshness(data.generatedAt)}</span>
+      <a href="https://github.com/rohanhonrao/BatClaude/actions/workflows/refresh-concerts.yml"
+         target="_blank" rel="noopener">Rebuild ›</a></div>` : ''}
 
     ${dates.length ? dates.map((d) => `
       <div class="section-title">${escapeHtml(dayHeading(d))}</div>
@@ -127,7 +129,8 @@ function eventRow(e) {
     <div class="ic"><i class="ti ti-${tracked ? 'heart-filled' : 'music'}"></i></div>
     <div class="main">
       <div class="t">${escapeHtml(e.artist)}${tracked ? ' <span class="pill up">Yours</span>' : ''}</div>
-      <div class="s">${escapeHtml(e.venue)}${e.time ? ' · ' + escapeHtml(fmtTime(e.time)) : ''}</div>
+      <div class="s">${escapeHtml(e.venue)}${e.time ? ' · ' + escapeHtml(fmtTime(e.time)) : ''}${
+        e.genre ? ' · ' + escapeHtml(e.genre) : ''}</div>
     </div>
     <div class="cf-run">${escapeHtml(e.price || '')}</div>
   </div>`;
@@ -177,7 +180,10 @@ function eventSheet(e) {
   const tracked = matchesTracked(e);
   const sheet = openSheet(`
     <div class="sheet-title-row"><h2>${escapeHtml(e.artist)}</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
-    ${e.support?.length ? `<div class="tiny muted" style="margin:-8px 0 12px">with ${escapeHtml(e.support.join(', '))}</div>` : ''}
+    ${e.support?.length ? `<div class="tiny muted" style="margin:-8px 0 10px">with ${escapeHtml(e.support.join(', '))}</div>` : ''}
+    ${(e.genres || (e.genre ? [e.genre] : [])).length ? `<div class="chips" style="margin-bottom:12px">
+      ${(e.genres || [e.genre]).map((g) => `<span class="chip">${escapeHtml(g)}</span>`).join('')}</div>` : ''}
+    ${e.blurb ? `<p class="blurb">${escapeHtml(e.blurb)}</p>` : ''}
     <div class="card">
       <div class="row" style="border:none"><div class="ic"><i class="ti ti-calendar"></i></div>
         <div class="main"><div class="t">${escapeHtml(fmtDateShort(e.date))}${e.time ? ' · ' + escapeHtml(fmtTime(e.time)) : ''}</div>
@@ -189,6 +195,7 @@ function eventSheet(e) {
         <div class="main"><div class="t">${escapeHtml(e.price)}</div><div class="s">${escapeHtml(e.source || '')}</div></div></div>` : ''}
     </div>
     ${e.url ? `<a class="btn primary mt" href="${escapeHtml(e.url)}" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> Tickets &amp; details</a>` : ''}
+    ${e.wiki ? `<a class="btn mt" href="${escapeHtml(e.wiki)}" target="_blank" rel="noopener"><i class="ti ti-book"></i> Read about ${escapeHtml(e.artist)}</a>` : ''}
     <button class="btn mt" id="ev-track">
       <i class="ti ti-heart"></i> ${tracked ? 'Following this artist' : 'Follow ' + escapeHtml(e.artist)}</button>
     <div class="hint center mt2">Listings are compiled automatically — always confirm on the venue’s page.</div>

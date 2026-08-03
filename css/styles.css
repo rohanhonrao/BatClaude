@@ -719,3 +719,7 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
   border-radius: var(--radius); padding: 13px 14px; margin-bottom: 16px; }
 .update-card b { font-weight: 600; font-size: 14px; }
 .update-card i.ti { color: var(--accent); }
+
+/* --- Concert blurb ------------------------------------------------------- */
+.blurb { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0 0 14px;
+  padding-left: 11px; border-left: 2px solid var(--line); }

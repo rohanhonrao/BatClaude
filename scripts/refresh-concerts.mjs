@@ -4,6 +4,7 @@
 // no CORS problem and no API key. We read schema.org JSON-LD that the listing
 // pages already publish rather than scraping markup, which is far less brittle.
 import { writeFile, readFile } from 'node:fs/promises';
+import { enrich } from './enrich-artists.mjs';
 
 const CITIES = {
   la: { name: 'Los Angeles', metro: '17835-us-los-angeles-la' },
@@ -72,8 +73,15 @@ function toEvent(node) {
   const t = String(node.startDate).match(/T(\d{2}:\d{2})/);
   if (t) ev.time = t[1];
 
-  const genre = [].concat(performers[0]?.genre || [])[0];
-  if (genre) ev.genre = String(genre).replace(/_/g, ' ');
+  // Take genres from every performer on the bill, not just the headliner —
+  // support acts often carry tags the headliner's entry is missing.
+  const genres = [...new Set(performers.flatMap((p) => [].concat(p.genre || [])))]
+    .map((g) => String(g).replace(/_/g, ' ').replace(/\band\b/g, '&').trim())
+    .filter(Boolean);
+  if (genres.length) {
+    ev.genre = genres[0];
+    if (genres.length > 1) ev.genres = genres.slice(0, 3);
+  }
 
   return ev;
 }
@@ -133,6 +141,9 @@ if (events.length < 20) {
   process.exit(1);
 }
 
+console.log('Enriching artists (Wikipedia + MusicBrainz, cached)…');
+await enrich(events);
+
 const outPath = `data/concerts-${cityId}.json`;
 let previous = null;
 try { previous = JSON.parse(await readFile(outPath, 'utf8')); } catch {}
@@ -147,8 +158,9 @@ const payload = {
   events,
 };
 
-// Ignore the timestamp when deciding whether anything actually changed.
-const sig = (o) => JSON.stringify((o?.events || []).map((e) => [e.date, e.artist, e.venue]));
+// Ignore the timestamp when deciding whether anything actually changed, but do
+// compare the full event objects so newly-added genres/links count as a change.
+const sig = (o) => JSON.stringify(o?.events || []);
 if (previous && sig(previous) === sig(payload)) {
   console.log('No listing changes — leaving the file alone.');
   process.exit(0);

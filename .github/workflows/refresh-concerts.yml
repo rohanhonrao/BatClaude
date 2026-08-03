@@ -1,11 +1,10 @@
 name: Refresh concert listings
 
-# 13:43 UTC = 6:43am Los Angeles (PDT). Runs on GitHub's servers, so there is
-# no CORS restriction, no API key, and nothing to install on any device.
+# On demand only — no cron. Rebuild from the Actions tab (or the "Rebuild
+# listings" link in the app), which runs on GitHub's servers, so there is no
+# CORS restriction, no API key, and nothing to install on any device.
 on:
-  schedule:
-    - cron: '43 13 * * *'
-  workflow_dispatch:      # lets you run it on demand from the Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: write
