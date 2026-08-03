@@ -15,10 +15,17 @@ const WINDOW_DAYS = 28;
 const MAX_PAGES = 14;
 const UA = 'Mozilla/5.0 (compatible; SanctumConcerts/1.0; personal use)';
 
-const iso = (d) => d.toISOString().slice(0, 10);
+// Window is computed in the CITY's timezone, not the runner's UTC clock —
+// otherwise an evening run drops tonight's shows as "yesterday".
+const TZ = 'America/Los_Angeles';
+const localISO = (d) => d.toLocaleDateString('en-CA', { timeZone: TZ });
 const today = new Date();
-const startISO = iso(today);
-const endISO = iso(new Date(today.getTime() + WINDOW_DAYS * 86400000));
+const startISO = localISO(today);
+const endISO = localISO(new Date(today.getTime() + WINDOW_DAYS * 86400000));
+
+// Comedy shows are listed alongside music but aren't concerts.
+const COMEDY_VENUE = /improv|comedy store|laugh factory|comedy club|the stand up/i;
+const isComedy = (ev) => ev.genre === 'comedy' || COMEDY_VENUE.test(ev.venue);
 
 const slug = (s) => String(s).toLowerCase().normalize('NFKD')
   .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '').slice(0, 22);
@@ -88,7 +95,7 @@ async function collect(cityId) {
     try { html = await fetchPage(city.metro, page); }
     catch (e) { console.error(`page ${page}: ${e.message}`); break; }
 
-    const events = extractLdJson(html).map(toEvent).filter(Boolean);
+    const events = extractLdJson(html).map(toEvent).filter(Boolean).filter((e) => !isComedy(e));
     let added = 0;
     for (const ev of events) {
       const key = `${ev.date}|${slug(ev.artist)}|${slug(ev.venue)}`;
