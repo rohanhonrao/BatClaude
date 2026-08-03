@@ -86,22 +86,45 @@ function toEvent(node) {
   return ev;
 }
 
+const HEADERS = {
+  'User-Agent': UA,
+  // Without a browser-shaped Accept header Songkick answers 406 Not Acceptable.
+  Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+};
+
 async function fetchPage(metro, page) {
   const url = `https://www.songkick.com/metro-areas/${metro}${page > 1 ? `?page=${page}` : ''}`;
-  const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'en-US,en' } });
-  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
-  return res.text();
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(url, { headers: HEADERS });
+      if (res.ok) return res.text();
+      lastErr = new Error(`HTTP ${res.status}`);
+      // 406/429/5xx are throttling — back off and try again rather than giving up.
+      if (![406, 429, 500, 502, 503].includes(res.status)) break;
+    } catch (e) { lastErr = e; }
+    const wait = 4000 * attempt;
+    console.log(`  page ${page} attempt ${attempt} failed (${lastErr.message}); retrying in ${wait / 1000}s`);
+    await new Promise((r) => setTimeout(r, wait));
+  }
+  throw lastErr || new Error('unknown fetch failure');
 }
 
 async function collect(cityId) {
   const city = CITIES[cityId];
   const seen = new Map();
+  let partial = false;
   let emptyStreak = 0;
 
   for (let page = 1; page <= MAX_PAGES; page++) {
     let html;
     try { html = await fetchPage(city.metro, page); }
-    catch (e) { console.error(`page ${page}: ${e.message}`); break; }
+    catch (e) {
+      console.error(`page ${page}: ${e.message} — giving up on further pages`);
+      partial = true;
+      break;
+    }
 
     const events = extractLdJson(html).map(toEvent).filter(Boolean).filter((e) => !isComedy(e));
     let added = 0;
@@ -115,7 +138,7 @@ async function collect(cityId) {
     // we're past the window.
     emptyStreak = added === 0 ? emptyStreak + 1 : 0;
     if (emptyStreak >= 2) break;
-    await new Promise((r) => setTimeout(r, 1200)); // be a polite client
+    await new Promise((r) => setTimeout(r, 2500)); // be a polite client
   }
 
   const events = [...seen.values()].sort((a, b) =>
@@ -130,23 +153,35 @@ async function collect(cityId) {
     used.add(id);
     ev.id = id;
   }
-  return { city, events };
+  return { city, events, partial };
 }
 
 const cityId = process.argv[2] || 'la';
-const { city, events } = await collect(cityId);
+const { city, events, partial } = await collect(cityId);
+
+const outPath = `data/concerts-${cityId}.json`;
+let previous = null;
+try { previous = JSON.parse(await readFile(outPath, 'utf8')); } catch {}
 
 if (events.length < 20) {
   console.error(`Only ${events.length} events found — refusing to overwrite with a likely-broken scrape.`);
   process.exit(1);
 }
 
+// A throttled crawl once cut 258 events down to 89 and happily saved it.
+// Never let a partial result replace a healthy file.
+const prevCount = previous?.events?.length || 0;
+if (prevCount && events.length < prevCount * 0.6) {
+  console.error(
+    `Found only ${events.length} events but the existing file has ${prevCount}` +
+    `${partial ? ' (the crawl was cut short by the source)' : ''}. ` +
+    `Refusing to overwrite — re-run later.`);
+  process.exit(1);
+}
+if (partial) console.warn('Note: the crawl ended early, so later dates may be thin.');
+
 console.log('Enriching artists (Wikipedia + MusicBrainz, cached)…');
 await enrich(events);
-
-const outPath = `data/concerts-${cityId}.json`;
-let previous = null;
-try { previous = JSON.parse(await readFile(outPath, 'utf8')); } catch {}
 
 const payload = {
   city: city.name,
