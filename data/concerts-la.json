@@ -1,0 +1,118 @@
+{
+  "city": "Los Angeles",
+  "cityId": "la",
+  "generatedAt": "2026-08-02T14:00:00Z",
+  "windowDays": 28,
+  "sources": [
+    "westsidelosangeles.com/concerts-august.php",
+    "songkick.com/metro-areas/17835-us-los-angeles-la",
+    "timeout.com/los-angeles"
+  ],
+  "note": "Compiled automatically from public listings. Always confirm on the venue page before buying.",
+  "events": [
+    { "id": "la-0802-tortoise", "artist": "Tortoise", "support": ["Tara Jane O'Neil"], "venue": "Zebulon", "neighborhood": "Frogtown", "date": "2026-08-02", "genre": "post-rock", "source": "Songkick", "url": "https://www.songkick.com/search?query=Tortoise" },
+    { "id": "la-0802-kimgordon", "artist": "Kim Gordon", "support": ["Sleepie Louie", "Sarah Register"], "venue": "Pacific Electric", "neighborhood": "Downtown", "date": "2026-08-02", "genre": "experimental", "source": "Songkick", "url": "https://www.songkick.com/search?query=Kim+Gordon" },
+    { "id": "la-0802-deathcab", "artist": "Death Cab for Cutie", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-02", "genre": "indie rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Death+Cab+for+Cutie" },
+    { "id": "la-0802-stvincent", "artist": "St. Vincent", "support": ["Hollywood Bowl Orchestra"], "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-02", "genre": "art rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=St.+Vincent" },
+    { "id": "la-0802-nelly", "artist": "Nelly", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-02", "genre": "hip-hop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Nelly" },
+    { "id": "la-0802-frontera", "artist": "Grupo Frontera", "venue": "Toyota Arena", "neighborhood": "Ontario", "date": "2026-08-02", "genre": "regional mexican", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Grupo+Frontera" },
+
+    { "id": "la-0803-deathcab", "artist": "Death Cab for Cutie", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-03", "genre": "indie rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Death+Cab+for+Cutie" },
+    { "id": "la-0803-clipping", "artist": "clipping.", "support": ["Open Mike Eagle", "Pedestrian Deposit"], "venue": "Constellation Room", "neighborhood": "Santa Ana", "date": "2026-08-03", "genre": "experimental hip-hop", "source": "Songkick", "url": "https://www.songkick.com/search?query=clipping." },
+
+    { "id": "la-0804-mclachlan", "artist": "Sarah McLachlan", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-04", "genre": "singer-songwriter", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Sarah+McLachlan" },
+    { "id": "la-0804-justineskye", "artist": "Justine Skye", "venue": "Moroccan Lounge", "neighborhood": "Downtown", "date": "2026-08-04", "genre": "r&b", "source": "Songkick", "url": "https://www.songkick.com/search?query=Justine+Skye" },
+    { "id": "la-0804-jennyo", "artist": "Jenny O.", "support": ["Dolly Creamer"], "venue": "Zebulon", "neighborhood": "Frogtown", "date": "2026-08-04", "genre": "indie", "source": "Songkick", "url": "https://www.songkick.com/search?query=Jenny+O." },
+
+    { "id": "la-0805-mclachlan", "artist": "Sarah McLachlan", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-05", "genre": "singer-songwriter", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Sarah+McLachlan" },
+    { "id": "la-0805-zztop", "artist": "ZZ Top", "support": ["Cheap Trick"], "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-05", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=ZZ+Top" },
+    { "id": "la-0805-fogerty", "artist": "John Fogerty", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-05", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=John+Fogerty" },
+    { "id": "la-0805-sierraferrell", "artist": "Sierra Ferrell", "support": ["The Brudi Brothers"], "venue": "The Wiltern", "neighborhood": "Koreatown", "date": "2026-08-05", "genre": "americana", "source": "Songkick", "url": "https://www.songkick.com/search?query=Sierra+Ferrell" },
+    { "id": "la-0805-diespitz", "artist": "Die Spitz", "venue": "The Fonda", "neighborhood": "Hollywood", "date": "2026-08-05", "genre": "punk", "source": "Songkick", "url": "https://www.songkick.com/search?query=Die+Spitz" },
+    { "id": "la-0805-meridian", "artist": "The Meridian Brothers", "support": ["Mexican Institute of Sound"], "venue": "Regent Theater", "neighborhood": "Downtown", "date": "2026-08-05", "genre": "latin alternative", "source": "Songkick", "url": "https://www.songkick.com/search?query=Meridian+Brothers" },
+    { "id": "la-0805-fabiano", "artist": "Fabiano Do Nascimento", "support": ["John Carroll Kirby"], "venue": "Zebulon", "neighborhood": "Frogtown", "date": "2026-08-05", "genre": "jazz", "source": "Songkick", "url": "https://www.songkick.com/search?query=Fabiano+Do+Nascimento" },
+
+    { "id": "la-0806-rufus", "artist": "RÜFÜS DU SOL", "venue": "Kia Forum", "neighborhood": "Inglewood", "date": "2026-08-06", "genre": "electronic", "source": "Westside LA", "url": "https://www.songkick.com/search?query=RUFUS+DU+SOL" },
+    { "id": "la-0806-pattilabelle", "artist": "Patti LaBelle", "support": ["The O'Jays"], "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-06", "genre": "soul", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Patti+LaBelle" },
+    { "id": "la-0806-shinedown", "artist": "Shinedown", "venue": "Toyota Arena", "neighborhood": "Ontario", "date": "2026-08-06", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Shinedown" },
+    { "id": "la-0806-wunderhorse", "artist": "Wunderhorse", "venue": "The Fonda", "neighborhood": "Hollywood", "date": "2026-08-06", "genre": "indie rock", "source": "Songkick", "url": "https://www.songkick.com/search?query=Wunderhorse" },
+    { "id": "la-0806-yardact", "artist": "Yard Act", "venue": "Teragram Ballroom", "neighborhood": "Westlake", "date": "2026-08-06", "genre": "post-punk", "source": "Songkick", "url": "https://www.songkick.com/search?query=Yard+Act" },
+
+    { "id": "la-0807-moroney", "artist": "Megan Moroney", "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-07", "genre": "country", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Megan+Moroney" },
+    { "id": "la-0807-countingcrows", "artist": "Counting Crows", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-07", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Counting+Crows" },
+    { "id": "la-0807-rebelution", "artist": "Rebelution", "support": ["Skip Marley", "Niko Rubio"], "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-07", "genre": "reggae", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Rebelution" },
+
+    { "id": "la-0808-edsheeran", "artist": "Ed Sheeran", "venue": "SoFi Stadium", "neighborhood": "Inglewood", "date": "2026-08-08", "genre": "pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Ed+Sheeran" },
+    { "id": "la-0808-oar", "artist": "O.A.R.", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-08", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=O.A.R." },
+    { "id": "la-0808-countingcrows", "artist": "Counting Crows", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-08", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Counting+Crows" },
+    { "id": "la-0808-moroney", "artist": "Megan Moroney", "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-08", "genre": "country", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Megan+Moroney" },
+    { "id": "la-0808-headclouds", "artist": "Head in the Clouds Festival", "venue": "Brookside at the Rose Bowl", "neighborhood": "Pasadena", "date": "2026-08-08", "genre": "festival", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Head+in+the+Clouds" },
+    { "id": "la-0808-littleriver", "artist": "Little River Band", "venue": "Cerritos Center for the Performing Arts", "neighborhood": "Cerritos", "date": "2026-08-08", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Little+River+Band" },
+
+    { "id": "la-0809-lionelrichie", "artist": "Lionel Richie", "support": ["Earth, Wind & Fire"], "venue": "Intuit Dome", "neighborhood": "Inglewood", "date": "2026-08-09", "genre": "soul", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Lionel+Richie" },
+    { "id": "la-0809-rebelution", "artist": "Rebelution", "support": ["Skip Marley"], "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-09", "genre": "reggae", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Rebelution" },
+
+    { "id": "la-0810-mellencamp", "artist": "John Mellencamp", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-10", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=John+Mellencamp" },
+    { "id": "la-0810-bensonboone", "artist": "Benson Boone", "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-10", "genre": "pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Benson+Boone" },
+
+    { "id": "la-0811-bensonboone", "artist": "Benson Boone", "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-11", "genre": "pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Benson+Boone" },
+    { "id": "la-0811-thorogood", "artist": "George Thorogood & The Destroyers", "venue": "Cerritos Center for the Performing Arts", "neighborhood": "Cerritos", "date": "2026-08-11", "genre": "blues rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=George+Thorogood" },
+
+    { "id": "la-0812-ajr", "artist": "AJR", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-12", "genre": "pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=AJR" },
+
+    { "id": "la-0813-santana", "artist": "Santana", "support": ["The Doobie Brothers"], "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-13", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Santana" },
+    { "id": "la-0813-rufus", "artist": "RÜFÜS DU SOL", "venue": "Kia Forum", "neighborhood": "Inglewood", "date": "2026-08-13", "genre": "electronic", "source": "Westside LA", "url": "https://www.songkick.com/search?query=RUFUS+DU+SOL" },
+    { "id": "la-0813-dwightyoakam", "artist": "Dwight Yoakam", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-13", "genre": "country", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Dwight+Yoakam" },
+
+    { "id": "la-0814-karolg", "artist": "Karol G", "venue": "SoFi Stadium", "neighborhood": "Inglewood", "date": "2026-08-14", "genre": "reggaeton", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Karol+G" },
+    { "id": "la-0814-algreen", "artist": "Al Green", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-14", "genre": "soul", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Al+Green" },
+    { "id": "la-0814-goose", "artist": "Goose", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-14", "genre": "jam", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Goose" },
+    { "id": "la-0814-melaniemartinez", "artist": "Melanie Martinez", "venue": "Kia Forum", "neighborhood": "Inglewood", "date": "2026-08-14", "genre": "alt-pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Melanie+Martinez" },
+    { "id": "la-0814-kcon1", "artist": "KCON LA: NCT 127", "support": ["KickFlip", "Santos Bravos"], "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-14", "genre": "k-pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=KCON+LA" },
+    { "id": "la-0814-headheart", "artist": "The Head and the Heart", "support": ["Wilderado"], "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-14", "genre": "indie folk", "source": "Westside LA", "url": "https://www.songkick.com/search?query=The+Head+and+the+Heart" },
+
+    { "id": "la-0815-yeat", "artist": "Yeat", "venue": "Intuit Dome", "neighborhood": "Inglewood", "date": "2026-08-15", "genre": "hip-hop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Yeat" },
+    { "id": "la-0815-kcon2", "artist": "KCON LA: ZEROBASEONE", "support": ["ILLIT", "izna"], "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-15", "genre": "k-pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=KCON+LA" },
+    { "id": "la-0815-colbie", "artist": "Colbie Caillat", "support": ["Mitchell Tenpenny"], "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-15", "genre": "pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Colbie+Caillat" },
+    { "id": "la-0815-gavinadcock", "artist": "Gavin Adcock", "venue": "Toyota Arena", "neighborhood": "Ontario", "date": "2026-08-15", "genre": "country", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Gavin+Adcock" },
+
+    { "id": "la-0816-yoasobi", "artist": "YOASOBI", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-16", "genre": "j-pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=YOASOBI" },
+    { "id": "la-0816-kcon3", "artist": "KCON LA: TOMORROW X TOGETHER", "support": ["Alpha Drive One"], "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-16", "genre": "k-pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=KCON+LA" },
+
+    { "id": "la-0817-blackcrowes", "artist": "The Black Crowes", "support": ["Tedeschi Trucks Band", "Whiskey Myers"], "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-17", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=The+Black+Crowes" },
+
+    { "id": "la-0818-needtobreathe", "artist": "NEEDTOBREATHE", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-18", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=NEEDTOBREATHE" },
+
+    { "id": "la-0819-guesswho", "artist": "The Guess Who", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-19", "genre": "classic rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=The+Guess+Who" },
+
+    { "id": "la-0820-mtjoy", "artist": "Mt. Joy", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-20", "genre": "indie folk", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Mt.+Joy" },
+    { "id": "la-0820-montaner", "artist": "Ricardo Montaner", "venue": "Toyota Arena", "neighborhood": "Ontario", "date": "2026-08-20", "genre": "latin pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Ricardo+Montaner" },
+
+    { "id": "la-0821-mtjoy", "artist": "Mt. Joy", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-21", "genre": "indie folk", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Mt.+Joy" },
+    { "id": "la-0821-neyo", "artist": "Ne-Yo", "support": ["Akon"], "venue": "Intuit Dome", "neighborhood": "Inglewood", "date": "2026-08-21", "genre": "r&b", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Ne-Yo" },
+    { "id": "la-0821-miracles", "artist": "The Miracles", "support": ["The Spinners"], "venue": "Cerritos Center for the Performing Arts", "neighborhood": "Cerritos", "date": "2026-08-21", "genre": "soul", "source": "Westside LA", "url": "https://www.songkick.com/search?query=The+Spinners" },
+
+    { "id": "la-0822-strokes", "artist": "The Strokes", "venue": "Brookside at the Rose Bowl", "neighborhood": "Pasadena", "date": "2026-08-22", "genre": "indie rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=The+Strokes" },
+    { "id": "la-0822-foofighters", "artist": "Foo Fighters", "support": ["LA Phil", "YOLA"], "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-22", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Foo+Fighters" },
+    { "id": "la-0822-bonham", "artist": "Jason Bonham's Led Zeppelin Evening", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-22", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Jason+Bonham" },
+
+    { "id": "la-0823-tuckerwetmore", "artist": "Tucker Wetmore", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-23", "genre": "country", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Tucker+Wetmore" },
+    { "id": "la-0823-danielcaesar", "artist": "Daniel Caesar", "venue": "Honda Center", "neighborhood": "Anaheim", "date": "2026-08-23", "genre": "r&b", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Daniel+Caesar" },
+
+    { "id": "la-0824-danielcaesar", "artist": "Daniel Caesar", "venue": "Honda Center", "neighborhood": "Anaheim", "date": "2026-08-24", "genre": "r&b", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Daniel+Caesar" },
+    { "id": "la-0824-train", "artist": "Train", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-24", "genre": "pop rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Train" },
+
+    { "id": "la-0825-toriamos", "artist": "Tori Amos", "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-25", "genre": "singer-songwriter", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Tori+Amos" },
+    { "id": "la-0825-mamamoo", "artist": "MAMAMOO", "venue": "Crypto.com Arena", "neighborhood": "Downtown", "date": "2026-08-25", "genre": "k-pop", "source": "Westside LA", "url": "https://www.songkick.com/search?query=MAMAMOO" },
+
+    { "id": "la-0828-davidbyrne", "artist": "David Byrne", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-28", "genre": "art rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=David+Byrne" },
+    { "id": "la-0828-dianaross", "artist": "Diana Ross", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-28", "genre": "soul", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Diana+Ross" },
+
+    { "id": "la-0829-davidbyrne", "artist": "David Byrne", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-29", "genre": "art rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=David+Byrne" },
+    { "id": "la-0829-alisonkrauss", "artist": "Alison Krauss", "venue": "Pacific Amphitheatre", "neighborhood": "Costa Mesa", "date": "2026-08-29", "genre": "bluegrass", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Alison+Krauss" },
+
+    { "id": "la-0830-lost80s", "artist": "Lost 80's Live", "support": ["Men Without Hats", "Oingo Boingo Former Members", "Big Country"], "venue": "Greek Theatre", "neighborhood": "Los Feliz", "date": "2026-08-30", "genre": "new wave", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Lost+80s+Live" },
+
+    { "id": "la-0831-muse", "artist": "Muse", "venue": "Hollywood Bowl", "neighborhood": "Hollywood", "date": "2026-08-31", "genre": "rock", "source": "Westside LA", "url": "https://www.songkick.com/search?query=Muse" }
+  ]
+}
