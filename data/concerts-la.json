@@ -1,7 +1,7 @@
 {
   "city": "Los Angeles",
   "cityId": "la",
-  "generatedAt": "2026-08-03T04:40:15.033Z",
+  "generatedAt": "2026-08-03T04:53:04.230Z",
   "windowDays": 28,
   "sources": [
     "songkick.com (schema.org JSON-LD)"
@@ -147,7 +147,8 @@
         "indie alternative",
         "hip hop"
       ],
-      "blurb": "US group"
+      "wiki": "https://en.wikipedia.org/wiki/Jeff_Parker_(musician)",
+      "blurb": "Jeff Parker is an American guitarist and composer based in Los Angeles."
     },
     {
       "id": "la-0802-treysongz",
@@ -268,8 +269,8 @@
       "url": "https://www.songkick.com/concerts/43293596-slayr-at-observatory",
       "neighborhood": "Santa Ana",
       "time": "19:00",
-      "wiki": "https://en.wikipedia.org/wiki/Slayr",
-      "blurb": "Evan McDonald, known professionally as Slayr, is an American rapper, singer, and record producer from Philadelphia."
+      "blurb": "Artist",
+      "genre": "electronic"
     },
     {
       "id": "la-0804-gottsstreetpark",
@@ -309,7 +310,8 @@
       "genres": [
         "pop",
         "r & b"
-      ]
+      ],
+      "blurb": "US | pop"
     },
     {
       "id": "la-0804-losangelesphilharmonic",
@@ -484,8 +486,7 @@
         "folk blues",
         "rock"
       ],
-      "wiki": "https://en.wikipedia.org/wiki/John_Fogerty",
-      "blurb": "John Cameron Fogerty is an American musician, singer, and songwriter."
+      "blurb": "US artist"
     },
     {
       "id": "la-0805-riodayungog",
@@ -510,8 +511,8 @@
       ],
       "neighborhood": "Los Angeles",
       "time": "19:00",
-      "wiki": "https://en.wikipedia.org/wiki/Sierra_Ferrell",
-      "blurb": "Sierra Elizabeth Ferrell is an American singer-songwriter and musician from West Virginia, whose music incorporates elements of folk, bluegrass, and gypsy jazz, and styles such as tango and calypso music."
+      "blurb": "US artist",
+      "genre": "americana"
     },
     {
       "id": "la-0805-themeridianbrothers",
@@ -529,9 +530,7 @@
       "genres": [
         "electronic",
         "indie alternative"
-      ],
-      "wiki": "https://en.wikipedia.org/wiki/Jimmie_Rodgers",
-      "blurb": "James Charles Rodgers was an American singer, songwriter, and musician who rose to popularity in the late 1920s."
+      ]
     },
     {
       "id": "la-0805-zztop",
@@ -551,8 +550,7 @@
         "folk blues",
         "metal"
       ],
-      "wiki": "https://en.wikipedia.org/wiki/ZZ_Top",
-      "blurb": "ZZ Top is an American rock band formed in Houston, Texas, in 1969."
+      "blurb": "US group"
     },
     {
       "id": "la-0806-gipsykings",
@@ -581,8 +579,7 @@
       "neighborhood": "Los Angeles",
       "time": "20:00",
       "genre": "rock",
-      "wiki": "https://en.wikipedia.org/wiki/Iceage",
-      "blurb": "Iceage is a Danish punk rock band from Copenhagen."
+      "blurb": "Danish punk band"
     },
     {
       "id": "la-0806-pattilabelle",
@@ -657,8 +654,8 @@
       ],
       "neighborhood": "Santa Barbara",
       "time": "17:30",
-      "wiki": "https://en.wikipedia.org/wiki/Sierra_Ferrell",
-      "blurb": "Sierra Elizabeth Ferrell is an American singer-songwriter and musician from West Virginia, whose music incorporates elements of folk, bluegrass, and gypsy jazz, and styles such as tango and calypso music."
+      "blurb": "US artist",
+      "genre": "americana"
     },
     {
       "id": "la-0806-sineadharnett",
@@ -692,7 +689,8 @@
       "neighborhood": "Los Angeles",
       "time": "20:00",
       "genre": "electronic",
-      "blurb": "AU group"
+      "wiki": "https://en.wikipedia.org/wiki/What_So_Not",
+      "blurb": "What So Not is an electronic music project by Australian DJ and record producer Emoh Instead."
     },
     {
       "id": "la-0806-wunderhorse",
@@ -703,8 +701,8 @@
       "url": "https://www.songkick.com/concerts/43106889-wunderhorse-at-fonda",
       "neighborhood": "Los Angeles",
       "time": "21:00",
-      "blurb": "GB group",
-      "genre": "rock"
+      "wiki": "https://en.wikipedia.org/wiki/Wunderhorse",
+      "blurb": "\nWunderhorse are a British rock band formed in 2020 by frontman and songwriter Jacob Slater."
     },
     {
       "id": "la-0806-yardact",
@@ -715,8 +713,8 @@
       "url": "https://www.songkick.com/concerts/43169839-yard-act-at-teragram-ballroom",
       "neighborhood": "Los Angeles",
       "time": "19:00",
-      "blurb": "UK post-punk band",
-      "genre": "indie rock"
+      "wiki": "https://en.wikipedia.org/wiki/Yard_Act",
+      "blurb": "Yard Act are an English rock band from Leeds, West Yorkshire, formed in 2019."
     },
     {
       "id": "la-0807-corinnebaileyrae",
@@ -728,7 +726,8 @@
       "neighborhood": "Los Angeles",
       "time": "19:00",
       "genre": "funk soul",
-      "blurb": "GB artist"
+      "wiki": "https://en.wikipedia.org/wiki/Corinne_Bailey_Rae",
+      "blurb": "Corinne Jacqueline Bailey Rae is a British singer and songwriter."
     },
     {
       "id": "la-0807-countingcrows",
@@ -745,7 +744,8 @@
         "indie alternative",
         "folk blues"
       ],
-      "blurb": "US group"
+      "wiki": "https://en.wikipedia.org/wiki/Counting_Crows",
+      "blurb": "Counting Crows is an American rock band from Berkeley, California."
     },
     {
       "id": "la-0807-gipsykings",
@@ -784,7 +784,8 @@
         "funk soul",
         "pop"
       ],
-      "blurb": "US artist"
+      "wiki": "https://en.wikipedia.org/wiki/John_Legend",
+      "blurb": "John Roger Stephens, known professionally as John Legend, is an American singer, songwriter, pianist and record producer."
     },
     {
       "id": "la-0807-meganmoroney",
@@ -799,8 +800,8 @@
       ],
       "neighborhood": "Los Angeles",
       "time": "18:00",
-      "blurb": "Country music singer/songwriter",
-      "genre": "country"
+      "wiki": "https://en.wikipedia.org/wiki/Megan_Moroney",
+      "blurb": "Megan Ann Moroney is an American country music singer and songwriter from Douglasville, Georgia, west of Atlanta."
     },
     {
       "id": "la-0807-nickyjam",
@@ -853,8 +854,7 @@
       ],
       "neighborhood": "Costa Mesa",
       "time": "18:00",
-      "genre": "reggae",
-      "blurb": "US group"
+      "genre": "reggae"
     },
     {
       "id": "la-0807-rufusdusol",
@@ -896,8 +896,7 @@
         "pop",
         "rock"
       ],
-      "wiki": "https://en.wikipedia.org/wiki/The_Beths",
-      "blurb": "The Beths are a New Zealand indie rock band, formed in Auckland in 2014."
+      "blurb": "New Zealand indie pop"
     },
     {
       "id": "la-0808-countingcrows",
@@ -914,7 +913,8 @@
         "indie alternative",
         "folk blues"
       ],
-      "blurb": "US group"
+      "wiki": "https://en.wikipedia.org/wiki/Counting_Crows",
+      "blurb": "Counting Crows is an American rock band from Berkeley, California."
     },
     {
       "id": "la-0808-edsheeran",
@@ -965,8 +965,7 @@
         "folk blues",
         "rock",
         "funk soul"
-      ],
-      "blurb": "US group"
+      ]
     },
     {
       "id": "la-0808-littleriverband",
@@ -998,8 +997,8 @@
       ],
       "neighborhood": "Los Angeles",
       "time": "18:00",
-      "blurb": "Country music singer/songwriter",
-      "genre": "country"
+      "wiki": "https://en.wikipedia.org/wiki/Megan_Moroney",
+      "blurb": "Megan Ann Moroney is an American country music singer and songwriter from Douglasville, Georgia, west of Atlanta."
     },
     {
       "id": "la-0808-oar",
@@ -1035,8 +1034,7 @@
       ],
       "neighborhood": "Costa Mesa",
       "time": "18:00",
-      "genre": "reggae",
-      "blurb": "US group"
+      "genre": "reggae"
     },
     {
       "id": "la-0808-theallamericanrejects",
@@ -1052,8 +1050,7 @@
         "rock",
         "pop"
       ],
-      "wiki": "https://en.wikipedia.org/wiki/The_All-American_Rejects",
-      "blurb": "The All-American Rejects are an American rock band formed in Stillwater, Oklahoma, in 1999."
+      "blurb": "US rock band"
     },
     {
       "id": "la-0808-thebeths",
@@ -1065,8 +1062,7 @@
       "neighborhood": "Santa Ana",
       "time": "19:00",
       "genre": "indie alternative",
-      "wiki": "https://en.wikipedia.org/wiki/The_Beths",
-      "blurb": "The Beths are a New Zealand indie rock band, formed in Auckland in 2014."
+      "blurb": "New Zealand indie pop"
     },
     {
       "id": "la-0809-anthonygreen",
@@ -1113,8 +1109,7 @@
       "neighborhood": "Los Angeles",
       "time": "19:00",
       "genre": "pop",
-      "wiki": "https://en.wikipedia.org/wiki/Faouzia",
-      "blurb": "Faouzia Ouihya, known mononymously as Faouzia, is a Canadian singer, songwriter and musician."
+      "blurb": "CA artist"
     },
     {
       "id": "la-0809-kirkwhalum",
@@ -1169,9 +1164,7 @@
         "funk soul",
         "rock",
         "pop"
-      ],
-      "wiki": "https://en.wikipedia.org/wiki/Lionel_Richie",
-      "blurb": "Lionel Brockman Richie Jr."
+      ]
     },
     {
       "id": "la-0809-mcmagic",
@@ -1208,8 +1201,7 @@
       ],
       "neighborhood": "Costa Mesa",
       "time": "18:00",
-      "genre": "reggae",
-      "blurb": "US group"
+      "genre": "reggae"
     },
     {
       "id": "la-0809-shawncolvin",
@@ -1240,8 +1232,7 @@
       "neighborhood": "Los Angeles",
       "time": "19:00",
       "genre": "pop",
-      "wiki": "https://en.wikipedia.org/wiki/Benson_Boone",
-      "blurb": "Benson James Boone is an American singer–songwriter."
+      "blurb": "US artist"
     },
     {
       "id": "la-0810-bondo",
@@ -1322,9 +1313,7 @@
         "Sugar World"
       ],
       "neighborhood": "Palmdale",
-      "time": "19:00",
-      "wiki": "https://en.wikipedia.org/wiki/To_the_One_of_Fictive_Music",
-      "blurb": "\"To the One of Fictive Music\" is a poem from Wallace Stevens's first book of poetry, Harmonium."
+      "time": "19:00"
     },
     {
       "id": "la-0811-angelodeaugustine",
@@ -1338,8 +1327,8 @@
       ],
       "neighborhood": "Santa Barbara",
       "time": "20:00",
-      "wiki": "https://en.wikipedia.org/wiki/Angelo_De_Augustine",
-      "blurb": "Angelo De Augustine is an American musician residing in Thousand Oaks, California."
+      "blurb": "US artist",
+      "genre": "indie folk"
     },
     {
       "id": "la-0811-bensonboone",
@@ -1354,8 +1343,7 @@
       "neighborhood": "Los Angeles",
       "time": "19:00",
       "genre": "pop",
-      "wiki": "https://en.wikipedia.org/wiki/Benson_Boone",
-      "blurb": "Benson James Boone is an American singer–songwriter."
+      "blurb": "US artist"
     },
     {
       "id": "la-0811-dayweran",
@@ -1369,8 +1357,7 @@
       ],
       "neighborhood": "Los Angeles",
       "time": "18:30",
-      "wiki": "https://en.wikipedia.org/wiki/Flogging_Molly",
-      "blurb": "Flogging Molly is an Irish-American seven-piece Celtic punk band formed in Los Angeles in 1994, led by Irish vocalist Dave King, formerly of the hard rock band Fastway."
+      "blurb": "Group"
     },
     {
       "id": "la-0811-georgethorogoodandthed",
@@ -1389,8 +1376,7 @@
         "folk blues",
         "rock"
       ],
-      "wiki": "https://en.wikipedia.org/wiki/George_Thorogood",
-      "blurb": "George Lawrence Thorogood is an American musician, singer and songwriter."
+      "blurb": "US group"
     },
     {
       "id": "la-0811-jillscott",
@@ -1472,6 +1458,2808 @@
       ],
       "wiki": "https://en.wikipedia.org/wiki/R%C3%BCf%C3%BCs_Du_Sol",
       "blurb": "Rüfüs Du Sol is an Australian alternative dance group from Sydney, that consists of Tyrone Lindqvist, Jon George and James Hunt."
+    },
+    {
+      "id": "la-0812-ajr",
+      "artist": "AJR",
+      "venue": "Pacific Amphitheatre",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43039217-ajr-at-pacific-amphitheatre",
+      "neighborhood": "Costa Mesa",
+      "time": "19:30",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "rock"
+      ],
+      "blurb": "American indie pop band"
+    },
+    {
+      "id": "la-0812-angelbatdawid",
+      "artist": "Angel Bat Dawid",
+      "venue": "2220 Arts + Archives",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43332769-angel-bat-dawid-at-2220-arts-archives",
+      "support": [
+        "Georgia Anne Muldrow"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "hip hop"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0812-anidifranco",
+      "artist": "Ani DiFranco",
+      "venue": "The Ford",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43197883-ani-difranco-at-ford",
+      "support": [
+        "Valerie June"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "folk blues",
+      "genres": [
+        "folk blues",
+        "indie alternative",
+        "rock"
+      ]
+    },
+    {
+      "id": "la-0812-bandaloschinos",
+      "artist": "Bandalos Chinos",
+      "venue": "The Observatory",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43213856-bandalos-chinos-at-observatory",
+      "neighborhood": "Santa Ana",
+      "time": "19:00",
+      "blurb": "AR group",
+      "genre": "indie pop"
+    },
+    {
+      "id": "la-0812-donzii",
+      "artist": "Donzii",
+      "venue": "Zebulon",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43266229-donzii-at-zebulon",
+      "support": [
+        "FUEDAL"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "wiki": "https://en.wikipedia.org/wiki/Frankie_Rose",
+      "blurb": "Frankie Rose is an American musician and songwriter."
+    },
+    {
+      "id": "la-0812-jillscott",
+      "artist": "Jill Scott",
+      "venue": "YouTube Theater",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43093454-jill-scott-at-youtube-theater",
+      "neighborhood": "Inglewood",
+      "time": "20:00",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "r & b",
+        "hip hop"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0812-playlunch",
+      "artist": "Playlunch",
+      "venue": "The Echo",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43066384-playlunch-at-echo",
+      "support": [
+        "Sego"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "wiki": "https://en.wikipedia.org/wiki/Recess_(break)",
+      "blurb": "Recess is a general term for a period in which a group of people are temporarily dismissed from their duties."
+    },
+    {
+      "id": "la-0812-rufusdusol",
+      "artist": "RÜFÜS DU SOL",
+      "venue": "Kia Forum",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43077264-rufus-du-sol-at-kia-forum",
+      "support": [
+        "Ben Böhmer"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "19:00",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "r & b",
+        "jazz"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/R%C3%BCf%C3%BCs_Du_Sol",
+      "blurb": "Rüfüs Du Sol is an Australian alternative dance group from Sydney, that consists of Tyrone Lindqvist, Jon George and James Hunt."
+    },
+    {
+      "id": "la-0812-theaustralianpinkfloyd",
+      "artist": "The Australian Pink Floyd Show",
+      "venue": "Fred Kavli Theatre, B of A Performing Arts Center",
+      "date": "2026-08-12",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43039647-australian-pink-floyd-show-at-fred-kavli-theatre-b-of-a-performing-arts-center",
+      "neighborhood": "Thousand Oaks",
+      "time": "19:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/The_Australian_Pink_Floyd_Show",
+      "blurb": "The Australian Pink Floyd Show, more frequently referred to as the Australian Pink Floyd, is a Pink Floyd tribute band formed in 1988 in Adelaide, South Australia."
+    },
+    {
+      "id": "la-0813-cortis",
+      "artist": "CORTIS",
+      "venue": "YouTube Theater",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43255353-cortis-at-youtube-theater",
+      "neighborhood": "Inglewood",
+      "time": "20:00",
+      "wiki": "https://en.wikipedia.org/wiki/Cortis",
+      "blurb": "Cortis is a South Korean boy band formed by BigHit Music in 2025."
+    },
+    {
+      "id": "la-0813-dwightyoakam",
+      "artist": "Dwight Yoakam",
+      "venue": "Pacific Amphitheatre",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43039218-dwight-yoakam-at-pacific-amphitheatre",
+      "neighborhood": "Costa Mesa",
+      "time": "19:00",
+      "genre": "country",
+      "wiki": "https://en.wikipedia.org/wiki/Dwight_Yoakam",
+      "blurb": "Dwight David Yoakam is an American singer-songwriter, actor, and filmmaker."
+    },
+    {
+      "id": "la-0813-emarosa",
+      "artist": "Emarosa",
+      "venue": "Roxy Theatre",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43169684-emarosa-at-roxy-theatre",
+      "neighborhood": "West Hollywood",
+      "time": "19:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock",
+        "indie alternative"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Emarosa",
+      "blurb": "Emarosa is an American rock band formed in Lexington, Kentucky, in 2006."
+    },
+    {
+      "id": "la-0813-quicksand",
+      "artist": "Quicksand",
+      "venue": "The Bellwether",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43244658-quicksand-at-bellwether",
+      "support": [
+        "Bane",
+        "Soul Blind",
+        "Lowboy"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:30"
+    },
+    {
+      "id": "la-0813-rufusdusol",
+      "artist": "RÜFÜS DU SOL",
+      "venue": "Kia Forum",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43075862-rufus-du-sol-at-kia-forum",
+      "support": [
+        "Ben Böhmer"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "19:30",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "r & b",
+        "jazz"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/R%C3%BCf%C3%BCs_Du_Sol",
+      "blurb": "Rüfüs Du Sol is an Australian alternative dance group from Sydney, that consists of Tyrone Lindqvist, Jon George and James Hunt."
+    },
+    {
+      "id": "la-0813-santana",
+      "artist": "Santana",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43053014-santana-at-hollywood-bowl",
+      "support": [
+        "Doobie Brothers"
+      ],
+      "neighborhood": "Hollywood",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "folk blues",
+        "latin"
+      ],
+      "blurb": "US Latin, blues, & rock band"
+    },
+    {
+      "id": "la-0813-savestheday",
+      "artist": "Saves The Day",
+      "venue": "Lodge Room",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43292056-saves-the-day-at-lodge-room",
+      "support": [
+        "Pity Sex",
+        "Downward"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "metal"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0813-tedeschitrucksband",
+      "artist": "Tedeschi Trucks Band",
+      "venue": "Santa Barbara Bowl",
+      "date": "2026-08-13",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43005715-tedeschi-trucks-band-at-santa-barbara-bowl",
+      "neighborhood": "Santa Barbara",
+      "time": "18:00",
+      "genre": "folk blues",
+      "genres": [
+        "folk blues",
+        "rock",
+        "country"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0814-algreen",
+      "artist": "Al Green",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43055463-al-green-at-hollywood-bowl",
+      "support": [
+        "The Womack Sisters"
+      ],
+      "neighborhood": "Hollywood",
+      "time": "20:00",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "folk blues"
+      ],
+      "blurb": "US soul singer, songwriter, pastor and record producer"
+    },
+    {
+      "id": "la-0814-interpol",
+      "artist": "Interpol",
+      "venue": "Santa Barbara Bowl",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43189730-interpol-at-santa-barbara-bowl",
+      "support": [
+        "Julie",
+        "Julie (dk)"
+      ],
+      "neighborhood": "Santa Barbara",
+      "time": "17:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative",
+        "electronic"
+      ],
+      "blurb": "NYC rock band"
+    },
+    {
+      "id": "la-0814-karolg",
+      "artist": "Karol G",
+      "venue": "SoFi Stadium",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43204677-karol-g-at-sofi-stadium",
+      "support": [
+        "Elena Rose"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "19:00",
+      "genre": "latin",
+      "wiki": "https://en.wikipedia.org/wiki/Karol_G",
+      "blurb": "Carolina Giraldo Navarro, known professionally as Karol G, is a Colombian singer and songwriter."
+    },
+    {
+      "id": "la-0814-melaniemartinez",
+      "artist": "Melanie Martinez",
+      "venue": "Kia Forum",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43165067-melanie-martinez-at-kia-forum",
+      "support": [
+        "Isabel LaRosa"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "pop",
+        "folk blues"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0814-nct127",
+      "artist": "NCT 127",
+      "venue": "Los Angeles Convention Center",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43135533-nct-127-at-los-angeles-convention-center",
+      "neighborhood": "Los Angeles",
+      "time": "10:00",
+      "genre": "pop",
+      "blurb": "KR group"
+    },
+    {
+      "id": "la-0814-saliva",
+      "artist": "Saliva",
+      "venue": "Echoplex",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43043560-saliva-at-echoplex",
+      "support": [
+        "Satellite Citi"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "metal",
+        "hip hop"
+      ],
+      "blurb": "US rock band"
+    },
+    {
+      "id": "la-0814-steelpulse",
+      "artist": "Steel Pulse",
+      "venue": "Majestic Ventura Theater",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43116613-steel-pulse-at-majestic-ventura-theater",
+      "neighborhood": "Ventura",
+      "time": "20:00",
+      "genre": "reggae"
+    },
+    {
+      "id": "la-0814-theheadandtheheart",
+      "artist": "The Head and the Heart",
+      "venue": "Pacific Amphitheatre at the OC Fair",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43035048-head-and-the-heart-at-pacific-amphitheatre-at-the-oc-fair",
+      "support": [
+        "Wilderado"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "19:30",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "country",
+        "rock"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0814-tomorrowxtogether",
+      "artist": "TOMORROW X TOGETHER",
+      "venue": "Crypto.com Arena",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/2548134-kcon-la/id/43136370-kcon-la-2026",
+      "support": [
+        "NCT 127",
+        "P1Harmony",
+        "NCT",
+        "Illit"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "10:00",
+      "genre": "pop",
+      "blurb": "KR group"
+    },
+    {
+      "id": "la-0814-toto",
+      "artist": "Toto",
+      "venue": "F&m Bank Amphitheater of Long Beach",
+      "date": "2026-08-14",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42935186-toto-at-f-and-m-bank-amphitheater-of-long-beach",
+      "support": [
+        "Christopher Cross",
+        "The Romantics"
+      ],
+      "neighborhood": "Long Beach",
+      "time": "18:45",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "funk soul",
+        "folk blues"
+      ],
+      "blurb": "US rock group"
+    },
+    {
+      "id": "la-0815-colbiecaillat",
+      "artist": "Colbie Caillat",
+      "venue": "Pacific Amphitheatre",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43051626-colbie-caillat-at-pacific-amphitheatre",
+      "support": [
+        "Mitchell Tenpenny"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "18:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "folk blues",
+        "pop"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0815-joeyquinones",
+      "artist": "Joey Quinones",
+      "venue": "Greek Theatre",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43238497-joey-quinones-at-greek-theatre",
+      "support": [
+        "Trish Toledo",
+        "Mayer Hawthorne",
+        "Kelly Finnigan",
+        "The Intruders"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "17:00",
+      "blurb": "Singer, songwriter, multi-instrumentalist and engineer based in Los Angeles, California"
+    },
+    {
+      "id": "la-0815-karolg",
+      "artist": "Karol G",
+      "venue": "SoFi Stadium",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43204816-karol-g-at-sofi-stadium",
+      "support": [
+        "Becky G"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "19:00",
+      "genre": "latin",
+      "wiki": "https://en.wikipedia.org/wiki/Karol_G",
+      "blurb": "Carolina Giraldo Navarro, known professionally as Karol G, is a Colombian singer and songwriter."
+    },
+    {
+      "id": "la-0815-lukebryan",
+      "artist": "Luke Bryan",
+      "venue": "F&m Bank Amphitheater of Long Beach",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43273331-luke-bryan-at-f-and-m-bank-amphitheater-of-long-beach",
+      "neighborhood": "Long Beach",
+      "time": "19:00",
+      "genre": "country"
+    },
+    {
+      "id": "la-0815-noahkahan",
+      "artist": "Noah Kahan",
+      "venue": "Rose Bowl Stadium",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43023027-noah-kahan-at-rose-bowl-stadium",
+      "support": [
+        "Gigi Perez"
+      ],
+      "neighborhood": "Pasadena",
+      "time": "18:30",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "rock"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Noah_Kahan",
+      "blurb": "Noah Berkenkamp Kahan is an American singer-songwriter."
+    },
+    {
+      "id": "la-0815-obituary",
+      "artist": "Obituary",
+      "venue": "Exposition Park",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/213816-sound-fury/id/43193984-sound--fury-2026",
+      "support": [
+        "Saves The Day",
+        "Sextile",
+        "Guilt Trip",
+        "Incendiary"
+      ],
+      "neighborhood": "Los Angeles",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock"
+      ],
+      "blurb": "US death metal band"
+    },
+    {
+      "id": "la-0815-shewantsrevenge",
+      "artist": "She Wants Revenge",
+      "venue": "Yaamava' Theater",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43223891-she-wants-revenge-at-yaamava-theater",
+      "support": [
+        "French Police"
+      ],
+      "neighborhood": "Highland",
+      "time": "20:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "electronic"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0815-tomahawk",
+      "artist": "Tomahawk",
+      "venue": "The Belasco",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43063576-tomahawk-at-belasco",
+      "support": [
+        "Melvins"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "indie alternative",
+        "rock"
+      ],
+      "blurb": "US alt-rock group"
+    },
+    {
+      "id": "la-0815-yeat",
+      "artist": "yeat",
+      "venue": "Intuit Dome",
+      "date": "2026-08-15",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43136629-yeat-at-intuit-dome",
+      "support": [
+        "BNYX"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "19:30",
+      "genre": "hip hop",
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0816-311",
+      "artist": "311",
+      "venue": "Santa Barbara Bowl",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43119237-311-at-santa-barbara-bowl",
+      "support": [
+        "Dirty Heads",
+        "Atmosphere"
+      ],
+      "neighborhood": "Santa Barbara",
+      "time": "16:30",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock",
+        "reggae"
+      ]
+    },
+    {
+      "id": "la-0816-bia",
+      "artist": "Bïa",
+      "venue": "Echoplex",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43314347-bia-at-echoplex",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "latin",
+      "genres": [
+        "latin",
+        "pop"
+      ],
+      "blurb": "Boston-area rapper, aka Perico Princess"
+    },
+    {
+      "id": "la-0816-cid",
+      "artist": "CID",
+      "venue": "La State Historic Park: on the Promenade",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43192075-cid-at-la-state-historic-park-on-the-promenade",
+      "support": [
+        "ToBehonest",
+        "Juos"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "14:00",
+      "genre": "electronic",
+      "blurb": "PT artist"
+    },
+    {
+      "id": "la-0816-jerro",
+      "artist": "Jerro",
+      "venue": "Kimpton Canary Hotel",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43168992-jerro-at-kimpton-canary-hotel",
+      "neighborhood": "Santa Barbara",
+      "time": "17:00",
+      "blurb": "BE artist",
+      "genre": "electronic"
+    },
+    {
+      "id": "la-0816-karolg",
+      "artist": "Karol G",
+      "venue": "SoFi Stadium",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43204740-karol-g-at-sofi-stadium",
+      "support": [
+        "Greeicy"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "19:00",
+      "genre": "latin",
+      "wiki": "https://en.wikipedia.org/wiki/Karol_G",
+      "blurb": "Carolina Giraldo Navarro, known professionally as Karol G, is a Colombian singer and songwriter."
+    },
+    {
+      "id": "la-0816-kotathefriend",
+      "artist": "KOTA The Friend",
+      "venue": "Live at the Sun Rose",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43345829-kota-the-friend-at-live-at-the-sun-rose",
+      "neighborhood": "Los Angeles",
+      "time": "20:30",
+      "genre": "hip hop"
+    },
+    {
+      "id": "la-0816-steelpulse",
+      "artist": "Steel Pulse",
+      "venue": "Pacific Amphitheatre",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43158514-steel-pulse-at-pacific-amphitheatre",
+      "support": [
+        "The English Beat",
+        "Eli Mac",
+        "Eli-Mac",
+        "Long Beach Dub Allstars"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "17:20",
+      "genre": "reggae",
+      "genres": [
+        "reggae",
+        "rock",
+        "pop"
+      ]
+    },
+    {
+      "id": "la-0816-thesword",
+      "artist": "The Sword",
+      "venue": "The Observatory",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43175236-sword-at-observatory",
+      "support": [
+        "Red Fang",
+        "The Spoon Benders"
+      ],
+      "neighborhood": "Santa Ana",
+      "time": "18:30",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock"
+      ],
+      "blurb": "US metal band"
+    },
+    {
+      "id": "la-0816-tomahawk",
+      "artist": "Tomahawk",
+      "venue": "The Belasco",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43073521-tomahawk-at-belasco",
+      "support": [
+        "Melvins"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "indie alternative",
+        "rock"
+      ],
+      "blurb": "US alt-rock group"
+    },
+    {
+      "id": "la-0816-yoasobi",
+      "artist": "Yoasobi",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-16",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43162160-yoasobi-at-hollywood-bowl",
+      "neighborhood": "Hollywood",
+      "time": "20:00",
+      "genre": "pop",
+      "blurb": "JP group"
+    },
+    {
+      "id": "la-0817-angeliquekidjo",
+      "artist": "Angélique Kidjo",
+      "venue": "Grammy Museum La Live",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43324820-angelique-kidjo-at-grammy-museum-la-live",
+      "neighborhood": "Los Angeles",
+      "time": "19:30",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "jazz"
+      ],
+      "blurb": "BJ artist"
+    },
+    {
+      "id": "la-0817-anginedepoitrine",
+      "artist": "Angine de Poitrine",
+      "venue": "Teragram Ballroom",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43115574-angine-de-poitrine-at-teragram-ballroom",
+      "neighborhood": "Los Angeles",
+      "time": "19:00"
+    },
+    {
+      "id": "la-0817-dogmasociety",
+      "artist": "Dogma Society",
+      "venue": "Moroccan Lounge",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43311544-dogma-society-at-moroccan-lounge",
+      "support": [
+        "The Nautics"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "blurb": "Group"
+    },
+    {
+      "id": "la-0817-elcompasacra",
+      "artist": "El Compa Sacra",
+      "venue": "Lico Music & Events Center",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43310063-el-compa-sacra-at-lico-music-and-events-center",
+      "support": [
+        "Los Terribles Del Norte"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "17:00"
+    },
+    {
+      "id": "la-0817-ida",
+      "artist": "Ida",
+      "venue": "Lodge Room",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43201380-ida-at-lodge-room",
+      "support": [
+        "Tara Jane O'neil"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "Danish singer, songwriter and producer",
+      "genre": "pop"
+    },
+    {
+      "id": "la-0817-linushablot",
+      "artist": "Linus Hablot",
+      "venue": "The Airliner",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43346096-linus-hablot-at-airliner",
+      "support": [
+        "Worthitpurchase"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00"
+    },
+    {
+      "id": "la-0817-rucci",
+      "artist": "Rucci",
+      "venue": "The Echo",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43314957-rucci-at-echo",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "Artist"
+    },
+    {
+      "id": "la-0817-soulasylum",
+      "artist": "Soul Asylum",
+      "venue": "The Glass House",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43254929-soul-asylum-at-glass-house",
+      "support": [
+        "PROPS"
+      ],
+      "neighborhood": "Pomona",
+      "time": "20:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0817-theblackcrowes",
+      "artist": "The Black Crowes",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-17",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43015051-black-crowes-at-hollywood-bowl",
+      "support": [
+        "Tedeschi Trucks Band",
+        "Whiskey Myers"
+      ],
+      "neighborhood": "Hollywood",
+      "time": "18:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "folk blues",
+        "indie alternative"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0818-anginedepoitrine",
+      "artist": "Angine de Poitrine",
+      "venue": "Teragram Ballroom",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43116370-angine-de-poitrine-at-teragram-ballroom",
+      "neighborhood": "Los Angeles",
+      "time": "19:00"
+    },
+    {
+      "id": "la-0818-blackjoelewis",
+      "artist": "Black Joe Lewis",
+      "venue": "The Venice West",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43197584-black-joe-lewis-at-venice-west",
+      "neighborhood": "Venice"
+    },
+    {
+      "id": "la-0818-debnever",
+      "artist": "Deb Never",
+      "venue": "The Echo",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43318252-deb-never-at-echo",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "wiki": "https://en.wikipedia.org/wiki/Deb_Never",
+      "blurb": "Deb Never is an American singer-songwriter."
+    },
+    {
+      "id": "la-0818-dirtyheads",
+      "artist": "Dirty Heads",
+      "venue": "Long Beach Amphitheater",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43120254-dirty-heads-at-long-beach-amphitheater",
+      "support": [
+        "311",
+        "Atmosphere",
+        "Rome"
+      ],
+      "neighborhood": "Long Beach",
+      "time": "17:30",
+      "genre": "reggae",
+      "genres": [
+        "reggae",
+        "hip hop",
+        "indie alternative"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Dirty_Heads",
+      "blurb": "Dirty Heads is an American reggae rock band from Huntington Beach, California."
+    },
+    {
+      "id": "la-0818-gflip",
+      "artist": "G Flip",
+      "venue": "Roxy Theatre",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43275891-g-flip-at-roxy-theatre",
+      "neighborhood": "West Hollywood",
+      "time": "20:00",
+      "genre": "pop",
+      "wiki": "https://en.wikipedia.org/wiki/G_Flip",
+      "blurb": "Georgia Claire Flipo, known professionally as G Flip, is an Australian singer, songwriter, multi-instrumentalist and producer from Melbourne, Victoria."
+    },
+    {
+      "id": "la-0818-nationalsymphonyorches",
+      "artist": "National Symphony Orchestra",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43055474-national-symphony-orchestra-at-hollywood-bowl",
+      "neighborhood": "Hollywood",
+      "wiki": "https://en.wikipedia.org/wiki/National_Symphony_Orchestra",
+      "blurb": "The National Symphony Orchestra (NSO) is an American symphony orchestra based in Washington, D.C."
+    },
+    {
+      "id": "la-0818-needtobreathe",
+      "artist": "NEEDTOBREATHE",
+      "venue": "Greek Theatre",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43101226-needtobreathe-at-greek-theatre",
+      "support": [
+        "Drew & Ellie Holcomb"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative",
+        "funk soul"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Needtobreathe",
+      "blurb": "Needtobreathe is an American rock band from Seneca, South Carolina."
+    },
+    {
+      "id": "la-0818-passionpit",
+      "artist": "Passion Pit",
+      "venue": "The Bellwether",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43115579-passion-pit-at-bellwether",
+      "support": [
+        "Arden Jones"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "electronic"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Passion_Pit",
+      "blurb": "Passion Pit is an American indie pop band from Cambridge, Massachusetts."
+    },
+    {
+      "id": "la-0818-silkworm",
+      "artist": "Silkworm",
+      "venue": "Lodge Room",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43190942-silkworm-at-lodge-room",
+      "support": [
+        "Nina Nastasia"
+      ],
+      "neighborhood": "Los Angeles",
+      "wiki": "https://en.wikipedia.org/wiki/Bombyx_mori",
+      "blurb": "Bombyx mori, commonly known as the domestic silk moth, is a domesticated moth species belonging to the family Bombycidae."
+    },
+    {
+      "id": "la-0818-thesword",
+      "artist": "The Sword",
+      "venue": "Fonda Theatre",
+      "date": "2026-08-18",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43175258-sword-at-fonda-theatre",
+      "support": [
+        "Red Fang",
+        "The Spoon Benders"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock"
+      ],
+      "blurb": "US metal band"
+    },
+    {
+      "id": "la-0819-blackjoelewisthehoneyb",
+      "artist": "Black Joe Lewis & The Honeybears",
+      "venue": "Constellation Room at the Observatory",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43205122-black-joe-lewis-and-the-honeybears-at-constellation-room-at-the-observatory",
+      "neighborhood": "Santa Ana",
+      "time": "19:00",
+      "genre": "country",
+      "genres": [
+        "country",
+        "indie alternative"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Black_Joe_Lewis_%26_the_Honeybears",
+      "blurb": "Black Joe Lewis is an American blues, funk and soul artist influenced by Howlin' Wolf and James Brown."
+    },
+    {
+      "id": "la-0819-herbiehancock",
+      "artist": "Herbie Hancock",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43055477-herbie-hancock-at-hollywood-bowl",
+      "neighborhood": "Hollywood",
+      "time": "20:00",
+      "genre": "jazz",
+      "genres": [
+        "jazz",
+        "funk soul",
+        "electronic"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Herbie_Hancock",
+      "blurb": "Herbert Jeffrey Hancock is an American jazz musician, bandleader, and composer."
+    },
+    {
+      "id": "la-0819-lightasylum",
+      "artist": "Light Asylum",
+      "venue": "Zebulon",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43330618-light-asylum-at-zebulon",
+      "support": [
+        "Buck Gooter"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "wiki": "https://en.wikipedia.org/wiki/Light_Asylum",
+      "blurb": "Light Asylum is a Portland, Oregon-based electronic music project from Shannon Funchess."
+    },
+    {
+      "id": "la-0819-passionpit",
+      "artist": "Passion Pit",
+      "venue": "The Bellwether",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43173539-passion-pit-at-bellwether",
+      "support": [
+        "Arden Jones"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "electronic"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Passion_Pit",
+      "blurb": "Passion Pit is an American indie pop band from Cambridge, Massachusetts."
+    },
+    {
+      "id": "la-0819-richardmarx",
+      "artist": "Richard Marx",
+      "venue": "Grammy Museum La Live",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43326655-richard-marx-at-grammy-museum-la-live",
+      "neighborhood": "Los Angeles",
+      "time": "19:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "pop"
+      ]
+    },
+    {
+      "id": "la-0819-theblackheartprocessio",
+      "artist": "The Black Heart Procession",
+      "venue": "Gold Diggers",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43296038-black-heart-procession-at-gold-diggers",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "US indie rock band"
+    },
+    {
+      "id": "la-0819-theguesswho",
+      "artist": "The Guess Who",
+      "venue": "Greek Theatre",
+      "date": "2026-08-19",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43079263-guess-who-at-greek-theatre",
+      "support": [
+        "Don Felder"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "pop",
+        "hip hop"
+      ],
+      "blurb": "Canadian rock band"
+    },
+    {
+      "id": "la-0820-blacksheep",
+      "artist": "Black Sheep",
+      "venue": "bEATS, Yaamava' Resort & Casino",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43169689-black-sheep-at-beats-yaamava-resort-and-casino",
+      "neighborhood": "Highland",
+      "time": "19:00",
+      "genre": "hip hop",
+      "blurb": "US hip-hop group"
+    },
+    {
+      "id": "la-0820-earthless",
+      "artist": "Earthless",
+      "venue": "Alex's Bar",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43266239-earthless-at-alexs-bar",
+      "support": [
+        "Primitive Ring"
+      ],
+      "neighborhood": "Long Beach",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0820-kirby",
+      "artist": "Kirby",
+      "venue": "Blue Note Los Angeles",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43295700-kirby-at-blue-note-los-angeles",
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "blurb": "The Caretaker / V/Vm",
+      "genre": "ambient"
+    },
+    {
+      "id": "la-0820-lucki",
+      "artist": "Lucki",
+      "venue": "Riverside Municipal Auditorium",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43226747-lucki-at-riverside-municipal-auditorium",
+      "support": [
+        "Sk8star"
+      ],
+      "neighborhood": "Riverside",
+      "time": "19:00",
+      "genre": "hip hop",
+      "blurb": "US rapper and record producer Lucki Camel"
+    },
+    {
+      "id": "la-0820-menatwork",
+      "artist": "Men At Work",
+      "venue": "The United Theater on Broadway",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42999122-men-at-work-at-united-theater-on-broadway",
+      "support": [
+        "Toad the Wet Sprocket",
+        "Shonen Knife",
+        "Glen Phillips"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "pop",
+        "indie alternative"
+      ],
+      "blurb": "Australian rock band"
+    },
+    {
+      "id": "la-0820-mindchatter",
+      "artist": "mindchatter",
+      "venue": "Sound Nightclub",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43313944-mindchatter-at-sound-nightclub",
+      "neighborhood": "Los Angeles",
+      "time": "22:00"
+    },
+    {
+      "id": "la-0820-mtjoy",
+      "artist": "Mt. Joy",
+      "venue": "Greek Theatre",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42930200-mt-joy-at-greek-theatre",
+      "neighborhood": "Los Angeles",
+      "time": "03:30",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "folk blues"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0820-ricardomontaner",
+      "artist": "Ricardo Montaner",
+      "venue": "Toyota Arena",
+      "date": "2026-08-20",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42870602-ricardo-montaner-at-toyota-arena",
+      "neighborhood": "Ontario",
+      "time": "20:00",
+      "genre": "latin",
+      "genres": [
+        "latin",
+        "pop"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Ricardo_Montaner",
+      "blurb": "Héctor Eduardo Reglero Montaner, better known as Ricardo Montaner, is an Argentine-born singer."
+    },
+    {
+      "id": "la-0821-christravis",
+      "artist": "Chris Travis",
+      "venue": "The Belasco",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43115588-chris-travis-at-belasco",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "hip hop",
+      "wiki": "https://en.wikipedia.org/wiki/Chris_Travis",
+      "blurb": "Christopher Reginald Travis is an American rapper and record producer from Orange Mound, Memphis, Tennessee."
+    },
+    {
+      "id": "la-0821-mtjoy",
+      "artist": "Mt. Joy",
+      "venue": "Greek Theatre",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42930214-mt-joy-at-greek-theatre",
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "folk blues"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0821-neyo",
+      "artist": "Ne-Yo",
+      "venue": "Intuit Dome",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43015614-neyo-at-intuit-dome",
+      "support": [
+        "Akon"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "20:00",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "hip hop",
+        "r & b"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Ne-Yo",
+      "blurb": "Shaffer Chimere Smith, known professionally as Ne-Yo, is an American singer, songwriter, record producer, and actor."
+    },
+    {
+      "id": "la-0821-ricardomontaner",
+      "artist": "Ricardo Montaner",
+      "venue": "Peacock Theater",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42871496-ricardo-montaner-at-peacock-theater",
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "latin",
+      "genres": [
+        "latin",
+        "pop"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Ricardo_Montaner",
+      "blurb": "Héctor Eduardo Reglero Montaner, better known as Ricardo Montaner, is an Argentine-born singer."
+    },
+    {
+      "id": "la-0821-sexyyred",
+      "artist": "Sexyy Red",
+      "venue": "YouTube Theater",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43313767-sexyy-red-at-youtube-theater",
+      "support": [
+        "Key Glock",
+        "Dababy",
+        "Coi Leray",
+        "Jordan Ward"
+      ],
+      "neighborhood": "Inglewood",
+      "time": "20:00",
+      "genre": "electronic",
+      "genres": [
+        "electronic",
+        "hip hop"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0821-theknocks",
+      "artist": "The Knocks",
+      "venue": "The Bellwether",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43205241-knocks-at-bellwether",
+      "support": [
+        "Midnight Magic"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "21:00",
+      "genre": "electronic",
+      "genres": [
+        "electronic",
+        "funk soul",
+        "indie alternative"
+      ],
+      "blurb": "US electronic music duo; Ben Ruttner & James Patterson"
+    },
+    {
+      "id": "la-0821-themaine",
+      "artist": "The Maine",
+      "venue": "House of Blues - Old Location",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43205674-maine-at-house-of-blues-old-location",
+      "support": [
+        "Hellogoodbye"
+      ],
+      "neighborhood": "Anaheim",
+      "time": "18:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "pop",
+        "indie alternative"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0821-theorwells",
+      "artist": "The Orwells",
+      "venue": "The Paramount",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43113668-orwells-at-paramount",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock"
+      ]
+    },
+    {
+      "id": "la-0821-thespinners",
+      "artist": "The Spinners",
+      "venue": "Cerritos Center",
+      "date": "2026-08-21",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43082193-spinners-at-cerritos-center",
+      "support": [
+        "The Miracles"
+      ],
+      "neighborhood": "Cerritos",
+      "time": "20:00",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "rock",
+        "r & b"
+      ],
+      "blurb": "US R&B/soul group, aka The Detroit Spinners"
+    },
+    {
+      "id": "la-0822-darius",
+      "artist": "Darius",
+      "venue": "Abbot Kinney & Westminster Ave",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43320998-darius-at-abbot-kinney-and-westminster-ave",
+      "support": [
+        "Eli & Fur",
+        "Franc Moody",
+        "Luxxury",
+        "Sosh & Mosh"
+      ],
+      "neighborhood": "Venice",
+      "time": "15:00",
+      "genre": "hip hop",
+      "genres": [
+        "hip hop",
+        "electronic"
+      ],
+      "blurb": "Artist"
+    },
+    {
+      "id": "la-0822-foofighters",
+      "artist": "Foo Fighters",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43054300-foo-fighters-at-hollywood-bowl",
+      "support": [
+        "Gustavo Dudamel",
+        "La Phil",
+        "Yola"
+      ],
+      "neighborhood": "Hollywood",
+      "time": "18:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "metal",
+        "indie alternative"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0822-goldfinger",
+      "artist": "Goldfinger",
+      "venue": "Hollywood Palladium",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43026969-goldfinger-at-hollywood-palladium",
+      "support": [
+        "The Vandals",
+        "The Suicide Machines",
+        "Pulley",
+        "sullvn"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "17:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "reggae"
+      ],
+      "blurb": "Ska punk/pop punk band"
+    },
+    {
+      "id": "la-0822-johnlegend",
+      "artist": "John Legend",
+      "venue": "Dockweiler Beach",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/1981799-jazz-on-the-beach/id/43338481-jazz-on-the-beach-2026",
+      "support": [
+        "Janelle Monáe",
+        "Free Nationals",
+        "Ezra Collective",
+        "Raphael Saadiq"
+      ],
+      "neighborhood": "Los Angeles",
+      "genre": "r & b",
+      "genres": [
+        "r & b",
+        "funk soul",
+        "pop"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/John_Legend",
+      "blurb": "John Roger Stephens, known professionally as John Legend, is an American singer, songwriter, pianist and record producer."
+    },
+    {
+      "id": "la-0822-rivalconsoles",
+      "artist": "Rival Consoles",
+      "venue": "Teragram Ballroom",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43136485-rival-consoles-at-teragram-ballroom",
+      "support": [
+        "Khotin"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "electronic",
+      "blurb": "GB artist"
+    },
+    {
+      "id": "la-0822-somethingcorporate",
+      "artist": "Something Corporate",
+      "venue": "F&m Bank Amphitheater of Long Beach",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43052780-something-corporate-at-f-and-m-bank-amphitheater-of-long-beach",
+      "support": [
+        "Jack's Mannequin",
+        "Andrew McMahon in the Wilderness",
+        "Andrew McMahon"
+      ],
+      "neighborhood": "Long Beach",
+      "time": "19:30",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0822-thedip",
+      "artist": "The Dip",
+      "venue": "The Hangar",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43246928-dip-at-hangar",
+      "neighborhood": "Santa Barbara",
+      "genre": "funk soul",
+      "blurb": "A funk and rhythm and blues band"
+    },
+    {
+      "id": "la-0822-thestrokes",
+      "artist": "The Strokes",
+      "venue": "Brookside at the Rose Bowl",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/1334764-just-like-heaven/id/43104401-just-like-heaven-2026",
+      "support": [
+        "TV Girl",
+        "Feist",
+        "LCD Soundsystem",
+        "Dayglow"
+      ],
+      "neighborhood": "Pasadena",
+      "time": "12:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "pop"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0822-train",
+      "artist": "Train",
+      "venue": "Santa Barbara Bowl",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42881575-train-at-santa-barbara-bowl",
+      "support": [
+        "Barenaked Ladies",
+        "Matt Nathanson"
+      ],
+      "neighborhood": "Santa Barbara",
+      "time": "18:00",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "indie alternative",
+        "rock"
+      ],
+      "blurb": "US pop rock band"
+    },
+    {
+      "id": "la-0822-tvgirl",
+      "artist": "TV Girl",
+      "venue": "Brookside at the Rose Bowl",
+      "date": "2026-08-22",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/3775865-just-like-heaven-with-the-strokes-lcd-soundsystem-dayglow-and-more/id/43106964-just-like-heaven-festival-with-the-strokes-lcd-soundsystem-dayglow-and-more-2026",
+      "support": [
+        "Feist",
+        "LCD Soundsystem",
+        "Dayglow",
+        "STRFKR"
+      ],
+      "neighborhood": "Pasadena",
+      "time": "12:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "pop"
+      ],
+      "blurb": "US indie pop band"
+    },
+    {
+      "id": "la-0823-blackmarble",
+      "artist": "Black Marble",
+      "venue": "1720",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43201075-black-marble-at-1720",
+      "support": [
+        "Serfs"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "18:00",
+      "genre": "pop",
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0823-danielcaesar",
+      "artist": "Daniel Caesar",
+      "venue": "Honda Center",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43138918-daniel-caesar-at-honda-center",
+      "support": [
+        "070 Shake"
+      ],
+      "neighborhood": "Anaheim",
+      "time": "19:30",
+      "genre": "r & b",
+      "genres": [
+        "r & b",
+        "pop",
+        "hip hop"
+      ],
+      "blurb": "Canadian R&B/soul singer‐songwriter"
+    },
+    {
+      "id": "la-0823-dimmuborgir",
+      "artist": "Dimmu Borgir",
+      "venue": "The Novo",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43157378-dimmu-borgir-at-novo",
+      "support": [
+        "Hypocrisy",
+        "Hulder"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "metal",
+      "blurb": "NO group"
+    },
+    {
+      "id": "la-0823-hatebreed",
+      "artist": "Hatebreed",
+      "venue": "House of Blues - Old Location",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43237388-hatebreed-at-house-of-blues-old-location",
+      "support": [
+        "Terror",
+        "Incantation",
+        "Xibalba",
+        "Gates to Hell"
+      ],
+      "neighborhood": "Anaheim",
+      "time": "16:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock",
+        "electronic"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0823-jeffparker",
+      "artist": "Jeff Parker",
+      "venue": "Lodge Room",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43133839-jeff-parker-at-lodge-room",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "US jazz and rock guitarist, member of Tortoise",
+      "genre": "jazz"
+    },
+    {
+      "id": "la-0823-leyouth",
+      "artist": "Le Youth",
+      "venue": "Kimpton Canary Hotel",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43341691-le-youth-at-kimpton-canary-hotel",
+      "support": [
+        "RaquElevate"
+      ],
+      "neighborhood": "Santa Barbara",
+      "time": "17:00",
+      "genre": "electronic",
+      "genres": [
+        "electronic",
+        "funk soul"
+      ],
+      "blurb": "US | electronic"
+    },
+    {
+      "id": "la-0823-lostucanesdetijuana",
+      "artist": "Los Tucanes de Tijuana",
+      "venue": "Pacific Amphitheatre at the OC Fair",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43028514-los-tucanes-de-tijuana-at-pacific-amphitheatre-at-the-oc-fair",
+      "support": [
+        "Grupo Arriesgado"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "19:30",
+      "genre": "latin",
+      "blurb": "Group"
+    },
+    {
+      "id": "la-0823-slayyyter",
+      "artist": "Slayyyter",
+      "venue": "Shrine Expo Hall",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43188420-slayyyter-at-shrine-expo-hall",
+      "support": [
+        "Pearly Drops"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "wiki": "https://en.wikipedia.org/wiki/Slayyyter",
+      "blurb": "Catherine Grace Garner, known professionally as Slayyyter, is an American singer-songwriter."
+    },
+    {
+      "id": "la-0823-tuckerwetmore",
+      "artist": "Tucker Wetmore",
+      "venue": "Greek Theatre",
+      "date": "2026-08-23",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43078751-tucker-wetmore-at-greek-theatre",
+      "support": [
+        "William Beckmann",
+        "Stella Lefty"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "18:30"
+    },
+    {
+      "id": "la-0824-danielcaesar",
+      "artist": "Daniel Caesar",
+      "venue": "Honda Center",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43141756-daniel-caesar-at-honda-center",
+      "support": [
+        "070 Shake"
+      ],
+      "neighborhood": "Anaheim",
+      "time": "19:30",
+      "genre": "r & b",
+      "genres": [
+        "r & b",
+        "pop",
+        "hip hop"
+      ],
+      "blurb": "Canadian R&B/soul singer‐songwriter"
+    },
+    {
+      "id": "la-0824-hippiedeathcult",
+      "artist": "Hippie Death Cult",
+      "venue": "Zebulon",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43244849-hippie-death-cult-at-zebulon",
+      "support": [
+        "Earth Tongue"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "blurb": "US group",
+      "genre": "heavy rock"
+    },
+    {
+      "id": "la-0824-jeffparker",
+      "artist": "Jeff Parker",
+      "venue": "Lodge Room",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43133844-jeff-parker-at-lodge-room",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "US jazz and rock guitarist, member of Tortoise",
+      "genre": "jazz"
+    },
+    {
+      "id": "la-0824-lapeche",
+      "artist": "LAPêCHE",
+      "venue": "Moroccan Lounge",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43326447-lapeche-at-moroccan-lounge",
+      "support": [
+        "Always You"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "blurb": "Group"
+    },
+    {
+      "id": "la-0824-rogerdaltrey",
+      "artist": "Roger Daltrey",
+      "venue": "Yaamava' Theater",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43213539-roger-daltrey-at-yaamava-theater",
+      "support": [
+        "Dan Bern"
+      ],
+      "neighborhood": "Highland",
+      "time": "19:00",
+      "blurb": "GB artist",
+      "genre": "rock"
+    },
+    {
+      "id": "la-0824-slayyyter",
+      "artist": "Slayyyter",
+      "venue": "Shrine Expo Hall",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43200923-slayyyter-at-shrine-expo-hall",
+      "support": [
+        "Pearly Drops"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "wiki": "https://en.wikipedia.org/wiki/Slayyyter",
+      "blurb": "Catherine Grace Garner, known professionally as Slayyyter, is an American singer-songwriter."
+    },
+    {
+      "id": "la-0824-sysmith",
+      "artist": "Sy Smith",
+      "venue": "Blue Note Los Angeles",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43305342-sy-smith-at-blue-note-los-angeles",
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "genre": "funk soul",
+      "blurb": "US singer and actress"
+    },
+    {
+      "id": "la-0824-thebreeders",
+      "artist": "The Breeders",
+      "venue": "Hollywood Palladium",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42984937-breeders-at-hollywood-palladium",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative",
+        "hip hop"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0824-train",
+      "artist": "Train",
+      "venue": "Greek Theatre",
+      "date": "2026-08-24",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42881577-train-at-greek-theatre",
+      "support": [
+        "Barenaked Ladies",
+        "Matt Nathanson"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "18:45",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "indie alternative",
+        "rock"
+      ],
+      "blurb": "US pop rock band"
+    },
+    {
+      "id": "la-0825-earthless",
+      "artist": "Earthless",
+      "venue": "Zebulon",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43266243-earthless-at-zebulon",
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0825-henofthewoods",
+      "artist": "Hen of the Woods",
+      "venue": "2220 Arts + Archives",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43344260-hen-of-the-woods-at-2220-arts-archives",
+      "support": [
+        "Sunk Cost",
+        "Insufficient Despair"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:30",
+      "wiki": "https://en.wikipedia.org/wiki/The_Deep_Dark_Woods",
+      "blurb": "The Deep Dark Woods are a Canadian folk band from Saskatoon, currently signed to Sugar Hill Records in the United States and Six Shooter Records in Canada."
+    },
+    {
+      "id": "la-0825-jeffgoldblumthemildred",
+      "artist": "Jeff Goldblum & The Mildred Snitzer Orchestra",
+      "venue": "Blue Note Los Angeles",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43251233-jeff-goldblum-and-the-mildred-snitzer-orchestra-at-blue-note-los-angeles",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "wiki": "https://en.wikipedia.org/wiki/Jeff_Goldblum",
+      "blurb": "Jeffrey Lynn Goldblum is an American actor and musician."
+    },
+    {
+      "id": "la-0825-jeffparker",
+      "artist": "Jeff Parker",
+      "venue": "Lodge Room",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43133848-jeff-parker-at-lodge-room",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "US jazz and rock guitarist, member of Tortoise",
+      "genre": "jazz"
+    },
+    {
+      "id": "la-0825-mamamoo",
+      "artist": "MAMAMOO",
+      "venue": "Crypto.com Arena",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43189736-mamamoo-at-cryptocom-arena",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "pop",
+      "wiki": "https://en.wikipedia.org/wiki/Mamamoo",
+      "blurb": "Mamamoo is a South Korean girl group formed and managed by RBW."
+    },
+    {
+      "id": "la-0825-rumbleking",
+      "artist": "Rumble King",
+      "venue": "Hangar 24 - Orange County",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43191419-rumble-king-at-hangar-24-orange-county",
+      "neighborhood": "Irvine",
+      "wiki": "https://en.wikipedia.org/wiki/Rumble_%26_Strong",
+      "blurb": "Rumble & Strong was a Canadian hip hop band from Toronto, active in the late 1980s."
+    },
+    {
+      "id": "la-0825-stpaulandthebrokenbone",
+      "artist": "St. Paul and The Broken Bones",
+      "venue": "The Observatory",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/3798551-observatory/id/43063644-the-observatory-2026",
+      "neighborhood": "Santa Ana",
+      "time": "19:00",
+      "genre": "funk soul",
+      "wiki": "https://en.wikipedia.org/wiki/St._Paul_and_The_Broken_Bones",
+      "blurb": "St."
+    },
+    {
+      "id": "la-0825-toriamos",
+      "artist": "Tori Amos",
+      "venue": "Greek Theatre",
+      "date": "2026-08-25",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42998343-tori-amos-at-greek-theatre",
+      "support": [
+        "Bartees Strange"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "folk blues",
+        "pop"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Tori_Amos",
+      "blurb": "Tori Amos is an American singer-songwriter and pianist."
+    },
+    {
+      "id": "la-0826-amorypowers",
+      "artist": "Amor Y Powers",
+      "venue": "Zebulon",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43307281-amor-y-powers-at-zebulon",
+      "support": [
+        "Kid Congo",
+        "Naim Amor",
+        "Ian Svenonius"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00"
+    },
+    {
+      "id": "la-0826-crankdat",
+      "artist": "Crankdat",
+      "venue": "Shrine Expo Hall",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43187637-crankdat-at-shrine-expo-hall",
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "blurb": "Artist"
+    },
+    {
+      "id": "la-0826-jeffgoldblumthemildred",
+      "artist": "Jeff Goldblum & The Mildred Snitzer Orchestra",
+      "venue": "Blue Note Los Angeles",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43251232-jeff-goldblum-and-the-mildred-snitzer-orchestra-at-blue-note-los-angeles",
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "wiki": "https://en.wikipedia.org/wiki/Jeff_Goldblum",
+      "blurb": "Jeffrey Lynn Goldblum is an American actor and musician."
+    },
+    {
+      "id": "la-0826-laluz",
+      "artist": "La Luz",
+      "venue": "SOhO Restaurant & Music Club",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43225286-la-luz-at-soho-restaurant-and-music-club",
+      "neighborhood": "Santa Barbara",
+      "time": "20:00",
+      "genre": "rock",
+      "blurb": "US rock band"
+    },
+    {
+      "id": "la-0826-mynewbandbelieve",
+      "artist": "My New Band Believe",
+      "venue": "Lodge Room",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43292061-my-new-band-believe-at-lodge-room",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "GB group"
+    },
+    {
+      "id": "la-0826-orianthi",
+      "artist": "Orianthi",
+      "venue": "The Coach House",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43142839-orianthi-at-coach-house",
+      "neighborhood": "San Juan Capistrano",
+      "time": "20:00",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "rock",
+        "folk blues"
+      ],
+      "blurb": "AU artist"
+    },
+    {
+      "id": "la-0826-rachelchinouriri",
+      "artist": "Rachel Chinouriri",
+      "venue": "El Rey Theatre",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43344512-rachel-chinouriri-at-el-rey-theatre",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "blurb": "GB artist",
+      "genre": "alternative pop"
+    },
+    {
+      "id": "la-0826-senselessoptimism",
+      "artist": "senseless optimism",
+      "venue": "Gold Diggers",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43340916-senseless-optimism-at-gold-diggers",
+      "neighborhood": "Los Angeles",
+      "time": "19:00"
+    },
+    {
+      "id": "la-0826-waynehancock",
+      "artist": "Wayne Hancock",
+      "venue": "The Wayfarer",
+      "date": "2026-08-26",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43058797-wayne-hancock-at-wayfarer",
+      "support": [
+        "The Hula Girls",
+        "The Real Big Bad"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "20:00",
+      "genre": "country",
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0827-builttospill",
+      "artist": "Built to Spill",
+      "venue": "Ventura Music Hall Reserved",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43090926-built-to-spill-at-ventura-music-hall-reserved",
+      "support": [
+        "Playdead"
+      ],
+      "neighborhood": "Ventura",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "hip hop"
+      ],
+      "blurb": "US group"
+    },
+    {
+      "id": "la-0827-crankdat",
+      "artist": "Crankdat",
+      "venue": "Shrine Expo Hall",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43001001-crankdat-at-shrine-expo-hall",
+      "support": [
+        "TYNAN",
+        "Celo"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "blurb": "Artist"
+    },
+    {
+      "id": "la-0827-daveeast",
+      "artist": "Dave East",
+      "venue": "The Belasco",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/3793767-xxl-freshman-class/id/43327967-xxl-freshman-class-2026",
+      "support": [
+        "sosocamo",
+        "Babyfxce E",
+        "Hurricane Wisdom",
+        "Skrilla"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "hip hop",
+      "genres": [
+        "hip hop",
+        "electronic"
+      ],
+      "blurb": "US rapper"
+    },
+    {
+      "id": "la-0827-dianaross",
+      "artist": "Diana Ross",
+      "venue": "Santa Barbara Bowl",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43259645-diana-ross-at-santa-barbara-bowl",
+      "neighborhood": "Santa Barbara",
+      "time": "19:00",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "rock",
+        "pop"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Diana_Ross",
+      "blurb": "Diana Ross is an American singer and actress."
+    },
+    {
+      "id": "la-0827-masonjennings",
+      "artist": "Mason Jennings",
+      "venue": "The Coach House",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43315233-mason-jennings-at-coach-house",
+      "neighborhood": "San Juan Capistrano",
+      "time": "19:00",
+      "genre": "country",
+      "genres": [
+        "country",
+        "indie alternative",
+        "folk blues"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0827-samgendel",
+      "artist": "Sam Gendel",
+      "venue": "Masonic Lodge, Hollywood Forever Cemetery",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43220338-sam-gendel-at-masonic-lodge-hollywood-forever-cemetery",
+      "support": [
+        "Sam Wilkes",
+        "Sam Gendel & Sam Wilkes"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "blurb": "US artist",
+      "genre": "jazz"
+    },
+    {
+      "id": "la-0827-sweetpill",
+      "artist": "Sweet Pill",
+      "venue": "El Rey Theatre",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43226409-sweet-pill-at-el-rey-theatre",
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "blurb": "American emo/indie rock band",
+      "genre": "math rock"
+    },
+    {
+      "id": "la-0827-thirdeyeblind",
+      "artist": "Third Eye Blind",
+      "venue": "Yaamava' Theater",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43196799-third-eye-blind-at-yaamava-theater",
+      "neighborhood": "Highland",
+      "time": "20:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Third_Eye_Blind",
+      "blurb": "Third Eye Blind (3EB) is an American rock band formed in San Francisco, California, in 1993."
+    },
+    {
+      "id": "la-0827-wax",
+      "artist": "Wax",
+      "venue": "The Echo",
+      "date": "2026-08-27",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43127214-wax-at-echo",
+      "support": [
+        "DJ Hoppa",
+        "K.A.A.N",
+        "Intuition & Equalibrum"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "indie alternative",
+      "blurb": "1980s pop group, aka Wax UK"
+    },
+    {
+      "id": "la-0828-bradmehldau",
+      "artist": "Brad Mehldau",
+      "venue": "Orpheum Theatre",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43103799-brad-mehldau-at-orpheum-theatre",
+      "support": [
+        "Chris Thile",
+        "John Davis",
+        "Brad Mehldau Trio"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "jazz",
+      "genres": [
+        "jazz",
+        "folk blues",
+        "country"
+      ],
+      "blurb": "American jazz pianist, composer, and arranger"
+    },
+    {
+      "id": "la-0828-davidbyrne",
+      "artist": "David Byrne",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43170670-david-byrne-at-hollywood-bowl",
+      "neighborhood": "Hollywood",
+      "time": "20:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative",
+        "pop"
+      ],
+      "blurb": "Talking Heads"
+    },
+    {
+      "id": "la-0828-dianaross",
+      "artist": "Diana Ross",
+      "venue": "Pacific Amphitheatre",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43197437-diana-ross-at-pacific-amphitheatre",
+      "neighborhood": "Costa Mesa",
+      "time": "19:30",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "rock",
+        "pop"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Diana_Ross",
+      "blurb": "Diana Ross is an American singer and actress."
+    },
+    {
+      "id": "la-0828-elprimerinstinto",
+      "artist": "El Primer Instinto",
+      "venue": "Fox Performing Arts Center",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43190505-el-primer-instinto-at-fox-performing-arts-center",
+      "support": [
+        "Café Tacvba"
+      ],
+      "neighborhood": "Riverside",
+      "time": "20:00",
+      "genre": "latin",
+      "genres": [
+        "latin",
+        "rock",
+        "indie alternative"
+      ]
+    },
+    {
+      "id": "la-0828-laluz",
+      "artist": "La Luz",
+      "venue": "Farm House Collective",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43225291-la-luz-at-farm-house-collective",
+      "neighborhood": "Riverside",
+      "time": "19:00",
+      "genre": "rock",
+      "blurb": "US rock band"
+    },
+    {
+      "id": "la-0828-molchatdoma",
+      "artist": "Molchat Doma",
+      "venue": "Majestic Ventura Theater",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43172905-molchat-doma-at-majestic-ventura-theater",
+      "neighborhood": "Ventura",
+      "time": "20:00",
+      "genre": "electronic",
+      "blurb": "BY group"
+    },
+    {
+      "id": "la-0828-nas",
+      "artist": "Nas",
+      "venue": "F&m Bank Amphitheater of Long Beach",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43096884-nas-at-f-and-m-bank-amphitheater-of-long-beach",
+      "support": [
+        "De La Soul"
+      ],
+      "neighborhood": "Long Beach",
+      "time": "20:00",
+      "genre": "hip hop"
+    },
+    {
+      "id": "la-0828-revengewife",
+      "artist": "Revenge Wife",
+      "venue": "Sticky Rice",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43348382-revenge-wife-at-sticky-rice",
+      "support": [
+        "thebandfriday",
+        "Sandy Hawkins",
+        "Sorry Ghost",
+        "Small Forward"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "10:00",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "electronic",
+        "hip hop"
+      ]
+    },
+    {
+      "id": "la-0828-thetempertrap",
+      "artist": "The Temper Trap",
+      "venue": "The Bellwether",
+      "date": "2026-08-28",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43271362-temper-trap-at-bellwether",
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "electronic"
+      ],
+      "blurb": "Australian indie rock band"
+    },
+    {
+      "id": "la-0829-alisonkraussunionstati",
+      "artist": "Alison Krauss & Union Station featuring Jerry Douglas",
+      "venue": "OC Fair & Event Center",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42931374-alison-krauss-and-union-station-featuring-jerry-douglas-at-oc-fair-and-event-center",
+      "support": [
+        "Alison Krauss",
+        "Alison Krauss and Union Station"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "19:30",
+      "genre": "folk blues",
+      "genres": [
+        "folk blues",
+        "country"
+      ]
+    },
+    {
+      "id": "la-0829-billcallahan",
+      "artist": "Bill Callahan",
+      "venue": "Sid The Cat Auditorium",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43158573-bill-callahan-at-sid-the-cat-auditorium",
+      "neighborhood": "South Pasadena",
+      "time": "20:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "folk blues",
+        "hip hop"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0829-blacklips",
+      "artist": "Black Lips",
+      "venue": "Teragram Ballroom",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43310940-black-lips-at-teragram-ballroom",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative",
+        "folk blues"
+      ],
+      "blurb": "US garage rock band"
+    },
+    {
+      "id": "la-0829-courtneybarnett",
+      "artist": "Courtney Barnett",
+      "venue": "Hollywood Palladium",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/42996355-courtney-barnett-at-hollywood-palladium",
+      "neighborhood": "Los Angeles",
+      "time": "19:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock",
+        "folk blues"
+      ],
+      "blurb": "AU artist"
+    },
+    {
+      "id": "la-0829-davidbyrne",
+      "artist": "David Byrne",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43170674-david-byrne-at-hollywood-bowl",
+      "neighborhood": "Hollywood",
+      "time": "20:00",
+      "genre": "rock",
+      "genres": [
+        "rock",
+        "indie alternative",
+        "pop"
+      ],
+      "blurb": "Talking Heads"
+    },
+    {
+      "id": "la-0829-joeybada",
+      "artist": "Joey Bada$$",
+      "venue": "Blue Note Los Angeles",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43347204-joey-badass-at-blue-note-los-angeles",
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "genre": "hip hop",
+      "genres": [
+        "hip hop",
+        "electronic"
+      ],
+      "blurb": "Rapper"
+    },
+    {
+      "id": "la-0829-noname",
+      "artist": "Noname",
+      "venue": "Fonda Theatre",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43292677-noname-at-fonda-theatre",
+      "neighborhood": "Los Angeles",
+      "time": "21:00",
+      "genre": "hip hop",
+      "blurb": "Chicago rapper"
+    },
+    {
+      "id": "la-0829-oliviarodrigo",
+      "artist": "Olivia Rodrigo",
+      "venue": "Great Park",
+      "date": "2026-08-29",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/3792656-daisy-chain-fields/id/43286218-daisy-chain-fields-2026",
+      "support": [
+        "Mitski",
+        "Chappell Roan",
+        "Doechii",
+        "Stevie Nicks"
+      ],
+      "neighborhood": "Irvine",
+      "time": "10:30",
+      "genre": "pop",
+      "genres": [
+        "pop",
+        "indie alternative",
+        "folk blues"
+      ],
+      "blurb": "US singer‐songwriter"
+    },
+    {
+      "id": "la-0830-avengedsevenfold",
+      "artist": "Avenged Sevenfold",
+      "venue": "BMO Stadium",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43106689-avenged-sevenfold-at-bmo-stadium",
+      "support": [
+        "Good Charlotte",
+        "A Day to Remember"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "18:00",
+      "genre": "metal",
+      "genres": [
+        "metal",
+        "rock"
+      ],
+      "blurb": "American metal band"
+    },
+    {
+      "id": "la-0830-billcallahan",
+      "artist": "Bill Callahan",
+      "venue": "Sid The Cat Auditorium",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43166207-bill-callahan-at-sid-the-cat-auditorium",
+      "neighborhood": "South Pasadena",
+      "time": "19:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "folk blues",
+        "hip hop"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0830-joeybada",
+      "artist": "Joey Bada$$",
+      "venue": "Blue Note Los Angeles",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43347216-joey-badass-at-blue-note-los-angeles",
+      "neighborhood": "Los Angeles",
+      "time": "21:30",
+      "genre": "hip hop",
+      "genres": [
+        "hip hop",
+        "electronic"
+      ],
+      "blurb": "Rapper"
+    },
+    {
+      "id": "la-0830-lost80slive",
+      "artist": "Lost 80's Live",
+      "venue": "Greek Theatre",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43074204-lost-80s-live-at-greek-theatre",
+      "support": [
+        "Men Without Hats",
+        "Oingo Boingo Former Members",
+        "Big Country",
+        "The Vapors"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "18:00"
+    },
+    {
+      "id": "la-0830-lupefiasco",
+      "artist": "Lupe Fiasco",
+      "venue": "Hollywood Palladium",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/3785405-hiero-day-la/id/43209326-hiero-day-la-2026",
+      "support": [
+        "Hieroglyphics",
+        "Coast Contra"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "18:00",
+      "genre": "hip hop",
+      "genres": [
+        "hip hop",
+        "electronic"
+      ],
+      "blurb": "US artist"
+    },
+    {
+      "id": "la-0830-portugaltheman",
+      "artist": "Portugal. The Man",
+      "venue": "The Observatory",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43291016-portugal-the-man-at-observatory",
+      "neighborhood": "Santa Ana",
+      "time": "19:00",
+      "genre": "indie alternative",
+      "genres": [
+        "indie alternative",
+        "rock"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Portugal._The_Man",
+      "blurb": "Portugal."
+    },
+    {
+      "id": "la-0830-thecommodores",
+      "artist": "The Commodores",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43059954-commodores-at-hollywood-bowl",
+      "support": [
+        "Boney James",
+        "Sheila E."
+      ],
+      "neighborhood": "Hollywood",
+      "time": "18:30",
+      "genre": "funk soul",
+      "genres": [
+        "funk soul",
+        "rock",
+        "jazz"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Commodores",
+      "blurb": "Commodores, often billed as the Commodores, are an American funk and soul group."
+    },
+    {
+      "id": "la-0830-theesacredsouls",
+      "artist": "Thee Sacred Souls",
+      "venue": "Santa Barbara Bowl",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43209476-thee-sacred-souls-at-santa-barbara-bowl",
+      "neighborhood": "Santa Barbara",
+      "time": "18:00",
+      "wiki": "https://en.wikipedia.org/wiki/Thee_Sacred_Souls",
+      "blurb": "Thee Sacred Souls is an American soul trio signed to Daptone Records."
+    },
+    {
+      "id": "la-0830-travisbarker",
+      "artist": "Travis Barker",
+      "venue": "Hollywood Forever Cemetery",
+      "date": "2026-08-30",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/festivals/3795252-official-ramones-50th-anniversary/id/43314428-the-official-ramones-50th-anniversary-2026",
+      "support": [
+        "Billie Joe Armstrong",
+        "Tim Armstrong",
+        "C.J. Ramone",
+        "CRETIN FAMILY"
+      ],
+      "neighborhood": "Hollywood",
+      "genre": "hip hop",
+      "genres": [
+        "hip hop",
+        "rock",
+        "metal"
+      ],
+      "wiki": "https://en.wikipedia.org/wiki/Travis_Barker",
+      "blurb": "Travis Landon Barker is an American musician, songwriter, and music producer who is the drummer for the rock band Blink-182."
     }
   ]
 }
