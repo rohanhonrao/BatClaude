@@ -11,6 +11,7 @@ import * as Rates from './rates.js';
 import * as charts from './charts.js';
 import * as P from './projection.js';
 import { csvToObjects, guessMapping, rowsToTransactions, transactionsToCSV } from './csv.js';
+import { toast, openSheet, closeSheet, pushNav } from './ui.js';
 
 // --- Global state -----------------------------------------------------------
 const S = {
@@ -80,10 +81,27 @@ async function render() {
   // Post-render hooks
   if (view.after) view.after();
 }
+// Routes visited inside Finance, so the back gesture retraces them.
+let routeStack = ['dashboard'];
 function navigate(route) {
   S.route = route;
+  routeStack.push(route);
+  pushNav('route');
   window.scrollTo(0, 0);
   render();
+}
+
+// Called by the shell on a back press. Returns false when we're already at the
+// module root, which tells the shell to return to the hub instead.
+export function financeBack() {
+  if (routeStack.length > 1) {
+    routeStack.pop();
+    S.route = routeStack[routeStack.length - 1];
+    window.scrollTo(0, 0);
+    render();
+    return true;
+  }
+  return false;
 }
 function setActiveNav() {
   const map = { dashboard: 'dashboard', transactions: 'transactions', budgets: 'budgets' };
@@ -91,33 +109,8 @@ function setActiveNav() {
   document.querySelectorAll('.nav button').forEach((b) => b.classList.toggle('active', b.dataset.nav === active));
 }
 
-// --- Toast ------------------------------------------------------------------
-let toastTimer;
-function toast(msg, isErr = false) {
-  let el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = isErr ? 'err show' : 'show';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => (el.className = ''), 2200);
-}
-
-// --- Sheet (bottom modal) ---------------------------------------------------
-function openSheet(html) {
-  closeSheet();
-  const bd = document.createElement('div');
-  bd.className = 'sheet-backdrop';
-  bd.id = 'sheet-bd';
-  bd.innerHTML = `<div class="sheet" role="dialog" aria-modal="true"><div class="grabber"></div>${html}</div>`;
-  bd.addEventListener('click', (e) => { if (e.target === bd) closeSheet(); });
-  document.body.appendChild(bd);
-  document.body.style.overflow = 'hidden';
-  return bd.querySelector('.sheet');
-}
-function closeSheet() {
-  const bd = document.getElementById('sheet-bd');
-  if (bd) bd.remove();
-  document.body.style.overflow = '';
-}
+// Toast + sheets now come from ui.js (single implementation, and it keeps the
+// browser history in sync so the Android back gesture works).
 
 // --- Small render helpers ---------------------------------------------------
 function money(n, cls = '') {
@@ -1434,6 +1427,7 @@ export async function mountFinance() {
     const hv = getSetting('homeView'); if (hv === 'cashflow' || hv === 'expenses') S.homeView = hv;
     const hz = getSetting('cfHorizon'); if (hz) S.cfHorizon = hz;
     S.route = 'dashboard';
+    routeStack = ['dashboard'];
     document.getElementById('chrome').style.display = '';
     render();
   }

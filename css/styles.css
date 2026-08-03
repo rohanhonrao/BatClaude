@@ -712,3 +712,10 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
   font-size: 18px; letter-spacing: 0.24em; text-transform: uppercase;
 }
 .lock h1.brand, .onboard h1.brand { font-family: var(--font-display); font-weight: 400; }
+
+/* --- Update banner ------------------------------------------------------- */
+.update-card { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--accent-tint); border: 1px solid rgba(233,228,218,.28);
+  border-radius: var(--radius); padding: 13px 14px; margin-bottom: 16px; }
+.update-card b { font-weight: 600; font-size: 14px; }
+.update-card i.ti { color: var(--accent); }

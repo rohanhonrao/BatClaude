@@ -6,8 +6,9 @@ import {
   setupRecovery, recoverWithShares, recoveryEnabled,
   biometricAvailable, biometricEnabled, enableBiometric, disableBiometric, unlockBiometric,
 } from './crypto.js';
-import { toast, openSheet, closeSheet } from './ui.js';
-import { mountFinance, setHubHandler } from './app.js';
+import { toast, openSheet, closeSheet, pushNav, isSheetOpen } from './ui.js';
+import * as AppLock from './applock.js';
+import { mountFinance, setHubHandler, financeBack } from './app.js';
 import { mountPasswords, setPwHubHandler } from './passwords.js';
 import { mountMove, setMoveHubHandler } from './move.js';
 import { mountDocs, setDocsHubHandler } from './docs.js';
@@ -17,6 +18,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
+export const APP_VERSION = '15';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -34,8 +36,7 @@ const MODULES = [
   { id: 'passwords', name: 'Passwords', icon: 'ti-lock', desc: 'Encrypted vault', ready: true },
   { id: 'docs', name: 'Documents', icon: 'ti-id', desc: 'IDs & records · biometric‑locked', ready: true },
   { id: 'grocery', name: 'Grocery', icon: 'ti-shopping-cart', desc: 'Shared shopping list', ready: true },
-  // Move HQ hidden for now — code stays wired (openModule + import) to re-enable later.
-  // { id: 'move', name: 'Move HQ', icon: 'ti-map-pin', desc: 'Moving checklist · LA → NJ', ready: true },
+  { id: 'move', name: 'Move HQ', icon: 'ti-map-pin', desc: 'Moving checklist · LA → NJ', ready: true },
   { id: 'movies', name: 'Movies', icon: 'ti-movie', desc: 'Ratings, watchlist, radar', ready: false },
   { id: 'sports', name: 'Sports', icon: 'ti-ball-basketball', desc: 'Teams, fixtures, analysis', ready: false },
   { id: 'stocks', name: 'Stocks', icon: 'ti-chart-candle', desc: 'Daily buy/sell signals', ready: false },
@@ -209,19 +210,24 @@ then choose a new master password.
 }
 
 // --- Hub --------------------------------------------------------------------
+function goHub() { currentModule = null; showHub(); }
+
 function showHub() {
   hideChrome();
-  setHubHandler(showHub);
-  setPwHubHandler(showHub);
-  setMoveHubHandler(showHub);
-  setDocsHubHandler(showHub);
-  setGroceryHubHandler(showHub);
+  currentModule = null;
+  setHubHandler(goHub);
+  setPwHubHandler(goHub);
+  setMoveHubHandler(goHub);
+  setDocsHubHandler(goHub);
+  setGroceryHubHandler(goHub);
   const name = getSetting('name') || 'Wayne';
   $app().innerHTML = `<div class="view">
     <div class="app-header">
       <div class="title">${BAT(24)}<h1 class="brand">SANCTUM</h1></div>
+      <button class="header-btn" id="h-settings" aria-label="Settings"><i class="ti ti-settings"></i></button>
     </div>
     <div class="hub-greet">Good to see you, <b>${escapeHtml(name)}</b>.</div>
+    <div id="update-slot"></div>
     <div class="hub-grid">
       ${MODULES.map((m) => `<button class="hub-card ${m.ready ? '' : 'soon'}" data-mod="${m.id}">
         <span class="hub-ic"><i class="ti ${m.icon}"></i></span>
@@ -230,20 +236,51 @@ function showHub() {
         ${m.ready ? '' : '<span class="hub-badge">Soon</span>'}
       </button>`).join('')}
     </div>
-    <div class="center muted tiny mt2"><i class="ti ti-shield-check" style="color:var(--green)"></i> Encrypted on this device · master‑password lock coming soon</div>
+    <div class="center muted tiny mt2">
+      <i class="ti ti-shield-check" style="color:var(--green)"></i> On this device only · v${APP_VERSION}
+    </div>
   </div>`;
 
   $app().querySelectorAll('[data-mod]').forEach((b) => b.addEventListener('click', () => openModule(b.dataset.mod)));
+  document.getElementById('h-settings').addEventListener('click', settingsSheet);
+  renderUpdateBanner();
+  checkForUpdate();
 }
 
+let currentModule = null;
 function openModule(id) {
   const m = MODULES.find((x) => x.id === id);
   if (!m.ready) return toast(`${m.name} — coming soon`);
+  currentModule = id;
+  pushNav('module');
   if (id === 'finance') mountFinance();
   else if (id === 'passwords') mountPasswords();
   else if (id === 'move') mountMove();
   else if (id === 'docs') mountDocs();
   else if (id === 'grocery') mountGrocery();
+}
+
+// --- Android back gesture ----------------------------------------------------
+// One history entry per navigation step; a back press pops exactly one and we
+// decide what it meant. Only a press at the hub is allowed to exit the app.
+function onPopState() {
+  if (isSheetOpen()) { closeSheet(true); return; }
+  if (currentModule) {
+    // Let the module retrace its own screens first (Finance has sub-pages).
+    if (currentModule === 'finance' && financeBack()) return;
+    returnToHub();
+    return;
+  }
+  // At the hub we're at the root: let the press close the app, which is the
+  // behaviour Android users expect.
+}
+
+function returnToHub() {
+  currentModule = null;
+  const c = chrome();
+  if (c) c.style.display = 'none';
+  closeSheet(true);
+  showHub();
 }
 
 // --- Security sheet ---------------------------------------------------------
@@ -320,15 +357,127 @@ async function maybeOfferBiometric() {
   });
 }
 
+// --- Updates -----------------------------------------------------------------
+let swReg = null;
+let updateReady = false;
+
+function renderUpdateBanner() {
+  const slot = document.getElementById('update-slot');
+  if (!slot) return;
+  if (!updateReady) { slot.innerHTML = ''; return; }
+  slot.innerHTML = `<div class="update-card">
+    <div><i class="ti ti-sparkles"></i> <b>Update available</b>
+      <div class="tiny muted">A newer version of Sanctum is ready.</div></div>
+    <button class="btn primary" id="do-update" style="width:auto;padding:10px 16px"><i class="ti ti-refresh"></i> Refresh</button>
+  </div>`;
+  document.getElementById('do-update').addEventListener('click', applyUpdate);
+}
+
+async function applyUpdate() {
+  try {
+    const waiting = swReg && swReg.waiting;
+    if (waiting) waiting.postMessage({ type: 'SKIP_WAITING' });
+    // Drop caches so the reload definitely pulls the new files.
+    if (window.caches) { for (const k of await caches.keys()) await caches.delete(k); }
+  } catch {}
+  location.reload();
+}
+
+async function checkForUpdate({ manual = false } = {}) {
+  if (!('serviceWorker' in navigator) || !location.protocol.startsWith('http')) {
+    if (manual) toast('Updates only work on the installed app');
+    return;
+  }
+  try {
+    swReg = swReg || await navigator.serviceWorker.getRegistration();
+    if (!swReg) { if (manual) toast('No update information yet'); return; }
+    await swReg.update();
+    if (swReg.waiting || swReg.installing) {
+      updateReady = true; renderUpdateBanner();
+      if (manual) toast('Update found');
+    } else if (manual) {
+      toast('You’re on the latest version');
+    }
+  } catch { if (manual) toast('Could not check for updates', true); }
+}
+
+function watchForUpdates(reg) {
+  swReg = reg;
+  if (reg.waiting) { updateReady = true; renderUpdateBanner(); }
+  reg.addEventListener('updatefound', () => {
+    const nw = reg.installing;
+    if (!nw) return;
+    nw.addEventListener('statechange', () => {
+      // A new worker finishing install while one already controls the page
+      // means there is genuinely a newer version waiting.
+      if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+        updateReady = true; renderUpdateBanner();
+      }
+    });
+  });
+}
+
+// --- Settings ----------------------------------------------------------------
+async function settingsSheet() {
+  const bioAvail = await AppLock.available();
+  const bioOn = await AppLock.isEnabled();
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Settings</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="row" style="border:none">
+      <div class="ic"><i class="ti ti-fingerprint"></i></div>
+      <div class="main"><div class="t">Unlock with biometrics</div>
+        <div class="s">${bioAvail ? 'Require Face/fingerprint to open Sanctum' : 'Not available on this device'}</div></div>
+      <label class="switch"><input type="checkbox" id="set-bio" ${bioOn ? 'checked' : ''} ${bioAvail ? '' : 'disabled'}><span></span></label>
+    </div>
+    <button class="btn mt" id="set-update"><i class="ti ti-refresh"></i> Check for updates</button>
+    <div class="hint center mt2">Sanctum v${APP_VERSION} · everything stays on this device</div>
+  `);
+  sheet.querySelector('#set-bio').addEventListener('change', async (e) => {
+    if (e.target.checked) {
+      try { await AppLock.enable(); toast('Biometric unlock on'); }
+      catch (err) { e.target.checked = false; toast(err.message || 'Could not enable', true); }
+    } else {
+      await AppLock.disable(); toast('Biometric unlock off');
+    }
+  });
+  sheet.querySelector('#set-update').addEventListener('click', () => checkForUpdate({ manual: true }));
+}
+
+// --- App lock screen ---------------------------------------------------------
+function showAppLock() {
+  hideChrome();
+  $app().innerHTML = `<div class="view lock">
+    ${BAT(52)}
+    <h1 class="brand">SANCTUM</h1>
+    <p class="muted">Locked. Use your fingerprint or face to continue.</p>
+    <div class="lock-form">
+      <button class="btn primary" id="al-go"><i class="ti ti-fingerprint"></i> Unlock</button>
+    </div>
+  </div>`;
+  const tryUnlock = async () => {
+    try {
+      if (await AppLock.verify()) { goHub(); }
+      else toast('Unlock failed', true);
+    } catch { toast('Unlock cancelled', true); }
+  };
+  document.getElementById('al-go').addEventListener('click', tryUnlock);
+  tryUnlock(); // prompt immediately on open
+}
+
 // --- Boot -------------------------------------------------------------------
 async function boot() {
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+    navigator.serviceWorker.register('./sw.js').then(watchForUpdates).catch(() => {});
   }
   await loadSettings();
-  // Security layer (master password / lock / biometric) is deferred; open the
-  // hub directly with a transparent device key so modules work in the meantime.
+  // Master-password encryption is still deferred; the device key keeps modules
+  // working, and the optional biometric gate below guards the UI.
   await autoUnlock();
-  showHub();
+
+  history.replaceState({ sanctum: 'root' }, '');
+  window.addEventListener('popstate', onPopState);
+
+  if (await AppLock.isEnabled()) showAppLock();
+  else showHub();
 }
 boot();

@@ -1,5 +1,5 @@
 // sw.js — offline cache. Bump CACHE when you change app files.
-const CACHE = 'sanctum-v14';
+const CACHE = 'sanctum-v15';
 const ASSETS = [
   './',
   './index.html',
@@ -26,6 +26,7 @@ const ASSETS = [
   './js/crypto.js',
   './js/shamir.js',
   './js/ui.js',
+  './js/applock.js',
   './js/passwords.js',
   './js/move.js',
   './js/vaultlock.js',
@@ -64,4 +65,9 @@ self.addEventListener('fetch', (e) => {
       return cached || fetched;
     })
   );
+});
+
+// Let the page activate a freshly installed worker (the "Refresh" button).
+self.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
