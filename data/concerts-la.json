@@ -1,7 +1,7 @@
 {
   "city": "Los Angeles",
   "cityId": "la",
-  "generatedAt": "2026-08-03T03:40:36.501Z",
+  "generatedAt": "2026-08-03T03:43:49.178Z",
   "windowDays": 28,
   "sources": [
     "songkick.com (schema.org JSON-LD)"
@@ -9,19 +9,124 @@
   "note": "Compiled automatically from public listings. Always confirm on the venue page before buying.",
   "events": [
     {
-      "id": "la-0803-andrewsantino",
-      "artist": "Andrew Santino",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-03",
+      "id": "la-0802-boysnoize",
+      "artist": "Boys Noize",
+      "venue": "Avalon",
+      "date": "2026-08-02",
       "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43346598-andrew-santino-at-main-room-hollywood-improv",
+      "url": "https://www.songkick.com/concerts/43325183-boys-noize-at-avalon",
+      "neighborhood": "Hollywood",
+      "time": "22:00",
+      "genre": "electronic"
+    },
+    {
+      "id": "la-0802-cutchemist",
+      "artist": "Cut Chemist",
+      "venue": "Only the Wild Ones",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43155962-cut-chemist-at-only-the-wild-ones",
+      "neighborhood": "Los Angeles",
+      "time": "17:00",
+      "genre": "electronic"
+    },
+    {
+      "id": "la-0802-deathcabforcutie",
+      "artist": "Death Cab for Cutie",
+      "venue": "Greek Theatre",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43004242-death-cab-for-cutie-at-greek-theatre",
       "support": [
-        "Dustin Nickerson",
-        "Cristela Alonzo"
+        "Nation of Language"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "19:30",
+      "genre": "indie alternative"
+    },
+    {
+      "id": "la-0802-kimgordon",
+      "artist": "Kim Gordon",
+      "venue": "Pacific Electric",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43214781-kim-gordon-at-pacific-electric",
+      "support": [
+        "Sleepie Louie",
+        "Sarah Register"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00"
+    },
+    {
+      "id": "la-0802-lavern",
+      "artist": "Lavern",
+      "venue": "The Standard Hotel - West Hollywood",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43344345-lavern-at-standard-hotel-west-hollywood",
+      "neighborhood": "West Hollywood",
+      "time": "22:00"
+    },
+    {
+      "id": "la-0802-nelly",
+      "artist": "Nelly",
+      "venue": "Pacific Amphitheatre",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43051623-nelly-at-pacific-amphitheatre",
+      "support": [
+        "Too $hort"
+      ],
+      "neighborhood": "Costa Mesa",
+      "time": "19:30",
+      "genre": "hip hop"
+    },
+    {
+      "id": "la-0802-stvincent",
+      "artist": "St. Vincent",
+      "venue": "Hollywood Bowl",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43054284-st-vincent-at-hollywood-bowl",
+      "support": [
+        "Hollywood Bowl Orchestra",
+        "Anoushka Shankar"
       ],
       "neighborhood": "Hollywood",
-      "time": "19:15",
-      "genre": "comedy"
+      "time": "19:00",
+      "genre": "indie alternative"
+    },
+    {
+      "id": "la-0802-tortoise",
+      "artist": "Tortoise",
+      "venue": "Zebulon",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43313927-tortoise-at-zebulon",
+      "support": [
+        "Tara Jane O'neil"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "20:00",
+      "genre": "rock"
+    },
+    {
+      "id": "la-0802-treysongz",
+      "artist": "Trey Songz",
+      "venue": "Pershing Square",
+      "date": "2026-08-02",
+      "source": "Songkick",
+      "url": "https://www.songkick.com/concerts/43341750-trey-songz-at-pershing-square",
+      "support": [
+        "Soulja Boy",
+        "Kid Ink",
+        "Dorrough",
+        "Ray J"
+      ],
+      "neighborhood": "Los Angeles",
+      "time": "15:00",
+      "genre": "hip hop"
     },
     {
       "id": "la-0803-ashanti",
@@ -92,20 +197,6 @@
       "neighborhood": "Los Angeles",
       "time": "19:30",
       "genre": "indie alternative"
-    },
-    {
-      "id": "la-0803-deraydavis",
-      "artist": "Deray Davis",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-03",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43324425-deray-davis-at-main-room-hollywood-improv",
-      "support": [
-        "Red Grant"
-      ],
-      "neighborhood": "Hollywood",
-      "time": "21:30",
-      "genre": "comedy"
     },
     {
       "id": "la-0803-slayr",
@@ -888,17 +979,6 @@
       "neighborhood": "Los Angeles"
     },
     {
-      "id": "la-0810-deraydavis",
-      "artist": "Deray Davis",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-10",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43324427-deray-davis-at-main-room-hollywood-improv",
-      "neighborhood": "Hollywood",
-      "time": "21:30",
-      "genre": "comedy"
-    },
-    {
       "id": "la-0810-gregmendez",
       "artist": "Greg Mendez",
       "venue": "Sid The Cat Auditorium",
@@ -1108,21 +1188,6 @@
       "genre": "folk blues"
     },
     {
-      "id": "la-0812-anthonyjeselnik",
-      "artist": "Anthony Jeselnik",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-12",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43319290-anthony-jeselnik-at-main-room-hollywood-improv",
-      "support": [
-        "Tiffany Haddish",
-        "Adam Ray"
-      ],
-      "neighborhood": "Hollywood",
-      "time": "19:30",
-      "genre": "comedy"
-    },
-    {
       "id": "la-0812-bandaloschinos",
       "artist": "Bandalos Chinos",
       "venue": "The Observatory",
@@ -1225,20 +1290,6 @@
       "neighborhood": "West Hollywood",
       "time": "19:00",
       "genre": "metal"
-    },
-    {
-      "id": "la-0813-jamiefoxx",
-      "artist": "Jamie Foxx",
-      "venue": "The Stand Up Comedy Club",
-      "date": "2026-08-13",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43314269-jamie-foxx-at-stand-up-comedy-club",
-      "support": [
-        "Speedy"
-      ],
-      "neighborhood": "Bellflower",
-      "time": "22:30",
-      "genre": "r and b"
     },
     {
       "id": "la-0813-quicksand",
@@ -1756,17 +1807,6 @@
       "time": "17:00"
     },
     {
-      "id": "la-0817-ianedwards",
-      "artist": "Ian Edwards",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-17",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43346156-ian-edwards-at-main-room-hollywood-improv",
-      "neighborhood": "Hollywood",
-      "time": "19:30",
-      "genre": "comedy"
-    },
-    {
       "id": "la-0817-ida",
       "artist": "Ida",
       "venue": "Lodge Room",
@@ -1961,17 +2001,6 @@
       "neighborhood": "Santa Ana",
       "time": "19:00",
       "genre": "country"
-    },
-    {
-      "id": "la-0819-hannibalburess",
-      "artist": "Hannibal Buress",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-19",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43338727-hannibal-buress-at-main-room-hollywood-improv",
-      "neighborhood": "Hollywood",
-      "time": "21:45",
-      "genre": "comedy"
     },
     {
       "id": "la-0819-herbiehancock",
@@ -2654,17 +2683,6 @@
       "genre": "pop"
     },
     {
-      "id": "la-0825-anthonyjeselnik",
-      "artist": "Anthony Jeselnik",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-25",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43338156-anthony-jeselnik-at-main-room-hollywood-improv",
-      "neighborhood": "Hollywood",
-      "time": "19:30",
-      "genre": "comedy"
-    },
-    {
       "id": "la-0825-earthless",
       "artist": "Earthless",
       "venue": "Zebulon",
@@ -3307,68 +3325,6 @@
       ],
       "neighborhood": "Hollywood",
       "genre": "hip hop"
-    },
-    {
-      "id": "la-0831-deraydavis",
-      "artist": "Deray Davis",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-31",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43324428-deray-davis-at-main-room-hollywood-improv",
-      "neighborhood": "Hollywood",
-      "time": "21:30",
-      "genre": "comedy"
-    },
-    {
-      "id": "la-0831-devilhound",
-      "artist": "DEVILHOUND",
-      "venue": "Transplants Brewing Company",
-      "date": "2026-08-31",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43313805-devilhound-at-transplants-brewing-company",
-      "support": [
-        "Womb",
-        "Mirage"
-      ],
-      "neighborhood": "Palmdale",
-      "time": "19:00"
-    },
-    {
-      "id": "la-0831-jfharris",
-      "artist": "Jf Harris",
-      "venue": "Main Room, Hollywood Improv",
-      "date": "2026-08-31",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43347232-jf-harris-at-main-room-hollywood-improv",
-      "neighborhood": "Hollywood",
-      "time": "19:30",
-      "genre": "comedy"
-    },
-    {
-      "id": "la-0831-joeybada",
-      "artist": "Joey Bada$$",
-      "venue": "Blue Note Los Angeles",
-      "date": "2026-08-31",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43347215-joey-badass-at-blue-note-los-angeles",
-      "neighborhood": "Los Angeles",
-      "time": "19:00",
-      "genre": "hip hop"
-    },
-    {
-      "id": "la-0831-muse",
-      "artist": "Muse",
-      "venue": "Hollywood Bowl",
-      "date": "2026-08-31",
-      "source": "Songkick",
-      "url": "https://www.songkick.com/concerts/43127524-muse-at-hollywood-bowl",
-      "support": [
-        "Portugal. The Man",
-        "The Temper Trap"
-      ],
-      "neighborhood": "Hollywood",
-      "time": "19:00",
-      "genre": "rock"
     }
   ]
 }
