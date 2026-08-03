@@ -19,7 +19,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '20';
+export const APP_VERSION = '21';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -230,6 +230,7 @@ function showHub() {
       <button class="header-btn" id="h-settings" aria-label="Settings"><i class="ti ti-settings"></i></button>
     </div>
     <div class="hub-greet">Good to see you, <b>${escapeHtml(name)}</b>.</div>
+    <div id="install-slot"></div>
     <div id="update-slot"></div>
     <div class="hub-grid">
       ${MODULES.map((m) => `<button class="hub-card ${m.ready ? '' : 'soon'}" data-mod="${m.id}">
@@ -246,6 +247,7 @@ function showHub() {
 
   $app().querySelectorAll('[data-mod]').forEach((b) => b.addEventListener('click', () => openModule(b.dataset.mod)));
   document.getElementById('h-settings').addEventListener('click', settingsSheet);
+  renderInstallBanner();
   renderUpdateBanner();
   checkForUpdate();
 }
@@ -361,6 +363,48 @@ async function maybeOfferBiometric() {
   });
 }
 
+// --- Install -----------------------------------------------------------------
+// Chrome fires beforeinstallprompt only when the app is genuinely installable.
+// Capturing it lets us offer Install inside the app instead of making the user
+// hunt through Chrome's menu — and its absence is itself a useful diagnostic.
+let installPrompt = null;
+let installOffered = false;
+
+const isStandalone = () =>
+  matchMedia('(display-mode: standalone)').matches ||
+  matchMedia('(display-mode: fullscreen)').matches ||
+  window.navigator.standalone === true;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  installPrompt = e;
+  installOffered = true;
+  renderInstallBanner();
+});
+window.addEventListener('appinstalled', () => {
+  installPrompt = null;
+  renderInstallBanner();
+  toast('Sanctum installed');
+});
+
+function renderInstallBanner() {
+  const slot = document.getElementById('install-slot');
+  if (!slot) return;
+  if (!installPrompt || isStandalone()) { slot.innerHTML = ''; return; }
+  slot.innerHTML = `<div class="update-card">
+    <div><i class="ti ti-device-mobile-down"></i> <b>Install Sanctum</b>
+      <div class="tiny muted">Add it to your home screen — runs full-screen and offline.</div></div>
+    <button class="btn primary" id="do-install" style="width:auto;padding:10px 16px">Install</button>
+  </div>`;
+  document.getElementById('do-install').addEventListener('click', async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') { installPrompt = null; renderInstallBanner(); }
+    else toast('Install dismissed');
+  });
+}
+
 // --- Updates -----------------------------------------------------------------
 let swReg = null;
 let updateReady = false;
@@ -434,8 +478,29 @@ async function settingsSheet() {
       <label class="switch"><input type="checkbox" id="set-bio" ${bioOn ? 'checked' : ''} ${bioAvail ? '' : 'disabled'}><span></span></label>
     </div>
     <button class="btn mt" id="set-update"><i class="ti ti-refresh"></i> Check for updates</button>
+    <button class="btn mt" id="set-install"><i class="ti ti-device-mobile-down"></i> Install to home screen</button>
+    <div class="hint mt" id="install-diag"></div>
     <div class="hint center mt2">Sanctum v${APP_VERSION} · everything stays on this device</div>
   `);
+  const diag = sheet.querySelector('#install-diag');
+  const btn = sheet.querySelector('#set-install');
+  if (isStandalone()) {
+    btn.style.display = 'none';
+    diag.textContent = 'Already running as an installed app.';
+  } else if (installPrompt) {
+    diag.textContent = 'Ready to install.';
+  } else {
+    btn.disabled = true;
+    diag.innerHTML = installOffered
+      ? 'Chrome offered install earlier in this session but the prompt is spent — reload the page and try again.'
+      : 'Chrome has not offered installation. That almost always means the old app is <b>still registered on the device</b>: open Android <b>Settings → Apps</b>, find <b>Sanctum</b> or <b>BatVault</b>, and uninstall it there. Removing the home-screen icon alone does not remove it.';
+  }
+  btn.addEventListener('click', async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') { installPrompt = null; closeSheet(); }
+  });
   sheet.querySelector('#set-bio').addEventListener('change', async (e) => {
     if (e.target.checked) {
       try { await AppLock.enable(); toast('Biometric unlock on'); }
