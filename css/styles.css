@@ -3,14 +3,17 @@
 @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/inter-500.woff2') format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/inter-600.woff2') format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/inter-700.woff2') format('woff2')}
-@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/instrument-400.woff2') format('woff2')}
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/cinzel-400.woff2') format('woff2')}
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/cinzel-500.woff2') format('woff2')}
 
 /* Sanctum — dark, mobile-first personal vault.
    Palette is deliberately near-monochrome: ivory carries interaction,
    colour is reserved for meaning (money in/out, warnings). */
 :root {
   --font-sans: 'Inter', -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
-  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  /* Cinzel is an inscriptional face built for capitals — used only for the
+     wordmark and page headers, never for body copy or numbers. */
+  --font-display: 'Cinzel', Georgia, 'Times New Roman', serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
 
   /* Surfaces — near-black, very slightly warm */
@@ -505,10 +508,10 @@ h3 { font-size: 15px; font-weight: 600; }
 /* --- Wordmark ------------------------------------------------------------ */
 .brand {
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-  letter-spacing: 0.26em; font-size: 19px; color: var(--text);
+  letter-spacing: 0.2em; font-size: 19px; color: var(--text);
 }
-.lock h1.brand, .onboard h1.brand { font-size: 30px; letter-spacing: 0.3em; }
-.app-header .title h1.brand { font-size: 17px; letter-spacing: 0.24em; }
+.lock h1.brand, .onboard h1.brand { font-size: 27px; letter-spacing: 0.24em; }
+.app-header .title h1.brand { font-size: 17px; letter-spacing: 0.2em; }
 .brand .gold, .lock .gold { color: var(--text); }
 
 /* --- Surfaces ------------------------------------------------------------ */
@@ -693,15 +696,17 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .app-header h1, .mod-title, .app-header .title h1 {
   font-family: var(--font-display); font-weight: 400;
   font-size: 20px; text-transform: uppercase;
-  letter-spacing: 0.15em; line-height: 1.3; color: var(--text);
+  letter-spacing: 0.11em; line-height: 1.3; color: var(--text);
 }
 .mod-title i.ti { font-size: 17px; color: var(--accent-dim) !important; }
 
 /* Lock/setup prompts are sentences, not labels: serif for brand coherence,
    but sentence case so they don't shout. */
+/* Prompts are sentences, so they stay in the sans — Cinzel is a capitals face
+   and reads poorly in mixed case. */
 .lock h1:not(.brand), .onboard h1:not(.brand) {
-  font-family: var(--font-display); font-weight: 400;
-  font-size: 25px; text-transform: none; letter-spacing: 0.005em; line-height: 1.25;
+  font-family: var(--font-sans); font-weight: 600;
+  font-size: 24px; text-transform: none; letter-spacing: -0.015em; line-height: 1.3;
 }
 .app-header { padding: 8px 2px 16px; }
 .app-header .title { gap: 10px; min-width: 0; }
