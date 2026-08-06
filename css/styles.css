@@ -776,7 +776,7 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 }
 .led-wheel::-webkit-scrollbar { display: none; }
 /* half a viewport of padding so the first and last rows can reach the centre */
-.led-pad { height: 42%; flex: none; }
+.led-pad { flex: none; }
 
 /* the centre line the wheel snaps to */
 .led-wheel::before {
@@ -851,3 +851,8 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .led-open .led-today-lbl { color: var(--faint); }
 .led-open .led-today-amt { color: var(--muted); font-weight: 500; }
 .led-open.focus .led-today-amt { color: var(--text); }
+
+/* keep the marker on one line at phone widths */
+.led-today { gap: 10px; }
+.led-today-lbl { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.led-today-amt { flex: none; }

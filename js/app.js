@@ -244,8 +244,10 @@ function cashflowBody() {
   // A marker, not a transaction: same shape as the Today row (label left,
   // full amount right) rather than squeezing a label into transaction columns.
   const openingDate = P.plusDays(L.fromISO, -1);
+  // Date is deliberately not in the label — the readout above already shows it
+  // when this row is focused, and appending it pushed the line too wide on a phone.
   const openingRow = `<div class="led-today led-open" data-date="${openingDate}" data-bal="${L.opening}">
-    <span class="led-today-lbl">Carried forward · ${escapeHtml(fmtDateShort(openingDate))}</span>
+    <span class="led-today-lbl">Balance carried forward</span>
     <span class="led-today-amt">${fmtMoney(L.opening)}</span>
   </div>`;
 
@@ -340,6 +342,13 @@ function wireLedger() {
     const top = led.getBoundingClientRect().top;
     const appPad = parseFloat(getComputedStyle(document.getElementById('app')).paddingBottom) || 0;
     led.style.height = Math.max(220, Math.floor(window.innerHeight - top - appPad - 6)) + 'px';
+
+    // Spacers must be exactly half the wheel minus half a row, otherwise the
+    // first and last entries sit off-centre from the detent band.
+    const firstRow = led.querySelector('[data-date]');
+    const rowH = firstRow ? firstRow.getBoundingClientRect().height : 46;
+    const pad = Math.max(0, Math.round((led.clientHeight - rowH) / 2));
+    led.querySelectorAll('.led-pad').forEach((p) => { p.style.height = pad + 'px'; });
   };
   sizeWheel();
   window.addEventListener('resize', sizeWheel, { passive: true });
