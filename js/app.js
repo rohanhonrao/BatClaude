@@ -241,10 +241,17 @@ function cashflowBody() {
   // The opening figure is a real ledger entry (it carries a date and balance),
   // so when it's the centred row the readout agrees with it instead of showing
   // the next row's balance.
+  // Same four columns as every other entry, so the figure lands squarely in
+  // the balance column instead of floating between two of them.
   const openingDate = P.plusDays(L.fromISO, -1);
-  const openingRow = `<div class="led-cap led-open" data-date="${openingDate}" data-bal="${L.opening}">
-    <span class="led-open-lbl">Balance carried forward</span>
-    <span class="led-open-amt">${fmtMoney(L.opening)}</span>
+  const openingRow = `<div class="led-row led-open" data-date="${openingDate}" data-bal="${L.opening}">
+    <div class="led-date">${escapeHtml(fmtDateShort(openingDate))}</div>
+    <div class="led-main">
+      <div class="t">Balance carried forward</div>
+      <div class="s">everything before this date</div>
+    </div>
+    <div class="led-amt"></div>
+    <div class="led-bal">${fmtMoney(L.opening, { compact: true })}</div>
   </div>`;
 
   // The today row is always rendered: it's the balance readout and the scroll

@@ -845,13 +845,9 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
   padding: 11px 4px; opacity: .45; transition: opacity .18s var(--ease);
 }
 .led-cap.focus { opacity: 1; }
-.led-open { justify-content: space-between; }
-.led-open-lbl {
-  font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em;
-  color: var(--faint); font-weight: 500;
-}
-.led-open-amt {
-  font-size: 14px; font-weight: 500; color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-.led-cap.focus .led-open-amt { color: var(--text); }
+
+/* carried-forward entry: a row, styled as a quiet marker */
+.led-open .led-main .t { font-weight: 500; color: var(--muted); }
+.led-open.focus .led-main .t { color: var(--text); }
+.led-open .led-bal { color: var(--muted); }
+.led-open.focus .led-bal { color: var(--text); }
