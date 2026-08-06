@@ -222,6 +222,88 @@ export function project(opts) {
   };
 }
 
+/**
+ * One continuous ledger: history, today, and the projected future sharing a
+ * single running-balance column.
+ *
+ * The past is real transactions; the future is scheduled items (plus any
+ * future-dated transactions). Both carry the balance *after* that row, so the
+ * column reads straight through the present without a seam.
+ */
+export function ledger(opts) {
+  var accounts = opts.accounts || [];
+  var transactions = opts.transactions || [];
+  var today = opts.today;
+  var historyDays = opts.historyDays || 60;
+  var fromISO = plusDays(today, -historyDays);
+
+  // Everything before the window is folded into one opening figure, so the
+  // running balance stays correct no matter how far back we're showing.
+  var opening = 0;
+  for (var a = 0; a < accounts.length; a++) {
+    opening += balanceAsOf(accounts[a], transactions, plusDays(fromISO, -1));
+  }
+
+  var inWindow = [];
+  var older = false;
+  for (var i = 0; i < transactions.length; i++) {
+    var t = transactions[i];
+    if (t.date > today) continue;            // future-dated: handled by project()
+    if (t.date < fromISO) { older = true; continue; }
+    var delta = 0;
+    for (var k = 0; k < accounts.length; k++) delta += effectOn(t, accounts[k].id);
+    if (delta === 0) continue;               // internal transfer, or not ours
+    inWindow.push({ t: t, delta: delta });
+  }
+  inWindow.sort(function (x, y) {
+    if (x.t.date !== y.t.date) return x.t.date < y.t.date ? -1 : 1;
+    return String(x.t.createdAt || '') < String(y.t.createdAt || '') ? -1 : 1;
+  });
+
+  var running = opening;
+  var past = [];
+  for (var p = 0; p < inWindow.length; p++) {
+    running += inWindow[p].delta;
+    past.push({
+      kind: 'past',
+      txId: inWindow[p].t.id,
+      date: inWindow[p].t.date,
+      note: inWindow[p].t.note || '',
+      type: inWindow[p].t.type,
+      categoryId: inWindow[p].t.categoryId,
+      accountId: inWindow[p].t.accountId,
+      toAccountId: inWindow[p].t.toAccountId,
+      delta: inWindow[p].delta,
+      balance: running,
+    });
+  }
+
+  var proj = project({
+    accounts: accounts, transactions: transactions, rules: opts.rules,
+    today: today, horizonDays: opts.horizonDays || 60,
+  });
+
+  var future = [];
+  for (var f = 0; f < proj.events.length; f++) {
+    var e = proj.events[f];
+    future.push({
+      kind: 'future', ruleId: e.ruleId, txId: e.txId, logged: e.logged,
+      date: e.date, note: e.name, type: e.type, categoryId: e.categoryId,
+      accountId: e.accountId, delta: e.delta, balance: e.balance,
+    });
+  }
+
+  return {
+    opening: opening,
+    fromISO: fromISO,
+    past: past,
+    future: future,
+    todayBalance: proj.start,
+    hasOlder: older,
+    projection: proj,
+  };
+}
+
 // Historical daily balance series for the trailing part of the chart.
 export function historySeries(accounts, transactions, fromISO, toISO) {
   var pts = [];

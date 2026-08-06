@@ -23,7 +23,8 @@ const S = {
   txSearch: '',
   homeView: 'cashflow',   // 'cashflow' | 'expenses'
   cfAccount: 'all',       // 'all' or an account id
-  cfHorizon: 60,          // days
+  cfHorizon: 60,          // days forward
+  cfHistory: 60,          // days of ledger history loaded
 };
 
 // --- Account kinds ----------------------------------------------------------
@@ -163,7 +164,11 @@ VIEWS.dashboard = function () {
   </div>`;
 };
 
-// --- Cash flow (forward-looking) -------------------------------------------
+VIEWS.dashboard.after = function () {
+  if (S.homeView === 'cashflow') wireLedger();
+};
+
+// --- Cash flow: a running ledger through the present ------------------------
 function cashflowBody() {
   const accts = cashAccounts();
   if (!accts.length) {
@@ -203,17 +208,48 @@ function cashflowBody() {
     </div>`;
   }
 
-  const ledger = proj.events.length
-    ? proj.events.map((e) => `<div class="row ${e.logged || e.ruleId ? 'tappable' : ''}" ${
-        e.logged && e.txId ? `data-edit-tx="${e.txId}"` : e.ruleId ? `data-edit-recurring="${e.ruleId}"` : ''}>
-        <div class="cf-date">${escapeHtml(fmtDateShort(e.date))}</div>
-        <div class="main"><div class="t">${escapeHtml(e.name || catName(e.categoryId))}</div>
-          ${e.logged ? '<div class="s">logged</div>' : ''}</div>
-        <div class="amt ${e.delta > 0 ? 'pos' : 'neg'}">${e.delta > 0 ? '+' : '−'}${fmtMoney(Math.abs(e.delta))}</div>
-        <div class="cf-run ${e.balance < buffer ? 'warn' : ''}">${fmtMoney(e.balance, { compact: true })}</div>
-      </div>`).join('')
-    : `<div class="empty"><span class="em"><i class="ti ti-calendar"></i></span><div>Nothing scheduled</div>
-        <div class="tiny mt">Add your rent, salary and bills to see the road ahead</div></div>`;
+  // --- the running ledger: history -> today -> projection, one balance column
+  const L = P.ledger({
+    accounts: sel, transactions: S.transactions, rules: S.recurring,
+    today, historyDays: S.cfHistory, horizonDays: S.cfHorizon,
+  });
+
+  const row = (e) => {
+    const future = e.kind === 'future';
+    const attr = e.txId ? `data-edit-tx="${e.txId}"` : e.ruleId ? `data-edit-recurring="${e.ruleId}"` : '';
+    const title = e.note || (e.type === 'transfer' ? 'Transfer' : catName(e.categoryId));
+    return `<div class="led-row ${future ? 'future' : ''} ${attr ? 'tappable' : ''}" ${attr}
+        data-date="${e.date}" data-bal="${e.balance}">
+      <div class="led-date">${escapeHtml(fmtDateShort(e.date))}</div>
+      <div class="led-main">
+        <div class="t">${escapeHtml(title)}</div>
+        <div class="s">${future ? 'scheduled' : catName(e.categoryId)}</div>
+      </div>
+      <div class="led-amt ${e.delta > 0 ? 'pos' : 'neg'}">${e.delta > 0 ? '+' : '−'}${fmtMoney(Math.abs(e.delta))}</div>
+      <div class="led-bal ${e.balance < buffer ? 'warn' : ''}">${fmtMoney(e.balance, { compact: true })}</div>
+    </div>`;
+  };
+
+  const todayRow = `<div class="led-today" id="led-today" data-date="${today}" data-bal="${L.todayBalance}">
+    <div class="led-today-line"></div>
+    <div class="led-today-body">
+      <span class="led-today-lbl">Today · balance</span>
+      <span class="led-today-amt">${fmtMoney(L.todayBalance)}</span>
+    </div>
+  </div>`;
+
+  const olderBtn = L.hasOlder
+    ? `<button class="btn ghost led-more" data-cf-more><i class="ti ti-chevron-up"></i> Show earlier</button>`
+    : `<div class="led-cap">Opening balance ${fmtMoney(L.opening)}</div>`;
+
+  // The today row is always rendered: it's the balance readout and the scroll
+  // anchor, so an account with no activity still shows where it stands.
+  const body = `
+    ${L.past.length ? olderBtn : `<div class="led-cap">No earlier activity · opening ${fmtMoney(L.opening)}</div>`}
+    ${L.past.map(row).join('')}
+    ${todayRow}
+    ${L.future.map(row).join('')}
+    ${L.future.length ? '' : `<div class="led-cap">Nothing scheduled ahead — <a data-nav-link="recurring">add something</a></div>`}`;
 
   return `${chips}
     <div class="hero mt">
@@ -233,10 +269,64 @@ function cashflowBody() {
     ${negative ? `<div class="alert danger mt"><i class="ti ti-alert-triangle"></i> Projected to go negative on ${escapeHtml(fmtDate(proj.lowest.date))}.</div>`
       : belowBuffer ? `<div class="alert warn mt"><i class="ti ti-alert-triangle"></i> Dips below your ${fmtMoney(buffer)} buffer on ${escapeHtml(fmtDate(proj.lowest.date))}.</div>` : ''}
     <div class="card mt">${charts.projectionChart(proj.points, { buffer, lowest: proj.lowest })}
-      <div class="tiny muted center">Projected from scheduled items only · dashed = future</div></div>
-    <div class="section-title spread"><span>Upcoming</span><a data-nav-link="recurring">Manage ›</a></div>
-    <div class="card">${ledger}</div>
+      <div class="tiny muted center">Solid past · dashed projection</div></div>
+
+    <div class="section-title spread"><span>Ledger</span><a data-nav-link="recurring">Scheduled ›</a></div>
+    <div class="led-scrub" id="led-scrub">
+      <span class="led-scrub-date">Today</span>
+      <span class="led-scrub-bal">${fmtMoney(L.todayBalance)}</span>
+    </div>
+    <div class="card led" id="led">${body}</div>
     <button class="btn mt2" data-add-recurring><i class="ti ti-calendar-plus"></i> Add scheduled item</button>`;
+}
+
+// Anchor the ledger on today and let the sticky bar track the scroll position,
+// so scrolling reads as moving through time rather than through a list.
+let ledgerAnchored = false;
+let ledgerScrollFn = null;
+
+function wireLedger() {
+  // One listener only — render() runs on every chip/horizon change.
+  if (ledgerScrollFn) { window.removeEventListener('scroll', ledgerScrollFn); ledgerScrollFn = null; }
+
+  const led = document.getElementById('led');
+  const scrub = document.getElementById('led-scrub');
+  const anchor = document.getElementById('led-today');
+  if (!led || !scrub || !anchor) return;
+
+  const rows = [...led.querySelectorAll('[data-date]')];
+  const dateEl = scrub.querySelector('.led-scrub-date');
+  const balEl = scrub.querySelector('.led-scrub-bal');
+  const today = todayISO();
+  const todayBalance = Number(anchor.dataset.bal);
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const cut = scrub.getBoundingClientRect().bottom;
+    let cur = null;
+    for (const r of rows) {
+      if (r.getBoundingClientRect().top <= cut) cur = r; else break;
+    }
+    // Nothing has scrolled under the bar yet — stay on today's balance, which
+    // is the resting state the view opens in.
+    const d = cur ? cur.dataset.date : today;
+    const bal = cur ? Number(cur.dataset.bal) : todayBalance;
+    dateEl.textContent = d === today ? 'Today' : fmtDate(d);
+    balEl.textContent = fmtMoney(bal);
+    scrub.classList.toggle('past', d < today);
+    scrub.classList.toggle('ahead', d > today);
+  };
+  ledgerScrollFn = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', ledgerScrollFn, { passive: true });
+
+  // Open on today without animating past everything above it.
+  if (!ledgerAnchored) {
+    const y = anchor.getBoundingClientRect().top + window.scrollY - (scrub.offsetHeight + 64);
+    window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
+    ledgerAnchored = true;
+  }
+  update();
 }
 
 // --- Expenses (backward-looking) -------------------------------------------
@@ -1277,11 +1367,26 @@ document.addEventListener('click', async (e) => {
   if (mn) { S.month = addMonths(S.month + '-01', parseInt(mn.dataset.month)).slice(0, 7); if (S.month > thisMonth()) S.month = thisMonth(); return render(); }
 
   const hv = e.target.closest('[data-home-view]');
-  if (hv) { S.homeView = hv.dataset.homeView; setSetting('homeView', S.homeView); return render(); }
+  if (hv) { S.homeView = hv.dataset.homeView; setSetting('homeView', S.homeView); ledgerAnchored = false; return render(); }
   const ca = e.target.closest('[data-cf-account]');
-  if (ca) { S.cfAccount = ca.dataset.cfAccount; return render(); }
+  if (ca) { S.cfAccount = ca.dataset.cfAccount; ledgerAnchored = false; return render(); }
   const ch = e.target.closest('[data-cf-horizon]');
-  if (ch) { S.cfHorizon = parseInt(ch.dataset.cfHorizon); setSetting('cfHorizon', S.cfHorizon); return render(); }
+  if (ch) { S.cfHorizon = parseInt(ch.dataset.cfHorizon); setSetting('cfHorizon', S.cfHorizon); ledgerAnchored = false; return render(); }
+
+  // Load more history without yanking the view: keep whatever row you were
+  // looking at pinned to the same spot on screen.
+  const more = e.target.closest('[data-cf-more]');
+  if (more) {
+    const anchorEl = document.getElementById('led-today');
+    const before = anchorEl ? anchorEl.getBoundingClientRect().top : null;
+    S.cfHistory += 90;
+    render();
+    const after = document.getElementById('led-today');
+    if (before !== null && after) {
+      window.scrollBy(0, after.getBoundingClientRect().top - before);
+    }
+    return;
+  }
 
   const tf = e.target.closest('#tx-filter [data-f]');
   if (tf) { S.txFilter = tf.dataset.f; return render(); }
