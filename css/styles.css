@@ -729,87 +729,109 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .blurb { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0 0 14px;
   padding-left: 11px; border-left: 2px solid var(--line); }
 
-/* --- Running ledger ------------------------------------------------------ */
-/* Sticky scrubber: reports the balance at whatever date you've scrolled to. */
-.led-scrub {
-  position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 12px; padding: 9px 14px; margin-bottom: 8px;
-  background: rgba(16,16,17,.92); backdrop-filter: blur(14px) saturate(1.2);
-  border: 1px solid var(--line); border-radius: 11px;
-  box-shadow: inset 0 1px 0 var(--hairline);
-  transition: border-color .25s var(--ease);
-}
-.led-scrub-date {
-  font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em;
-  color: var(--faint); font-weight: 500;
-}
-.led-scrub-bal {
-  font-size: 17px; font-weight: 600; letter-spacing: -.02em;
-  font-variant-numeric: tabular-nums; color: var(--text);
-}
-.led-scrub.past { border-color: rgba(154,149,140,.35); }
-.led-scrub.past .led-scrub-bal { color: var(--muted); }
-.led-scrub.ahead { border-color: var(--accent-dim); }
+/* ==========================================================================
+   Cash-flow wheel — one screen, one scroller.
+   The readout is fixed; the ledger snaps row by row beneath it.
+   ========================================================================== */
+.cf-wrap { display: flex; flex-direction: column; }
 
-.card.led { padding: 6px 12px; }
+.cf-readout { padding: 14px 4px 12px; text-align: center; }
+.cf-when {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .16em;
+  color: var(--faint); font-weight: 500; transition: color .2s var(--ease);
+}
+.cf-bal {
+  font-size: 34px; font-weight: 600; letter-spacing: -.03em; margin-top: 3px;
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+  transition: color .2s var(--ease);
+}
+.cf-readout.past .cf-when { color: var(--muted); }
+.cf-readout.past .cf-bal { color: var(--muted); }
+.cf-readout.ahead .cf-when { color: var(--accent-dim); }
+
+.cf-sub { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.cf-flag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; font-weight: 500; padding: 5px 10px; border-radius: 20px;
+  background: var(--surface-2); border: 1px solid var(--line-soft); color: var(--muted);
+}
+.cf-flag.ok { color: var(--muted); }
+.cf-flag.warn { color: var(--warn); border-color: rgba(217,164,65,.32); }
+.cf-flag.danger { color: var(--red); border-color: rgba(232,105,95,.36); }
+.btn-flag:active { background: var(--surface-3); color: var(--text); }
+
+/* --- the wheel ----------------------------------------------------------- */
+.led-wheel {
+  position: relative;
+  overflow-y: auto; overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: var(--surface); border: 1px solid var(--line-soft);
+  border-radius: var(--radius); box-shadow: inset 0 1px 0 var(--hairline);
+  padding: 0 12px;
+  /* fade the ends so rows dissolve rather than clip */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 13%, #000 87%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 13%, #000 87%, transparent 100%);
+}
+.led-wheel::-webkit-scrollbar { display: none; }
+/* half a viewport of padding so the first and last rows can reach the centre */
+.led-pad { height: 42%; flex: none; }
+
+/* the centre line the wheel snaps to */
+.led-wheel::before {
+  content: ''; position: absolute; left: 12px; right: 12px; top: 50%;
+  height: 46px; margin-top: -23px; border-radius: 10px;
+  background: var(--accent-tint); border: 1px solid rgba(233,228,218,.14);
+  pointer-events: none;
+}
 
 .led-row {
+  scroll-snap-align: center; scroll-snap-stop: always;
+  position: relative; z-index: 1;
   display: flex; align-items: center; gap: 10px;
-  padding: 9px 2px; border-bottom: 1px solid var(--line-soft);
+  padding: 11px 4px; border-bottom: none; min-height: 46px;
+  opacity: .45; transition: opacity .18s var(--ease), transform .18s var(--ease);
 }
-.led-row:last-child { border-bottom: none; }
-.led-date {
-  width: 44px; flex: none; font-size: 11.5px; color: var(--faint);
-  font-variant-numeric: tabular-nums;
-}
+.led-row.focus { opacity: 1; }
+.led-row.focus .led-main .t { font-weight: 600; }
+.led-row.focus .led-bal { color: var(--text); }
+
+.led-date { width: 44px; flex: none; font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums; }
 .led-main { flex: 1; min-width: 0; }
-.led-main .t {
-  font-size: 14px; font-weight: 500; white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis;
-}
+.led-main .t { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .led-main .s { font-size: 11px; color: var(--faint); margin-top: 1px; }
-.led-amt {
-  font-size: 13.5px; font-weight: 500; white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
+.led-amt { font-size: 13.5px; font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .led-amt.pos { color: var(--green); }
 .led-amt.neg { color: var(--text); }
-.led-bal {
-  width: 62px; flex: none; text-align: right; font-size: 12px;
-  color: var(--muted); font-variant-numeric: tabular-nums;
-}
+.led-bal { width: 62px; flex: none; text-align: right; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .led-bal.warn { color: var(--red); }
-.led-row.tappable:active { background: var(--surface-2); border-radius: 8px; }
 
-/* Anything ahead of today is a projection, not a fact — say so visually. */
-.led-row.future { opacity: .78; }
 .led-row.future .led-main .t { font-weight: 400; }
 .led-row.future .led-amt { color: var(--muted); }
 .led-row.future .led-amt.pos { color: rgba(99,201,154,.75); }
 
-/* The present: the seam between record and forecast. */
-.led-today { position: relative; padding: 14px 0 12px; }
-.led-today-line {
-  position: absolute; left: -12px; right: -12px; top: 50%;
-  height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-  opacity: .5;
+/* today sits in the wheel as a labelled divider */
+.led-today {
+  scroll-snap-align: center; scroll-snap-stop: always;
+  position: relative; z-index: 1; min-height: 46px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 4px; opacity: .55; transition: opacity .18s var(--ease);
 }
-.led-today-body {
-  position: relative; display: flex; align-items: baseline; justify-content: space-between;
-  background: var(--surface); padding: 0 4px;
-}
+.led-today.focus { opacity: 1; }
+.led-today-line { display: none; }
+.led-today-body { display: contents; }
 .led-today-lbl {
   font-size: 10.5px; text-transform: uppercase; letter-spacing: .13em;
   color: var(--accent-dim); font-weight: 600;
 }
-.led-today-amt {
-  font-size: 19px; font-weight: 600; letter-spacing: -.02em;
-  font-variant-numeric: tabular-nums;
-}
+.led-today-amt { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
 
-.led-more { margin: 4px 0 8px; font-size: 13px; padding: 9px; }
+.led-more {
+  scroll-snap-align: center; margin: 6px 0; font-size: 12.5px; padding: 8px;
+  width: 100%; opacity: .7;
+}
 .led-cap {
-  text-align: center; font-size: 11.5px; color: var(--faint);
-  padding: 12px 4px; letter-spacing: .01em;
+  scroll-snap-align: center; text-align: center; font-size: 11.5px;
+  color: var(--faint); padding: 14px 4px; opacity: .7;
 }

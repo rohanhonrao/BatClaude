@@ -251,83 +251,142 @@ function cashflowBody() {
     ${L.future.map(row).join('')}
     ${L.future.length ? '' : `<div class="led-cap">Nothing scheduled ahead — <a data-nav-link="recurring">add something</a></div>`}`;
 
-  return `${chips}
-    <div class="hero mt">
-      <div class="label">${sel.length === 1 ? escapeHtml(sel[0].name) : 'All cash accounts'} · today</div>
-      <div class="amount">${fmtMoney(proj.start)}</div>
-      ${split}
+  // One screen: a fixed readout on top, and a single snapping wheel of rows.
+  // Everything else (chart, stats) moved behind the Summary button so the
+  // ledger owns the whole viewport.
+  const warn = negative
+    ? `<span class="cf-flag danger"><i class="ti ti-alert-triangle"></i> negative ${escapeHtml(fmtDateShort(proj.lowest.date))}</span>`
+    : belowBuffer
+      ? `<span class="cf-flag warn"><i class="ti ti-alert-triangle"></i> under buffer ${escapeHtml(fmtDateShort(proj.lowest.date))}</span>`
+      : `<span class="cf-flag ok"><i class="ti ti-check"></i> low ${fmtMoney(proj.lowest.balance, { compact: true })}</span>`;
+
+  return `<div class="cf-wrap">
+    ${chips}
+    <div class="cf-readout" id="cf-readout">
+      <div class="cf-when" id="cf-when">Today</div>
+      <div class="cf-bal" id="cf-bal">${fmtMoney(L.todayBalance)}</div>
+      <div class="cf-sub">
+        ${warn}
+        <button class="cf-flag btn-flag" data-cf-summary><i class="ti ti-chart-line"></i> Summary</button>
+        <button class="cf-flag btn-flag" data-cf-jump><i class="ti ti-target-arrow"></i> Today</button>
+      </div>
     </div>
-    ${horizons}
+    <div class="led-wheel" id="led">
+      <div class="led-pad"></div>
+      ${body}
+      <div class="led-pad"></div>
+    </div>
+  </div>`;
+}
+
+// The chart and totals live here now, one tap away, so the ledger keeps the screen.
+function summarySheet() {
+  const sel = cfSelection();
+  const today = todayISO();
+  const proj = P.project({ accounts: sel, transactions: S.transactions, rules: S.recurring, today, horizonDays: S.cfHorizon });
+  const buffer = sel.reduce((s, a) => s + (a.buffer || 0), 0);
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Summary</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="seg" id="cf-horizon">
+      ${[30, 60, 90].map((d) => `<button data-cf-horizon="${d}" class="${S.cfHorizon === d ? 'active' : ''}">${d} days</button>`).join('')}
+    </div>
+    <div class="card mt">${charts.projectionChart(proj.points, { buffer, lowest: proj.lowest })}
+      <div class="tiny muted center">Projected from scheduled items · dashed = future</div></div>
     <div class="stat-row">
       <div class="stat"><div class="k">Lowest point</div>
-        <div class="v ${negative || belowBuffer ? 'neg' : ''}">${fmtMoney(proj.lowest.balance)}</div>
-        <div class="tiny muted">${proj.lowest.date === today ? 'today' : fmtDateShort(proj.lowest.date)}${belowBuffer ? ' · below buffer' : ''}</div></div>
+        <div class="v ${proj.lowest.balance < buffer ? 'neg' : ''}">${fmtMoney(proj.lowest.balance)}</div>
+        <div class="tiny muted">${proj.lowest.date === today ? 'today' : fmtDateShort(proj.lowest.date)}</div></div>
       <div class="stat"><div class="k">In ${S.cfHorizon} days</div>
         <div class="v ${proj.totals.net >= 0 ? 'pos' : 'neg'}">${fmtMoney(proj.endBalance)}</div>
         <div class="tiny muted">${fmtMoney(proj.totals.net, { sign: true })} net</div></div>
     </div>
-    ${negative ? `<div class="alert danger mt"><i class="ti ti-alert-triangle"></i> Projected to go negative on ${escapeHtml(fmtDate(proj.lowest.date))}.</div>`
-      : belowBuffer ? `<div class="alert warn mt"><i class="ti ti-alert-triangle"></i> Dips below your ${fmtMoney(buffer)} buffer on ${escapeHtml(fmtDate(proj.lowest.date))}.</div>` : ''}
-    <div class="card mt">${charts.projectionChart(proj.points, { buffer, lowest: proj.lowest })}
-      <div class="tiny muted center">Solid past · dashed projection</div></div>
-
-    <div class="section-title spread"><span>Ledger</span><a data-nav-link="recurring">Scheduled ›</a></div>
-    <div class="led-scrub" id="led-scrub">
-      <span class="led-scrub-date">Today</span>
-      <span class="led-scrub-bal">${fmtMoney(L.todayBalance)}</span>
-    </div>
-    <div class="card led" id="led">${body}</div>
-    <button class="btn mt2" data-add-recurring><i class="ti ti-calendar-plus"></i> Add scheduled item</button>`;
+    <button class="btn mt2" data-add-recurring><i class="ti ti-calendar-plus"></i> Add scheduled item</button>
+    <button class="btn ghost mt" data-nav-link="recurring">Manage scheduled items</button>
+  `);
+  return sheet;
 }
 
-// Anchor the ledger on today and let the sticky bar track the scroll position,
-// so scrolling reads as moving through time rather than through a list.
+// The wheel: one snapping scroller that owns the screen. The row nearest the
+// centre line is "focused" — it drives the big readout, so scrolling reads as
+// moving through time. Each new focus gets a short haptic tick, which is what
+// gives it the clickety feel on a phone.
 let ledgerAnchored = false;
-let ledgerScrollFn = null;
+
+function centreOn(led, el, smooth) {
+  const target = el.offsetTop - (led.clientHeight / 2) + (el.offsetHeight / 2);
+  led.scrollTo({ top: Math.max(0, target), behavior: smooth ? 'smooth' : 'auto' });
+}
 
 function wireLedger() {
-  // One listener only — render() runs on every chip/horizon change.
-  if (ledgerScrollFn) { window.removeEventListener('scroll', ledgerScrollFn); ledgerScrollFn = null; }
-
   const led = document.getElementById('led');
-  const scrub = document.getElementById('led-scrub');
   const anchor = document.getElementById('led-today');
-  if (!led || !scrub || !anchor) return;
+  const whenEl = document.getElementById('cf-when');
+  const balEl = document.getElementById('cf-bal');
+  const readout = document.getElementById('cf-readout');
+  if (!led || !anchor || !whenEl || !balEl) return;
+
+  // Fill exactly the space left below the readout — no more, so the page
+  // itself never scrolls and the wheel is the only scroller on screen.
+  const sizeWheel = () => {
+    window.scrollTo(0, 0);                       // measure from a settled page
+    const top = led.getBoundingClientRect().top;
+    const appPad = parseFloat(getComputedStyle(document.getElementById('app')).paddingBottom) || 0;
+    led.style.height = Math.max(220, Math.floor(window.innerHeight - top - appPad - 6)) + 'px';
+  };
+  sizeWheel();
+  window.addEventListener('resize', sizeWheel, { passive: true });
 
   const rows = [...led.querySelectorAll('[data-date]')];
-  const dateEl = scrub.querySelector('.led-scrub-date');
-  const balEl = scrub.querySelector('.led-scrub-bal');
   const today = todayISO();
-  const todayBalance = Number(anchor.dataset.bal);
+  let focused = null;
+
+  const paint = () => {
+    const mid = led.clientHeight / 2;
+    let best = null, bestDist = Infinity;
+    for (const r of rows) {
+      const d = Math.abs((r.offsetTop - led.scrollTop + r.offsetHeight / 2) - mid);
+      if (d < bestDist) { bestDist = d; best = r; }
+    }
+    if (!best || best === focused) return;
+    if (focused) focused.classList.remove('focus');
+    focused = best;
+    focused.classList.add('focus');
+
+    const d = focused.dataset.date;
+    const bal = Number(focused.dataset.bal);
+    whenEl.textContent = d === today ? 'Today' : fmtDate(d);
+    balEl.textContent = fmtMoney(bal);
+    readout.classList.toggle('past', d < today);
+    readout.classList.toggle('ahead', d > today);
+    // A short tick per row is the "click" of the wheel.
+    try { if (navigator.vibrate) navigator.vibrate(6); } catch {}
+  };
 
   let ticking = false;
-  const update = () => {
-    ticking = false;
-    const cut = scrub.getBoundingClientRect().bottom;
-    let cur = null;
-    for (const r of rows) {
-      if (r.getBoundingClientRect().top <= cut) cur = r; else break;
-    }
-    // Nothing has scrolled under the bar yet — stay on today's balance, which
-    // is the resting state the view opens in.
-    const d = cur ? cur.dataset.date : today;
-    const bal = cur ? Number(cur.dataset.bal) : todayBalance;
-    dateEl.textContent = d === today ? 'Today' : fmtDate(d);
-    balEl.textContent = fmtMoney(bal);
-    scrub.classList.toggle('past', d < today);
-    scrub.classList.toggle('ahead', d > today);
-  };
-  ledgerScrollFn = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-  window.addEventListener('scroll', ledgerScrollFn, { passive: true });
+  led.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; paint(); }); }
+  }, { passive: true });
 
-  // Open on today without animating past everything above it.
+  // Tapping a row centres it rather than only opening the editor.
+  led.addEventListener('click', (e) => {
+    const r = e.target.closest('[data-date]');
+    if (r && r !== focused) { centreOn(led, r, true); }
+  }, true);
+
+  ledgerJump = () => { centreOn(led, anchor, true); };
+
   if (!ledgerAnchored) {
-    const y = anchor.getBoundingClientRect().top + window.scrollY - (scrub.offsetHeight + 64);
-    window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
+    // After "show earlier" we return to the row you were reading, not to today.
+    const back = pendingCentre && rows.find((r) => r.dataset.date === pendingCentre);
+    centreOn(led, back || anchor, false);
+    pendingCentre = null;
     ledgerAnchored = true;
   }
-  update();
+  paint();
 }
+
+let ledgerJump = null;
+let pendingCentre = null;
 
 // --- Expenses (backward-looking) -------------------------------------------
 function expensesBody() {
@@ -1371,21 +1430,23 @@ document.addEventListener('click', async (e) => {
   const ca = e.target.closest('[data-cf-account]');
   if (ca) { S.cfAccount = ca.dataset.cfAccount; ledgerAnchored = false; return render(); }
   const ch = e.target.closest('[data-cf-horizon]');
-  if (ch) { S.cfHorizon = parseInt(ch.dataset.cfHorizon); setSetting('cfHorizon', S.cfHorizon); ledgerAnchored = false; return render(); }
+  if (ch) {
+    S.cfHorizon = parseInt(ch.dataset.cfHorizon);
+    setSetting('cfHorizon', S.cfHorizon);
+    closeSheet(); ledgerAnchored = false;
+    return render();
+  }
+  if (e.target.closest('[data-cf-summary]')) return summarySheet();
+  if (e.target.closest('[data-cf-jump]')) return ledgerJump && ledgerJump();
 
-  // Load more history without yanking the view: keep whatever row you were
-  // looking at pinned to the same spot on screen.
+  // Load more history, then re-centre on the row you were already looking at.
   const more = e.target.closest('[data-cf-more]');
   if (more) {
-    const anchorEl = document.getElementById('led-today');
-    const before = anchorEl ? anchorEl.getBoundingClientRect().top : null;
+    const cur = document.querySelector('#led .focus');
+    pendingCentre = cur ? cur.dataset.date : null;
     S.cfHistory += 90;
-    render();
-    const after = document.getElementById('led-today');
-    if (before !== null && after) {
-      window.scrollBy(0, after.getBoundingClientRect().top - before);
-    }
-    return;
+    ledgerAnchored = false;
+    return render();
   }
 
   const tf = e.target.closest('#tx-filter [data-f]');
