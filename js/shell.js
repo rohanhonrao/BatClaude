@@ -19,7 +19,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '27';
+export const APP_VERSION = '28';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -536,7 +536,10 @@ function showAppLock() {
 // --- Boot -------------------------------------------------------------------
 async function boot() {
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('./sw.js').then(watchForUpdates).catch(() => {});
+    // updateViaCache:'none' keeps the worker script itself off the HTTP cache,
+    // so a new version is always noticed rather than hidden behind max-age.
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+      .then(watchForUpdates).catch(() => {});
   }
   await loadSettings();
   // Master-password encryption is still deferred; the device key keeps modules

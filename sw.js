@@ -1,5 +1,5 @@
 // sw.js — offline cache. Bump CACHE when you change app files.
-const CACHE = 'sanctum-v27';
+const CACHE = 'sanctum-v28';
 const ASSETS = [
   './',
   './index.html',
@@ -39,8 +39,25 @@ const ASSETS = [
   './icons/icon-512.png',
 ];
 
+// GitHub Pages serves everything with `Cache-Control: max-age=600`, and
+// cache.addAll() goes through the HTTP cache — so a new worker would happily
+// re-cache the *stale* bytes it already had and then serve them cache-first
+// forever. `cache: 'reload'` forces every asset to come from the network.
+//
+// Assets are also cached individually: with addAll a single failure rejects
+// the whole install, the worker never activates, and the app is stuck on the
+// previous version indefinitely.
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    await Promise.all(ASSETS.map(async (url) => {
+      try {
+        const res = await fetch(new Request(url, { cache: 'reload' }));
+        if (res && res.ok) await c.put(url, res);
+      } catch { /* one missing asset must not block the update */ }
+    }));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener('activate', (e) => {
