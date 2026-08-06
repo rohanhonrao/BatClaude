@@ -835,3 +835,23 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
   scroll-snap-align: center; text-align: center; font-size: 11.5px;
   color: var(--faint); padding: 14px 4px; opacity: .7;
 }
+
+/* opening figure participates in the wheel like any other entry */
+.led-cap {
+  scroll-snap-align: center; scroll-snap-stop: always;
+  position: relative; z-index: 1; min-height: 46px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  text-align: center; font-size: 11.5px; color: var(--faint);
+  padding: 11px 4px; opacity: .45; transition: opacity .18s var(--ease);
+}
+.led-cap.focus { opacity: 1; }
+.led-open { justify-content: space-between; }
+.led-open-lbl {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em;
+  color: var(--faint); font-weight: 500;
+}
+.led-open-amt {
+  font-size: 14px; font-weight: 500; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.led-cap.focus .led-open-amt { color: var(--text); }

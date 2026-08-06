@@ -238,14 +238,20 @@ function cashflowBody() {
     </div>
   </div>`;
 
-  const olderBtn = L.hasOlder
-    ? `<button class="btn ghost led-more" data-cf-more><i class="ti ti-chevron-up"></i> Show earlier</button>`
-    : `<div class="led-cap">Opening balance ${fmtMoney(L.opening)}</div>`;
+  // The opening figure is a real ledger entry (it carries a date and balance),
+  // so when it's the centred row the readout agrees with it instead of showing
+  // the next row's balance.
+  const openingDate = P.plusDays(L.fromISO, -1);
+  const openingRow = `<div class="led-cap led-open" data-date="${openingDate}" data-bal="${L.opening}">
+    <span class="led-open-lbl">Balance carried forward</span>
+    <span class="led-open-amt">${fmtMoney(L.opening)}</span>
+  </div>`;
 
   // The today row is always rendered: it's the balance readout and the scroll
   // anchor, so an account with no activity still shows where it stands.
   const body = `
-    ${L.past.length ? olderBtn : `<div class="led-cap">No earlier activity · opening ${fmtMoney(L.opening)}</div>`}
+    ${L.hasOlder ? `<button class="btn ghost led-more" data-cf-more><i class="ti ti-chevron-up"></i> Show earlier</button>` : ''}
+    ${openingRow}
     ${L.past.map(row).join('')}
     ${todayRow}
     ${L.future.map(row).join('')}

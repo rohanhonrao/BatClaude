@@ -249,10 +249,13 @@ export function ledger(opts) {
   for (var i = 0; i < transactions.length; i++) {
     var t = transactions[i];
     if (t.date > today) continue;            // future-dated: handled by project()
-    if (t.date < fromISO) { older = true; continue; }
     var delta = 0;
     for (var k = 0; k < accounts.length; k++) delta += effectOn(t, accounts[k].id);
     if (delta === 0) continue;               // internal transfer, or not ours
+    // Only count history that actually belongs to the selected accounts,
+    // otherwise another account's old activity offers "show earlier" for
+    // rows that will never appear.
+    if (t.date < fromISO) { older = true; continue; }
     inWindow.push({ t: t, delta: delta });
   }
   inWindow.sort(function (x, y) {
