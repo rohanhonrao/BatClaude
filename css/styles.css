@@ -846,8 +846,8 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 }
 .led-cap.focus { opacity: 1; }
 
-/* carried-forward entry: a row, styled as a quiet marker */
-.led-open .led-main .t { font-weight: 500; color: var(--muted); }
-.led-open.focus .led-main .t { color: var(--text); }
-.led-open .led-bal { color: var(--muted); }
-.led-open.focus .led-bal { color: var(--text); }
+
+/* carried-forward marker: same shape as Today, quieter colouring */
+.led-open .led-today-lbl { color: var(--faint); }
+.led-open .led-today-amt { color: var(--muted); font-weight: 500; }
+.led-open.focus .led-today-amt { color: var(--text); }
