@@ -19,7 +19,7 @@ no accounts, no servers, no sync.
 | **Finance** | A running cash-flow ledger: history, today and projected future in one snapping scroller with a single balance column. Plus expenses, budgets, accounts, net worth, CSV import and a live currency converter. |
 | **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
 | **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
-| **Grocery** | Shopping list, shareable phone-to-phone without a server. |
+| **Household** | Shopping lists by store, with priority, due dates, notes and links. Shareable phone-to-phone without a server. |
 | **Move HQ** | Moving checklist. |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |

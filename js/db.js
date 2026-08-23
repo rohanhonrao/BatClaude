@@ -2,7 +2,7 @@
 // Nothing here ever leaves the phone. No network, no accounts.
 
 const DB_NAME = 'batvault';
-const DB_VERSION = 4;
+const DB_VERSION = 5;
 
 // Object stores and their keyPaths. All records use a string `id`.
 const STORES = {
@@ -17,7 +17,8 @@ const STORES = {
   vault: 'id',        // encrypted password entries: {id, blob:{iv,ct}, updatedAt}
   tasks: 'id',        // Move HQ to-do items: {id, order, title, category, status, due, dependsOn, subtasks, notes}
   docs: 'id',         // Important Documents: {id, blob:{iv,ct}, updatedAt} — encrypted under a SEPARATE passcode vault (vaultlock.js), never the device key
-  grocery: 'id',      // Grocery items: {id, order, name, qty, aisle, price, checked}
+  grocery: 'id',      // Household items: {id, listId, order, name, qty, priority, due, note, url, checked}
+  lists: 'id',        // Household lists (usually a store): {id, name, icon, order}
 };
 
 let _dbPromise = null;

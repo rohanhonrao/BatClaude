@@ -856,3 +856,21 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .led-today { gap: 10px; }
 .led-today-lbl { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .led-today-amt { flex: none; }
+
+/* --- Household -------------------------------------------------------- */
+.hh-row { gap: 10px; }
+.hh-check { flex: none; width: 30px; height: 30px; display: grid; place-items: center;
+  font-size: 20px; color: var(--faint); background: none; border: none; }
+.hh-row.done .hh-check { color: var(--green); }
+.hh-row.done .main .t { text-decoration: line-through; color: var(--faint); }
+.hh-row .main { cursor: pointer; }
+.hh-row.p-high .main .t { color: var(--text); }
+.hh-row.p-high .hh-check { color: var(--warn); }
+.hh-row.p-urgent .hh-check { color: var(--red); }
+.hh-flag { flex: none; font-size: 9.5px; text-transform: uppercase; letter-spacing: .1em;
+  font-weight: 600; padding: 3px 8px; border-radius: 20px;
+  background: var(--surface-2); color: var(--muted); }
+.hh-row.p-high .hh-flag { color: var(--warn); border: 1px solid rgba(217,164,65,.3); }
+.hh-row.p-urgent .hh-flag { color: var(--red); border: 1px solid rgba(232,105,95,.35); }
+.hh-due.soon { color: var(--warn); }
+.hh-due.overdue { color: var(--red); font-weight: 600; }
