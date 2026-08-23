@@ -251,6 +251,26 @@ nothing installed.
 
 ---
 
+## 8b. Household live sync (`js/sync.js`)
+
+Optional real-time sharing between two phones, used by Household only.
+
+- **No SDK.** Firebase Realtime Database is driven over plain REST, and its
+  `Accept: text/event-stream` endpoint pushes changes, so the app keeps zero
+  runtime dependencies and stays offline-capable.
+- **End-to-end encrypted.** Every record is AES-256-GCM sealed with a key
+  derived (PBKDF2, 120k) from a shared passphrase before upload. The server
+  holds `{at, data:{iv,ct}}` and cannot read it. Verified: a pushed payload
+  contains no plaintext.
+- **Per-record last-write-wins** on `updatedAt`, with **tombstones** for
+  deletes — without them the peer re-adds whatever was just deleted.
+- A single **pairing code** carries dbUrl + roomId + passphrase, so only one
+  person ever touches Firebase. See `SETUP-SYNC.md`.
+- Security rests on encryption plus an unguessable 22-char room id; there is no
+  user auth. Fine for a shopping list, **deliberately not used for the vaults**.
+
+---
+
 ## 9. Design system (`css/styles.css`)
 
 - **Near-monochrome by design.** Platinum/ivory accent `--accent: #E9E4DA` on

@@ -7,6 +7,7 @@
 import { db, uid } from './db.js';
 import { escapeHtml, todayISO, fmtDateShort, relativeDay, addDays } from './util.js';
 import { toast, openSheet, closeSheet } from './ui.js';
+import * as Sync from './sync.js';
 
 const PRIORITY = [
   { v: 0, label: 'Normal', cls: '' },
@@ -47,9 +48,19 @@ export async function mountHousehold() {
   await migrate();
   activeList = 'all';
   render();
+  await Sync.loadConfig();
+  if (Sync.isConfigured()) {
+    Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
+    Sync.pushAll(['grocery', 'lists']);   // reconcile anything changed while offline
+  }
 }
 
-const saveItem = async (it) => { it.updatedAt = Date.now(); await db.put('grocery', it); await load(); };
+const saveItem = async (it) => {
+  it.updatedAt = Date.now();
+  await db.put('grocery', it);
+  Sync.push('grocery', it);
+  await load();
+};
 const listOf = (id) => lists.find((l) => l.id === id);
 const nextOrder = () => (items.length ? Math.max(...items.map((i) => i.order ?? 0)) + 1 : 0);
 
@@ -99,6 +110,7 @@ function render() {
         <div>${showDone ? 'Nothing here yet' : 'Nothing to buy'}</div>
         <div class="tiny mt">Type above to add${activeList === 'all' ? '' : ' to ' + escapeHtml(listOf(activeList)?.name || '')}.</div></div></div>`;
 
+  const live = Sync.isConfigured();
   const active = activeList === 'all' ? null : listOf(activeList);
   const total = activeList === 'all' ? items.length : items.filter((i) => i.listId === activeList).length;
   const open = openCount(activeList);
@@ -140,7 +152,9 @@ function render() {
       <button class="chip" data-hh-toggledone>
         <i class="ti ti-${showDone ? 'eye-off' : 'eye'}"></i> ${showDone ? 'Hide done' : `Done${doneCount ? ` · ${doneCount}` : ''}`}</button>
       ${doneCount ? `<button class="chip" data-hh-clear><i class="ti ti-trash"></i> Clear done</button>` : ''}
-      <button class="chip" data-hh-share><i class="ti ti-share"></i> Share</button>
+      <button class="chip" data-hh-share><i class="ti ti-share"></i> Send a copy</button>
+      <button class="chip ${live ? 'active' : ''}" data-hh-sync>
+        <i class="ti ti-${live ? 'wifi' : 'users'}"></i> ${live ? 'Live' : 'Share live'}</button>
     </div>
   </div>`;
   bind();
@@ -173,6 +187,7 @@ function bind() {
   root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
   root.querySelectorAll('[data-hh-lists]').forEach((b) => b.addEventListener('click', listsSheet));
   root.querySelector('[data-hh-share]').addEventListener('click', shareSheet);
+  root.querySelector('[data-hh-sync]').addEventListener('click', syncSheet);
 
   const input = root.querySelector('#hh-add');
   const add = async () => {
@@ -198,7 +213,7 @@ function bind() {
   }));
   root.querySelector('[data-hh-toggledone]').addEventListener('click', () => { showDone = !showDone; render(); });
   root.querySelector('[data-hh-clear]')?.addEventListener('click', async () => {
-    for (const it of items.filter((i) => i.checked)) await db.del('grocery', it.id);
+    for (const it of items.filter((i) => i.checked)) { await db.del('grocery', it.id); Sync.pushDelete('grocery', it.id); }
     await load(); render(); toast('Cleared');
   });
 }
@@ -252,7 +267,7 @@ function itemSheet(it) {
     await saveItem(it); closeSheet(); render(); toast('Saved');
   });
   sheet.querySelector('#i-del').addEventListener('click', async () => {
-    await db.del('grocery', it.id); await load(); closeSheet(); render(); toast('Deleted');
+    await db.del('grocery', it.id); Sync.pushDelete('grocery', it.id); await load(); closeSheet(); render(); toast('Deleted');
   });
 }
 
@@ -277,21 +292,22 @@ function listsSheet() {
     sheet.querySelectorAll('[data-l-del]').forEach((b) => b.addEventListener('click', async () => {
       const id = b.dataset.lDel;
       const fallback = lists.find((l) => l.id !== id);
-      for (const it of items.filter((i) => i.listId === id)) { it.listId = fallback.id; await db.put('grocery', it); }
-      await db.del('lists', id); await load();
+      for (const it of items.filter((i) => i.listId === id)) { it.listId = fallback.id; it.updatedAt = Date.now(); await db.put('grocery', it); Sync.push('grocery', it); }
+      await db.del('lists', id); Sync.pushDelete('lists', id); await load();
       if (activeList === id) activeList = 'all';
       paint(); render();
     }));
     sheet.querySelectorAll('[data-l-icon]').forEach((b) => b.addEventListener('click', async () => {
       const l = listOf(b.dataset.lIcon);
       l.icon = LIST_ICONS[(LIST_ICONS.indexOf(l.icon) + 1) % LIST_ICONS.length];
-      await db.put('lists', l); await load(); paint(); render();
+      l.updatedAt = Date.now(); await db.put('lists', l); Sync.push('lists', l); await load(); paint(); render();
     }));
   };
   const addList = async () => {
     const name = sheet.querySelector('#l-name').value.trim();
     if (!name) return;
-    await db.put('lists', { id: uid('l_'), name, icon: LIST_ICONS[lists.length % LIST_ICONS.length], order: lists.length });
+    const nl = { id: uid('l_'), name, icon: LIST_ICONS[lists.length % LIST_ICONS.length], order: lists.length, updatedAt: Date.now() };
+    await db.put('lists', nl); Sync.push('lists', nl);
     sheet.querySelector('#l-name').value = '';
     await load(); paint(); render();
   };
@@ -332,7 +348,7 @@ function shareSheet() {
         const existing = lists.find((x) => x.name.toLowerCase() === String(l.name).toLowerCase());
         if (existing) { map[l.id] = existing.id; continue; }
         const nl = { id: uid('l_'), name: l.name, icon: l.icon || 'ti-basket', order: lists.length };
-        await db.put('lists', nl); map[l.id] = nl.id; await load();
+        await db.put('lists', nl); Sync.push('lists', nl); map[l.id] = nl.id; await load();
       }
       let n = 0;
       for (const it of json.items) {
@@ -341,5 +357,58 @@ function shareSheet() {
       }
       await load(); closeSheet(); render(); toast(`Imported ${n}`);
     } catch { toast('That code doesn’t look right', true); }
+  });
+}
+
+// --- real-time sharing -------------------------------------------------------
+// One person creates the room (needs a free Firebase Realtime Database URL);
+// everyone else just pastes the pairing code, which carries the URL, the room
+// id and the passphrase. Contents are encrypted before upload — see sync.js.
+export function syncSheet() {
+  const on = Sync.isConfigured();
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Share live</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
+    ${on ? `
+      <div class="alert warn"><i class="ti ti-wifi"></i> Live sharing is on. Changes appear on both phones within a second.</div>
+      <div class="field mt"><label>Pairing code — send this to the other phone</label>
+        <textarea class="input mono" id="sy-code" rows="3" readonly>${escapeHtml(Sync.makePairingCode())}</textarea></div>
+      <button class="btn primary" id="sy-copy"><i class="ti ti-copy"></i> Copy pairing code</button>
+      <button class="btn danger mt" id="sy-off"><i class="ti ti-plug-off"></i> Stop sharing on this phone</button>
+    ` : `
+      <div class="hint">Two phones stay in sync in real time. Everything is encrypted on this device first, so the server only ever stores unreadable data.</div>
+      <div class="field mt"><label>Have a pairing code? Paste it</label>
+        <textarea class="input mono" id="sy-in" rows="3" placeholder="Paste the code from the other phone"></textarea></div>
+      <button class="btn primary" id="sy-join"><i class="ti ti-link"></i> Join</button>
+      <div class="section-title">Or start a new shared list</div>
+      <div class="field"><label>Firebase Realtime Database URL</label>
+        <input class="input" id="sy-url" placeholder="https://your-app-default-rtdb.firebaseio.com"></div>
+      <button class="btn" id="sy-create"><i class="ti ti-plus"></i> Create shared list</button>
+      <div class="hint mt">Create a free Firebase project, add a Realtime Database, and paste its URL here. See SETUP-SYNC.md in the repo for the exact steps.</div>
+    `}
+  `);
+
+  sheet.querySelector('#sy-copy')?.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(Sync.makePairingCode()); toast('Pairing code copied'); }
+    catch { toast('Copy failed', true); }
+  });
+  sheet.querySelector('#sy-off')?.addEventListener('click', async () => {
+    await Sync.clearConfig(); closeSheet(); render(); toast('Sharing stopped');
+  });
+  sheet.querySelector('#sy-join')?.addEventListener('click', async () => {
+    try {
+      await Sync.saveConfig(Sync.parsePairingCode(sheet.querySelector('#sy-in').value));
+      Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
+      await Sync.pushAll(['grocery', 'lists']);
+      closeSheet(); render(); toast('Connected');
+    } catch { toast('That code doesn’t look right', true); }
+  });
+  sheet.querySelector('#sy-create')?.addEventListener('click', async () => {
+    const dbUrl = sheet.querySelector('#sy-url').value.trim();
+    if (!/^https:\/\/.+firebase/.test(dbUrl)) return toast('Paste your Realtime Database URL', true);
+    await Sync.saveConfig(Sync.newRoom(dbUrl));
+    Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
+    await Sync.pushAll(['grocery', 'lists']);
+    closeSheet(); render(); syncSheet();          // reopen to show the pairing code
+    toast('Shared list created');
   });
 }
