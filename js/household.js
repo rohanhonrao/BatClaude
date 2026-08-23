@@ -79,16 +79,30 @@ function render() {
   const groups = {};
   for (const i of shown) (groups[i.listId] ||= []).push(i);
 
+  // Done items sink to the bottom of their group rather than holding position.
+  const sink = (arr) => arr.filter((i) => !i.checked).concat(arr.filter((i) => i.checked));
+
+  const listBlock = (l, arr) => `
+    <div class="hh-group">
+      <div class="hh-group-head">
+        <span class="hh-group-name"><i class="ti ${escapeHtml(l.icon || 'ti-basket')}"></i> ${escapeHtml(l.name)}</span>
+        <span class="hh-group-n">${arr.filter((i) => !i.checked).length} left</span>
+      </div>
+      <div class="card hh-card">${sink(arr).map(itemHTML).join('')}</div>
+    </div>`;
+
   const body = shown.length
     ? (activeList === 'all'
-        ? lists.filter((l) => groups[l.id]).map((l) => `
-            <div class="section-title spread"><span><i class="ti ${escapeHtml(l.icon || 'ti-basket')}"></i> ${escapeHtml(l.name)}</span>
-              <span class="tiny muted">${groups[l.id].length}</span></div>
-            <div class="card">${groups[l.id].map(itemHTML).join('')}</div>`).join('')
-        : `<div class="card">${shown.map(itemHTML).join('')}</div>`)
-    : `<div class="empty"><span class="em"><i class="ti ti-basket"></i></span>
-        <div>${showDone ? 'Nothing here' : 'All clear'}</div>
-        <div class="tiny mt">Add what the house needs — it groups itself by list.</div></div>`;
+        ? lists.filter((l) => groups[l.id]).map((l) => listBlock(l, groups[l.id])).join('')
+        : `<div class="hh-group"><div class="card hh-card">${sink(shown).map(itemHTML).join('')}</div></div>`)
+    : `<div class="hh-group"><div class="empty"><span class="em"><i class="ti ti-basket"></i></span>
+        <div>${showDone ? 'Nothing here yet' : 'Nothing to buy'}</div>
+        <div class="tiny mt">Type above to add${activeList === 'all' ? '' : ' to ' + escapeHtml(listOf(activeList)?.name || '')}.</div></div></div>`;
+
+  const active = activeList === 'all' ? null : listOf(activeList);
+  const total = activeList === 'all' ? items.length : items.filter((i) => i.listId === activeList).length;
+  const open = openCount(activeList);
+  const pct = total ? Math.round(((total - open) / total) * 100) : 0;
 
   $app().innerHTML = `<div class="view">
     <div class="app-header">
@@ -99,25 +113,35 @@ function render() {
       <button class="header-btn" data-hh-lists aria-label="Manage lists"><i class="ti ti-adjustments"></i></button>
     </div>
 
-    <div class="input-row">
-      <input class="input" id="hh-add" placeholder="Add an item…" autocomplete="off">
-      <button class="mini-btn" data-hh-quickadd aria-label="Add"><i class="ti ti-plus"></i></button>
-    </div>
-
-    <div class="chips mt">
+    <div class="hh-chips">
       <button class="chip ${activeList === 'all' ? 'active' : ''}" data-hh-list="all">All${openCount('all') ? ` · ${openCount('all')}` : ''}</button>
       ${lists.map((l) => `<button class="chip ${activeList === l.id ? 'active' : ''}" data-hh-list="${l.id}">
         <i class="ti ${escapeHtml(l.icon || 'ti-basket')}"></i>${escapeHtml(l.name)}${openCount(l.id) ? ` · ${openCount(l.id)}` : ''}</button>`).join('')}
+      <button class="chip chip-add" data-hh-lists aria-label="New list"><i class="ti ti-plus"></i></button>
+    </div>
+
+    <div class="hh-bar">
+      <div class="hh-bar-top">
+        <span>${open ? `${open} to buy` : 'All done'}${active ? ` · ${escapeHtml(active.name)}` : ''}</span>
+        ${total ? `<span class="hh-bar-pct">${pct}%</span>` : ''}
+      </div>
+      ${total ? `<div class="bar"><span style="width:${pct}%"></span></div>` : ''}
+    </div>
+
+    <div class="input-row hh-add-row">
+      <input class="input" id="hh-add" autocomplete="off"
+        placeholder="Add${active ? ' to ' + escapeHtml(active.name) : ' an item'}…">
+      <button class="mini-btn primary-btn" data-hh-quickadd aria-label="Add"><i class="ti ti-plus"></i></button>
     </div>
 
     ${body}
 
-    <div class="spread mt2">
-      <button class="btn ghost" data-hh-toggledone style="width:auto;padding:9px 14px">
-        <i class="ti ti-${showDone ? 'eye-off' : 'eye'}"></i> ${showDone ? 'Hide' : 'Show'} done${doneCount ? ` (${doneCount})` : ''}</button>
-      ${doneCount ? `<button class="btn ghost" data-hh-clear style="width:auto;padding:9px 14px"><i class="ti ti-trash"></i> Clear done</button>` : ''}
+    <div class="hh-foot">
+      <button class="chip" data-hh-toggledone>
+        <i class="ti ti-${showDone ? 'eye-off' : 'eye'}"></i> ${showDone ? 'Hide done' : `Done${doneCount ? ` · ${doneCount}` : ''}`}</button>
+      ${doneCount ? `<button class="chip" data-hh-clear><i class="ti ti-trash"></i> Clear done</button>` : ''}
+      <button class="chip" data-hh-share><i class="ti ti-share"></i> Share</button>
     </div>
-    <button class="btn mt" data-hh-share><i class="ti ti-share"></i> Share or import a list</button>
   </div>`;
   bind();
 }
@@ -147,7 +171,7 @@ function itemHTML(i) {
 function bind() {
   const root = $app();
   root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
-  root.querySelector('[data-hh-lists]').addEventListener('click', listsSheet);
+  root.querySelectorAll('[data-hh-lists]').forEach((b) => b.addEventListener('click', listsSheet));
   root.querySelector('[data-hh-share]').addEventListener('click', shareSheet);
 
   const input = root.querySelector('#hh-add');

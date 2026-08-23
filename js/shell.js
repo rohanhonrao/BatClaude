@@ -10,7 +10,6 @@ import { toast, openSheet, closeSheet, pushNav, isSheetOpen } from './ui.js';
 import * as AppLock from './applock.js';
 import { mountFinance, setHubHandler, financeBack } from './app.js';
 import { mountPasswords, setPwHubHandler } from './passwords.js';
-import { mountMove, setMoveHubHandler } from './move.js';
 import { mountDocs, setDocsHubHandler } from './docs.js';
 import { mountHousehold, setHouseholdHubHandler } from './household.js';
 import { mountConcerts, setConcertsHubHandler } from './concerts.js';
@@ -19,7 +18,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '30';
+export const APP_VERSION = '31';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -37,7 +36,6 @@ const MODULES = [
   { id: 'passwords', name: 'Passwords', icon: 'ti-lock', desc: 'Encrypted vault', ready: true },
   { id: 'docs', name: 'Documents', icon: 'ti-id', desc: 'IDs & records · biometric‑locked', ready: true },
   { id: 'household', name: 'Household', icon: 'ti-basket', desc: 'Lists by store · priorities', ready: true },
-  { id: 'move', name: 'Move HQ', icon: 'ti-map-pin', desc: 'Moving checklist · LA → NJ', ready: true },
   { id: 'concerts', name: 'Concerts', icon: 'ti-music', desc: 'Gigs near you · your artists', ready: true },
   { id: 'movies', name: 'Movies', icon: 'ti-movie', desc: 'Ratings, watchlist, radar', ready: false },
   { id: 'sports', name: 'Sports', icon: 'ti-ball-basketball', desc: 'Teams, fixtures, analysis', ready: false },
@@ -219,7 +217,6 @@ function showHub() {
   currentModule = null;
   setHubHandler(goHub);
   setPwHubHandler(goHub);
-  setMoveHubHandler(goHub);
   setDocsHubHandler(goHub);
   setHouseholdHubHandler(goHub);
   setConcertsHubHandler(goHub);
@@ -260,7 +257,6 @@ function openModule(id) {
   pushNav('module');
   if (id === 'finance') mountFinance();
   else if (id === 'passwords') mountPasswords();
-  else if (id === 'move') mountMove();
   else if (id === 'docs') mountDocs();
   else if (id === 'household') mountHousehold();
   else if (id === 'concerts') mountConcerts();

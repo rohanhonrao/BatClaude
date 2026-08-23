@@ -20,7 +20,6 @@ no accounts, no servers, no sync.
 | **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
 | **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
 | **Household** | Shopping lists by store, with priority, due dates, notes and links. Shareable phone-to-phone without a server. |
-| **Move HQ** | Moving checklist. |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |
 

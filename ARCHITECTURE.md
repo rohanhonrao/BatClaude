@@ -29,7 +29,6 @@ no backend, no account, no sync. The only network calls are:
 | Passwords | `js/passwords.js` | done — encrypted vault, biometric-only unlock |
 | Documents | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
 | Household | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
-| Move HQ | `js/move.js` | done — moving checklist (LA to NJ) |
 | Concerts | `js/concerts.js` | done — LA gigs + artist tracking |
 | Movies / Sports / Stocks | — | placeholders, `ready:false` in the registry |
 
@@ -98,7 +97,7 @@ js/
   shamir.js         2-of-3 secret sharing for the recovery kit
   vaultlock.js      per-namespace vault used by Documents/Passwords
   applock.js        biometric gate for opening the app
-  passwords.js docs.js household.js move.js concerts.js  modules
+  passwords.js docs.js household.js concerts.js       modules
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
 data/               generated data served same-origin (concerts, artist cache)
 ```
@@ -149,7 +148,6 @@ All stores keyed by `id` except `settings` (keyed by `key`).
 | `settings` | key/value (currency, name, homeView, cfHorizon, concertArtists, deviceDEK, ...) |
 | `vault` | passwords: id, blob {iv,ct}, updatedAt |
 | `docs` | documents: id, blob {iv,ct}, updatedAt (separate passcode vault) |
-| `tasks` | Move HQ items |
 | `grocery` | Household items (name kept for continuity): id, listId, order, name, qty, priority 0/1/2, due, note, url, checked, updatedAt |
 | `lists` | Household lists, usually a store: id, name, icon, order |
 
