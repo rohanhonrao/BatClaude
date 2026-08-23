@@ -1,48 +1,69 @@
-# 🦇 BatVault
+# Sanctum
 
-A **private, offline, state-of-the-art personal finance tracker** that runs as an installable app on your phone. Built as a local-first Progressive Web App (PWA): every number lives in your phone's own storage (IndexedDB) — **no accounts, no servers, no data ever leaves your device.**
+A private, offline-first personal super-app. Everything lives on your device —
+no accounts, no servers, no sync.
 
-## Features
+**Live:** https://rohanhonrao.github.io/BatClaude/
 
-- **Net worth** — liquid balances (across accounts) + investments, with a 6-month trend chart
-- **Transactions** — income, expense, and transfers; categories, notes, fast entry via the ➕ button
-- **Budgets** — monthly per-category limits with progress bars and overspend alerts
-- **Recurring & bills** — subscriptions/bills with due-date tracking; post them as transactions in one tap
-- **Investments** — track holdings (stocks, funds, gold, crypto…) that feed into net worth
-- **Goals** — savings targets with progress
-- **CSV import** — pull in bank-statement exports; auto-detects Date / Description / Amount (or Debit/Credit) columns and DD/MM/YYYY dates
-- **Live currency converter** — convert between currencies using live mid-market rates, cached on-device so it still works offline
-- **Backup & restore** — one-tap JSON export (store it in Google Drive) and CSV export; full restore
-- **Multi-currency** — defaults to **$ USD**; INR and others selectable in Settings
-- **Offline-first** — the app works with no connection once installed; the only network call is the converter fetching public exchange rates (it sends currency codes only — never your data)
-
-Everything is dependency-free vanilla JS + one CSS file. No build step, no npm, nothing to rot.
+> **Working on this app?** Read [ARCHITECTURE.md](ARCHITECTURE.md) first. It
+> documents the design, the data model, and the traps that have already cost
+> real debugging time (service-worker cache poisoning, sticky-position breakage,
+> phone-width layout testing).
 
 ---
 
-## Deploy it to your phone (GitHub Pages)
+## Modules
 
-The app is already in a GitHub repo. To publish it:
+| Module | What it does |
+|---|---|
+| **Finance** | A running cash-flow ledger: history, today and projected future in one snapping scroller with a single balance column. Plus expenses, budgets, accounts, net worth, CSV import and a live currency converter. |
+| **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
+| **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
+| **Grocery** | Shopping list, shareable phone-to-phone without a server. |
+| **Move HQ** | Moving checklist. |
+| **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
+| Movies / Sports / Stocks | Planned. |
 
-1. Push these files to the `main` branch (see below if not pushed yet).
-2. On GitHub: **Settings → Pages → Build and deployment → Source: "Deploy from a branch"**, pick `main` / `/ (root)`, **Save**.
-3. Wait ~1 minute. Your app goes live at:
-   **`https://rohanhonrao.github.io/BatClaude/`**
+## Install on your phone
 
-### Install on your Pixel
+1. Open the link in Chrome
+2. Tap the **Install Sanctum** card on the hub (or **⋮ → Add to Home screen**)
+3. It runs full-screen and works offline
 
-1. Open that URL in **Chrome** on your Pixel.
-2. Complete the one-time welcome screen (name + currency).
-3. Tap the **⋮** menu → **"Add to Home screen"** (or "Install app").
-4. Launch it from your home screen — it opens full-screen like a native app and works offline.
+If the install option is missing, a stale copy is usually still registered:
+**Settings → Apps → Sanctum → Uninstall**, then reopen the link. Removing the
+home-screen icon alone does not uninstall it.
 
-> Because data is stored **on-device**, it is *not* synced between phones. Use **Settings → Export backup** regularly and save the file to Google Drive so you never lose it. Restore on any device via **Settings → Restore**.
+## Updating
 
----
+The app self-updates. If it looks stale:
 
-## Run it locally (optional, for testing)
+- **Settings → Check for updates → Refresh**, or
+- fully close and reopen the app twice
 
-ES modules and the service worker require `http://`, not `file://`. A tiny zero-dependency PowerShell server is included:
+The version number is shown at the bottom of the hub.
+
+⚠️ Do **not** use Chrome's "Delete data" for the site — that erases your
+finance data and vaults along with the cache.
+
+## Your data
+
+- Stored only in this browser's IndexedDB, on this device.
+- Back it up: **Finance → More → Settings & Backup → Export** (JSON or CSV).
+  Keep the file somewhere safe; there is no cloud copy.
+- The repository is public but contains **only app code** — never your data.
+
+## Concerts listings
+
+Listings are compiled by a GitHub Action into `data/concerts-la.json` and served
+from the app's own origin (no API key, works offline). Rebuild on demand from
+the repo's **Actions → Refresh concert listings → Run workflow**, or via the
+**Rebuild** link in the module.
+
+## Running locally
+
+No build step and no dependencies. ES modules and the service worker need
+`http://`, so use the bundled server:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File dev-server.ps1
@@ -50,27 +71,13 @@ powershell -ExecutionPolicy Bypass -File dev-server.ps1
 
 Then open <http://localhost:4599/>.
 
----
-
-## Later: ship it as a real Android APK (optional)
-
-The same code can be wrapped into an installable Play Store app with **Bubblewrap** (Trusted Web Activity) — no rewrite. Ask when you want to go there.
-
-## Project layout
+## Layout
 
 ```
-index.html              app shell
-manifest.webmanifest    PWA manifest (installability)
-sw.js                   service worker (offline cache)
-css/styles.css          all styling
-js/
-  app.js                UI, router, views, editors
-  db.js                 IndexedDB layer + backup/restore
-  compute.js            balances, net worth, budgets, trends
-  util.js               formatting, dates, currency, settings, seed data
-  charts.js             dependency-free SVG charts
-  csv.js                CSV parse + import/export
-  rates.js              live exchange rates (cached) for the converter
-icons/                  app icons
-dev-server.ps1          optional local test server
+index.html  sw.js  manifest.webmanifest
+css/     styles.css + bundled Tabler icon font
+fonts/   Inter + Cinzel (bundled for offline use)
+js/      shell.js (entry) + one file per module + shared engines
+scripts/ Node scripts run by GitHub Actions only
+data/    generated listings served same-origin
 ```
