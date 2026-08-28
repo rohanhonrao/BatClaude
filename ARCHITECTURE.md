@@ -13,15 +13,16 @@ not just what exists but *why*, and the traps that have already cost real time.
 
 A private, offline-first personal "super-app" — a PWA installed to the home
 screen. All user data lives in the browser's IndexedDB on the device. There is
-no backend and no account. Sync is opt-in and scoped to Household only
-(section 8b). The network calls are:
+no backend and no account. Sync is opt-in and scoped to **Hearth** — shared
+lists and shared money (sections 8b, 8d). Finance, Passwords and Documents never
+leave the device. The network calls are:
 
 | Call | Purpose | What it sends |
 |---|---|---|
 | GitHub Pages | app files | nothing |
 | currency-api (jsdelivr) | FX rates for the converter | a currency code |
 | `data/concerts-la.json` | concert listings (same-origin) | nothing |
-| Firebase RTDB | Household & Joint live sync — **only if opted in** | AES-GCM ciphertext |
+| Firebase RTDB | Hearth live sync — **only if opted in** | AES-GCM ciphertext |
 
 ### Modules (the hub is the app entry)
 
@@ -30,8 +31,9 @@ no backend and no account. Sync is opt-in and scoped to Household only
 | Finance | `js/app.js` | done — cash-flow ledger, expenses, budgets, accounts, converter |
 | Passwords | `js/passwords.js` | done — encrypted vault, biometric-only unlock |
 | Documents | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
-| Household | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
-| Joint | `js/joint.js` + `js/split.js` | done — shared costs with a partner, income-ratio split, settle-up |
+| Hearth | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
+| ├ Lists | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
+| └ Money | `js/joint.js` + `js/split.js` | done — shared costs with a partner, income-ratio split, settle-up |
 | Concerts | `js/concerts.js` | done — LA gigs + artist tracking |
 | Movies / Sports / Stocks | — | placeholders, `ready:false` in the registry |
 
@@ -100,7 +102,11 @@ js/
   shamir.js         2-of-3 secret sharing for the recovery kit
   vaultlock.js      per-namespace vault used by Documents/Passwords
   applock.js        biometric gate for opening the app
-  passwords.js docs.js household.js concerts.js joint.js  modules
+  hearth.js         HEARTH shell: shared header, Lists/Money tabs, the single
+                    "Share live" sheet, sync started once for every store
+  household.js      Hearth's Lists tab
+  joint.js          Hearth's Money tab
+  passwords.js docs.js concerts.js  modules
   split.js          JOINT maths: ratios, cent-exact shares, balances, weeks
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
 data/               generated data served same-origin (concerts, artist cache)
@@ -266,9 +272,10 @@ nothing installed.
 
 ## 8b. Live sync (`js/sync.js`)
 
-Optional real-time sharing between two phones, shared by Household and Joint.
-**Either module can both create and join a connection** — the pairing screens
-are equivalent, so neither phone has to detour through the other module.
+Optional real-time sharing between two phones, used by **Hearth** (both tabs).
+`hearth.js` owns the only "Share live" sheet and calls `Sync.start` **once for
+every Hearth store**, so pairing covers lists and money together. Neither tab
+starts sync itself; each just registers `onHearthRefresh` to say how to redraw.
 
 - **No SDK.** Firebase Realtime Database is driven over plain REST, and its
   `Accept: text/event-stream` endpoint pushes changes, so the app keeps zero
@@ -286,7 +293,7 @@ are equivalent, so neither phone has to detour through the other module.
 
 ---
 
-## 8c. Joint — shared finances (`js/joint.js`, `js/split.js`)
+## 8c. Joint — Hearth's Money tab (`js/joint.js`, `js/split.js`)
 
 Answers "what do we owe each other?", which is a different question from the
 personal Finance module. They share no data on purpose.
@@ -322,6 +329,31 @@ personal Finance module. They share no data on purpose.
 - The **first-run setup screen offers "Join with a pairing code"**. Without it the
   second phone would enter both people again and end up with two disconnected
   datasets; the screen says so explicitly.
+
+---
+
+## 8d. Hearth — the shared sub-app (`js/hearth.js`)
+
+Household and Joint were separate modules, but from the user's side they are one
+thing: the stuff two people run together. They already shared a single encrypted
+sync room, so keeping them apart meant two pairing screens for one connection and
+two places to look. Hearth merges them behind one header with two tabs.
+
+- **Hearth owns** the header, the Lists/Money tab switch, the hub button, the
+  single `shareSheet()`, and sync. `household.js` and `joint.js` keep their own
+  logic and render their own bodies.
+- Each tab calls `hearthHeader(active, actions)` for its header and
+  `bindHearthHeader(root)` to wire it. `actions` is that tab's own header button
+  (manage lists / settings); the sharing button is common and doubles as the
+  live indicator (`.header-btn.live`).
+- **Sync starts once, for `ALL_STORES`**, in `mountHearth()`. A tab registers
+  `onHearthRefresh(fn)` so a push from the other phone redraws whichever tab is
+  open, without either tab knowing about the other.
+- The active tab is remembered in `settings.hearthTab` (device-local).
+- `hearth.js` imports `household.js`/`joint.js` and they import back — a
+  deliberate ES-module cycle. It is safe **only** because nothing is used at
+  module top level; if you ever hoist a `hearthHeader(...)` call or read
+  `ALL_STORES` at load time, it will throw on a TDZ error.
 
 ---
 
@@ -383,6 +415,7 @@ Rules learned the hard way:
 | 258 concerts became 89 | throttled crawl plus a guard that only checked "at least 20" |
 | Blank screen (early on) | an IndexedDB version upgrade blocked by another open tab |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
+| Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
 
 ---
@@ -412,6 +445,15 @@ Rules learned the hard way:
   on demand — money that crosses a week boundary is never stranded.
 - Joint is **for two people**. `split.js` mostly generalises, but
   `balanceBetween` assumes two; adding a third person means a settlement graph.
+- **Household and Joint merged into Hearth**, one sub-app with Lists and Money
+  tabs. They were always the same thing to the user — what the two of them run
+  together — and they already shared one sync room, so two pairing screens for
+  one connection was a bug waiting to happen. Named by Claude at the user's
+  invitation; easy to rename (the string lives in `hearthHeader` and the
+  `MODULES` entry).
+- **Icon geometry targets Android, not the spec.** See the gotchas table: the
+  maskable mark is sized to the adaptive icon's real safe zone, which is tighter
+  than what the maskable spec promises.
 
 ---
 

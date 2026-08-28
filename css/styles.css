@@ -942,3 +942,11 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
   border-radius: 10px; padding: 9px 11px; display: flex; justify-content: space-between; }
 .j-preview span { font-size: 12px; color: var(--muted); }
 .j-preview b { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* --- Hearth: the shared header for Lists / Money ------------------------- */
+.he-tabs { margin: 2px 0 14px; }
+.he-tabs button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.he-tabs button i { font-size: 15px; opacity: .85; }
+/* The header's sharing button doubles as the live indicator, so Hearth needs
+   only one control for a connection that covers both tabs. */
+.header-btn.live { color: var(--green); }

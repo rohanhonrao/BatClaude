@@ -16,8 +16,7 @@ import { escapeHtml, todayISO, fmtDate, fmtDateShort, fmtMoney, parseAmount, add
 import { toast, openSheet, closeSheet } from './ui.js';
 import * as Sync from './sync.js';
 import * as Split from './split.js';
-
-const STORES = ['jointPeople', 'jointCategories', 'jointExpenses', 'jointSettlements', 'jointRecurring', 'jointMeta'];
+import { hearthHeader, bindHearthHeader, shareSheet, onHearthRefresh } from './hearth.js';
 
 const DEFAULT_CATEGORIES = [
   { name: 'Rent',       icon: 'ti-home',            kind: 'fixed',    rule: 'ratio' },
@@ -68,13 +67,11 @@ const remove = async (store, id) => {
   await load();
 };
 
+// Mounted by hearth.js, which owns the header, the tab switch and sync. This
+// module only has to say how to redraw itself when the other phone pushes.
 export async function mountJoint() {
   await load();
-  await Sync.loadConfig();
-  if (Sync.isConfigured()) {
-    Sync.start(STORES, async () => { await load(); render(); });
-    Sync.pushAll(STORES);
-  }
+  onHearthRefresh(async () => { await load(); render(); });
   await materialiseRecurring();
   render();
 }
@@ -135,13 +132,8 @@ function render() {
   const weekTotal = shown.reduce((s, e) => s + Number(e.amount || 0), 0);
 
   $app().innerHTML = `<div class="view">
-    <div class="app-header">
-      <div class="title">
-        <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title">Joint</h1>
-      </div>
-      <button class="header-btn" data-j-settings aria-label="Settings"><i class="ti ti-settings"></i></button>
-    </div>
+    ${hearthHeader('money',
+      '<button class="header-btn" data-j-settings aria-label="Settings"><i class="ti ti-settings"></i></button>')}
 
     <div class="hero j-hero">${headline}
       <div class="j-split">
@@ -204,12 +196,7 @@ function expenseRow(e) {
 function renderSetup() {
   const existing = people.length === 2;
   $app().innerHTML = `<div class="view">
-    <div class="app-header">
-      <div class="title">
-        <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title">Joint</h1>
-      </div>
-    </div>
+    ${hearthHeader('money')}
     ${existing ? `
       <div class="hint">This phone hasn't been told which of you it belongs to.</div>
       <div class="card mt">${people.map((p) => `<div class="row tappable" data-j-iam="${p.id}">
@@ -241,8 +228,8 @@ function renderSetup() {
     `}
   </div>`;
 
-  $app().querySelector('[data-hub]')?.addEventListener('click', () => hubHandler && hubHandler());
-  $app().querySelector('[data-j-sync]')?.addEventListener('click', syncSheet);
+  bindHearthHeader($app());
+  $app().querySelector('[data-j-sync]')?.addEventListener('click', shareSheet);
   $app().querySelectorAll('[data-j-iam]').forEach((el) => el.addEventListener('click', async () => {
     await db.put('settings', { key: 'jointMe', value: el.dataset.jIam });
     await load(); render();
@@ -465,7 +452,7 @@ function settingsSheet() {
     () => personEditor(personOf(el.dataset.pEdit))));
   sheet.querySelectorAll('[data-c-edit]').forEach((el) => el.addEventListener('click',
     () => categoryEditor(catOf(el.dataset.cEdit))));
-  sheet.querySelector('[data-j-sync]').addEventListener('click', syncSheet);
+  sheet.querySelector('[data-j-sync]').addEventListener('click', shareSheet);
 }
 
 function personEditor(p) {
@@ -516,61 +503,15 @@ function categoryEditor(c) {
   });
 }
 
-// --- sharing ------------------------------------------------------------------
-// Reuses the same encrypted room as Household; one pairing covers both.
-function syncSheet() {
-  const on = Sync.isConfigured();
-  const sheet = openSheet(`
-    <div class="sheet-title-row"><h2>Share live</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
-    ${on ? `
-      <div class="alert warn"><i class="ti ti-wifi"></i> Live. Both phones see expenses and settlements within a second.</div>
-      <div class="field mt"><label>Pairing code — send to your partner</label>
-        <textarea class="input mono" rows="3" readonly>${escapeHtml(Sync.makePairingCode())}</textarea></div>
-      <button class="btn primary" id="y-copy"><i class="ti ti-copy"></i> Copy pairing code</button>
-    ` : `
-      <div class="hint">Joint uses the same encrypted connection as Household — pair once and both share. Contents are encrypted on this phone first.</div>
-      <div class="field mt"><label>Paste a pairing code</label>
-        <textarea class="input mono" id="y-in" rows="3" placeholder="Paste from the other phone"></textarea></div>
-      <button class="btn primary" id="y-join"><i class="ti ti-link"></i> Join</button>
-      <div class="section-title">Or start the connection here</div>
-      <div class="field"><label>Firebase Realtime Database URL</label>
-        <input class="input" id="y-url" placeholder="https://your-app-default-rtdb.firebaseio.com"></div>
-      <button class="btn" id="y-create"><i class="ti ti-plus"></i> Create shared connection</button>
-      <div class="hint mt">One free Firebase project covers Joint and Household together. Steps are in SETUP-SYNC.md.</div>
-    `}
-  `);
-  sheet.querySelector('#y-create')?.addEventListener('click', async () => {
-    const dbUrl = sheet.querySelector('#y-url').value.trim();
-    if (!/^https:\/\/.+firebase/.test(dbUrl)) return toast('Paste your Realtime Database URL', true);
-    await Sync.saveConfig(Sync.newRoom(dbUrl));
-    Sync.start(STORES, async () => { await load(); render(); });
-    await Sync.pushAll(STORES);
-    render(); syncSheet();   // replace in place: closing first lets the pending popstate shut the new sheet
-    toast('Connection created');
-  });
-  sheet.querySelector('#y-copy')?.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(Sync.makePairingCode()); toast('Copied'); } catch { toast('Copy failed', true); }
-  });
-  sheet.querySelector('#y-join')?.addEventListener('click', async () => {
-    try {
-      await Sync.saveConfig(Sync.parsePairingCode(sheet.querySelector('#y-in').value));
-      Sync.start(STORES, async () => { await load(); render(); });
-      await Sync.pushAll(STORES);
-      closeSheet(); render(); toast('Connected');
-    } catch { toast('That code doesn’t look right', true); }
-  });
-}
-
 // --- wiring -------------------------------------------------------------------
 function bind() {
   const root = $app();
-  root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
+  bindHearthHeader(root);
   root.querySelector('[data-j-settings]')?.addEventListener('click', settingsSheet);
   root.querySelector('[data-j-add]')?.addEventListener('click', () => expenseSheet());
   root.querySelector('[data-j-settle]')?.addEventListener('click', settleSheet);
   root.querySelector('[data-j-recurring]')?.addEventListener('click', recurringSheet);
   root.querySelector('[data-j-history]')?.addEventListener('click', historySheet);
-  root.querySelector('[data-j-sync]')?.addEventListener('click', syncSheet);
   root.querySelectorAll('#j-tab button').forEach((b) => b.addEventListener('click', () => { tab = b.dataset.jTab; render(); }));
   root.querySelectorAll('[data-j-edit]').forEach((el) => el.addEventListener('click',
     () => expenseSheet(expenses.find((x) => x.id === el.dataset.jEdit))));

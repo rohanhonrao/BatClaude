@@ -59,6 +59,7 @@ grep -ril "<name of thing you just deleted>" *.md
 
 ## Rule 4 — Respect the premise
 
-Everything is on-device by default. The only exception is opt-in Household
-sync, and even that encrypts before upload. Do not extend sharing to Finance,
-Passwords or Documents without the user explicitly asking.
+Everything is on-device by default. The only exception is opt-in **Hearth**
+sync (shared lists and shared money), and even that encrypts before upload. Do
+not extend sharing to Finance, Passwords or Documents without the user
+explicitly asking.

@@ -8,6 +8,7 @@ import { db, uid } from './db.js';
 import { escapeHtml, todayISO, fmtDateShort, relativeDay, addDays } from './util.js';
 import { toast, openSheet, closeSheet } from './ui.js';
 import * as Sync from './sync.js';
+import { hearthHeader, bindHearthHeader, onHearthRefresh } from './hearth.js';
 
 const PRIORITY = [
   { v: 0, label: 'Normal', cls: '' },
@@ -43,16 +44,14 @@ async function migrate() {
   await load();
 }
 
+// Mounted by hearth.js, which owns the header, the tab switch and sync. This
+// module only has to say how to redraw itself when the other phone pushes.
 export async function mountHousehold() {
   await load();
   await migrate();
   activeList = 'all';
+  onHearthRefresh(async () => { await load(); render(); });
   render();
-  await Sync.loadConfig();
-  if (Sync.isConfigured()) {
-    Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
-    Sync.pushAll(['grocery', 'lists']);   // reconcile anything changed while offline
-  }
 }
 
 const saveItem = async (it) => {
@@ -110,20 +109,14 @@ function render() {
         <div>${showDone ? 'Nothing here yet' : 'Nothing to buy'}</div>
         <div class="tiny mt">Type above to add${activeList === 'all' ? '' : ' to ' + escapeHtml(listOf(activeList)?.name || '')}.</div></div></div>`;
 
-  const live = Sync.isConfigured();
   const active = activeList === 'all' ? null : listOf(activeList);
   const total = activeList === 'all' ? items.length : items.filter((i) => i.listId === activeList).length;
   const open = openCount(activeList);
   const pct = total ? Math.round(((total - open) / total) * 100) : 0;
 
   $app().innerHTML = `<div class="view">
-    <div class="app-header">
-      <div class="title">
-        <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title">Household</h1>
-      </div>
-      <button class="header-btn" data-hh-lists aria-label="Manage lists"><i class="ti ti-adjustments"></i></button>
-    </div>
+    ${hearthHeader('lists',
+      '<button class="header-btn" data-hh-lists aria-label="Manage lists"><i class="ti ti-adjustments"></i></button>')}
 
     <div class="hh-chips">
       <button class="chip ${activeList === 'all' ? 'active' : ''}" data-hh-list="all">All${openCount('all') ? ` · ${openCount('all')}` : ''}</button>
@@ -153,8 +146,6 @@ function render() {
         <i class="ti ti-${showDone ? 'eye-off' : 'eye'}"></i> ${showDone ? 'Hide done' : `Done${doneCount ? ` · ${doneCount}` : ''}`}</button>
       ${doneCount ? `<button class="chip" data-hh-clear><i class="ti ti-trash"></i> Clear done</button>` : ''}
       <button class="chip" data-hh-share><i class="ti ti-share"></i> Send a copy</button>
-      <button class="chip ${live ? 'active' : ''}" data-hh-sync>
-        <i class="ti ti-${live ? 'wifi' : 'users'}"></i> ${live ? 'Live' : 'Share live'}</button>
     </div>
   </div>`;
   bind();
@@ -184,10 +175,9 @@ function itemHTML(i) {
 // --- interactions -----------------------------------------------------------
 function bind() {
   const root = $app();
-  root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
+  bindHearthHeader(root);
   root.querySelectorAll('[data-hh-lists]').forEach((b) => b.addEventListener('click', listsSheet));
   root.querySelector('[data-hh-share]').addEventListener('click', shareSheet);
-  root.querySelector('[data-hh-sync]').addEventListener('click', syncSheet);
 
   const input = root.querySelector('#hh-add');
   const add = async () => {
@@ -360,55 +350,3 @@ function shareSheet() {
   });
 }
 
-// --- real-time sharing -------------------------------------------------------
-// One person creates the room (needs a free Firebase Realtime Database URL);
-// everyone else just pastes the pairing code, which carries the URL, the room
-// id and the passphrase. Contents are encrypted before upload — see sync.js.
-export function syncSheet() {
-  const on = Sync.isConfigured();
-  const sheet = openSheet(`
-    <div class="sheet-title-row"><h2>Share live</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
-    ${on ? `
-      <div class="alert warn"><i class="ti ti-wifi"></i> Live sharing is on. Changes appear on both phones within a second.</div>
-      <div class="field mt"><label>Pairing code — send this to the other phone</label>
-        <textarea class="input mono" id="sy-code" rows="3" readonly>${escapeHtml(Sync.makePairingCode())}</textarea></div>
-      <button class="btn primary" id="sy-copy"><i class="ti ti-copy"></i> Copy pairing code</button>
-      <button class="btn danger mt" id="sy-off"><i class="ti ti-plug-off"></i> Stop sharing on this phone</button>
-    ` : `
-      <div class="hint">Two phones stay in sync in real time. Everything is encrypted on this device first, so the server only ever stores unreadable data.</div>
-      <div class="field mt"><label>Paste a pairing code</label>
-        <textarea class="input mono" id="sy-in" rows="3" placeholder="Paste the code from the other phone"></textarea></div>
-      <button class="btn primary" id="sy-join"><i class="ti ti-link"></i> Join</button>
-      <div class="section-title">Or start a new shared list</div>
-      <div class="field"><label>Firebase Realtime Database URL</label>
-        <input class="input" id="sy-url" placeholder="https://your-app-default-rtdb.firebaseio.com"></div>
-      <button class="btn" id="sy-create"><i class="ti ti-plus"></i> Create shared connection</button>
-      <div class="hint mt">Create a free Firebase project, add a Realtime Database, and paste its URL here. See SETUP-SYNC.md in the repo for the exact steps.</div>
-    `}
-  `);
-
-  sheet.querySelector('#sy-copy')?.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(Sync.makePairingCode()); toast('Pairing code copied'); }
-    catch { toast('Copy failed', true); }
-  });
-  sheet.querySelector('#sy-off')?.addEventListener('click', async () => {
-    await Sync.clearConfig(); closeSheet(); render(); toast('Sharing stopped');
-  });
-  sheet.querySelector('#sy-join')?.addEventListener('click', async () => {
-    try {
-      await Sync.saveConfig(Sync.parsePairingCode(sheet.querySelector('#sy-in').value));
-      Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
-      await Sync.pushAll(['grocery', 'lists']);
-      closeSheet(); render(); toast('Connected');
-    } catch { toast('That code doesn’t look right', true); }
-  });
-  sheet.querySelector('#sy-create')?.addEventListener('click', async () => {
-    const dbUrl = sheet.querySelector('#sy-url').value.trim();
-    if (!/^https:\/\/.+firebase/.test(dbUrl)) return toast('Paste your Realtime Database URL', true);
-    await Sync.saveConfig(Sync.newRoom(dbUrl));
-    Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
-    await Sync.pushAll(['grocery', 'lists']);
-    render(); syncSheet();   // replace in place: closing first lets the pending popstate shut the new sheet
-    toast('Shared list created');
-  });
-}

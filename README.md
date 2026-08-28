@@ -1,7 +1,7 @@
 # Sanctum
 
 A private, offline-first personal super-app. Everything lives on your device —
-no accounts, no servers. The one exception is opt-in: **Household and Joint** can
+no accounts, no servers. The one exception is opt-in: **Hearth** (shared lists and shared money) can
 share between two phones in real time, and even then the contents are encrypted
 before they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)). Finance,
 Passwords and Documents never leave the phone.
@@ -23,8 +23,7 @@ Passwords and Documents never leave the phone.
 | **Finance** | A running cash-flow ledger: history, today and projected future in one snapping scroller with a single balance column. Plus expenses, budgets, accounts, net worth, CSV import and a live currency converter. |
 | **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
 | **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
-| **Household** | Shopping lists by store, with priority, due dates, notes and links. Optional **real-time sharing** between two phones, end-to-end encrypted — see [SETUP-SYNC.md](SETUP-SYNC.md). |
-| **Joint** | Shared finances with a partner: expenses split by income ratio (or 50/50 per category), fixed costs that post themselves, and one number for who owes whom. Settle up in a tap. Syncs live, encrypted. |
+| **Hearth** | Everything two people run together, in one place with two tabs. **Lists** — shopping lists by store, with priority, due dates, notes and links. **Money** — shared expenses split by income ratio (or 50/50 per category), fixed costs that post themselves, and one number for who owes whom; settle up in a tap. Optional **real-time sharing** between two phones, end-to-end encrypted; one pairing covers both tabs — see [SETUP-SYNC.md](SETUP-SYNC.md). |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |
 

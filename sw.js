@@ -1,5 +1,5 @@
 // sw.js — offline cache. Bump CACHE when you change app files.
-const CACHE = 'sanctum-v36';
+const CACHE = 'sanctum-v37';
 const ASSETS = [
   './',
   './index.html',
@@ -35,10 +35,14 @@ const ASSETS = [
   './js/sync.js',
   './js/concerts.js',
   './js/joint.js',
+  './js/hearth.js',
   './js/split.js',
   './data/concerts-la.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  './icons/icon-maskable-192.png',
+  './icons/icon-maskable-512.png',
+  './icons/apple-touch-icon.png',
 ];
 
 // GitHub Pages serves everything with `Cache-Control: max-age=600`, and

@@ -1,6 +1,6 @@
-# Setting up live sharing for Household
+# Setting up live sharing for Hearth
 
-Two phones stay in sync in real time. Everything is **encrypted on your phone
+Two phones stay in sync in real time (Hearth only). Everything is **encrypted on your phone
 before it is uploaded**, so the server only ever stores unreadable blobs — it is
 a relay, not a custodian.
 
@@ -46,12 +46,12 @@ ciphertext.
 
 ## 3. Turn it on in the app
 
-One connection covers **both Household and Joint**, and you can set it up from
-either one — the two screens do the same thing.
+One connection covers **both Hearth tabs** (Lists and Money), and you can set it up from
+either tab — the sharing button in the header is the same one.
 
 On **your** phone:
 
-1. Open **Household → Share live** (or **Joint → Share live**)
+1. Open **Hearth** and tap the sharing button in the header
 2. Paste the database URL into *Firebase Realtime Database URL*
 3. Tap **Create shared connection**
 4. Tap **Copy pairing code** and send it to her (any messenger is fine — the
@@ -59,16 +59,17 @@ On **your** phone:
 
 On **your wife's** phone:
 
-1. Open the same module → **Share live**
+1. Open **Hearth** → sharing button
 2. Paste the code into *Paste a pairing code*
 3. Tap **Join**
 
 Both phones now show a **Live** chip. Add or tick an item on one and it appears
 on the other within about a second.
 
-### For Joint specifically
+### For the Money tab specifically
 
-Set up the people on **one** phone only. On the second phone, open **Joint** and
+Set up the people on **one** phone only. On the second phone, open **Hearth →
+Money** and
 tap **Join with a pairing code** on the setup screen — do *not* add both people
 again, or you will end up with two of everyone. Once the data arrives, that
 phone asks which person it is; that choice stays on the device and is never
@@ -92,7 +93,7 @@ at the same instant means the later write wins.
 
 ## Turning it off
 
-**Household (or Joint) → Share live → Stop sharing on this phone.** Local data stays; the
+**Hearth → sharing button → Stop sharing on this phone.** Local data stays; the
 phone simply stops syncing. To wipe the shared copy entirely, delete the
 `rooms` node in the Firebase console.
 
@@ -103,6 +104,6 @@ list is a few kilobytes. This will not approach the free tier.
 
 ## Scope
 
-Live sharing covers **Household only** (items and lists). Finance, Passwords and
-Documents remain strictly on-device — the sharing model is deliberately not
+Live sharing covers **Hearth only** — its lists, items, people, shared expenses
+and settlements. Finance, Passwords and Documents remain strictly on-device — the sharing model is deliberately not
 applied to them, since their threat model is different.
