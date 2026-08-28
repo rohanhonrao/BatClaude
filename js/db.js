@@ -2,7 +2,7 @@
 // Nothing here ever leaves the phone. No network, no accounts.
 
 const DB_NAME = 'batvault';
-const DB_VERSION = 5;
+const DB_VERSION = 6;
 
 // Object stores and their keyPaths. All records use a string `id`.
 const STORES = {
@@ -18,6 +18,13 @@ const STORES = {
   docs: 'id',         // Important Documents: {id, blob:{iv,ct}, updatedAt} — encrypted under a SEPARATE passcode vault (vaultlock.js), never the device key
   grocery: 'id',      // Household items: {id, listId, order, name, qty, priority, due, note, url, checked}
   lists: 'id',        // Household lists (usually a store): {id, name, icon, order}
+  // --- Joint (shared finances with a partner; all synced, see sync.js) ---
+  jointPeople: 'id',      // {id, name, incomeGross, incomeNet, updatedAt}
+  jointCategories: 'id',  // {id, name, icon, kind:'fixed'|'variable', rule, updatedAt}
+  jointExpenses: 'id',    // {id, date, desc, amount, categoryId, payerId, rule, customPct, recurringId?, updatedAt}
+  jointSettlements: 'id', // {id, date, fromId, toId, amount, note, updatedAt}
+  jointRecurring: 'id',   // {id, name, amount, categoryId, payerId, rule, frequency, nextDate, paused, updatedAt}
+  jointMeta: 'id',        // single record id='config': {basis:'gross'|'net', updatedAt}
 };
 
 let _dbPromise = null;

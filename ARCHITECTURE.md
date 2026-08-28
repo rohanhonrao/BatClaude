@@ -31,6 +31,7 @@ no backend and no account. Sync is opt-in and scoped to Household only
 | Passwords | `js/passwords.js` | done — encrypted vault, biometric-only unlock |
 | Documents | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
 | Household | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
+| Joint | `js/joint.js` + `js/split.js` | done — shared costs with a partner, income-ratio split, settle-up |
 | Concerts | `js/concerts.js` | done — LA gigs + artist tracking |
 | Movies / Sports / Stocks | — | placeholders, `ready:false` in the registry |
 
@@ -99,7 +100,8 @@ js/
   shamir.js         2-of-3 secret sharing for the recovery kit
   vaultlock.js      per-namespace vault used by Documents/Passwords
   applock.js        biometric gate for opening the app
-  passwords.js docs.js household.js concerts.js       modules
+  passwords.js docs.js household.js concerts.js joint.js  modules
+  split.js          JOINT maths: ratios, cent-exact shares, balances, weeks
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
 data/               generated data served same-origin (concerts, artist cache)
 ```
@@ -135,7 +137,7 @@ for its sub-routes.
 
 ---
 
-## 5. Data layer (`js/db.js`, `DB_VERSION = 5`)
+## 5. Data layer (`js/db.js`, `DB_VERSION = 6`)
 
 All stores keyed by `id` except `settings` (keyed by `key`).
 
@@ -152,6 +154,15 @@ All stores keyed by `id` except `settings` (keyed by `key`).
 | `docs` | documents: id, blob {iv,ct}, updatedAt (separate passcode vault) |
 | `grocery` | Household items (name kept for continuity): id, listId, order, name, qty, priority 0/1/2, due, note, url, checked, updatedAt |
 | `lists` | Household lists, usually a store: id, name, icon, order |
+| `jointPeople` | id, name, incomeGross, incomeNet |
+| `jointCategories` | id, name, icon, kind fixed/variable, rule ratio/equal |
+| `jointExpenses` | id, date, desc, amount, categoryId, payerId, rule, customPct, recurringId? |
+| `jointSettlements` | id, date, fromId, toId, amount, note |
+| `jointRecurring` | id, name, amount, categoryId, payerId, frequency, nextDate, paused |
+| `jointMeta` | single record `id:'config'`: basis gross/net |
+
+Which person *this phone* is lives in `settings.jointMe` — **device-local and
+never synced**, otherwise both phones would think they were the same person.
 
 Adding a **store** requires bumping `DB_VERSION`. Adding **fields** does not —
 prefer optional fields with derived defaults (e.g. `kindOf(account)` derives
@@ -273,6 +284,42 @@ Optional real-time sharing between two phones, used by Household only.
 
 ---
 
+## 8c. Joint — shared finances (`js/joint.js`, `js/split.js`)
+
+Answers "what do we owe each other?", which is a different question from the
+personal Finance module. They share no data on purpose.
+
+### The maths (`split.js`, unit-tested — 20/20)
+
+- **Integer cents throughout.** Splitting dollars as floats drifts; over months
+  of rent that becomes a real disagreement. Shares are derived so they always
+  sum *exactly* to the amount: round all but the last, give the last the
+  remainder.
+- **People are sorted by id before allocating**, so both phones compute an
+  identical split. Without this the rounding remainder could land on different
+  people and the two devices would disagree about the balance.
+- **Ratio** = each person's income over the total, from either gross or
+  take-home (`jointMeta.basis`). No income entered yet falls back to an even
+  split rather than dividing by zero.
+- **Per-expense rules**: `ratio`, `equal`, `payer` (all theirs), `other` (all
+  the partner's), `custom` (payer's %). Blank means "use the category default".
+- **Net position** = what you paid − your share, with settlements counting like
+  payments. With two people the nets mirror exactly, so the UI shows one number.
+
+### Behaviour worth preserving
+
+- **Settle-up is essential**, not a nicety: without it the balance grows forever
+  and stops meaning anything.
+- Fixed costs are **scheduled items that post themselves** on their due date
+  (`materialiseRecurring`), capped at 24 catch-up periods so a long gap can't
+  spin.
+- Percentages in the header are derived (round the first, subtract for the
+  rest) so they read as 100 — rounding each independently showed "53% / 48%".
+- Joint reuses the **same encrypted sync room as Household**; pairing once
+  covers both.
+
+---
+
 ## 9. Design system (`css/styles.css`)
 
 - **Near-monochrome by design.** Platinum/ivory accent `--accent: #E9E4DA` on
@@ -348,6 +395,17 @@ Rules learned the hard way:
   and mirrored by a PowerShell/System.Drawing script for the PNGs.
 - **Activity tab** is now largely redundant beside the ledger. The user is
   deciding what it should become — leave it alone until then.
+- **Joint splits everything by income ratio**, including variable costs. The
+  user's opening brief said variable would be 50/50, then chose ratio-for-all
+  when asked directly; the later answer stands. The rule lives on the
+  *category*, so flipping Groceries back to 50/50 is two taps, not a rebuild.
+- **Both gross and take-home are stored**, with a switch for which drives the
+  split. Take-home is the default because deductions can make gross a poor
+  proxy for who can actually afford what.
+- **Weekly cadence** for reviewing, but the balance is continuous and settled
+  on demand — money that crosses a week boundary is never stranded.
+- Joint is **for two people**. `split.js` mostly generalises, but
+  `balanceBetween` assumes two; adding a third person means a settlement graph.
 
 ---
 

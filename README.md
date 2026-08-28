@@ -23,6 +23,7 @@ they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)).
 | **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
 | **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
 | **Household** | Shopping lists by store, with priority, due dates, notes and links. Optional **real-time sharing** between two phones, end-to-end encrypted — see [SETUP-SYNC.md](SETUP-SYNC.md). |
+| **Joint** | Shared finances with a partner: expenses split by income ratio (or 50/50 per category), fixed costs that post themselves, and one number for who owes whom. Settle up in a tap. Syncs live, encrypted. |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |
 
