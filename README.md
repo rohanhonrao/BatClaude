@@ -1,7 +1,9 @@
 # Sanctum
 
 A private, offline-first personal super-app. Everything lives on your device —
-no accounts, no servers, no sync.
+no accounts, no servers. The one exception is opt-in: Household can share a list
+between two phones in real time, and even then the contents are encrypted before
+they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)).
 
 **Live:** https://rohanhonrao.github.io/BatClaude/
 
@@ -19,7 +21,7 @@ no accounts, no servers, no sync.
 | **Finance** | A running cash-flow ledger: history, today and projected future in one snapping scroller with a single balance column. Plus expenses, budgets, accounts, net worth, CSV import and a live currency converter. |
 | **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
 | **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
-| **Household** | Shopping lists by store, with priority, due dates, notes and links. Shareable phone-to-phone without a server. |
+| **Household** | Shopping lists by store, with priority, due dates, notes and links. Optional **real-time sharing** between two phones, end-to-end encrypted — see [SETUP-SYNC.md](SETUP-SYNC.md). |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |
 

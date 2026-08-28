@@ -13,13 +13,15 @@ not just what exists but *why*, and the traps that have already cost real time.
 
 A private, offline-first personal "super-app" — a PWA installed to the home
 screen. All user data lives in the browser's IndexedDB on the device. There is
-no backend, no account, no sync. The only network calls are:
+no backend and no account. Sync is opt-in and scoped to Household only
+(section 8b). The network calls are:
 
 | Call | Purpose | What it sends |
 |---|---|---|
 | GitHub Pages | app files | nothing |
 | currency-api (jsdelivr) | FX rates for the converter | a currency code |
 | `data/concerts-la.json` | concert listings (same-origin) | nothing |
+| Firebase RTDB | Household live sync — **only if opted in** | AES-GCM ciphertext |
 
 ### Modules (the hub is the app entry)
 
