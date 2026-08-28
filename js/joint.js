@@ -235,6 +235,9 @@ function renderSetup() {
       </div>
       <div class="hint mt">Annual or monthly — it only matters that both are the same. Only the ratio between them is used.</div>
       <button class="btn primary mt" id="j-create"><i class="ti ti-check"></i> Start</button>
+      <div class="section-title">Already set up on the other phone?</div>
+      <button class="btn ghost" data-j-sync><i class="ti ti-link"></i> Join with a pairing code</button>
+      <div class="hint mt">Joining pulls the existing people and expenses across — don't enter them again here, or you'll end up with two of everyone.</div>
     `}
   </div>`;
 
@@ -529,9 +532,22 @@ function syncSheet() {
       <div class="field mt"><label>Paste a pairing code</label>
         <textarea class="input mono" id="y-in" rows="3" placeholder="Paste from the other phone"></textarea></div>
       <button class="btn primary" id="y-join"><i class="ti ti-link"></i> Join</button>
-      <div class="hint mt">To start a new shared connection, see SETUP-SYNC.md — set it up once in Household and it covers Joint too.</div>
+      <div class="section-title">Or start the connection here</div>
+      <div class="field"><label>Firebase Realtime Database URL</label>
+        <input class="input" id="y-url" placeholder="https://your-app-default-rtdb.firebaseio.com"></div>
+      <button class="btn" id="y-create"><i class="ti ti-plus"></i> Create shared connection</button>
+      <div class="hint mt">One free Firebase project covers Joint and Household together. Steps are in SETUP-SYNC.md.</div>
     `}
   `);
+  sheet.querySelector('#y-create')?.addEventListener('click', async () => {
+    const dbUrl = sheet.querySelector('#y-url').value.trim();
+    if (!/^https:\/\/.+firebase/.test(dbUrl)) return toast('Paste your Realtime Database URL', true);
+    await Sync.saveConfig(Sync.newRoom(dbUrl));
+    Sync.start(STORES, async () => { await load(); render(); });
+    await Sync.pushAll(STORES);
+    render(); syncSheet();   // replace in place: closing first lets the pending popstate shut the new sheet
+    toast('Connection created');
+  });
   sheet.querySelector('#y-copy')?.addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(Sync.makePairingCode()); toast('Copied'); } catch { toast('Copy failed', true); }
   });

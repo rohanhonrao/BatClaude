@@ -376,13 +376,13 @@ export function syncSheet() {
       <button class="btn danger mt" id="sy-off"><i class="ti ti-plug-off"></i> Stop sharing on this phone</button>
     ` : `
       <div class="hint">Two phones stay in sync in real time. Everything is encrypted on this device first, so the server only ever stores unreadable data.</div>
-      <div class="field mt"><label>Have a pairing code? Paste it</label>
+      <div class="field mt"><label>Paste a pairing code</label>
         <textarea class="input mono" id="sy-in" rows="3" placeholder="Paste the code from the other phone"></textarea></div>
       <button class="btn primary" id="sy-join"><i class="ti ti-link"></i> Join</button>
       <div class="section-title">Or start a new shared list</div>
       <div class="field"><label>Firebase Realtime Database URL</label>
         <input class="input" id="sy-url" placeholder="https://your-app-default-rtdb.firebaseio.com"></div>
-      <button class="btn" id="sy-create"><i class="ti ti-plus"></i> Create shared list</button>
+      <button class="btn" id="sy-create"><i class="ti ti-plus"></i> Create shared connection</button>
       <div class="hint mt">Create a free Firebase project, add a Realtime Database, and paste its URL here. See SETUP-SYNC.md in the repo for the exact steps.</div>
     `}
   `);
@@ -408,7 +408,7 @@ export function syncSheet() {
     await Sync.saveConfig(Sync.newRoom(dbUrl));
     Sync.start(['grocery', 'lists'], async () => { await load(); render(); });
     await Sync.pushAll(['grocery', 'lists']);
-    closeSheet(); render(); syncSheet();          // reopen to show the pairing code
+    render(); syncSheet();   // replace in place: closing first lets the pending popstate shut the new sheet
     toast('Shared list created');
   });
 }

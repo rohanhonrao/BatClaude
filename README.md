@@ -1,9 +1,10 @@
 # Sanctum
 
 A private, offline-first personal super-app. Everything lives on your device —
-no accounts, no servers. The one exception is opt-in: Household can share a list
-between two phones in real time, and even then the contents are encrypted before
-they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)).
+no accounts, no servers. The one exception is opt-in: **Household and Joint** can
+share between two phones in real time, and even then the contents are encrypted
+before they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)). Finance,
+Passwords and Documents never leave the phone.
 
 **Live:** https://rohanhonrao.github.io/BatClaude/
 

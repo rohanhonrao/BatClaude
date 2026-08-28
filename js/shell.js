@@ -19,7 +19,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '33';
+export const APP_VERSION = '36';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -241,7 +241,7 @@ function showHub() {
       </button>`).join('')}
     </div>
     <div class="center muted tiny mt2">
-      <i class="ti ti-shield-check" style="color:var(--green)"></i> On this device only · v${APP_VERSION}
+      <span id="hub-privacy"><i class="ti ti-shield-check" style="color:var(--green)"></i> On this device only</span> · v${APP_VERSION}
     </div>
   </div>`;
 
@@ -250,6 +250,7 @@ function showHub() {
   renderInstallBanner();
   renderUpdateBanner();
   checkForUpdate();
+  markSharingState();
 }
 
 let currentModule = null;
@@ -553,3 +554,19 @@ async function boot() {
   else showHub();
 }
 boot();
+
+// The hub footer used to claim "On this device only" unconditionally, which
+// stopped being true the moment Household/Joint sharing was turned on. Finance,
+// Passwords and Documents still never leave the phone either way.
+async function markSharingState() {
+  const el = document.getElementById('hub-privacy');
+  if (!el) return;
+  try {
+    const Sync = await import('./sync.js');
+    await Sync.loadConfig();
+    if (Sync.isConfigured()) {
+      el.innerHTML = '<i class="ti ti-shield-check" style="color:var(--green)"></i> '
+        + 'On device · Household &amp; Joint shared, encrypted';
+    }
+  } catch { /* leave the default claim, which is the safer one */ }
+}

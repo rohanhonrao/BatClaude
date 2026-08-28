@@ -46,21 +46,33 @@ ciphertext.
 
 ## 3. Turn it on in the app
 
+One connection covers **both Household and Joint**, and you can set it up from
+either one — the two screens do the same thing.
+
 On **your** phone:
 
-1. Open **Household → Share live**
+1. Open **Household → Share live** (or **Joint → Share live**)
 2. Paste the database URL into *Firebase Realtime Database URL*
-3. Tap **Create shared list**
-4. Tap **Copy pairing code**
+3. Tap **Create shared connection**
+4. Tap **Copy pairing code** and send it to her (any messenger is fine — the
+   code is the key, so don't post it publicly)
 
 On **your wife's** phone:
 
-1. Open **Household → Share live**
-2. Paste the code into *Have a pairing code?*
+1. Open the same module → **Share live**
+2. Paste the code into *Paste a pairing code*
 3. Tap **Join**
 
 Both phones now show a **Live** chip. Add or tick an item on one and it appears
 on the other within about a second.
+
+### For Joint specifically
+
+Set up the people on **one** phone only. On the second phone, open **Joint** and
+tap **Join with a pairing code** on the setup screen — do *not* add both people
+again, or you will end up with two of everyone. Once the data arrives, that
+phone asks which person it is; that choice stays on the device and is never
+synced.
 
 ---
 
@@ -80,7 +92,7 @@ at the same instant means the later write wins.
 
 ## Turning it off
 
-**Household → Share live → Stop sharing on this phone.** Local data stays; the
+**Household (or Joint) → Share live → Stop sharing on this phone.** Local data stays; the
 phone simply stops syncing. To wipe the shared copy entirely, delete the
 `rooms` node in the Firebase console.
 

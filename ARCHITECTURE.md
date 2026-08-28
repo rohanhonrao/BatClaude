@@ -21,7 +21,7 @@ no backend and no account. Sync is opt-in and scoped to Household only
 | GitHub Pages | app files | nothing |
 | currency-api (jsdelivr) | FX rates for the converter | a currency code |
 | `data/concerts-la.json` | concert listings (same-origin) | nothing |
-| Firebase RTDB | Household live sync — **only if opted in** | AES-GCM ciphertext |
+| Firebase RTDB | Household & Joint live sync — **only if opted in** | AES-GCM ciphertext |
 
 ### Modules (the hub is the app entry)
 
@@ -264,9 +264,11 @@ nothing installed.
 
 ---
 
-## 8b. Household live sync (`js/sync.js`)
+## 8b. Live sync (`js/sync.js`)
 
-Optional real-time sharing between two phones, used by Household only.
+Optional real-time sharing between two phones, shared by Household and Joint.
+**Either module can both create and join a connection** — the pairing screens
+are equivalent, so neither phone has to detour through the other module.
 
 - **No SDK.** Firebase Realtime Database is driven over plain REST, and its
   `Accept: text/event-stream` endpoint pushes changes, so the app keeps zero
@@ -317,6 +319,9 @@ personal Finance module. They share no data on purpose.
   rest) so they read as 100 — rounding each independently showed "53% / 48%".
 - Joint reuses the **same encrypted sync room as Household**; pairing once
   covers both.
+- The **first-run setup screen offers "Join with a pairing code"**. Without it the
+  second phone would enter both people again and end up with two disconnected
+  datasets; the screen says so explicitly.
 
 ---
 
@@ -378,6 +383,7 @@ Rules learned the hard way:
 | 258 concerts became 89 | throttled crawl plus a guard that only checked "at least 20" |
 | Blank screen (early on) | an IndexedDB version upgrade blocked by another open tab |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
+| A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
 
 ---
 
