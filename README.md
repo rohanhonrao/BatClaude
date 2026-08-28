@@ -7,7 +7,8 @@ they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)).
 
 **Live:** https://rohanhonrao.github.io/BatClaude/
 
-> **Working on this app?** Read [ARCHITECTURE.md](ARCHITECTURE.md) first. It
+> **Working on this app?** Read [CLAUDE.md](CLAUDE.md) for the working agreement (docs ship with the
+> change — the user should never have to ask), then [ARCHITECTURE.md](ARCHITECTURE.md). It
 > documents the design, the data model, and the traps that have already cost
 > real debugging time (service-worker cache poisoning, sticky-position breakage,
 > phone-width layout testing).

@@ -353,6 +353,10 @@ Rules learned the hard way:
 
 ## 13. House style
 
+See [CLAUDE.md](CLAUDE.md) for the working agreement. In short:
+
+- **Docs ship in the same commit as the code.** The user has asked never to
+  have to request this again; treat a change with stale docs as unfinished.
 - Verify before claiming. Say plainly when something is unverified.
 - Never invent data (concert times, prices, artist bios) — omit the field.
 - Bump both versions on every ship and confirm live with `curl`.
