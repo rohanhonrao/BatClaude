@@ -429,7 +429,7 @@ function settingsSheet() {
         <button data-b="net" class="${basis() === 'net' ? 'active' : ''}">Take-home</button>
         <button data-b="gross" class="${basis() === 'gross' ? 'active' : ''}">Gross</button>
       </div>
-      <div class="hint mt">Take-home usually reflects what each of you can actually contribute.</div></div>
+      <div class="hint mt">Take-home usually reflects what each of you can actually contribute. Whichever you pick, both people must be measured the same way.</div></div>
     <div class="section-title">Incomes</div>
     <div class="card">${people.map((p) => `<div class="row tappable" data-p-edit="${p.id}">
       <div class="ic"><i class="ti ti-user"></i></div>
@@ -463,6 +463,8 @@ function personEditor(p) {
       <div class="field"><label>Gross</label><input class="input" id="p-g" inputmode="decimal" value="${p.incomeGross || 0}"></div>
       <div class="field"><label>Take-home</label><input class="input" id="p-t" inputmode="decimal" value="${p.incomeNet || 0}"></div>
     </div>
+    <div class="hint">Keep both people on the <b>same basis</b>. Counting pre-tax retirement as
+      spendable is fine — it just won't match the net on a payslip.</div>
     <button class="btn primary" id="p-save">Save</button>
   `);
   sheet.querySelector('#p-save').addEventListener('click', async () => {

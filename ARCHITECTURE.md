@@ -446,6 +446,11 @@ Rules learned the hard way:
 - **Both gross and take-home are stored**, with a switch for which drives the
   split. Take-home is the default because deductions can make gross a poor
   proxy for who can actually afford what.
+- **"Take-home" means net pay *plus* pre-tax retirement contributions**, by the
+  user's choice (Aug 2026). Pure net pay would make whoever saves more into
+  retirement look poorer and hand them a smaller share of the rent, which they
+  judged unfair. The field therefore will not match the net line on a payslip —
+  the person editor says so, so nobody "corrects" it later.
 - **Weekly cadence** for reviewing, but the balance is continuous and settled
   on demand — money that crosses a week boundary is never stranded.
 - Joint is **for two people**. `split.js` mostly generalises, but
