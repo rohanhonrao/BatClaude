@@ -19,7 +19,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '42';
+export const APP_VERSION = '43';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -33,11 +33,11 @@ function BAT(size = 46) {
 
 // --- Modules registry -------------------------------------------------------
 const MODULES = [
-  { id: 'finance', name: 'Finance', icon: 'ti-wallet', desc: 'Net worth, budgets, converter', ready: true },
-  { id: 'passwords', name: 'Passwords', icon: 'ti-lock', desc: 'Encrypted vault', ready: true },
-  { id: 'docs', name: 'Documents', icon: 'ti-id', desc: 'IDs & records · biometric‑locked', ready: true },
+  { id: 'finance', name: 'Treasury', icon: 'ti-wallet', desc: 'Cash flow · budgets · net worth', ready: true },
+  { id: 'passwords', name: 'Keyring', icon: 'ti-lock', desc: 'Encrypted vault · biometric', ready: true },
+  { id: 'docs', name: 'Strongbox', icon: 'ti-id', desc: 'IDs & records · biometric‑locked', ready: true },
   { id: 'hearth', name: 'Hearth', icon: 'ti-flame', desc: 'Shared lists · shared money', ready: true },
-  { id: 'todos', name: 'To-do', icon: 'ti-checkbox', desc: 'Personal tasks · smart dates', ready: true },
+  { id: 'todos', name: 'Slate', icon: 'ti-checkbox', desc: 'Personal tasks · smart dates', ready: true },
   { id: 'concerts', name: 'Concerts', icon: 'ti-music', desc: 'Gigs near you · your artists', ready: true },
   { id: 'movies', name: 'Movies', icon: 'ti-movie', desc: 'Ratings, watchlist, radar', ready: false },
   { id: 'sports', name: 'Sports', icon: 'ti-ball-basketball', desc: 'Teams, fixtures, analysis', ready: false },
@@ -273,7 +273,7 @@ function openModule(id) {
 function onPopState() {
   if (isSheetOpen()) { closeSheet(true); return; }
   if (currentModule) {
-    // Let the module retrace its own screens first (Finance has sub-pages).
+    // Let the module retrace its own screens first (Treasury has sub-pages).
     if (currentModule === 'finance' && financeBack()) return;
     returnToHub();
     return;
@@ -556,8 +556,8 @@ async function boot() {
 boot();
 
 // The hub footer used to claim "On this device only" unconditionally, which
-// stopped being true the moment Hearth sharing was turned on. Finance,
-// Passwords and Documents still never leave the phone either way.
+// stopped being true the moment Hearth sharing was turned on. Treasury,
+// Keyring and Strongbox still never leave the phone either way.
 async function markSharingState() {
   const el = document.getElementById('hub-privacy');
   if (!el) return;

@@ -1,5 +1,6 @@
-// todos.js — a personal to-do list. Deliberately NOT shared: no sync, no
-// pairing, nothing leaves the device. Hearth is where shared things live.
+// todos.js — SLATE (module id stays `todos`): a personal task list.
+// Deliberately NOT shared: no sync, no pairing, nothing leaves the device.
+// Hearth is where shared things live.
 //
 // The design bet is that a to-do app lives or dies on how fast you can capture
 // something. So the whole surface is one text box that understands dates
@@ -88,7 +89,7 @@ function render() {
     <div class="app-header">
       <div class="title">
         <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title">To-do</h1>
+        <h1 class="mod-title">Slate</h1>
       </div>
       <button class="header-btn" data-td-help aria-label="How to type dates"><i class="ti ti-wand"></i></button>
     </div>

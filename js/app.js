@@ -1,4 +1,5 @@
-// app.js — Sanctum finance module, router, and views.
+// app.js — TREASURY (module id stays `finance`): personal money — the cash-flow
+// ledger, expenses, budgets, accounts, net worth. Router and views.
 import { db, uid, exportAll, importAll } from './db.js';
 import {
   loadSettings, getSetting, setSetting, settings, seedIfEmpty,
@@ -82,7 +83,7 @@ async function render() {
   // Post-render hooks
   if (view.after) view.after();
 }
-// Routes visited inside Finance, so the back gesture retraces them.
+// Routes visited inside Treasury, so the back gesture retraces them.
 let routeStack = ['dashboard'];
 function navigate(route) {
   S.route = route;
@@ -155,7 +156,7 @@ function groupByDate(list) {
 // ============================================================================
 VIEWS.dashboard = function () {
   return `<div class="view">
-    ${header('Finance')}
+    ${header('Treasury')}
     <div class="seg" id="home-toggle">
       <button data-home-view="cashflow" class="${S.homeView === 'cashflow' ? 'active' : ''}"><i class="ti ti-wave-sine"></i> Cash flow</button>
       <button data-home-view="expenses" class="${S.homeView === 'expenses' ? 'active' : ''}"><i class="ti ti-chart-donut"></i> Expenses</button>
@@ -1552,7 +1553,8 @@ function onboarding() {
   $app().innerHTML = `<div class="view onboard">
     ${BAT_SVG(46, 'bat-lg')}
     <h1 class="brand">SANCTUM</h1>
-    <p>A private, offline finance tracker. Every dollar, rupee, and holding stays on <b>your</b> phone — no accounts, no servers.</p>
+    <p>Welcome to <b>Treasury</b> — your money, kept privately. Every dollar, rupee and
+      holding stays on <b>your</b> phone. No accounts, no servers.</p>
     <div class="field" style="width:100%;max-width:320px;text-align:left;margin-top:10px">
       <label>What should I call you?</label>
       <input class="input" id="ob-name" value="${escapeHtml(getSetting('name') || '')}" placeholder="Your name">
@@ -1596,7 +1598,7 @@ function BAT_SVG(height = 22, cls = 'mark') {
 // ============================================================================
 // Boot
 // ============================================================================
-// Entry point when the Finance module is opened from the hub.
+// Entry point when the Treasury module is opened from the hub.
 export async function mountFinance() {
   financeMounted = true;
   await loadSettings();

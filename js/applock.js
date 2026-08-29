@@ -2,7 +2,7 @@
 //
 // This is a SCREEN LOCK, not encryption: it verifies you with the device's
 // Face/fingerprint (WebAuthn, userVerification required) before revealing the
-// hub. Module-level vaults (Passwords, Documents) keep their own separate
+// hub. Module-level vaults (Keyring, Strongbox) keep their own separate
 // encryption — this does not replace them.
 import { db } from './db.js';
 

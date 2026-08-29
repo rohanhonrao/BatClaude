@@ -1,7 +1,7 @@
 // joint.js — shared finances for two people.
 //
 // Answers one question: "what do we owe each other right now?" That is a
-// different question from the personal Finance module ("how am I doing?"), so
+// different question from the personal Treasury module ("how am I doing?"), so
 // the two are deliberately kept apart and share no data.
 //
 // Fixed costs (rent, insurance) and — per the user's decision — variable costs

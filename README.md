@@ -3,8 +3,8 @@
 A private, offline-first personal super-app. Everything lives on your device —
 no accounts, no servers. The one exception is opt-in: **Hearth** (shared lists and shared money) can
 share between two phones in real time, and even then the contents are encrypted
-before they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)). Finance,
-Passwords and Documents never leave the phone.
+before they leave the device (see [SETUP-SYNC.md](SETUP-SYNC.md)). Treasury,
+Keyring and Strongbox never leave the phone.
 
 **Live:** https://rohanhonrao.github.io/BatClaude/
 
@@ -20,11 +20,11 @@ Passwords and Documents never leave the phone.
 
 | Module | What it does |
 |---|---|
-| **Finance** | A running cash-flow ledger: history, today and projected future in one snapping scroller with a single balance column. Plus expenses, budgets, accounts, net worth, CSV import and a live currency converter. |
-| **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
-| **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
+| **Treasury** | A running cash-flow ledger: history, today and projected future in one snapping scroller with a single balance column. Plus expenses, budgets, accounts, net worth, CSV import and a live currency converter. |
+| **Keyring** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
+| **Strongbox** | IDs and records, encrypted under their own passcode/biometric vault. |
 | **Hearth** | Everything two people run together, in one place with two tabs. **Lists** — shopping lists by store, with priority, due dates, notes and links. **Money** — shared expenses split by income ratio (or 50/50 per category, with categories you can add and edit yourself), fixed costs that post themselves, and one number for who owes whom; settle up in a tap. Optional **real-time sharing** between two phones, end-to-end encrypted; one pairing covers both tabs — see [SETUP-SYNC.md](SETUP-SYNC.md). |
-| **To-do** | Personal tasks with dates you can just type — "pay rent friday", "gym every monday", `!` / `!!` for priority. Grouped by when they're due; repeating tasks roll forward when you tick them. Stays on your phone — not shared. |
+| **Slate** | Personal tasks with dates you can just type — "pay rent friday", "gym every monday", `!` / `!!` for priority. Grouped by when they're due; repeating tasks roll forward when you tick them. Stays on your phone — not shared. |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |
 
@@ -53,7 +53,7 @@ finance data and vaults along with the cache.
 ## Your data
 
 - Stored only in this browser's IndexedDB, on this device.
-- Back it up: **Finance → More → Settings & Backup → Export** (JSON or CSV).
+- Back it up: **Treasury → More → Settings & Backup → Export** (JSON or CSV).
   Keep the file somewhere safe; there is no cloud copy.
 - The repository is public but contains **only app code** — never your data.
 

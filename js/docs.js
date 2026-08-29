@@ -1,4 +1,4 @@
-// docs.js — Important Documents. A genuinely private vault for IDs, passports,
+// docs.js — STRONGBOX (module id stays `docs`): passports, licences, IDs
 // and other sensitive records. Unlike other modules it does NOT use the app's
 // transparent device key: it has its own passcode/biometric lock (vaultlock.js),
 // so the encryption key is never stored in usable form and the documents are
@@ -21,7 +21,7 @@ const TYPE_ICON = {
 let items = [];          // decrypted, in memory only while unlocked
 let hubHandler = null;
 let idleTimer = null;
-let active = false;      // is Documents the current view?
+let active = false;      // is Strongbox the current view?
 let listenersReady = false;
 export function setDocsHubHandler(fn) { hubHandler = fn; }
 
@@ -56,7 +56,7 @@ function leaveToHub() { active = false; vault.lock(); items = []; clearTimeout(i
 function showEnable() {
   $app().innerHTML = `<div class="view lock">
     <div class="lock-ic"><i class="ti ti-fingerprint"></i></div>
-    <h1>Private documents</h1>
+    <h1>Strongbox</h1>
     <p class="muted">Lock your IDs behind this device's Face ID / fingerprint. They're encrypted so they can only be opened here, with your biometrics.</p>
     <p class="muted tiny" style="color:var(--gold)"><i class="ti ti-alert-triangle"></i> For now there's no backup unlock — if this device's biometrics are reset, these documents can't be recovered. Recovery is coming later.</p>
     <div class="lock-form">
@@ -119,7 +119,7 @@ function renderList() {
   $app().innerHTML = `<div class="view">
     <div class="app-header">
       <div class="title"><button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title"><i class="ti ti-id" style="color:var(--gold)"></i> Documents</h1></div>
+        <h1 class="mod-title"><i class="ti ti-id" style="color:var(--gold)"></i> Strongbox</h1></div>
       <div class="header-actions">
         <button class="header-btn" data-lock aria-label="Lock now"><i class="ti ti-lock"></i></button>
         <button class="header-btn" data-add aria-label="Add document"><i class="ti ti-plus"></i></button>

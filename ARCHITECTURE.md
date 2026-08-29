@@ -14,7 +14,7 @@ not just what exists but *why*, and the traps that have already cost real time.
 A private, offline-first personal "super-app" — a PWA installed to the home
 screen. All user data lives in the browser's IndexedDB on the device. There is
 no backend and no account. Sync is opt-in and scoped to **Hearth** — shared
-lists and shared money (sections 8b, 8d). Finance, Passwords and Documents never
+lists and shared money (sections 8b, 8d). Treasury, Keyring and Strongbox never
 leave the device. The network calls are:
 
 | Call | Purpose | What it sends |
@@ -26,17 +26,17 @@ leave the device. The network calls are:
 
 ### Modules (the hub is the app entry)
 
-| Module | File | State |
-|---|---|---|
-| Finance | `js/app.js` | done — cash-flow ledger, expenses, budgets, accounts, converter |
-| Passwords | `js/passwords.js` | done — encrypted vault, biometric-only unlock |
-| Documents | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
-| Hearth | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
-| ├ Lists | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
-| └ Money | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, monthly summary |
-| To-do | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
-| Concerts | `js/concerts.js` | done — LA gigs + artist tracking |
-| Movies / Sports / Stocks | — | placeholders, `ready:false` in the registry |
+| Module (display name) | id | File | State |
+|---|---|---|---|
+| Treasury | `finance` | `js/app.js` | done — cash-flow ledger, expenses, budgets, accounts, converter |
+| Keyring | `passwords` | `js/passwords.js` | done — encrypted vault, biometric-only unlock |
+| Strongbox | `docs` | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
+| Hearth | `hearth` | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
+| ├ Lists | — | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
+| └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, monthly summary |
+| Slate | `todos` | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
+| Concerts | `concerts` | `js/concerts.js` | done — LA gigs + artist tracking |
+| Movies / Sports / Stocks | — | — | placeholders, `ready:false` in the registry |
 
 Stocks is intended to include a **daily 6am agent** producing buy/sell signals —
 not started.
@@ -93,7 +93,7 @@ js/
                     modules must NOT reimplement these.
   db.js             IndexedDB wrapper, export/import backup
   util.js           money/date formatting, settings, icon(), seed data
-  app.js            FINANCE module (largest file)
+  app.js            TREASURY module (largest file)
   projection.js     cash-flow engine: schedule expansion, ledger, balances
   compute.js        balances/flows with as-of-today cutoffs
   charts.js         dependency-free SVG charts
@@ -101,14 +101,14 @@ js/
   rates.js          FX rates (cached for offline)
   crypto.js         envelope encryption (DEK wrapped by password/recovery/biometric)
   shamir.js         2-of-3 secret sharing for the recovery kit
-  vaultlock.js      per-namespace vault used by Documents/Passwords
+  vaultlock.js      per-namespace vault used by Strongbox/Keyring
   applock.js        biometric gate for opening the app
   hearth.js         HEARTH shell: shared header, Lists/Money tabs, the single
                     "Share live" sheet, sync started once for every store
   household.js      Hearth's Lists tab
   joint.js          Hearth's Money tab
-  todos.js          TO-DO module (personal, never synced)
-  when.js           TO-DO parsing: natural-language dates, repeats, buckets
+  todos.js          SLATE module (personal, never synced)
+  when.js           SLATE parsing: natural-language dates, repeats, buckets
   passwords.js docs.js concerts.js  modules
   split.js          JOINT maths: ratios, cent-exact shares, balances,
                     weeks, monthly summary (fixed/variable, share vs paid)
@@ -142,7 +142,7 @@ a hub button via `data-hub`.
 
 `ui.js#pushNav()` pushes one history entry per navigation step (module open,
 route change, sheet open). `shell.js#onPopState` pops exactly one: close sheet,
-then the module's own back, then hub, then exit. Finance exposes `financeBack()`
+then the module's own back, then hub, then exit. Treasury exposes `financeBack()`
 for its sub-routes.
 
 ---
@@ -181,7 +181,7 @@ prefer optional fields with derived defaults (e.g. `kindOf(account)` derives
 
 ---
 
-## 6. Finance — the important logic
+## 6. Treasury — the important logic
 
 ### Cash-flow ledger (the "wheel")
 
@@ -235,7 +235,7 @@ Built and parked, ready to switch on:
 - **Recovery decided: 2-of-3 Shamir shares** (`shamir.js`). Any 2 of 3 recover.
   Zero-knowledge, no backdoor.
 - `applock.js` — optional biometric gate to *open* the app (a screen lock).
-- Passwords and Documents each have their own `vaultlock.js` namespace with
+- Keyring and Strongbox each have their own `vaultlock.js` namespace with
   biometric-only unlock.
 
 Still open: **multi-device sync** — needs an E2EE backend; the crypto is
@@ -305,7 +305,7 @@ starts sync itself; each just registers `onHearthRefresh` to say how to redraw.
 ## 8c. Joint — Hearth's Money tab (`js/joint.js`, `js/split.js`)
 
 Answers "what do we owe each other?", which is a different question from the
-personal Finance module. They share no data on purpose.
+personal Treasury module. They share no data on purpose.
 
 ### The maths (`split.js`, unit-tested — 20/20)
 
@@ -386,7 +386,7 @@ two places to look. Hearth merges them behind one header with two tabs.
 
 ---
 
-## 8e. To-do (`js/todos.js`, `js/when.js`)
+## 8e. Slate — personal tasks (`js/todos.js`, `js/when.js`)
 
 Personal tasks. **Deliberately not shared** — no sync, no pairing, nothing
 leaves the device. Hearth is where shared things live; keeping the two apart is
@@ -524,6 +524,18 @@ Rules learned the hard way:
   the person editor says so, so nobody "corrects" it later.
 - **Weekly cadence** for reviewing, but the balance is continuous and settled
   on demand — money that crosses a week boundary is never stranded.
+- **Module names are rooms and objects in a house, not job descriptions**
+  (Aug 2026). Hearth set the pattern and the user liked it; "Finance",
+  "Passwords", "Documents" and "To-do" were job descriptions and felt generic
+  beside it. Now **Treasury, Keyring, Strongbox, Slate, Hearth**, under
+  **Sanctum** — a sanctum being a private inner room, which the arch mark and
+  Cinzel already implied. Concerts kept its name because it is specific rather
+  than generic. If the placeholders are ever built, the same register suggests
+  Marquee / Terrace / Exchange.
+  **The names are display strings only.** Module ids (`finance`, `passwords`,
+  `docs`, `todos`), store names and function names are unchanged, so renaming
+  cost no migration. Do not "tidy" the ids to match the names — that *would*
+  be a migration, and `settings` keys like `jointMe` reference nothing else.
 - Joint is **for two people**. `split.js` mostly generalises, but
   `balanceBetween` assumes two; adding a third person means a settlement graph.
 - **Household and Joint merged into Hearth**, one sub-app with Lists and Money

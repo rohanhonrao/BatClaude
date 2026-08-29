@@ -61,5 +61,5 @@ grep -ril "<name of thing you just deleted>" *.md
 
 Everything is on-device by default. The only exception is opt-in **Hearth**
 sync (shared lists and shared money), and even that encrypts before upload. Do
-not extend sharing to Finance, Passwords or Documents without the user
+not extend sharing to Treasury, Keyring or Strongbox without the user
 explicitly asking.

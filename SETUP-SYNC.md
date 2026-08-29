@@ -122,6 +122,6 @@ list is a few kilobytes. This will not approach the free tier.
 ## Scope
 
 Live sharing covers **Hearth only** — its lists, items, people, shared expenses
-and settlements. Finance, Passwords and Documents remain strictly on-device —
+and settlements. Treasury, Keyring and Strongbox remain strictly on-device —
 the sharing model is deliberately not applied to them, since their threat model
 is different.

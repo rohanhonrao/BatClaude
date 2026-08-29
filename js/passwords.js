@@ -1,4 +1,4 @@
-// passwords.js — encrypted password vault module.
+// passwords.js — KEYRING (module id stays `passwords`): encrypted password vault.
 // Entries are decrypted into memory only while the vault is unlocked; on disk
 // each entry is an AES-GCM blob (see crypto.js).
 import { db, uid } from './db.js';
@@ -58,7 +58,7 @@ const $id = (id) => document.getElementById(id);
 function showEnable() {
   $app().innerHTML = `<div class="view lock">
     <div class="lock-ic"><i class="ti ti-fingerprint"></i></div>
-    <h1>Lock your passwords</h1>
+    <h1>Keyring</h1>
     <p class="muted">Open your vault with this device's Face ID / fingerprint. Your entries are re-encrypted so they can only be read here, with your biometrics.</p>
     <p class="muted tiny" style="color:var(--gold)"><i class="ti ti-alert-triangle"></i> For now there's no backup unlock — if this device's biometrics are reset, the vault can't be recovered. Recovery is coming later.</p>
     <div class="lock-form">
@@ -139,7 +139,7 @@ function render() {
     <div class="app-header">
       <div class="title">
         <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title"><i class="ti ti-lock" style="color:var(--gold)"></i> Passwords</h1>
+        <h1 class="mod-title"><i class="ti ti-lock" style="color:var(--gold)"></i> Keyring</h1>
       </div>
       <div class="header-actions">
         ${vault.isUnlocked() ? '<button class="header-btn" data-lock aria-label="Lock now"><i class="ti ti-lock"></i></button>' : ''}

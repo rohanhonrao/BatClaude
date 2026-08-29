@@ -15,7 +15,7 @@ const STORES = {
   holdings: 'id',
   settings: 'key',    // key/value store for app settings
   vault: 'id',        // encrypted password entries: {id, blob:{iv,ct}, updatedAt}
-  docs: 'id',         // Important Documents: {id, blob:{iv,ct}, updatedAt} — encrypted under a SEPARATE passcode vault (vaultlock.js), never the device key
+  docs: 'id',         // Strongbox documents: {id, blob:{iv,ct}, updatedAt} — encrypted under a SEPARATE passcode vault (vaultlock.js), never the device key
   grocery: 'id',      // Household items: {id, listId, order, name, qty, priority, due, note, url, checked}
   lists: 'id',        // Household lists (usually a store): {id, name, icon, order}
   // --- Joint (shared finances with a partner; all synced, see sync.js) ---
@@ -25,7 +25,7 @@ const STORES = {
   jointSettlements: 'id', // {id, date, fromId, toId, amount, note, updatedAt}
   jointRecurring: 'id',   // {id, name, amount, categoryId, payerId, rule, frequency, nextDate, paused, updatedAt}
   jointMeta: 'id',        // single record id='config': {basis:'gross'|'net', updatedAt}
-  // --- To-do (personal, deliberately NOT synced) ---
+  // --- Slate: personal tasks (deliberately NOT synced) ---
   todos: 'id',            // {id, title, notes, due, priority 0-2, done, doneAt, repeat, order, createdAt, updatedAt}
 };
 
