@@ -959,3 +959,40 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 }
 .icon-pick button.active { background: var(--surface); color: var(--accent); border-color: var(--accent); }
 .icon-pick button:active { background: var(--surface-3); }
+
+/* --- Joint: monthly summary ---------------------------------------------- */
+.j-month-nav { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 10px; }
+.j-month-title { font-weight: 600; font-size: 16px; letter-spacing: .2px; }
+.j-month-nav .mini-btn[disabled] { opacity: .3; pointer-events: none; }
+
+.j-sum { padding: 14px 16px; }
+.j-sum-total { display: flex; align-items: baseline; justify-content: space-between; }
+.j-sum-total b { font-size: 24px; font-variant-numeric: tabular-nums; }
+
+/* One bar, two segments: fixed is the filled portion, variable the remainder.
+   Cheaper to read at a glance than two numbers alone. */
+.j-kbar { height: 8px; border-radius: 5px; background: var(--surface-3); overflow: hidden; margin: 12px 0 10px; display: flex; }
+.j-kbar .fixed { background: var(--accent); }
+
+.j-kinds { display: flex; gap: 18px; }
+.j-kinds > div { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+.j-kinds b { color: var(--text); font-variant-numeric: tabular-nums; }
+.j-kinds .k { width: 9px; height: 9px; border-radius: 3px; }
+.j-kinds .k.fixed { background: var(--accent); }
+.j-kinds .k.variable { background: var(--surface-3); }
+
+.j-people { padding: 4px 0; }
+.j-person { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.j-person:last-of-type { border-bottom: none; }
+.j-person-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.j-person-top .pos { color: var(--green); font-size: 13px; }
+.j-person-top .neg { color: var(--red); font-size: 13px; }
+.j-person-top .muted { font-size: 13px; }
+.j-person-nums { display: flex; gap: 26px; }
+.j-person-nums .label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.j-person-nums b { font-size: 17px; font-variant-numeric: tabular-nums; }
+.j-people .hint { padding: 12px 16px 4px; }
+
+.j-kind-tag { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; padding: 2px 6px;
+  border-radius: 5px; background: var(--surface-3); color: var(--muted); margin-left: 6px; vertical-align: 1px; }
+.j-kind-tag.fixed { background: rgba(233,228,218,.14); color: var(--accent); }

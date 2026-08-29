@@ -33,7 +33,7 @@ leave the device. The network calls are:
 | Documents | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
 | Hearth | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
 | ├ Lists | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
-| └ Money | `js/joint.js` + `js/split.js` | done — shared costs with a partner, income-ratio split, settle-up |
+| └ Money | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, monthly summary |
 | Concerts | `js/concerts.js` | done — LA gigs + artist tracking |
 | Movies / Sports / Stocks | — | placeholders, `ready:false` in the registry |
 
@@ -107,7 +107,8 @@ js/
   household.js      Hearth's Lists tab
   joint.js          Hearth's Money tab
   passwords.js docs.js concerts.js  modules
-  split.js          JOINT maths: ratios, cent-exact shares, balances, weeks
+  split.js          JOINT maths: ratios, cent-exact shares, balances,
+                    weeks, monthly summary (fixed/variable, share vs paid)
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
 data/               generated data served same-origin (concerts, artist cache)
 ```
@@ -319,6 +320,18 @@ personal Finance module. They share no data on purpose.
 - **Net position** = what you paid − your share, with settlements counting like
   payments. With two people the nets mirror exactly, so the UI shows one number.
 
+- `effectiveRule(expense, categories)` resolves which rule applies: the
+  expense's own override, else the **category's** default, else income ratio.
+  Every share computation must go through it — see the gotchas table.
+- `monthlySummary({people, expenses, categories, basis, month})` returns the
+  month's `total`, `byKind` (fixed/variable), per-person `share` **and** `paid`,
+  and a per-category breakdown carrying each person's share. Share and paid are
+  deliberately both reported: share is what you owe, paid is what left your
+  account, and the gap is what settling up moves.
+- `monthKey` / `inMonth` / `shiftMonth` / `monthsWithActivity` handle the month
+  cycle. `shiftMonth` does the arithmetic on the key rather than via `Date`, so
+  it can't be moved by a timezone.
+
 ### Behaviour worth preserving
 
 - **Settle-up is essential**, not a nicety: without it the balance grows forever
@@ -427,6 +440,7 @@ Rules learned the hard way:
 | 258 concerts became 89 | throttled crawl plus a guard that only checked "at least 20" |
 | Blank screen (early on) | an IndexedDB version upgrade blocked by another open tab |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
+| A category set to 50/50 still split by income | choosing "Category default" stores `rule: ''` on the expense. `''` is not `undefined`, so `shareOf`'s default parameter never fired and it fell through to income ratio. The expense form's live preview resolved the category rule, so it previewed 50/50 and settled by income. Always resolve through `Split.effectiveRule` |
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |

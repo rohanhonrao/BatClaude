@@ -71,6 +71,23 @@ export function shareOf(amountCents, { rule = 'ratio', customPct = 50, payerId }
 }
 
 /**
+ * The rule that actually applies to an expense: its own override, else its
+ * category's default, else income ratio.
+ *
+ * This must be used everywhere a share is computed. Choosing "Category default"
+ * in the expense form stores `rule: ''`, and an empty string is not `undefined`,
+ * so `shareOf`'s default parameter never fires — the category's rule was being
+ * skipped and everything fell through to income ratio. The form's live preview
+ * resolved it correctly, so a category set to 50/50 previewed as 50/50 and then
+ * settled by income.
+ */
+export function effectiveRule(expense, categories = []) {
+  if (expense && expense.rule) return expense.rule;
+  const c = categories.find((x) => x.id === (expense && expense.categoryId));
+  return (c && c.rule) || 'ratio';
+}
+
+/**
  * Net position per person over a set of expenses and settlements.
  *
  * net > 0  -> this person has put in more than their share; they are owed.
@@ -79,8 +96,11 @@ export function shareOf(amountCents, { rule = 'ratio', customPct = 50, payerId }
  *
  * A settlement is money actually handed over: it reduces the payer's debt,
  * which is why it counts the same way a paid expense does.
+ *
+ * `categories` is needed to resolve each expense's effective rule — omit it and
+ * every "Category default" expense silently falls back to income ratio.
  */
-export function positions({ people, expenses, settlements = [], basis = 'net' }) {
+export function positions({ people, expenses, settlements = [], categories = [], basis = 'net' }) {
   const ratios = incomeRatios(people, basis);
   const net = {};
   const paid = {};
@@ -90,7 +110,7 @@ export function positions({ people, expenses, settlements = [], basis = 'net' })
   for (const e of expenses) {
     const amt = CENTS(e.amount);
     if (!amt || !e.payerId || net[e.payerId] === undefined) continue;
-    const shares = shareOf(amt, e, people, ratios);
+    const shares = shareOf(amt, { ...e, rule: effectiveRule(e, categories) }, people, ratios);
     paid[e.payerId] += amt;
     net[e.payerId] += amt;
     for (const [pid, s] of Object.entries(shares)) {
@@ -137,3 +157,82 @@ export function weekStart(iso) {
   return `${d.getFullYear()}-${m}-${day}`;
 }
 export function inWeek(iso, anchorISO) { return weekStart(iso) === weekStart(anchorISO); }
+
+// --- monthly cycle -----------------------------------------------------------
+export function monthKey(iso) { return String(iso).slice(0, 7); }        // YYYY-MM
+export function inMonth(iso, key) { return monthKey(iso) === key; }
+
+/** Step a YYYY-MM key by n months, without Date's timezone surprises. */
+export function shiftMonth(key, n) {
+  const [y, m] = String(key).split('-').map(Number);
+  const total = y * 12 + (m - 1) + n;
+  const yy = Math.floor(total / 12);
+  const mm = (total % 12) + 1;
+  return `${yy}-${String(mm).padStart(2, '0')}`;
+}
+
+/**
+ * What a month cost, broken down the two ways the question is usually asked:
+ * fixed vs variable, and per person.
+ *
+ * Per person there are two different numbers and they are not interchangeable:
+ *   share — what that person is responsible for under the split rules
+ *   paid  — what they actually laid out
+ * The gap between them is what settling up moves. Reporting only one of them
+ * is what makes shared-expense apps feel wrong.
+ *
+ * Category `kind` drives fixed/variable; an expense whose category has been
+ * deleted counts toward the totals as variable rather than vanishing.
+ */
+export function monthlySummary({ people, expenses, categories = [], basis = 'net', month }) {
+  const ratios = incomeRatios(people, basis);
+  const kindOf = (id) => (categories.find((c) => c.id === id)?.kind === 'fixed' ? 'fixed' : 'variable');
+  const nameOf = (id) => categories.find((c) => c.id === id)?.name || 'Uncategorised';
+  const iconOf = (id) => categories.find((c) => c.id === id)?.icon || 'ti-dots';
+
+  const share = {}, paid = {};
+  for (const p of people) { share[p.id] = 0; paid[p.id] = 0; }
+  const byKind = { fixed: 0, variable: 0 };
+  const byCategory = new Map();
+  let total = 0;
+
+  for (const e of expenses) {
+    if (!inMonth(e.date, month)) continue;
+    const amt = CENTS(e.amount);
+    if (!amt || !e.payerId || paid[e.payerId] === undefined) continue;
+
+    const kind = kindOf(e.categoryId);
+    const shares = shareOf(amt, { ...e, rule: effectiveRule(e, categories) }, people, ratios);
+    total += amt;
+    byKind[kind] += amt;
+    paid[e.payerId] += amt;
+
+    const key = e.categoryId || '_none';
+    if (!byCategory.has(key)) {
+      const perPerson = {};
+      for (const p of people) perPerson[p.id] = 0;
+      byCategory.set(key, { id: key, name: nameOf(e.categoryId), icon: iconOf(e.categoryId),
+        kind, total: 0, count: 0, perPerson });
+    }
+    const row = byCategory.get(key);
+    row.total += amt; row.count += 1;
+
+    for (const [pid, s] of Object.entries(shares)) {
+      if (share[pid] === undefined) continue;
+      share[pid] += s;
+      row.perPerson[pid] += s;
+    }
+  }
+
+  return {
+    month, total, byKind, share, paid,
+    categories: [...byCategory.values()].sort((a, b) =>
+      (a.kind === b.kind ? b.total - a.total : a.kind === 'fixed' ? -1 : 1)),
+  };
+}
+
+/** Every month that has at least one expense, newest first. */
+export function monthsWithActivity(expenses) {
+  const set = new Set(expenses.map((e) => monthKey(e.date)).filter((m) => /^\d{4}-\d{2}$/.test(m)));
+  return [...set].sort().reverse();
+}

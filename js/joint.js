@@ -42,7 +42,8 @@ const DEFAULT_CATEGORIES = [
 
 let people = [], cats = [], expenses = [], settlements = [], recurring = [], meta = null;
 let meId = null;          // which person this phone is — device-local, never synced
-let tab = 'week';         // 'week' | 'all'
+let tab = 'week';         // 'week' | 'month' | 'all'
+let month = null;         // YYYY-MM being viewed on the month tab; null = current
 let hubHandler = null;
 export function setJointHubHandler(fn) { hubHandler = fn; }
 
@@ -118,10 +119,12 @@ async function materialiseRecurring() {
 function render() {
   if (!people.length || !meId) return renderSetup();
 
-  const pos = Split.positions({ people, expenses, settlements, basis: basis() });
+  const pos = Split.positions({ people, expenses, settlements, categories: cats, basis: basis() });
   const bal = Split.balanceBetween(people, pos.net);
   const weekOf = todayISO();
-  const shown = tab === 'week' ? expenses.filter((e) => Split.inWeek(e.date, weekOf)) : expenses;
+  const shown = tab === 'week' ? expenses.filter((e) => Split.inWeek(e.date, weekOf))
+    : tab === 'month' ? expenses.filter((e) => Split.inMonth(e.date, month))
+    : expenses;
 
   const iOwe = !bal.settled && bal.debtor?.id === meId;
   const headline = bal.settled
@@ -154,18 +157,19 @@ function render() {
     ${bal.settled ? '' : `<button class="btn primary mt" data-j-settle><i class="ti ti-arrows-exchange"></i> Settle up</button>`}
 
     <div class="seg mt" id="j-tab">
-      <button data-j-tab="week" class="${tab === 'week' ? 'active' : ''}">This week</button>
+      <button data-j-tab="week" class="${tab === 'week' ? 'active' : ''}">Week</button>
+      <button data-j-tab="month" class="${tab === 'month' ? 'active' : ''}">Month</button>
       <button data-j-tab="all" class="${tab === 'all' ? 'active' : ''}">Everything</button>
     </div>
 
-    <div class="j-meta">
+    ${tab === 'month' ? monthSummaryHTML() : `<div class="j-meta">
       <span>${shown.length} expense${shown.length === 1 ? '' : 's'}</span>
       <span>${fmtMoney(weekTotal)} total</span>
-    </div>
+    </div>`}
 
     <div class="card">${shown.length ? shown.map(expenseRow).join('')
       : `<div class="empty"><span class="em"><i class="ti ti-receipt"></i></span>
-          <div>Nothing logged ${tab === 'week' ? 'this week' : 'yet'}</div>
+          <div>Nothing logged ${tab === 'week' ? 'this week' : tab === 'month' ? 'this month' : 'yet'}</div>
           <div class="tiny mt">Add what you've paid for and the split works itself out.</div></div>`}</div>
 
     <button class="btn primary mt2" data-j-add><i class="ti ti-plus"></i> Add expense</button>
@@ -183,7 +187,8 @@ function expenseRow(e) {
   const c = catOf(e.categoryId);
   const payer = personOf(e.payerId);
   const ratios = Split.incomeRatios(people, basis());
-  const shares = Split.shareOf(Split.CENTS(e.amount), e, people, ratios);
+  const shares = Split.shareOf(Split.CENTS(e.amount),
+    { ...e, rule: Split.effectiveRule(e, cats) }, people, ratios);
   const mine = Split.DOLLARS(shares[meId] || 0);
   const ruleLabel = e.rule && e.rule !== (c?.rule || 'ratio')
     ? { payer: 'all theirs', other: 'all yours', equal: '50/50', custom: 'custom' }[e.rule] || '' : '';
@@ -196,7 +201,7 @@ function expenseRow(e) {
     </div>
     <div class="j-amts">
       <div class="amt neg">${fmtMoney(e.amount)}</div>
-      <div class="j-share">your ${fmtMoney(mine, { compact: true })}</div>
+      <div class="j-share">your ${fmtMoney(mine)}</div>
     </div>
   </div>`;
 }
@@ -258,6 +263,76 @@ function renderSetup() {
   });
 }
 
+// --- monthly summary ----------------------------------------------------------
+// Two questions, answered together: what did the month cost (split fixed vs
+// variable), and what is each of us carrying. "Share" and "paid" are shown side
+// by side because they are different numbers — the gap between them is exactly
+// what settling up moves.
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+const monthLabel = (key) => {
+  const [y, m] = String(key).split('-').map(Number);
+  return `${MONTH_NAMES[m - 1]} ${y}`;
+};
+
+function monthSummaryHTML() {
+  if (!month) month = Split.monthKey(todayISO());
+  const s = Split.monthlySummary({ people, expenses, categories: cats, basis: basis(), month });
+  const D = Split.DOLLARS;
+  const pctOf = (n) => (s.total ? Math.round((n / s.total) * 100) : 0);
+  const isCurrent = month === Split.monthKey(todayISO());
+
+  const bar = s.total
+    ? `<div class="j-kbar"><span class="fixed" style="width:${pctOf(s.byKind.fixed)}%"></span></div>`
+    : '';
+
+  return `
+    <div class="j-month-nav">
+      <button class="mini-btn" data-j-month="-1" aria-label="Previous month"><i class="ti ti-chevron-left"></i></button>
+      <div class="j-month-title">${escapeHtml(monthLabel(month))}</div>
+      <button class="mini-btn" data-j-month="1" aria-label="Next month"
+        ${isCurrent ? 'disabled' : ''}><i class="ti ti-chevron-right"></i></button>
+    </div>
+
+    <div class="card j-sum">
+      <div class="j-sum-total"><span class="label">Total for the month</span><b>${fmtMoney(D(s.total))}</b></div>
+      ${bar}
+      <div class="j-kinds">
+        <div><span class="k fixed"></span>Fixed<b>${fmtMoney(D(s.byKind.fixed))}</b><span class="tiny muted">${pctOf(s.byKind.fixed)}%</span></div>
+        <div><span class="k variable"></span>Variable<b>${fmtMoney(D(s.byKind.variable))}</b><span class="tiny muted">${pctOf(s.byKind.variable)}%</span></div>
+      </div>
+    </div>
+
+    <div class="section-title">Each of you</div>
+    <div class="card j-people">
+      ${people.map((p) => {
+        const share = s.share[p.id] || 0, paid = s.paid[p.id] || 0;
+        const diff = paid - share;
+        return `<div class="j-person">
+          <div class="j-person-top"><b>${escapeHtml(p.name)}${p.id === meId ? ' (you)' : ''}</b>
+            <span class="${Math.abs(diff) < 1 ? 'muted' : diff > 0 ? 'pos' : 'neg'}">${
+              Math.abs(diff) < 1 ? 'even' : diff > 0 ? `${fmtMoney(D(diff))} ahead` : `${fmtMoney(D(-diff))} behind`}</span></div>
+          <div class="j-person-nums">
+            <div><span class="label">Their share</span><b>${fmtMoney(D(share))}</b></div>
+            <div><span class="label">Actually paid</span><b>${fmtMoney(D(paid))}</b></div>
+          </div>
+        </div>`;
+      }).join('')}
+      <div class="hint">"Share" is what each of you is responsible for. "Actually paid" is what left your account. The difference is what settling up moves — it is not the running balance, which covers every month.</div>
+    </div>
+
+    ${s.categories.length ? `<div class="section-title">By category</div>
+    <div class="card">${s.categories.map((c) => `<div class="row">
+      <div class="ic"><i class="ti ${escapeHtml(c.icon)}"></i></div>
+      <div class="main"><div class="t">${escapeHtml(c.name)} <span class="j-kind-tag ${c.kind}">${c.kind}</span></div>
+        <div class="s">${c.count} item${c.count === 1 ? '' : 's'} · ${people.map((p) =>
+          `${escapeHtml(p.name)} ${fmtMoney(D(c.perPerson[p.id] || 0))}`).join(' · ')}</div></div>
+      <div class="amt">${fmtMoney(D(c.total))}</div>
+    </div>`).join('')}</div>` : ''}
+
+    <div class="section-title">Expenses this month</div>`;
+}
+
 // --- expense editor -----------------------------------------------------------
 function expenseSheet(existing) {
   const e = existing || {
@@ -298,7 +373,7 @@ function expenseSheet(existing) {
     // Show exactly what each person ends up carrying, before saving.
     const amt = Split.CENTS(parseAmount(q('#j-amt').value));
     const c = catOf(q('#j-cat').value);
-    const eff = rule || c?.rule || 'ratio';
+    const eff = Split.effectiveRule({ rule, categoryId: c?.id }, cats);
     const shares = Split.shareOf(amt, { rule: eff, customPct: Number(q('#j-pct').value), payerId }, people,
       Split.incomeRatios(people, basis()));
     q('#j-preview').innerHTML = amt
@@ -333,7 +408,7 @@ function expenseSheet(existing) {
 
 // --- settle up ----------------------------------------------------------------
 function settleSheet() {
-  const pos = Split.positions({ people, expenses, settlements, basis: basis() });
+  const pos = Split.positions({ people, expenses, settlements, categories: cats, basis: basis() });
   const bal = Split.balanceBetween(people, pos.net);
   if (bal.settled) return toast('Already square');
   const sheet = openSheet(`
@@ -554,7 +629,15 @@ function bind() {
   root.querySelector('[data-j-settle]')?.addEventListener('click', settleSheet);
   root.querySelector('[data-j-recurring]')?.addEventListener('click', recurringSheet);
   root.querySelector('[data-j-history]')?.addEventListener('click', historySheet);
-  root.querySelectorAll('#j-tab button').forEach((b) => b.addEventListener('click', () => { tab = b.dataset.jTab; render(); }));
+  root.querySelectorAll('#j-tab button').forEach((b) => b.addEventListener('click', () => {
+    tab = b.dataset.jTab;
+    if (tab === 'month' && !month) month = Split.monthKey(todayISO());
+    render();
+  }));
+  root.querySelectorAll('[data-j-month]').forEach((b) => b.addEventListener('click', () => {
+    month = Split.shiftMonth(month, Number(b.dataset.jMonth));
+    render();
+  }));
   root.querySelectorAll('[data-j-edit]').forEach((el) => el.addEventListener('click',
     () => expenseSheet(expenses.find((x) => x.id === el.dataset.jEdit))));
 }
