@@ -288,6 +288,10 @@ starts sync itself; each just registers `onHearthRefresh` to say how to redraw.
   deletes — without them the peer re-adds whatever was just deleted.
 - A single **pairing code** carries dbUrl + roomId + passphrase, so only one
   person ever touches Firebase. See `SETUP-SYNC.md`.
+- `validateDbUrl()` is the only accepted way to check a pasted URL. It exists
+  because the obvious check (`/firebase/`) matches the console URL — see the
+  gotchas table. Two host shapes are valid: `<instance>.firebaseio.com`
+  (us-central1) and `<instance>.<region>.firebasedatabase.app` (everywhere else).
 - Security rests on encryption plus an unguessable 22-char room id; there is no
   user auth. Fine for a shopping list, **deliberately not used for the vaults**.
 
@@ -415,6 +419,7 @@ Rules learned the hard way:
 | 258 concerts became 89 | throttled crawl plus a guard that only checked "at least 20" |
 | Blank screen (early on) | an IndexedDB version upgrade blocked by another open tab |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
+| Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
 

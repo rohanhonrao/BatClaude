@@ -50,6 +50,28 @@ export async function clearConfig() {
   await db.del('settings', KEY);
 }
 
+// The old check was /^https:\/\/.+firebase/, which happily accepted the Firebase
+// *console* URL (console.firebase.google.com/project/…) — the easiest possible
+// mistake, since that is the page you are looking at when you go hunting for the
+// URL. It created a connection that looked fine and silently never synced.
+// Only a Realtime Database host will do.
+export function validateDbUrl(raw) {
+  const s = String(raw || '').trim().replace(/\/+$/, '');
+  if (!s) return { ok: false, msg: 'Paste your Realtime Database URL' };
+  let u;
+  try { u = new URL(s); } catch { return { ok: false, msg: 'That doesn’t look like a URL' }; }
+  if (u.protocol !== 'https:') return { ok: false, msg: 'The database URL must start with https://' };
+  if (u.hostname === 'console.firebase.google.com') {
+    return { ok: false, msg: 'That’s the console page. The database URL is shown above the data tree.' };
+  }
+  if (!/\.firebaseio\.com$/i.test(u.hostname) && !/\.firebasedatabase\.app$/i.test(u.hostname)) {
+    return { ok: false, msg: 'Not a Realtime Database URL — it should end in firebaseio.com' };
+  }
+  // A path means they copied a deep link rather than the database root.
+  if (u.pathname && u.pathname !== '/') return { ok: false, msg: 'Paste just the database URL, with no path after it' };
+  return { ok: true, url: u.origin };
+}
+
 // A single code carries everything the other phone needs, so only one person
 // ever has to touch Firebase.
 export function makePairingCode() {

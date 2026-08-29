@@ -18,7 +18,7 @@ const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '37';
+export const APP_VERSION = '38';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),

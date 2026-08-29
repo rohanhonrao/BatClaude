@@ -7,6 +7,14 @@ a relay, not a custodian.
 You only have to do this **once, on one phone**. The other phone just pastes a
 pairing code.
 
+**The second person needs no account of any kind** — no Firebase project, no
+Google sign-in, no Sanctum account. The pairing code *is* the credential: it
+carries the database URL, the room id and the encryption passphrase. Firebase
+never learns who is connecting; there are no users in this design. The flip side
+is that anyone holding the code is in, and a single phone cannot be revoked — to
+cut someone off, stop sharing on both phones, delete the `rooms` node in the
+console, and pair again with a fresh code.
+
 ---
 
 ## 1. Create a free Firebase project (~5 minutes, no card)
@@ -14,10 +22,20 @@ pairing code.
 1. Go to <https://console.firebase.google.com> and sign in with a Google account
 2. **Add project** → give it any name (e.g. `sanctum-home`) → you can turn
    Google Analytics **off** → **Create project**
-3. In the left sidebar: **Build → Realtime Database** → **Create Database**
-4. Pick any location, then choose **Start in test mode** → **Enable**
-5. Copy the database URL shown at the top. It looks like:
-   `https://sanctum-home-default-rtdb.firebaseio.com`
+3. Go to **Realtime Database**. The console's left nav gets rearranged, so the
+   reliable route is the direct URL:
+   `https://console.firebase.google.com/project/_/database`
+   (the `_` resolves to your current project). Pick **Realtime Database**, not
+   Cloud Firestore — Sanctum speaks the RTDB REST/streaming API only.
+4. **Create Database** → pick a location → **Start in test mode** → **Enable**
+5. Copy the **database URL** shown above the data tree. Two shapes are valid,
+   depending on the region you picked:
+   - `https://<project>-default-rtdb.firebaseio.com` (us-central1)
+   - `https://<project>-default-rtdb.<region>.firebasedatabase.app` (elsewhere)
+
+   **Not** the console URL in your browser's address bar — that one starts with
+   `console.firebase.google.com`. The app rejects it, but it is the easiest
+   mistake to make, since it is the page you are on while looking for the URL.
 
 ## 2. Lock it down (important — do this before real use)
 

@@ -140,9 +140,9 @@ export function shareSheet() {
     } catch { toast('That code doesn’t look right', true); }
   });
   sheet.querySelector('#he-create')?.addEventListener('click', async () => {
-    const dbUrl = sheet.querySelector('#he-url').value.trim();
-    if (!/^https:\/\/.+firebase/.test(dbUrl)) return toast('Paste your Realtime Database URL', true);
-    await Sync.saveConfig(Sync.newRoom(dbUrl));
+    const check = Sync.validateDbUrl(sheet.querySelector('#he-url').value);
+    if (!check.ok) return toast(check.msg, true);
+    await Sync.saveConfig(Sync.newRoom(check.url));
     await goLive();
     // Replace the sheet in place so the pairing code is right there: closing
     // first lets the pending popstate shut the replacement (see ARCHITECTURE §11).
