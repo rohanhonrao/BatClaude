@@ -34,6 +34,7 @@ leave the device. The network calls are:
 | Hearth | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
 | ├ Lists | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
 | └ Money | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, monthly summary |
+| To-do | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
 | Concerts | `js/concerts.js` | done — LA gigs + artist tracking |
 | Movies / Sports / Stocks | — | placeholders, `ready:false` in the registry |
 
@@ -106,6 +107,8 @@ js/
                     "Share live" sheet, sync started once for every store
   household.js      Hearth's Lists tab
   joint.js          Hearth's Money tab
+  todos.js          TO-DO module (personal, never synced)
+  when.js           TO-DO parsing: natural-language dates, repeats, buckets
   passwords.js docs.js concerts.js  modules
   split.js          JOINT maths: ratios, cent-exact shares, balances,
                     weeks, monthly summary (fixed/variable, share vs paid)
@@ -144,7 +147,7 @@ for its sub-routes.
 
 ---
 
-## 5. Data layer (`js/db.js`, `DB_VERSION = 6`)
+## 5. Data layer (`js/db.js`, `DB_VERSION = 7`)
 
 All stores keyed by `id` except `settings` (keyed by `key`).
 
@@ -167,6 +170,7 @@ All stores keyed by `id` except `settings` (keyed by `key`).
 | `jointSettlements` | id, date, fromId, toId, amount, note |
 | `jointRecurring` | id, name, amount, categoryId, payerId, frequency, nextDate, paused |
 | `jointMeta` | single record `id:'config'`: basis gross/net |
+| `todos` | id, title, notes, due (ISO or null), priority 0/1/2, done, doneAt, repeat `{unit,interval}`, createdAt, updatedAt — **never synced** |
 
 Which person *this phone* is lives in `settings.jointMe` — **device-local and
 never synced**, otherwise both phones would think they were the same person.
@@ -382,6 +386,51 @@ two places to look. Hearth merges them behind one header with two tabs.
 
 ---
 
+## 8e. To-do (`js/todos.js`, `js/when.js`)
+
+Personal tasks. **Deliberately not shared** — no sync, no pairing, nothing
+leaves the device. Hearth is where shared things live; keeping the two apart is
+the whole point of having both.
+
+The bet is that a to-do app lives or dies on capture speed, so the surface is
+one text box that understands dates and priority, and everything else is
+optional editing afterwards.
+
+### Parsing (`when.js`, pure and unit-tested — 14/14)
+
+`parseWhen(text, todayISO)` returns `{title, due, repeat, priority}`. Rules are
+ordered longest-first so "next friday" beats "friday" and "every other week"
+beats "every week". Repeats are checked before one-off dates, because
+"every friday" is a repeat and not a date.
+
+**The rule that matters: a phrase is only consumed if it is unambiguous.**
+Silently eating part of someone's title is worse than making them set a date by
+hand. A bare weekday is the one genuinely ambiguous token, so it is only taken
+when introduced by on/by/due or when it ends the line, and never when glued to
+more characters. That is what keeps `read Friday Night Lights` and
+`monday.com subscription` intact — both were broken before the guard.
+
+Priority comes from `!` / `!!` anywhere in the line.
+
+The quick-add box shows a **live preview** of the parse before committing, so
+the behaviour is never a surprise after the fact.
+
+### Behaviour worth preserving
+
+- **Ticking a repeating task rolls it forward, it does not complete it.**
+  `nextDue()` advances from the due date so a weekly task keeps its weekday,
+  but skips past today in a loop — a task ignored for a month comes back
+  tomorrow rather than firing a month of missed occurrences.
+- Tasks are grouped by **when they are due** (overdue / today / tomorrow / this
+  week / later / no date), not by folder. The useful question is "what needs
+  doing now", not "where did I file this".
+- `addMonthsISO` clamps to the end of a shorter month, so a monthly task set on
+  the 31st does not skip February.
+- All date maths is on `YYYY-MM-DD` strings via local-midnight `Date`s, so a
+  timezone can never shift a due date.
+
+---
+
 ## 9. Design system (`css/styles.css`)
 
 - **Near-monochrome by design.** Platinum/ivory accent `--accent: #E9E4DA` on
@@ -438,7 +487,7 @@ Rules learned the hard way:
 | Rows off-centre in the wheel | percentage spacers instead of `(H - rowH)/2` |
 | Balance wrong, or money vanishing | future-dated rows counted (or not) in the wrong engine (section 6) |
 | 258 concerts became 89 | throttled crawl plus a guard that only checked "at least 20" |
-| Blank screen (early on) | an IndexedDB version upgrade blocked by another open tab |
+| Blank screen, or every `db` call hangs forever | an IndexedDB version upgrade blocked by **another open tab** still holding the old version. Bit again when `DB_VERSION` went 6 → 7 for `todos`: the module mounted but never rendered, with no console error. Close every other tab on the origin before testing a version bump |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
 | A category set to 50/50 still split by income | choosing "Category default" stores `rule: ''` on the expense. `''` is not `undefined`, so `shareOf`'s default parameter never fired and it fell through to income ratio. The expense form's live preview resolved the category rule, so it previewed 50/50 and settled by income. Always resolve through `Split.effectiveRule` |
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |

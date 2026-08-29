@@ -2,7 +2,7 @@
 // Nothing here ever leaves the phone. No network, no accounts.
 
 const DB_NAME = 'batvault';
-const DB_VERSION = 6;
+const DB_VERSION = 7;
 
 // Object stores and their keyPaths. All records use a string `id`.
 const STORES = {
@@ -25,6 +25,8 @@ const STORES = {
   jointSettlements: 'id', // {id, date, fromId, toId, amount, note, updatedAt}
   jointRecurring: 'id',   // {id, name, amount, categoryId, payerId, rule, frequency, nextDate, paused, updatedAt}
   jointMeta: 'id',        // single record id='config': {basis:'gross'|'net', updatedAt}
+  // --- To-do (personal, deliberately NOT synced) ---
+  todos: 'id',            // {id, title, notes, due, priority 0-2, done, doneAt, repeat, order, createdAt, updatedAt}
 };
 
 let _dbPromise = null;

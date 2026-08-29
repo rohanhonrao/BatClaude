@@ -24,6 +24,7 @@ Passwords and Documents never leave the phone.
 | **Passwords** | Encrypted vault (AES-256-GCM), generator with entropy meter, biometric unlock, auto-clearing clipboard. |
 | **Documents** | IDs and records, encrypted under their own passcode/biometric vault. |
 | **Hearth** | Everything two people run together, in one place with two tabs. **Lists** — shopping lists by store, with priority, due dates, notes and links. **Money** — shared expenses split by income ratio (or 50/50 per category, with categories you can add and edit yourself), fixed costs that post themselves, and one number for who owes whom; settle up in a tap. Optional **real-time sharing** between two phones, end-to-end encrypted; one pairing covers both tabs — see [SETUP-SYNC.md](SETUP-SYNC.md). |
+| **To-do** | Personal tasks with dates you can just type — "pay rent friday", "gym every monday", `!` / `!!` for priority. Grouped by when they're due; repeating tasks roll forward when you tick them. Stays on your phone — not shared. |
 | **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
 | Movies / Sports / Stocks | Planned. |
 
