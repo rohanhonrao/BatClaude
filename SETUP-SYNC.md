@@ -63,17 +63,16 @@ On **your wife's** phone:
 2. Paste the code into *Paste a pairing code*
 3. Tap **Join**
 
-Both phones now show a **Live** chip. Add or tick an item on one and it appears
-on the other within about a second.
+On both phones the sharing button in the Hearth header now glows green. Add or
+tick an item on one and it appears on the other within about a second.
 
 ### For the Money tab specifically
 
 Set up the people on **one** phone only. On the second phone, open **Hearth →
-Money** and
-tap **Join with a pairing code** on the setup screen — do *not* add both people
-again, or you will end up with two of everyone. Once the data arrives, that
-phone asks which person it is; that choice stays on the device and is never
-synced.
+Money** and tap **Join with a pairing code** on the setup screen — do *not* add
+both people again, or you will end up with two of everyone. Once the data
+arrives, that phone asks which person it is; that choice stays on the device and
+is never synced.
 
 ---
 
@@ -105,5 +104,6 @@ list is a few kilobytes. This will not approach the free tier.
 ## Scope
 
 Live sharing covers **Hearth only** — its lists, items, people, shared expenses
-and settlements. Finance, Passwords and Documents remain strictly on-device — the sharing model is deliberately not
-applied to them, since their threat model is different.
+and settlements. Finance, Passwords and Documents remain strictly on-device —
+the sharing model is deliberately not applied to them, since their threat model
+is different.
