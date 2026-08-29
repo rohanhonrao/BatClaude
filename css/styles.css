@@ -950,3 +950,12 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 /* The header's sharing button doubles as the live indicator, so Hearth needs
    only one control for a connection that covers both tabs. */
 .header-btn.live { color: var(--green); }
+
+/* --- icon picker (Joint categories) -------------------------------------- */
+.icon-pick { display: flex; flex-wrap: wrap; gap: 8px; }
+.icon-pick button {
+  width: 44px; height: 44px; border-radius: 12px; font-size: 19px;
+  background: var(--surface-2); color: var(--muted); border: 1px solid transparent;
+}
+.icon-pick button.active { background: var(--surface); color: var(--accent); border-color: var(--accent); }
+.icon-pick button:active { background: var(--surface-3); }

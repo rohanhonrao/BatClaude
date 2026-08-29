@@ -326,6 +326,14 @@ personal Finance module. They share no data on purpose.
 - Fixed costs are **scheduled items that post themselves** on their due date
   (`materialiseRecurring`), capped at 24 catch-up periods so a long gap can't
   spin.
+- **Categories are fully user-editable** — add, rename, re-icon, switch
+  fixed/variable, change the default split rule, delete. `categoryEditor()` with
+  no argument creates one. Deletion is guarded three ways: refused if any
+  expense **or** any scheduled item still points at the category (either would
+  leave a dangling `categoryId`), and refused for the last remaining category
+  because `expenseSheet` falls back to `cats[0]`. Names must be unique,
+  case-insensitively. Icons come from `CAT_ICONS`, all of which must exist in
+  the bundled Tabler font — a name that isn't there renders as a blank square.
 - Percentages in the header are derived (round the first, subtract for the
   rest) so they read as 100 — rounding each independently showed "53% / 48%".
 - Joint reuses the **same encrypted sync room as Household**; pairing once

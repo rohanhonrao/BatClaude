@@ -18,6 +18,15 @@ import * as Sync from './sync.js';
 import * as Split from './split.js';
 import { hearthHeader, bindHearthHeader, shareSheet, onHearthRefresh } from './hearth.js';
 
+// Offered when creating or editing a category. Kept to Tabler names that are
+// already in the bundled icon font — an icon that isn't there renders blank.
+const CAT_ICONS = [
+  'ti-home', 'ti-building-bank', 'ti-bolt', 'ti-shield', 'ti-wifi',
+  'ti-shopping-cart', 'ti-tools-kitchen-2', 'ti-gas-station', 'ti-basket', 'ti-car',
+  'ti-paw', 'ti-pill', 'ti-plant-2', 'ti-gift', 'ti-plane', 'ti-movie',
+  'ti-device-tv', 'ti-tools', 'ti-baby-carriage', 'ti-dots',
+];
+
 const DEFAULT_CATEGORIES = [
   { name: 'Rent',       icon: 'ti-home',            kind: 'fixed',    rule: 'ratio' },
   { name: 'Mortgage',   icon: 'ti-building-bank',   kind: 'fixed',    rule: 'ratio' },
@@ -442,6 +451,7 @@ function settingsSheet() {
       <div class="main"><div class="t">${escapeHtml(c.name)}</div>
         <div class="s">${c.kind} · ${c.rule === 'equal' ? 'split 50/50' : 'by income'}</div></div>
       <i class="ti ti-chevron-right muted"></i></div>`).join('')}</div>
+    <button class="btn mt" id="c-add"><i class="ti ti-plus"></i> Add category</button>
     <button class="btn ghost mt2" data-j-sync><i class="ti ti-users"></i> Sharing</button>
   `);
   sheet.querySelectorAll('#j-basis button').forEach((b) => b.addEventListener('click', async () => {
@@ -452,6 +462,7 @@ function settingsSheet() {
     () => personEditor(personOf(el.dataset.pEdit))));
   sheet.querySelectorAll('[data-c-edit]').forEach((el) => el.addEventListener('click',
     () => categoryEditor(catOf(el.dataset.cEdit))));
+  sheet.querySelector('#c-add').addEventListener('click', () => categoryEditor());
   sheet.querySelector('[data-j-sync]').addEventListener('click', shareSheet);
 }
 
@@ -475,33 +486,62 @@ function personEditor(p) {
   });
 }
 
-function categoryEditor(c) {
+// Passing nothing creates a new category. Everything about a category is
+// editable, including whether it is fixed or variable, because which costs
+// count as "fixed" is a judgement that differs household to household.
+function categoryEditor(existing) {
+  const c = existing || { id: uid('jc_'), name: '', icon: 'ti-dots', kind: 'variable', rule: 'ratio' };
   const sheet = openSheet(`
-    <div class="sheet-title-row"><h2>${escapeHtml(c.name)}</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
-    <div class="field"><label>Name</label><input class="input" id="c-name" value="${escapeHtml(c.name)}"></div>
+    <div class="sheet-title-row"><h2>${existing ? escapeHtml(c.name) : 'New category'}</h2>
+      <button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="field"><label>Name</label><input class="input" id="c-name" value="${escapeHtml(c.name)}"
+      placeholder="e.g. Pet, Childcare, Subscriptions"></div>
+    <div class="field"><label>Icon</label><div class="icon-pick" id="c-icon">
+      ${CAT_ICONS.map((i) => `<button data-i="${i}" class="${i === c.icon ? 'active' : ''}"
+        aria-label="${i}"><i class="ti ${i}"></i></button>`).join('')}</div></div>
     <div class="field"><label>Type</label><div class="seg" id="c-kind">
       <button data-k="fixed" class="${c.kind === 'fixed' ? 'active' : ''}">Fixed</button>
-      <button data-k="variable" class="${c.kind === 'variable' ? 'active' : ''}">Variable</button></div></div>
+      <button data-k="variable" class="${c.kind === 'variable' ? 'active' : ''}">Variable</button></div>
+      <div class="hint mt">Fixed costs can be scheduled to post themselves each month. Variable ones you log as you spend.</div></div>
     <div class="field"><label>Split by default</label><div class="seg" id="c-rule">
       <button data-r="ratio" class="${c.rule !== 'equal' ? 'active' : ''}">Income ratio</button>
-      <button data-r="equal" class="${c.rule === 'equal' ? 'active' : ''}">50/50</button></div></div>
-    <button class="btn primary mt" id="c-save">Save</button>
-    <button class="btn danger mt" id="c-del"><i class="ti ti-trash"></i> Delete category</button>
+      <button data-r="equal" class="${c.rule === 'equal' ? 'active' : ''}">50/50</button></div>
+      <div class="hint mt">Any single expense can override this when you add it.</div></div>
+    <button class="btn primary mt" id="c-save">${existing ? 'Save' : 'Add category'}</button>
+    ${existing ? '<button class="btn danger mt" id="c-del"><i class="ti ti-trash"></i> Delete category</button>' : ''}
   `);
-  let kind = c.kind, rule = c.rule || 'ratio';
-  sheet.querySelectorAll('#c-kind button').forEach((b) => b.addEventListener('click', () => {
-    kind = b.dataset.k; sheet.querySelectorAll('#c-kind button').forEach((x) => x.classList.toggle('active', x === b));
+
+  let kind = c.kind, rule = c.rule || 'ratio', icon = c.icon || 'ti-dots';
+  const pick = (sel, set) => sheet.querySelectorAll(`${sel} button`).forEach((b) => b.addEventListener('click', () => {
+    set(b);
+    sheet.querySelectorAll(`${sel} button`).forEach((x) => x.classList.toggle('active', x === b));
   }));
-  sheet.querySelectorAll('#c-rule button').forEach((b) => b.addEventListener('click', () => {
-    rule = b.dataset.r; sheet.querySelectorAll('#c-rule button').forEach((x) => x.classList.toggle('active', x === b));
-  }));
+  pick('#c-kind', (b) => { kind = b.dataset.k; });
+  pick('#c-rule', (b) => { rule = b.dataset.r; });
+  pick('#c-icon', (b) => { icon = b.dataset.i; });
+
   sheet.querySelector('#c-save').addEventListener('click', async () => {
-    await save('jointCategories', { ...c, name: sheet.querySelector('#c-name').value.trim() || c.name, kind, rule });
-    closeSheet(); render(); toast('Saved');
+    const name = sheet.querySelector('#c-name').value.trim();
+    if (!name) return toast('Give the category a name', true);
+    if (cats.some((x) => x.id !== c.id && x.name.toLowerCase() === name.toLowerCase())) {
+      return toast('There is already a category with that name', true);
+    }
+    await save('jointCategories', { ...c, name, icon, kind, rule });
+    render();
+    settingsSheet();   // back to the list in place, so several can be added in a row
+    toast(existing ? 'Saved' : 'Category added');
   });
-  sheet.querySelector('#c-del').addEventListener('click', async () => {
-    if (expenses.some((e) => e.categoryId === c.id)) return toast('Category is in use', true);
-    await remove('jointCategories', c.id); closeSheet(); render(); toast('Deleted');
+
+  sheet.querySelector('#c-del')?.addEventListener('click', async () => {
+    // Both expenses and scheduled items point at a category; deleting one still
+    // referenced would leave the other end dangling.
+    if (expenses.some((e) => e.categoryId === c.id)) return toast('Category is in use by an expense', true);
+    if (recurring.some((r) => r.categoryId === c.id)) return toast('A fixed monthly item uses this category', true);
+    if (cats.length <= 1) return toast('Keep at least one category', true);
+    await remove('jointCategories', c.id);
+    render();
+    settingsSheet();
+    toast('Deleted');
   });
 }
 
