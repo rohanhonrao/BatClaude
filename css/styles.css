@@ -1038,3 +1038,17 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .td-help > div:last-child { border-bottom: none; }
 .td-help code { color: var(--accent); font-size: 12px; }
 .td-help span { color: var(--muted); text-align: right; }
+
+/* --- Joint: year summary -------------------------------------------------- */
+.j-avg { margin: 8px 2px 0; }
+.j-months { padding: 6px 0; }
+/* A month strip rather than a chart: a year total alone hides which months
+   were heavy. Bars are relative to the year's peak month. */
+.j-mrow { display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 9px 14px; background: none; text-align: left; }
+.j-mrow:active { background: var(--surface-3); }
+.j-mrow.empty { opacity: .45; pointer-events: none; }
+.j-mname { width: 30px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.j-mbar { flex: 1; height: 7px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
+.j-mbar > span { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+.j-mamt { min-width: 74px; text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; }

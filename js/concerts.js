@@ -1,16 +1,23 @@
 // concerts.js — gigs near you.
 //
-// Data comes from `data/concerts-<city>.json`, compiled by a scheduled agent
-// that sweeps Ticketmaster, DICE, Eventbrite, Songkick and venue calendars.
+// Data comes from `data/concerts-<region>.json`, rebuilt every morning by
+// .github/workflows/refresh-concerts.yml from Songkick's schema.org JSON-LD
+// (one source, not the several this comment used to claim). A region may span
+// several metro areas — New York & New Jersey spans two.
+//
 // Because the file is served from our own origin there's no CORS problem, no
 // API key, and the last fetch is cached so the list still works offline.
 import { db } from './db.js';
 import { getSetting, setSetting, escapeHtml, todayISO, fmtDateShort, relativeDay } from './util.js';
 import { toast, openSheet, closeSheet, pushNav } from './ui.js';
 
+// Regions, matching the ids the refresh script writes. Only `nynj` is fed by
+// the daily workflow; the others stay listed so a trip is one tap away, but
+// they have no data file until someone runs the script for them, which is what
+// `fed` marks so the picker can say so rather than looking broken.
 const CITIES = [
+  { id: 'nynj', name: 'New York & New Jersey', fed: true },
   { id: 'la', name: 'Los Angeles' },
-  { id: 'nyc', name: 'New York' },
   { id: 'sf', name: 'San Francisco' },
 ];
 
@@ -23,15 +30,26 @@ let hubHandler = null;
 export function setConcertsHubHandler(fn) { hubHandler = fn; }
 
 const $app = () => document.getElementById('app');
-const cityId = () => getSetting('concertCity') || 'la';
+const cityId = () => getSetting('concertCity') || 'nynj';
 const cityName = () => (CITIES.find((c) => c.id === cityId()) || CITIES[0]).name;
 
 export async function mountConcerts() {
+  await migrateRegion();
   artists = getSetting('concertArtists') || [];
   view = 'all'; search = '';
   data = (await db.get('settings', 'concertsCache'))?.value?.[cityId()] || null;
   render();
   loadData();          // refresh in the background
+}
+
+// The user moved from LA to New Jersey. A saved `concertCity` of 'la' (or the
+// retired 'nyc' id) would otherwise win over the new default and leave them on
+// a region nothing feeds, so move them across once. Keyed on a flag rather than
+// on the value, so choosing Los Angeles again later is respected.
+async function migrateRegion() {
+  if (getSetting('concertRegionMoved')) return;
+  await setSetting('concertCity', 'nynj');
+  await setSetting('concertRegionMoved', true);
 }
 
 async function loadData({ manual = false } = {}) {
@@ -46,7 +64,7 @@ async function loadData({ manual = false } = {}) {
     await db.put('settings', { key: 'concertsCache', value: row });
     if (manual) toast('Listings updated');
   } catch {
-    if (manual) toast(data ? 'Offline — showing saved listings' : 'No listings yet for this city', true);
+    if (manual) toast(data ? 'Offline — showing saved listings' : 'No listings yet for this region', true);
   } finally {
     loading = false; render();
   }
@@ -210,13 +228,16 @@ function eventSheet(e) {
 
 function citySheet() {
   const sheet = openSheet(`
-    <div class="sheet-title-row"><h2>City</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="sheet-title-row"><h2>Region</h2><button class="close" data-close><i class="ti ti-x"></i></button></div>
     <div class="card">${CITIES.map((c) => `<div class="row tappable" data-city="${c.id}">
       <div class="ic"><i class="ti ti-map-pin"></i></div>
-      <div class="main"><div class="t">${escapeHtml(c.name)}</div></div>
+      <div class="main"><div class="t">${escapeHtml(c.name)}</div>
+        <div class="s">${c.fed ? 'Refreshed daily' : 'No scheduled refresh'}</div></div>
       ${c.id === cityId() ? '<i class="ti ti-check" style="color:var(--accent)"></i>' : ''}
     </div>`).join('')}</div>
-    <div class="hint center mt2">Listings are published per city by the scheduled agent.</div>
+    ${data?.coversTo ? `<div class="hint mt2">Covering ${escapeHtml(fmtDateShort(data.coversFrom || todayISO()))} through ${escapeHtml(fmtDateShort(data.coversTo))}${
+      data.metros?.length > 1 ? ` · ${data.metros.length} metro areas` : ''}.</div>` : ''}
+    <div class="hint center mt">Rebuilt every morning by the scheduled job.</div>
   `);
   sheet.querySelectorAll('[data-city]').forEach((el) => el.addEventListener('click', async () => {
     await setSetting('concertCity', el.dataset.city);

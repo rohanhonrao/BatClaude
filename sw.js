@@ -39,7 +39,7 @@ const ASSETS = [
   './js/todos.js',
   './js/when.js',
   './js/split.js',
-  './data/concerts-la.json',
+  './data/concerts-nynj.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-192.png',

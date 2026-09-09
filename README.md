@@ -25,7 +25,7 @@ Keyring and Strongbox never leave the phone.
 | **Strongbox** | IDs and records, encrypted under their own passcode/biometric vault. |
 | **Hearth** | Everything two people run together, in one place with two tabs. **Lists** — shopping lists by store, with priority, due dates, notes and links. **Money** — shared expenses split by income ratio (or 50/50 per category, with categories you can add and edit yourself), fixed costs that post themselves, and one number for who owes whom; settle up in a tap. Optional **real-time sharing** between two phones, end-to-end encrypted; one pairing covers both tabs — see [SETUP-SYNC.md](SETUP-SYNC.md). |
 | **Slate** | Personal tasks with dates you can just type — "pay rent friday", "gym every monday", `!` / `!!` for priority. Grouped by when they're due; repeating tasks roll forward when you tick them. Stays on your phone — not shared. |
-| **Concerts** | Every gig in LA for the next four weeks, plus artists you follow. |
+| **Concerts** | Every gig across New York & New Jersey from today through the end of the third month ahead, plus artists you follow. Rebuilt every morning. |
 | Movies / Sports / Stocks | Planned. |
 
 ## Install on your phone
@@ -59,10 +59,12 @@ finance data and vaults along with the cache.
 
 ## Concerts listings
 
-Listings are compiled by a GitHub Action into `data/concerts-la.json` and served
-from the app's own origin (no API key, works offline). Rebuild on demand from
-the repo's **Actions → Refresh concert listings → Run workflow**, or via the
-**Rebuild** link in the module.
+Listings are compiled by a GitHub Action into `data/concerts-nynj.json` and
+served from the app's own origin (no API key, works offline). It runs **daily at
+09:00 UTC** (5am New York), covering today through the end of the third month
+ahead across two Songkick metro areas — New York and Jersey City. You can also
+rebuild on demand from **Actions → Refresh concert listings → Run workflow**, or
+via the **Rebuild** link in the module.
 
 ## Running locally
 

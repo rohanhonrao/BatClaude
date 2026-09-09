@@ -21,7 +21,7 @@ leave the device. The network calls are:
 |---|---|---|
 | GitHub Pages | app files | nothing |
 | currency-api (jsdelivr) | FX rates for the converter | a currency code |
-| `data/concerts-la.json` | concert listings (same-origin) | nothing |
+| `data/concerts-nynj.json` | concert listings (same-origin) | nothing |
 | Firebase RTDB | Hearth live sync — **only if opted in** | AES-GCM ciphertext |
 
 ### Modules (the hub is the app entry)
@@ -33,9 +33,9 @@ leave the device. The network calls are:
 | Strongbox | `docs` | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
 | Hearth | `hearth` | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
 | ├ Lists | — | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
-| └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, monthly summary |
+| └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, month + calendar-year summaries |
 | Slate | `todos` | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
-| Concerts | `concerts` | `js/concerts.js` | done — LA gigs + artist tracking |
+| Concerts | `concerts` | `js/concerts.js` | done — NY & NJ gigs, 4-month window, artist tracking |
 | Movies / Sports / Stocks | — | — | placeholders, `ready:false` in the registry |
 
 Stocks is intended to include a **daily 6am agent** producing buy/sell signals —
@@ -111,7 +111,8 @@ js/
   when.js           SLATE parsing: natural-language dates, repeats, buckets
   passwords.js docs.js concerts.js  modules
   split.js          JOINT maths: ratios, cent-exact shares, balances,
-                    weeks, monthly summary (fixed/variable, share vs paid)
+                    weeks, monthly + calendar-year summaries
+                    (fixed/variable, per-category, share vs paid)
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
 data/               generated data served same-origin (concerts, artist cache)
 ```
@@ -248,26 +249,68 @@ deliberately sync-ready (only ciphertext would move).
 Browser-side scraping is impossible: verified that Bandsintown and Ticketmaster
 both fail CORS from the page while a control request succeeded. So instead:
 
-`.github/workflows/refresh-concerts.yml` (manual `workflow_dispatch`, **no cron**
-— the user asked for on-demand) runs `scripts/refresh-concerts.mjs`, which:
+`.github/workflows/refresh-concerts.yml` runs **daily at 09:00 UTC** (5am
+America/New_York) plus `workflow_dispatch` on demand. It was dispatch-only for a
+while, which meant it never refreshed unless someone pressed the button — the
+file sat five weeks stale. Do not remove the schedule.
+
+It runs `scripts/refresh-concerts.mjs`, which:
 
 - reads the **schema.org JSON-LD** Songkick already publishes (~51 blocks/page)
   rather than scraping markup, so a redesign will not break it
-- pages until two consecutive pages add nothing new
 - **requires a browser-shaped `Accept` header** — without it Songkick returns
   HTTP 406 partway through the crawl
 - retries 406/429/5xx with backoff, paces requests at 2.5s
 - **refuses to write when the new crawl has under 60% of the events already on
   disk** — a throttled crawl once silently cut 258 events to 89
-- filters comedy; computes the window in **America/Los_Angeles**, not runner UTC
+- filters comedy
+- writes the payload **compact, not pretty-printed**: indentation was about a
+  third of the bytes, and the phone downloads this file
 
-then `scripts/enrich-artists.mjs` adds genre, a Wikipedia link and a short blurb
+### Regions and the window
+
+A **region can span several Songkick metro areas**, because New Jersey is not one
+metro. The New York metro (`7644-us-new-york`) covers NYC plus the Jersey Shore;
+North Jersey — Jersey City, Hoboken, East Rutherford/MetLife, Holmdel/PNC — sits
+under `4690-us-jersey-city`. Both were fetched and their `addressLocality` values
+read to confirm this. Songkick also lists `34687-us-new-jersey`, which returns
+**zero events** — do not use it.
+
+Metros are crawled in turn into one shared map, so a show listed under both
+appears once. Pagination stops after **two consecutive pages with no in-window
+events at all** — not merely no *new* ones, because with two overlapping metros a
+page can be entirely duplicates while still being inside the window, and the old
+condition would have truncated the crawl there.
+
+The window runs from today to the **end of the third month ahead** (in September
+you get September through December), computed in the region's own timezone —
+`America/New_York` for `nynj` — not the runner's UTC clock, or a late run drops
+tonight's shows as "yesterday".
+
+### Artist enrichment
+
+`scripts/enrich-artists.mjs` adds genre, a Wikipedia link and a short blurb
 (MusicBrainz as fallback), cached in `data/artists.json` and rechecked every 45
 days. It never invents a bio: if neither source knows an artist the fields are
 omitted.
 
-The app reads `data/concerts-<city>.json` same-origin and caches the last fetch
-for offline. Cities are already parameterised (`la`, `nyc`, `sf`).
+Two things that were wrong for a long time and matter at this scale:
+
+- **`data/artists.json` must be committed by the workflow.** It only did
+  `git add data/concerts-*.json`, so the cache was built on the runner and
+  thrown away — every run re-looked-up every artist, and the 45-day recheck
+  never once applied.
+- **Lookups are capped per run** (`maxLookups`, default 350). Each costs over a
+  second because MusicBrainz asks for ≤1 req/sec, so a cold cache over a
+  four-month two-metro window would be an hours-long nightly job. Un-enriched
+  events still ship, just without a blurb, and the backlog drains over a few
+  days. Never-seen artists are looked up before stale refreshes.
+
+The app reads `data/concerts-<region>.json` same-origin and caches the last fetch
+for offline. `nynj` is the only region the daily workflow feeds; `la` and `sf`
+remain in the picker, marked as having no scheduled refresh. A one-time
+`concertRegionMoved` migration moves an existing install off a saved `la`/`nyc`
+choice, since a stored value would otherwise beat the new default.
 
 The **Anthropic cloud-agent route was abandoned** — it requires the user to
 connect their GitHub account, which only they can authorise. GitHub Actions needs
@@ -351,6 +394,17 @@ personal Treasury module. They share no data on purpose.
   because `expenseSheet` falls back to `cats[0]`. Names must be unique,
   case-insensitively. Icons come from `CAT_ICONS`, all of which must exist in
   the bundled Tabler font — a name that isn't there renders as a blank square.
+- **Month and year summaries share one code path.** `periodSummary()` takes a
+  `match` predicate; `monthlySummary()` and `yearSummary()` are both thin
+  wrappers, so the two views can never disagree about what a category cost or
+  who carried it. `yearSummary` additionally returns all **twelve** months —
+  including empty ones, so the shape of the year reads correctly — and the Year
+  tab renders those as a strip you can tap to open a month.
+- The year is **January to December**, with no fiscal-year offset. The user was
+  explicit about this.
+- Both views report **share and paid separately** per person. They are different
+  numbers and the gap between them is what settling up moves; it is *not* the
+  running balance, which spans every period.
 - Percentages in the header are derived (round the first, subtract for the
   rest) so they read as 100 — rounding each independently showed "53% / 48%".
 - Joint reuses the **same encrypted sync room as Household**; pairing once
@@ -489,6 +543,9 @@ Rules learned the hard way:
 | 258 concerts became 89 | throttled crawl plus a guard that only checked "at least 20" |
 | Blank screen, or every `db` call hangs forever | an IndexedDB version upgrade blocked by **another open tab** still holding the old version. Bit again when `DB_VERSION` went 6 → 7 for `todos`: the module mounted but never rendered, with no console error. Close every other tab on the origin before testing a version bump |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
+| Concert listings never update | the workflow was `workflow_dispatch` only, with no cron, so it only ran when someone pressed the button. Five weeks stale before anyone noticed |
+| Artist enrichment slow and endlessly re-fetching | the workflow committed only `data/concerts-*.json`, so `data/artists.json` was written on the runner and discarded. Every run re-looked-up every artist; the 45-day recheck never applied |
+| A new setting's default appears to be ignored | a value already saved in `settings` wins over the code default. Changing a default needs a one-time migration flag (see `concertRegionMoved`), not just a new fallback |
 | A category set to 50/50 still split by income | choosing "Category default" stores `rule: ''` on the expense. `''` is not `undefined`, so `shareOf`'s default parameter never fired and it fell through to income ratio. The expense form's live preview resolved the category rule, so it previewed 50/50 and settled by income. Always resolve through `Split.effectiveRule` |
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
@@ -536,6 +593,14 @@ Rules learned the hard way:
   `docs`, `todos`), store names and function names are unchanged, so renaming
   cost no migration. Do not "tidy" the ids to match the names — that *would*
   be a migration, and `settings` keys like `jointMe` reference nothing else.
+- **Concerts follows the user, not the repo's history.** They moved from LA to
+  New Jersey (Sept 2026), so `nynj` — New York metro plus Jersey City metro — is
+  the region the daily job feeds, and the stale `data/concerts-la.json` was
+  deleted rather than left to rot. South Jersey (Camden, Atlantic City) sits
+  under Songkick's *Philadelphia* metro and is **not** covered; adding it would
+  pull in a lot of Pennsylvania, so it was left out pending a decision.
+- **Concert coverage is four calendar months** — today through the end of the
+  third month ahead — per the user's "September and the next 3 months".
 - Joint is **for two people**. `split.js` mostly generalises, but
   `balanceBetween` assumes two; adding a third person means a settlement graph.
 - **Household and Joint merged into Hearth**, one sub-app with Lists and Money

@@ -42,8 +42,9 @@ const DEFAULT_CATEGORIES = [
 
 let people = [], cats = [], expenses = [], settlements = [], recurring = [], meta = null;
 let meId = null;          // which person this phone is — device-local, never synced
-let tab = 'week';         // 'week' | 'month' | 'all'
-let month = null;         // YYYY-MM being viewed on the month tab; null = current
+let tab = 'week';         // 'week' | 'month' | 'year' | 'all'
+let month = null;         // YYYY-MM shown on the month tab; null = current
+let year = null;          // YYYY shown on the year tab; null = current
 let hubHandler = null;
 export function setJointHubHandler(fn) { hubHandler = fn; }
 
@@ -124,6 +125,7 @@ function render() {
   const weekOf = todayISO();
   const shown = tab === 'week' ? expenses.filter((e) => Split.inWeek(e.date, weekOf))
     : tab === 'month' ? expenses.filter((e) => Split.inMonth(e.date, month))
+    : tab === 'year' ? expenses.filter((e) => Split.inYear(e.date, year))
     : expenses;
 
   const iOwe = !bal.settled && bal.debtor?.id === meId;
@@ -159,17 +161,20 @@ function render() {
     <div class="seg mt" id="j-tab">
       <button data-j-tab="week" class="${tab === 'week' ? 'active' : ''}">Week</button>
       <button data-j-tab="month" class="${tab === 'month' ? 'active' : ''}">Month</button>
-      <button data-j-tab="all" class="${tab === 'all' ? 'active' : ''}">Everything</button>
+      <button data-j-tab="year" class="${tab === 'year' ? 'active' : ''}">Year</button>
+      <button data-j-tab="all" class="${tab === 'all' ? 'active' : ''}">All</button>
     </div>
 
-    ${tab === 'month' ? monthSummaryHTML() : `<div class="j-meta">
+    ${tab === 'month' ? monthSummaryHTML()
+      : tab === 'year' ? yearSummaryHTML()
+      : `<div class="j-meta">
       <span>${shown.length} expense${shown.length === 1 ? '' : 's'}</span>
       <span>${fmtMoney(weekTotal)} total</span>
     </div>`}
 
     <div class="card">${shown.length ? shown.map(expenseRow).join('')
       : `<div class="empty"><span class="em"><i class="ti ti-receipt"></i></span>
-          <div>Nothing logged ${tab === 'week' ? 'this week' : tab === 'month' ? 'this month' : 'yet'}</div>
+          <div>Nothing logged ${tab === 'week' ? 'this week' : tab === 'month' ? 'this month' : tab === 'year' ? 'this year' : 'yet'}</div>
           <div class="tiny mt">Add what you've paid for and the split works itself out.</div></div>`}</div>
 
     <button class="btn primary mt2" data-j-add><i class="ti ti-plus"></i> Add expense</button>
@@ -275,16 +280,58 @@ const monthLabel = (key) => {
   return `${MONTH_NAMES[m - 1]} ${y}`;
 };
 
+const D = Split.DOLLARS;
+
+// The month and year views answer the same questions over different spans, so
+// they share these blocks rather than drifting apart over time.
+function totalCardHTML(s, whatFor) {
+  const pctOf = (n) => (s.total ? Math.round((n / s.total) * 100) : 0);
+  return `<div class="card j-sum">
+    <div class="j-sum-total"><span class="label">Total for the ${whatFor}</span><b>${fmtMoney(D(s.total))}</b></div>
+    ${s.total ? `<div class="j-kbar"><span class="fixed" style="width:${pctOf(s.byKind.fixed)}%"></span></div>` : ''}
+    <div class="j-kinds">
+      <div><span class="k fixed"></span>Fixed<b>${fmtMoney(D(s.byKind.fixed))}</b><span class="tiny muted">${pctOf(s.byKind.fixed)}%</span></div>
+      <div><span class="k variable"></span>Variable<b>${fmtMoney(D(s.byKind.variable))}</b><span class="tiny muted">${pctOf(s.byKind.variable)}%</span></div>
+    </div>
+  </div>`;
+}
+
+function peopleCardHTML(s, whatFor) {
+  return `<div class="section-title">Each of you</div>
+  <div class="card j-people">
+    ${people.map((p) => {
+      const share = s.share[p.id] || 0, paid = s.paid[p.id] || 0;
+      const diff = paid - share;
+      return `<div class="j-person">
+        <div class="j-person-top"><b>${escapeHtml(p.name)}${p.id === meId ? ' (you)' : ''}</b>
+          <span class="${Math.abs(diff) < 1 ? 'muted' : diff > 0 ? 'pos' : 'neg'}">${
+            Math.abs(diff) < 1 ? 'even' : diff > 0 ? `${fmtMoney(D(diff))} ahead` : `${fmtMoney(D(-diff))} behind`}</span></div>
+        <div class="j-person-nums">
+          <div><span class="label">Their share</span><b>${fmtMoney(D(share))}</b></div>
+          <div><span class="label">Actually paid</span><b>${fmtMoney(D(paid))}</b></div>
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="hint">"Share" is what each of you is responsible for over the ${whatFor}. "Actually paid" is what left your account. The difference is what settling up moves — it is not the running balance, which covers everything.</div>
+  </div>`;
+}
+
+function categoriesCardHTML(s) {
+  if (!s.categories.length) return '';
+  return `<div class="section-title">By category</div>
+  <div class="card">${s.categories.map((c) => `<div class="row">
+    <div class="ic"><i class="ti ${escapeHtml(c.icon)}"></i></div>
+    <div class="main"><div class="t">${escapeHtml(c.name)} <span class="j-kind-tag ${c.kind}">${c.kind}</span></div>
+      <div class="s">${c.count} item${c.count === 1 ? '' : 's'} · ${people.map((p) =>
+        `${escapeHtml(p.name)} ${fmtMoney(D(c.perPerson[p.id] || 0))}`).join(' · ')}</div></div>
+    <div class="amt">${fmtMoney(D(c.total))}</div>
+  </div>`).join('')}</div>`;
+}
+
 function monthSummaryHTML() {
   if (!month) month = Split.monthKey(todayISO());
   const s = Split.monthlySummary({ people, expenses, categories: cats, basis: basis(), month });
-  const D = Split.DOLLARS;
-  const pctOf = (n) => (s.total ? Math.round((n / s.total) * 100) : 0);
   const isCurrent = month === Split.monthKey(todayISO());
-
-  const bar = s.total
-    ? `<div class="j-kbar"><span class="fixed" style="width:${pctOf(s.byKind.fixed)}%"></span></div>`
-    : '';
 
   return `
     <div class="j-month-nav">
@@ -293,44 +340,45 @@ function monthSummaryHTML() {
       <button class="mini-btn" data-j-month="1" aria-label="Next month"
         ${isCurrent ? 'disabled' : ''}><i class="ti ti-chevron-right"></i></button>
     </div>
-
-    <div class="card j-sum">
-      <div class="j-sum-total"><span class="label">Total for the month</span><b>${fmtMoney(D(s.total))}</b></div>
-      ${bar}
-      <div class="j-kinds">
-        <div><span class="k fixed"></span>Fixed<b>${fmtMoney(D(s.byKind.fixed))}</b><span class="tiny muted">${pctOf(s.byKind.fixed)}%</span></div>
-        <div><span class="k variable"></span>Variable<b>${fmtMoney(D(s.byKind.variable))}</b><span class="tiny muted">${pctOf(s.byKind.variable)}%</span></div>
-      </div>
-    </div>
-
-    <div class="section-title">Each of you</div>
-    <div class="card j-people">
-      ${people.map((p) => {
-        const share = s.share[p.id] || 0, paid = s.paid[p.id] || 0;
-        const diff = paid - share;
-        return `<div class="j-person">
-          <div class="j-person-top"><b>${escapeHtml(p.name)}${p.id === meId ? ' (you)' : ''}</b>
-            <span class="${Math.abs(diff) < 1 ? 'muted' : diff > 0 ? 'pos' : 'neg'}">${
-              Math.abs(diff) < 1 ? 'even' : diff > 0 ? `${fmtMoney(D(diff))} ahead` : `${fmtMoney(D(-diff))} behind`}</span></div>
-          <div class="j-person-nums">
-            <div><span class="label">Their share</span><b>${fmtMoney(D(share))}</b></div>
-            <div><span class="label">Actually paid</span><b>${fmtMoney(D(paid))}</b></div>
-          </div>
-        </div>`;
-      }).join('')}
-      <div class="hint">"Share" is what each of you is responsible for. "Actually paid" is what left your account. The difference is what settling up moves — it is not the running balance, which covers every month.</div>
-    </div>
-
-    ${s.categories.length ? `<div class="section-title">By category</div>
-    <div class="card">${s.categories.map((c) => `<div class="row">
-      <div class="ic"><i class="ti ${escapeHtml(c.icon)}"></i></div>
-      <div class="main"><div class="t">${escapeHtml(c.name)} <span class="j-kind-tag ${c.kind}">${c.kind}</span></div>
-        <div class="s">${c.count} item${c.count === 1 ? '' : 's'} · ${people.map((p) =>
-          `${escapeHtml(p.name)} ${fmtMoney(D(c.perPerson[p.id] || 0))}`).join(' · ')}</div></div>
-      <div class="amt">${fmtMoney(D(c.total))}</div>
-    </div>`).join('')}</div>` : ''}
-
+    ${totalCardHTML(s, 'month')}
+    ${peopleCardHTML(s, 'month')}
+    ${categoriesCardHTML(s)}
     <div class="section-title">Expenses this month</div>`;
+}
+
+// --- yearly summary -----------------------------------------------------------
+// Calendar year, January to December — the user was explicit that there is no
+// fiscal-year offset. The month strip is here because a year total alone hides
+// the shape of the year: which months were heavy, and when.
+function yearSummaryHTML() {
+  if (!year) year = Number(Split.yearKey(todayISO()));
+  const s = Split.yearSummary({ people, expenses, categories: cats, basis: basis(), year });
+  const isCurrent = year === Number(Split.yearKey(todayISO()));
+  const peak = Math.max(...s.months.map((m) => m.total), 1);
+  const monthsSoFar = s.months.filter((m) => m.total > 0).length;
+
+  return `
+    <div class="j-month-nav">
+      <button class="mini-btn" data-j-year="-1" aria-label="Previous year"><i class="ti ti-chevron-left"></i></button>
+      <div class="j-month-title">${year}<span class="tiny muted"> · Jan–Dec</span></div>
+      <button class="mini-btn" data-j-year="1" aria-label="Next year"
+        ${isCurrent ? 'disabled' : ''}><i class="ti ti-chevron-right"></i></button>
+    </div>
+    ${totalCardHTML(s, 'year')}
+    ${monthsSoFar ? `<div class="j-avg tiny muted">Averaging ${fmtMoney(D(Math.round(s.total / monthsSoFar)))} across ${monthsSoFar} month${monthsSoFar === 1 ? '' : 's'} with spending</div>` : ''}
+    ${peopleCardHTML(s, 'year')}
+    ${categoriesCardHTML(s)}
+
+    ${s.total ? `<div class="section-title">Month by month</div>
+    <div class="card j-months">${s.months.map((m) => `
+      <button class="j-mrow ${m.total ? '' : 'empty'}" data-j-gomonth="${m.key}">
+        <span class="j-mname">${MONTH_NAMES[m.month - 1].slice(0, 3)}</span>
+        <span class="j-mbar"><span style="width:${Math.round((m.total / peak) * 100)}%"></span></span>
+        <span class="j-mamt">${m.total ? fmtMoney(D(m.total)) : '—'}</span>
+      </button>`).join('')}</div>
+    <div class="hint">Tap a month to open it.</div>` : ''}
+
+    <div class="section-title">Everything in ${year}</div>`;
 }
 
 // --- expense editor -----------------------------------------------------------
@@ -632,11 +680,21 @@ function bind() {
   root.querySelectorAll('#j-tab button').forEach((b) => b.addEventListener('click', () => {
     tab = b.dataset.jTab;
     if (tab === 'month' && !month) month = Split.monthKey(todayISO());
+    if (tab === 'year' && !year) year = Number(Split.yearKey(todayISO()));
     render();
   }));
   root.querySelectorAll('[data-j-month]').forEach((b) => b.addEventListener('click', () => {
     month = Split.shiftMonth(month, Number(b.dataset.jMonth));
     render();
+  }));
+  root.querySelectorAll('[data-j-year]').forEach((b) => b.addEventListener('click', () => {
+    year += Number(b.dataset.jYear);
+    render();
+  }));
+  // Drilling from the year's month strip into that month keeps the two views
+  // consistent instead of making the user re-navigate.
+  root.querySelectorAll('[data-j-gomonth]').forEach((b) => b.addEventListener('click', () => {
+    month = b.dataset.jGomonth; tab = 'month'; render();
   }));
   root.querySelectorAll('[data-j-edit]').forEach((el) => el.addEventListener('click',
     () => expenseSheet(expenses.find((x) => x.id === el.dataset.jEdit))));

@@ -1,9 +1,15 @@
 name: Refresh concert listings
 
-# On demand only — no cron. Rebuild from the Actions tab (or the "Rebuild
-# listings" link in the app), which runs on GitHub's servers, so there is no
-# CORS restriction, no API key, and nothing to install on any device.
+# Runs daily, and on demand from the Actions tab (or the "Rebuild listings"
+# link in the app). It runs on GitHub's servers, so there is no CORS
+# restriction, no API key, and nothing to install on any device.
+#
+# This used to be workflow_dispatch only, which meant the listings never
+# refreshed unless the user remembered to press the button — the file went five
+# weeks stale. If you remove the schedule, that comes back.
 on:
+  schedule:
+    - cron: '0 9 * * *'      # 09:00 UTC = 5am America/New_York (4am in winter)
   workflow_dispatch:
 
 permissions:
@@ -16,6 +22,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -23,14 +30,18 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Rebuild LA listings
-        run: node scripts/refresh-concerts.mjs la
+      - name: Rebuild New York & New Jersey listings
+        run: node scripts/refresh-concerts.mjs nynj
 
       - name: Commit if anything changed
         run: |
           git config user.name  "sanctum-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/concerts-*.json
+          # data/artists.json MUST be committed too. It is the Wikipedia /
+          # MusicBrainz cache, and for a long time it was written on the runner
+          # and thrown away, so every run re-looked-up every artist from
+          # scratch at ~1.3s each and the 45-day recheck window never applied.
+          git add data/concerts-*.json data/artists.json
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else

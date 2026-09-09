@@ -80,22 +80,38 @@ async function lookup(artist) {
   return out;
 }
 
-export async function enrich(events) {
+/**
+ * `maxLookups` caps how many *new* artists are looked up in one run.
+ *
+ * Each lookup sleeps over a second to respect MusicBrainz's rate limit, so a
+ * cold cache across a four-month, two-metro window would otherwise mean an
+ * hours-long job hammering Wikipedia every night. With a daily run and a cache
+ * that actually persists, the backlog drains over a few days and then costs
+ * nothing. Un-enriched events still ship — they simply lack a blurb.
+ */
+export async function enrich(events, { maxLookups = 350 } = {}) {
   let cache = {};
   try { cache = JSON.parse(await readFile(CACHE_PATH, 'utf8')); } catch {}
 
   const artists = [...new Set(events.map((e) => e.artist))];
   const cutoff = Date.now() - RECHECK_DAYS * 86400000;
   let fetched = 0;
+  let deferred = 0;
 
-  for (const artist of artists) {
+  // Artists never looked up come first: a missing blurb is more visible than a
+  // slightly stale one, so a refresh should never crowd out a first lookup.
+  const ordered = [...artists].sort((a, b) => (cache[key(a)] ? 1 : 0) - (cache[key(b)] ? 1 : 0));
+
+  for (const artist of ordered) {
     const k = key(artist);
     const hit = cache[k];
     if (hit && Date.parse(hit.checkedAt || 0) > cutoff) continue;
+    if (fetched >= maxLookups) { deferred++; continue; }
     cache[k] = await lookup(artist);
     fetched++;
     if (fetched % 25 === 0) console.log(`  enriched ${fetched} new artists…`);
   }
+  if (deferred) console.log(`  ${deferred} artists deferred to the next run (cap ${maxLookups}).`);
 
   for (const ev of events) {
     const info = cache[key(ev.artist)];

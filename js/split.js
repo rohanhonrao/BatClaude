@@ -185,6 +185,19 @@ export function shiftMonth(key, n) {
  * deleted counts toward the totals as variable rather than vanishing.
  */
 export function monthlySummary({ people, expenses, categories = [], basis = 'net', month }) {
+  return periodSummary({ people, expenses, categories, basis,
+    match: (e) => inMonth(e.date, month), label: month });
+}
+
+/**
+ * The same breakdown over any span. Month and year views share this so the two
+ * can never disagree about what a category cost or who carried it.
+ *
+ * `match` decides membership rather than a from/to pair, because a calendar
+ * year and a month are both just predicates and this keeps the caller honest
+ * about which it means.
+ */
+export function periodSummary({ people, expenses, categories = [], basis = 'net', match, label = '' }) {
   const ratios = incomeRatios(people, basis);
   const kindOf = (id) => (categories.find((c) => c.id === id)?.kind === 'fixed' ? 'fixed' : 'variable');
   const nameOf = (id) => categories.find((c) => c.id === id)?.name || 'Uncategorised';
@@ -197,7 +210,7 @@ export function monthlySummary({ people, expenses, categories = [], basis = 'net
   let total = 0;
 
   for (const e of expenses) {
-    if (!inMonth(e.date, month)) continue;
+    if (!match(e)) continue;
     const amt = CENTS(e.amount);
     if (!amt || !e.payerId || paid[e.payerId] === undefined) continue;
 
@@ -225,10 +238,40 @@ export function monthlySummary({ people, expenses, categories = [], basis = 'net
   }
 
   return {
-    month, total, byKind, share, paid,
+    month: label, label, total, byKind, share, paid,
     categories: [...byCategory.values()].sort((a, b) =>
       (a.kind === b.kind ? b.total - a.total : a.kind === 'fixed' ? -1 : 1)),
   };
+}
+
+// --- calendar year -----------------------------------------------------------
+// The user's year is January to December — no fiscal-year offset anywhere.
+export const yearKey = (iso) => String(iso).slice(0, 4);
+export const inYear = (iso, year) => yearKey(iso) === String(year);
+
+/**
+ * A calendar year, plus each of its twelve months so seasonality is visible.
+ * `months` always has 12 entries even where nothing was spent, so the shape of
+ * the year reads correctly instead of collapsing empty months out of it.
+ */
+export function yearSummary({ people, expenses, categories = [], basis = 'net', year }) {
+  const s = periodSummary({ people, expenses, categories, basis,
+    match: (e) => inYear(e.date, year), label: String(year) });
+
+  s.months = [];
+  for (let m = 1; m <= 12; m++) {
+    const key = `${year}-${String(m).padStart(2, '0')}`;
+    const ms = periodSummary({ people, expenses, categories, basis,
+      match: (e) => inMonth(e.date, key), label: key });
+    s.months.push({ key, month: m, total: ms.total, byKind: ms.byKind, share: ms.share, paid: ms.paid });
+  }
+  return s;
+}
+
+/** Every calendar year that has at least one expense, newest first. */
+export function yearsWithActivity(expenses) {
+  const set = new Set(expenses.map((e) => yearKey(e.date)).filter((y) => /^\d{4}$/.test(y)));
+  return [...set].sort().reverse();
 }
 
 /** Every month that has at least one expense, newest first. */

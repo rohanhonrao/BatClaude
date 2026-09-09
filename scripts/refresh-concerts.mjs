@@ -6,23 +6,44 @@
 import { writeFile, readFile } from 'node:fs/promises';
 import { enrich } from './enrich-artists.mjs';
 
-const CITIES = {
-  la: { name: 'Los Angeles', metro: '17835-us-los-angeles-la' },
-  nyc: { name: 'New York', metro: '7644-us-new-york' },
-  sf: { name: 'San Francisco', metro: '26330-us-san-francisco' },
+// A region can span several Songkick metro areas. New Jersey is not one metro:
+// the New York metro covers NYC plus the Jersey Shore, while North Jersey
+// (Jersey City, Hoboken, East Rutherford/MetLife, Holmdel/PNC) sits under the
+// Jersey City metro. Verified by fetching both and reading the localities.
+// Songkick also lists '34687-us-new-jersey', but it returns zero events —
+// do not use it.
+const REGIONS = {
+  nynj: {
+    name: 'New York & New Jersey',
+    tz: 'America/New_York',
+    metros: ['7644-us-new-york', '4690-us-jersey-city'],
+  },
+  la: { name: 'Los Angeles', tz: 'America/Los_Angeles', metros: ['17835-us-los-angeles-la'] },
+  sf: { name: 'San Francisco', tz: 'America/Los_Angeles', metros: ['26330-us-san-francisco'] },
 };
 
-const WINDOW_DAYS = 28;
-const MAX_PAGES = 14;
+// Coverage runs to the end of the third month ahead: in September you get
+// September plus October, November and December.
+const MONTHS_AHEAD = 3;
+const MAX_PAGES = 60;          // a four-month window is far deeper than 28 days
 const UA = 'Mozilla/5.0 (compatible; SanctumConcerts/1.0; personal use)';
 
-// Window is computed in the CITY's timezone, not the runner's UTC clock —
-// otherwise an evening run drops tonight's shows as "yesterday".
-const TZ = 'America/Los_Angeles';
-const localISO = (d) => d.toLocaleDateString('en-CA', { timeZone: TZ });
+const regionId = process.argv[2] || 'nynj';
+const region = REGIONS[regionId];
+if (!region) {
+  console.error(`Unknown region "${regionId}". Known: ${Object.keys(REGIONS).join(', ')}`);
+  process.exit(1);
+}
+
+// The window is computed in the REGION's timezone, not the runner's UTC clock —
+// otherwise a late run drops tonight's shows as "yesterday".
+const localISO = (d) => d.toLocaleDateString('en-CA', { timeZone: region.tz });
 const today = new Date();
 const startISO = localISO(today);
-const endISO = localISO(new Date(today.getTime() + WINDOW_DAYS * 86400000));
+// Last day of the month MONTHS_AHEAD out: day 0 of the following month.
+const [ty, tm] = startISO.split('-').map(Number);
+const endDate = new Date(Date.UTC(ty, tm - 1 + MONTHS_AHEAD + 1, 0));
+const endISO = endDate.toISOString().slice(0, 10);
 
 // Comedy shows are listed alongside music but aren't concerts.
 const COMEDY_VENUE = /improv|comedy store|laugh factory|comedy club|the stand up/i;
@@ -111,34 +132,44 @@ async function fetchPage(metro, page) {
   throw lastErr || new Error('unknown fetch failure');
 }
 
-async function collect(cityId) {
-  const city = CITIES[cityId];
+async function collect(regionId) {
   const seen = new Map();
   let partial = false;
-  let emptyStreak = 0;
 
-  for (let page = 1; page <= MAX_PAGES; page++) {
-    let html;
-    try { html = await fetchPage(city.metro, page); }
-    catch (e) {
-      console.error(`page ${page}: ${e.message} — giving up on further pages`);
-      partial = true;
-      break;
+  // Metros are crawled in turn into one shared map, so a show listed under both
+  // New York and Jersey City (an East Rutherford date, say) appears once.
+  for (const metro of region.metros) {
+    let emptyStreak = 0;
+    let before = seen.size;
+    console.log(`\n— metro ${metro} —`);
+
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      let html;
+      try { html = await fetchPage(metro, page); }
+      catch (e) {
+        console.error(`page ${page}: ${e.message} — giving up on further pages for this metro`);
+        partial = true;
+        break;
+      }
+
+      const parsed = extractLdJson(html).map(toEvent);
+      const inWindow = parsed.filter(Boolean).filter((e) => !isComedy(e));
+      let added = 0;
+      for (const ev of inWindow) {
+        const key = `${ev.date}|${slug(ev.artist)}|${slug(ev.venue)}`;
+        if (!seen.has(key)) { seen.set(key, ev); added++; }
+      }
+      console.log(`page ${page}: ${inWindow.length} in window, ${added} new (region total ${seen.size})`);
+
+      // Listings run chronologically. A page can legitimately add nothing while
+      // still being inside the window (all duplicates of the other metro), so
+      // stop only after two consecutive pages that also yielded no in-window
+      // events at all — otherwise overlap between metros truncates the crawl.
+      emptyStreak = (added === 0 && inWindow.length === 0) ? emptyStreak + 1 : 0;
+      if (emptyStreak >= 2) break;
+      await new Promise((r) => setTimeout(r, 2500)); // be a polite client
     }
-
-    const events = extractLdJson(html).map(toEvent).filter(Boolean).filter((e) => !isComedy(e));
-    let added = 0;
-    for (const ev of events) {
-      const key = `${ev.date}|${slug(ev.artist)}|${slug(ev.venue)}`;
-      if (!seen.has(key)) { seen.set(key, ev); added++; }
-    }
-    console.log(`page ${page}: ${events.length} in window, ${added} new (total ${seen.size})`);
-
-    // Listings run chronologically; once a page adds nothing new twice over,
-    // we're past the window.
-    emptyStreak = added === 0 ? emptyStreak + 1 : 0;
-    if (emptyStreak >= 2) break;
-    await new Promise((r) => setTimeout(r, 2500)); // be a polite client
+    console.log(`  metro ${metro} contributed ${seen.size - before} events`);
   }
 
   const events = [...seen.values()].sort((a, b) =>
@@ -147,19 +178,19 @@ async function collect(cityId) {
   // Stable, unique ids.
   const used = new Set();
   for (const ev of events) {
-    const base = `${cityId}-${ev.date.slice(5, 7)}${ev.date.slice(8, 10)}-${slug(ev.artist)}`;
+    const base = `${regionId}-${ev.date.slice(5, 7)}${ev.date.slice(8, 10)}-${slug(ev.artist)}`;
     let id = base, n = 2;
     while (used.has(id)) id = `${base}-${n++}`;
     used.add(id);
     ev.id = id;
   }
-  return { city, events, partial };
+  return { events, partial };
 }
 
-const cityId = process.argv[2] || 'la';
-const { city, events, partial } = await collect(cityId);
+console.log(`Region ${regionId} (${region.name}); window ${startISO} → ${endISO}`);
+const { events, partial } = await collect(regionId);
 
-const outPath = `data/concerts-${cityId}.json`;
+const outPath = `data/concerts-${regionId}.json`;
 let previous = null;
 try { previous = JSON.parse(await readFile(outPath, 'utf8')); } catch {}
 
@@ -184,10 +215,12 @@ console.log('Enriching artists (Wikipedia + MusicBrainz, cached)…');
 await enrich(events);
 
 const payload = {
-  city: city.name,
-  cityId,
+  city: region.name,
+  cityId: regionId,
+  coversFrom: startISO,
+  coversTo: endISO,
+  metros: region.metros,
   generatedAt: new Date().toISOString(),
-  windowDays: WINDOW_DAYS,
   sources: ['songkick.com (schema.org JSON-LD)'],
   note: 'Compiled automatically from public listings. Always confirm on the venue page before buying.',
   events,
@@ -201,5 +234,9 @@ if (previous && sig(previous) === sig(payload)) {
   process.exit(0);
 }
 
-await writeFile(outPath, JSON.stringify(payload, null, 2) + '\n');
+// Written compact, not pretty-printed. A four-month two-metro window is an
+// order of magnitude more events than the old 28-day single-metro file, and
+// indentation was roughly a third of the bytes — which the phone downloads.
+// Nothing hand-edits this file, so the lost readability costs nothing.
+await writeFile(outPath, JSON.stringify(payload) + '\n');
 console.log(`Wrote ${outPath}: ${events.length} events, ${new Set(events.map((e) => e.venue)).size} venues.`);

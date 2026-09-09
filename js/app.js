@@ -1563,7 +1563,7 @@ function onboarding() {
       <label>Currency</label>
       <select class="input" id="ob-currency">${CURRENCIES.map((c) => `<option ${c === getSetting('currency') ? 'selected' : ''}>${c}</option>`).join('')}</select>
     </div>
-    <button class="btn primary" style="max-width:320px" id="ob-start">Enter the Batcave →</button>
+    <button class="btn primary" style="max-width:320px" id="ob-start">Enter Sanctum →</button>
     <div class="tiny muted">Tip: after this loads, tap ⋮ → “Add to Home screen”.</div>
   </div>`;
   document.getElementById('ob-start').addEventListener('click', async () => {
