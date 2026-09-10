@@ -1065,5 +1065,506 @@
   },
   "amy rigby": {
     "checkedAt": "2026-09-10T00:27:33.275Z"
+  },
+  "audrey hobert": {
+    "checkedAt": "2026-09-10T00:44:50.139Z",
+    "wiki": "https://en.wikipedia.org/wiki/Audrey_Hobert",
+    "blurb": "Audrey Sandra Hobert is an American singer and songwriter.",
+    "descriptor": "American singer-songwriter (born 1999)"
+  },
+  "dylan gossett": {
+    "checkedAt": "2026-09-10T00:44:50.699Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dylan_Gossett",
+    "blurb": "Dylan Gossett is an American country singer-songwriter from Austin, Texas.",
+    "descriptor": "American singer-songwriter"
+  },
+  "our lady peace": {
+    "checkedAt": "2026-09-10T00:44:50.925Z",
+    "wiki": "https://en.wikipedia.org/wiki/Our_Lady_Peace",
+    "blurb": "Our Lady Peace is a Canadian alternative rock band formed in Toronto, Ontario in 1992.",
+    "descriptor": "Canadian rock band"
+  },
+  "squirrel flower": {
+    "checkedAt": "2026-09-10T00:44:51.154Z",
+    "wiki": "https://en.wikipedia.org/wiki/Squirrel_Flower",
+    "blurb": "Squirrel Flower is the stage name of American musician Ella O'Connor Williams.",
+    "descriptor": "American musician (born 1996)"
+  },
+  "tom jones": {
+    "checkedAt": "2026-09-10T00:44:51.381Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Grapes_of_Wrath_(band)",
+    "blurb": "The Grapes of Wrath are a Canadian rock band from Kelowna, British Columbia.",
+    "descriptor": "Canadian rock band"
+  },
+  "wave to earth": {
+    "checkedAt": "2026-09-10T00:44:52.359Z",
+    "wiki": "https://en.wikipedia.org/wiki/Norman_Watt-Roy",
+    "blurb": "Norman Joseph Watt-Roy is an English musician, arranger and composer.",
+    "descriptor": "English musician (born 1951)"
+  },
+  "buffalo traffic jam": {
+    "checkedAt": "2026-09-10T00:44:53.185Z",
+    "descriptor": "group"
+  },
+  "cate le bon": {
+    "checkedAt": "2026-09-10T00:44:55.033Z",
+    "descriptor": "artist"
+  },
+  "empress of": {
+    "checkedAt": "2026-09-10T00:44:56.512Z",
+    "genres": [
+      "pop",
+      "alternative"
+    ],
+    "descriptor": "Honduran‐American singer"
+  },
+  "epik high": {
+    "checkedAt": "2026-09-10T00:44:57.989Z",
+    "genres": [
+      "korean",
+      "hiphop"
+    ],
+    "descriptor": "KR group"
+  },
+  "jacob collier": {
+    "checkedAt": "2026-09-10T00:44:59.470Z",
+    "genres": [
+      "jazz",
+      "contemporary r&b"
+    ],
+    "descriptor": "GB artist"
+  },
+  "logic": {
+    "checkedAt": "2026-09-10T00:45:00.952Z",
+    "wiki": "https://en.wikipedia.org/wiki/Manilla_Road",
+    "blurb": "Manilla Road was an American heavy metal band from Wichita, Kansas, founded by Mark \"The Shark\" Shelton and Scott \"Scooter\" Park (bass).",
+    "descriptor": "American heavy metal band"
+  },
+  "rise against": {
+    "checkedAt": "2026-09-10T00:45:01.356Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rise_Against",
+    "blurb": "Rise Against is an American punk rock band from Chicago, formed in 1999.",
+    "descriptor": "American punk rock band"
+  },
+  "weezer": {
+    "checkedAt": "2026-09-10T00:45:01.589Z",
+    "wiki": "https://en.wikipedia.org/wiki/Weezer",
+    "blurb": "Weezer is an American rock band formed in Los Angeles, California, in 1992.",
+    "descriptor": "American rock band"
+  },
+  "arlo parks": {
+    "checkedAt": "2026-09-10T00:45:01.815Z",
+    "wiki": "https://en.wikipedia.org/wiki/Arlo_Parks",
+    "blurb": "Anaïs Oluwatoyin Estelle Marinho, known professionally as Arlo Parks, is an English singer and songwriter.",
+    "descriptor": "British singer"
+  },
+  "buddy guy": {
+    "checkedAt": "2026-09-10T00:45:02.336Z",
+    "wiki": "https://en.wikipedia.org/wiki/Buddy_Guy",
+    "blurb": "George \"Buddy\" Guy is an American blues guitarist and singer-songwriter.",
+    "descriptor": "American blues guitarist and singer (born 1936)"
+  },
+  "charley crockett": {
+    "checkedAt": "2026-09-10T00:45:03.082Z",
+    "wiki": "https://en.wikipedia.org/wiki/Charley_Crockett",
+    "blurb": "Matthew Charles \"Charley\" Crockett is an American traditional country music singer, songwriter, musician, record producer, and actor.",
+    "descriptor": "American country musician (born 1984)"
+  },
+  "dirty projectors": {
+    "checkedAt": "2026-09-10T00:45:03.310Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dirty_Projectors",
+    "blurb": "Dirty Projectors is an American indie rock band from Brooklyn, New York, formed in 2002.",
+    "descriptor": "American rock group"
+  },
+  "kruder dorfmeister": {
+    "checkedAt": "2026-09-10T00:45:03.537Z",
+    "wiki": "https://en.wikipedia.org/wiki/Kruder_%26_Dorfmeister",
+    "blurb": "Kruder & Dorfmeister, named after members Peter Kruder and Richard Dorfmeister, is an Austrian duo, known for their trip hop/downtempo remixes of pop, hip hop and drum and bass songs.",
+    "descriptor": "Austrian electronic music duo"
+  },
+  "lambchop": {
+    "checkedAt": "2026-09-10T00:45:03.763Z",
+    "genres": [
+      "country",
+      "alternative country"
+    ],
+    "descriptor": "US group"
+  },
+  "ludovico einaudi": {
+    "checkedAt": "2026-09-10T00:45:05.873Z",
+    "genres": [
+      "classical",
+      "modern classical"
+    ],
+    "descriptor": "Italian composer and pianist"
+  },
+  "ray lamontagne": {
+    "checkedAt": "2026-09-10T00:45:07.382Z",
+    "genres": [
+      "folk",
+      "folk rock"
+    ],
+    "descriptor": "US artist"
+  },
+  "the jungle giants": {
+    "checkedAt": "2026-09-10T00:45:08.863Z",
+    "genres": [
+      "dance-pop",
+      "indie pop"
+    ],
+    "descriptor": "group"
+  },
+  "geese": {
+    "checkedAt": "2026-09-10T00:45:10.340Z",
+    "genres": [
+      "indie rock",
+      "art punk"
+    ],
+    "descriptor": "Brooklyn, NY"
+  },
+  "meduza": {
+    "checkedAt": "2026-09-10T00:45:27.860Z",
+    "genres": [
+      "rock",
+      "rockabilly"
+    ],
+    "descriptor": "SE artist"
+  },
+  "ravyn lenae": {
+    "checkedAt": "2026-09-10T00:45:33.753Z",
+    "genres": [
+      "pop",
+      "neo soul"
+    ],
+    "descriptor": "US artist"
+  },
+  "sofi tukker": {
+    "checkedAt": "2026-09-10T00:45:52.846Z",
+    "genres": [
+      "electronic",
+      "dance"
+    ],
+    "descriptor": "US group"
+  },
+  "teddy swims": {
+    "checkedAt": "2026-09-10T00:45:54.390Z",
+    "genres": [
+      "soul",
+      "pop"
+    ],
+    "descriptor": "American singer and songwriter"
+  },
+  "the strokes": {
+    "checkedAt": "2026-09-10T00:45:55.862Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Strokes",
+    "blurb": "The Strokes are an American rock band from New York City that formed in 1998.",
+    "descriptor": "American indie rock band"
+  },
+  "yo yo ma": {
+    "checkedAt": "2026-09-10T00:45:56.080Z",
+    "genres": [
+      "classical",
+      "cello"
+    ],
+    "descriptor": "cellist"
+  },
+  "dom dolla": {
+    "checkedAt": "2026-09-10T00:45:57.676Z",
+    "descriptor": "AU artist"
+  },
+  "ninajirachi": {
+    "checkedAt": "2026-09-10T00:46:18.819Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ninajirachi",
+    "blurb": "Nina Jo Wilson, known by her stage name, Ninajirachi, is an Australian electronic music producer and DJ from Central Coast, New South Wales.",
+    "descriptor": "Australian music producer and DJ (born 1999)"
+  },
+  "pennywise": {
+    "checkedAt": "2026-09-10T00:46:19.077Z",
+    "wiki": "https://en.wikipedia.org/wiki/Pennywise",
+    "blurb": "It, commonly known as Pennywise the Dancing Clown, is the titular main antagonist of Stephen King's 1986 horror novel It, and its adaptations.",
+    "descriptor": "Antagonist of Stephen King's 1986 novel \"It\""
+  },
+  "schoolboy q": {
+    "checkedAt": "2026-09-10T00:46:19.303Z",
+    "wiki": "https://en.wikipedia.org/wiki/Schoolboy_Q",
+    "blurb": "Quincy Matthew Hanley, better known by his stage name Schoolboy Q, is an American rapper.",
+    "descriptor": "American rapper and singer (born 1986)"
+  },
+  "shabooze": {
+    "checkedAt": "2026-09-10T00:46:19.530Z"
+  },
+  "slayyyter": {
+    "checkedAt": "2026-09-10T00:46:22.782Z",
+    "wiki": "https://en.wikipedia.org/wiki/Slayyyter",
+    "blurb": "Catherine Grace Garner, known professionally as Slayyyter, is an American singer and songwriter.",
+    "descriptor": "American singer and songwriter (born 1996)"
+  },
+  "chief keef": {
+    "checkedAt": "2026-09-10T00:46:23.000Z",
+    "wiki": "https://en.wikipedia.org/wiki/Chief_Keef",
+    "blurb": "Keith Farrelle Cozart, known professionally as Chief Keef, is an American rapper and record producer.",
+    "descriptor": "American rapper (born 1995)"
+  },
+  "justin nozuka": {
+    "checkedAt": "2026-09-10T00:46:23.228Z",
+    "wiki": "https://en.wikipedia.org/wiki/Justin_Nozuka",
+    "blurb": "Justin Tokimitsu Nozuka  is an American singer, songwriter, and actor of Japanese and Canadian descent.",
+    "descriptor": "American musician (born 1988)"
+  },
+  "overkill": {
+    "checkedAt": "2026-09-10T00:46:23.606Z",
+    "wiki": "https://en.wikipedia.org/wiki/Overkill_(Mot%C3%B6rhead_song)",
+    "blurb": "\"Overkill\" is a song by English rock band Motörhead.",
+    "descriptor": "1979 song by Motörhead"
+  },
+  "robert glasper": {
+    "checkedAt": "2026-09-10T00:46:24.003Z",
+    "wiki": "https://en.wikipedia.org/wiki/Robert_Glasper",
+    "blurb": "Robert Andre Glasper is an American pianist, record producer, songwriter, and musical arranger.",
+    "descriptor": "American jazz pianist, record producer, and songwriter"
+  },
+  "skillet": {
+    "checkedAt": "2026-09-10T00:46:24.232Z",
+    "genres": [
+      "christian rock",
+      "christian metal"
+    ],
+    "descriptor": "Christian rock band"
+  },
+  "the smashing pumpkins": {
+    "checkedAt": "2026-09-10T00:46:25.966Z",
+    "genres": [
+      "alternative rock",
+      "dream pop"
+    ],
+    "descriptor": "US group"
+  },
+  "turnpike troubadours": {
+    "checkedAt": "2026-09-10T00:46:27.483Z",
+    "genres": [
+      "americana",
+      "red dirt"
+    ],
+    "descriptor": "US group"
+  },
+  "asha banks": {
+    "checkedAt": "2026-09-10T00:46:46.698Z",
+    "descriptor": "artist"
+  },
+  "band maid": {
+    "checkedAt": "2026-09-10T00:46:48.296Z",
+    "genres": [
+      "hard rock",
+      "rock"
+    ],
+    "descriptor": "JP group"
+  },
+  "beabadoobee": {
+    "checkedAt": "2026-09-10T00:47:09.833Z",
+    "wiki": "https://en.wikipedia.org/wiki/Beabadoobee",
+    "blurb": "Beatrice Kristi Ilejay Laus, known professionally as Beabadoobee, is a Filipino and British singer and songwriter.",
+    "descriptor": "Filipino and British singer (born 2000)"
+  },
+  "everything everything": {
+    "checkedAt": "2026-09-10T00:47:10.085Z",
+    "wiki": "https://en.wikipedia.org/wiki/Everything_Everything",
+    "blurb": "Everything Everything are an English art rock band from Salford that formed in late 2007.",
+    "descriptor": "English art rock band"
+  },
+  "krallice": {
+    "checkedAt": "2026-09-10T00:47:10.895Z",
+    "wiki": "https://en.wikipedia.org/wiki/Krallice",
+    "blurb": "Krallice is an American black metal band from the Woodhaven, Queens neighborhood of New York City.",
+    "descriptor": "American black metal band"
+  },
+  "ruthie foster": {
+    "checkedAt": "2026-09-10T00:47:11.124Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ruthie_Foster",
+    "blurb": "Ruthie Cecelia Foster is an American singer-songwriter of blues and folk music.",
+    "descriptor": "American blues musician, singer, and songwriter"
+  },
+  "vacations": {
+    "checkedAt": "2026-09-10T00:47:11.353Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gary_McCracken",
+    "blurb": "Gary McCracken is a Canadian musician.",
+    "descriptor": "Canadian musician (born 1951)"
+  },
+  "vince giordano the nighthawks": {
+    "checkedAt": "2026-09-10T00:47:12.924Z",
+    "wiki": "https://en.wikipedia.org/wiki/Vince_Giordano",
+    "blurb": "Vince Giordano is an American saxophonist and leader of the New York-based Nighthawks Orchestra.",
+    "descriptor": "American musician (born 1952)"
+  },
+  "angelo de augustine": {
+    "checkedAt": "2026-09-10T00:47:13.600Z",
+    "wiki": "https://en.wikipedia.org/wiki/Angelo_De_Augustine",
+    "blurb": "Angelo De Augustine is an American musician residing in Thousand Oaks, California.",
+    "descriptor": "American musician"
+  },
+  "cain culto": {
+    "checkedAt": "2026-09-10T00:47:13.829Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cain_Culto",
+    "blurb": "Andrew Estevan Padilla, known by his stage name Cain Culto, is an American singer and violinist.",
+    "descriptor": "American singer and musician"
+  },
+  "chelsea wolfe": {
+    "checkedAt": "2026-09-10T00:47:14.056Z",
+    "genres": [
+      "singer-songwriter",
+      "rock"
+    ],
+    "descriptor": "US artist"
+  },
+  "knocked loose": {
+    "checkedAt": "2026-09-10T00:47:15.535Z",
+    "genres": [
+      "metalcore",
+      "hardcore punk"
+    ],
+    "descriptor": "hardcore band"
+  },
+  "monsta x": {
+    "checkedAt": "2026-09-10T00:47:41.377Z",
+    "genres": [
+      "k-pop",
+      "boy band"
+    ],
+    "descriptor": "South Korean boy group"
+  },
+  "olivia o brien": {
+    "checkedAt": "2026-09-10T00:47:42.923Z",
+    "descriptor": "US artist"
+  },
+  "sub urban": {
+    "checkedAt": "2026-09-10T00:47:49.961Z",
+    "genres": [
+      "pop",
+      "punk rock"
+    ],
+    "descriptor": "artist"
+  },
+  "the royston club": {
+    "checkedAt": "2026-09-10T00:48:01.056Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Royston_Club",
+    "blurb": "The Royston Club are a Welsh indie rock band formed in Wrexham in 2019 by Tom Faithfull, Ben Matthias, Dave Tute (bass), and Sam Jones (drums).",
+    "descriptor": "Welsh indie rock band"
+  },
+  "the yawpers": {
+    "checkedAt": "2026-09-10T00:48:01.346Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Yawpers",
+    "blurb": "The Yawpers are a three-piece rock and roll band from Denver, Colorado.",
+    "descriptor": "American band"
+  },
+  "basement": {
+    "checkedAt": "2026-09-10T00:48:01.571Z",
+    "wiki": "https://en.wikipedia.org/wiki/Basement_Jaxx",
+    "blurb": "Basement Jaxx are an English electronic music duo consisting of Felix Buxton and Simon Ratcliffe.",
+    "descriptor": "British electronic music duo"
+  },
+  "hana stretton": {
+    "checkedAt": "2026-09-10T00:48:01.942Z",
+    "wiki": "https://en.wikipedia.org/wiki/Hana_Stretton",
+    "blurb": "Hana Williams, also known as Hana Stretton, is a British-Australian singer-songwriter.",
+    "descriptor": "Australian singer-songwriter (born 1994)"
+  },
+  "joshua burnside": {
+    "checkedAt": "2026-09-10T00:48:02.169Z",
+    "wiki": "https://en.wikipedia.org/wiki/Joshua_Burnside",
+    "blurb": "Joshua Burnside is a Northern Irish folk singer-songwriter based in Belfast.",
+    "descriptor": "Musical artist"
+  },
+  "kettama": {
+    "checkedAt": "2026-09-10T00:48:02.396Z",
+    "wiki": "https://en.wikipedia.org/wiki/Kettama",
+    "blurb": "Evan Campbell, known professionally as Kettama, is an Irish electronic music producer and DJ.",
+    "descriptor": "Irish musician and producer"
+  },
+  "slift": {
+    "checkedAt": "2026-09-10T00:48:02.623Z",
+    "wiki": "https://en.wikipedia.org/wiki/Slift",
+    "blurb": "Slift is a French rock band from Toulouse.",
+    "descriptor": "French rock band"
+  },
+  "white denim": {
+    "checkedAt": "2026-09-10T00:48:02.847Z",
+    "wiki": "https://en.wikipedia.org/wiki/White_Denim",
+    "blurb": "White Denim is an American rock band from Austin, Texas, United States.",
+    "descriptor": "American rock band"
+  },
+  "yob": {
+    "checkedAt": "2026-09-10T00:48:03.074Z",
+    "genres": [
+      "sludge metal",
+      "doom metal"
+    ],
+    "descriptor": "US doom metal trio"
+  },
+  "berliner philharmoniker": {
+    "checkedAt": "2026-09-10T00:48:05.066Z",
+    "genres": [
+      "classical",
+      "german"
+    ]
+  },
+  "caroline rose": {
+    "checkedAt": "2026-09-10T00:48:13.916Z"
+  },
+  "elder island": {
+    "checkedAt": "2026-09-10T00:48:15.438Z",
+    "descriptor": "group"
+  },
+  "hug": {
+    "checkedAt": "2026-09-10T00:48:32.890Z",
+    "descriptor": "Austin lo-fi post-punk band"
+  },
+  "jessie ware": {
+    "checkedAt": "2026-09-10T00:48:55.901Z",
+    "genres": [
+      "electronic",
+      "dance"
+    ],
+    "descriptor": "British singer‐songwriter"
+  },
+  "lettuce": {
+    "checkedAt": "2026-09-10T00:49:26.159Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rashawn_Ross",
+    "blurb": "Rashawn Ross is an American trumpeter and arranger.",
+    "descriptor": "Musical artist"
+  },
+  "modest mouse": {
+    "checkedAt": "2026-09-10T00:49:27.530Z",
+    "wiki": "https://en.wikipedia.org/wiki/Modest_Mouse",
+    "blurb": "Modest Mouse is an American indie rock band formed in 1993 in Issaquah, Washington, and currently based in Portland, Oregon.",
+    "descriptor": "American rock band"
+  },
+  "oteil burbridge": {
+    "checkedAt": "2026-09-10T00:49:27.756Z",
+    "wiki": "https://en.wikipedia.org/wiki/Oteil_Burbridge",
+    "blurb": "Oteil Burbridge is an American multi-instrumentalist who is primarily known for his skill on the bass guitar.",
+    "descriptor": "American musician (born 1964"
+  },
+  "the linda lindas": {
+    "checkedAt": "2026-09-10T00:49:27.985Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Linda_Lindas",
+    "blurb": "The Linda Lindas is an American punk band from Los Angeles.",
+    "descriptor": "American rock band from Los Angeles"
+  },
+  "kelela": {
+    "checkedAt": "2026-09-10T00:49:28.214Z",
+    "wiki": "https://en.wikipedia.org/wiki/Kelela",
+    "blurb": "Kelela Mizanekristos is an American singer.",
+    "descriptor": "American singer (born 1983)"
+  },
+  "overmono": {
+    "checkedAt": "2026-09-10T00:49:28.440Z",
+    "wiki": "https://en.wikipedia.org/wiki/Overmono",
+    "blurb": "Overmono is a Welsh electronic music duo consisting of brothers Tom and Ed Russell.",
+    "descriptor": "Welsh electronic music duo"
+  },
+  "the format": {
+    "checkedAt": "2026-09-10T00:49:28.659Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Format",
+    "blurb": "The Format is an American indie rock band, formed by vocalist Nate Ruess and multi-instrumentalist Sam Means.",
+    "descriptor": "American indie rock band"
   }
 }
