@@ -3,7 +3,7 @@
 // Runs on GitHub Actions (Node 20+, no dependencies). Server-side, so there is
 // no CORS problem and no API key. We read schema.org JSON-LD that the listing
 // pages already publish rather than scraping markup, which is far less brittle.
-import { writeFile, readFile } from 'node:fs/promises';
+import { writeFile, readFile, mkdir } from 'node:fs/promises';
 import { enrich } from './enrich-artists.mjs';
 
 // A region can span several Songkick metro areas. New Jersey is not one metro:
@@ -114,20 +114,30 @@ const HEADERS = {
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
+// Songkick throttles hard from a datacentre IP. Observed on GitHub Actions:
+// four pages fetched 2.5s apart, then HTTP 406 on every attempt including
+// retries at 4s/8s/12s, and the block persisted into the *next* metro. It is a
+// cooldown, not a transient blip, so the backoff has to be on that scale.
+const RETRY_WAITS = [20000, 45000, 90000, 150000];
+const PAGE_DELAY = 7000;
+const jitter = (ms) => ms + Math.floor(Math.random() * 2000);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 async function fetchPage(metro, page) {
   const url = `https://www.songkick.com/metro-areas/${metro}${page > 1 ? `?page=${page}` : ''}`;
   let lastErr;
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  for (let attempt = 0; attempt <= RETRY_WAITS.length; attempt++) {
     try {
       const res = await fetch(url, { headers: HEADERS });
       if (res.ok) return res.text();
       lastErr = new Error(`HTTP ${res.status}`);
-      // 406/429/5xx are throttling — back off and try again rather than giving up.
+      // 406/429/5xx are throttling — wait it out rather than giving up.
       if (![406, 429, 500, 502, 503].includes(res.status)) break;
     } catch (e) { lastErr = e; }
-    const wait = 4000 * attempt;
-    console.log(`  page ${page} attempt ${attempt} failed (${lastErr.message}); retrying in ${wait / 1000}s`);
-    await new Promise((r) => setTimeout(r, wait));
+    if (attempt === RETRY_WAITS.length) break;
+    const wait = jitter(RETRY_WAITS[attempt]);
+    console.log(`  page ${page} attempt ${attempt + 1} failed (${lastErr.message}); waiting ${Math.round(wait / 1000)}s`);
+    await sleep(wait);
   }
   throw lastErr || new Error('unknown fetch failure');
 }
@@ -167,7 +177,7 @@ async function collect(regionId) {
       // events at all — otherwise overlap between metros truncates the crawl.
       emptyStreak = (added === 0 && inWindow.length === 0) ? emptyStreak + 1 : 0;
       if (emptyStreak >= 2) break;
-      await new Promise((r) => setTimeout(r, 2500)); // be a polite client
+      await sleep(jitter(PAGE_DELAY));   // be a polite client, and stay unblocked
     }
     console.log(`  metro ${metro} contributed ${seen.size - before} events`);
   }
@@ -211,8 +221,15 @@ if (prevCount && events.length < prevCount * 0.6) {
 }
 if (partial) console.warn('Note: the crawl ended early, so later dates may be thin.');
 
+// Enrichment is a nice-to-have: blurbs and Wikipedia links. It must never be
+// able to lose a good crawl — an ENOENT writing the cache once threw away a
+// completed two-metro crawl and failed the whole run.
 console.log('Enriching artists (Wikipedia + MusicBrainz, cached)…');
-await enrich(events);
+try {
+  await enrich(events);
+} catch (e) {
+  console.warn(`Enrichment failed (${e.message}) — publishing listings without blurbs.`);
+}
 
 const payload = {
   city: region.name,
@@ -238,5 +255,6 @@ if (previous && sig(previous) === sig(payload)) {
 // order of magnitude more events than the old 28-day single-metro file, and
 // indentation was roughly a third of the bytes — which the phone downloads.
 // Nothing hand-edits this file, so the lost readability costs nothing.
+await mkdir('data', { recursive: true });
 await writeFile(outPath, JSON.stringify(payload) + '\n');
 console.log(`Wrote ${outPath}: ${events.length} events, ${new Set(events.map((e) => e.venue)).size} venues.`);

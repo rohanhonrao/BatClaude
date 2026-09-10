@@ -22,7 +22,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -41,7 +41,10 @@ jobs:
           # MusicBrainz cache, and for a long time it was written on the runner
           # and thrown away, so every run re-looked-up every artist from
           # scratch at ~1.3s each and the 45-day recheck window never applied.
-          git add data/concerts-*.json data/artists.json
+          # -A over the whole directory: naming data/artists.json explicitly made
+          # the step fail with 'pathspec did not match' whenever enrichment had
+          # not produced it yet, which would block an otherwise good crawl.
+          git add -A data
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else

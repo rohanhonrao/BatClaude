@@ -7,7 +7,7 @@
 //
 // Nothing here is generated or guessed: if neither source knows an artist we
 // leave the fields off rather than inventing a bio.
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
 const UA = 'SanctumConcerts/1.0 (personal music listings app)';
 const CACHE_PATH = 'data/artists.json';
@@ -122,6 +122,9 @@ export async function enrich(events, { maxLookups = 350 } = {}) {
     if (!ev.genre && info.genres?.length) ev.genre = info.genres[0];
   }
 
+  // git does not track empty directories, so once data/ held no committed files
+  // a fresh checkout did not have it at all and this threw ENOENT.
+  await mkdir('data', { recursive: true });
   await writeFile(CACHE_PATH, JSON.stringify(cache, null, 2) + '\n');
   console.log(`Artist cache: ${Object.keys(cache).length} entries (${fetched} looked up this run).`);
   return events;
