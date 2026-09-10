@@ -3746,5 +3746,850 @@
     "wiki": "https://en.wikipedia.org/wiki/Dave_Cheeseman",
     "blurb": "Dave Cheeseman is a prolific English underground session musician, known for his work with Sack Trick and Pillow Talk.",
     "descriptor": "Musical artist"
+  },
+  "gustavo dudamel": {
+    "checkedAt": "2026-09-10T10:28:46.803Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gustavo_Dudamel",
+    "blurb": "Gustavo Adolfo Dudamel Ramírez is a Venezuelan conductor.",
+    "descriptor": "Venezuelan conductor and violinist (born 1981)"
+  },
+  "preservation hall jazz band": {
+    "checkedAt": "2026-09-10T10:28:47.067Z",
+    "wiki": "https://en.wikipedia.org/wiki/Preservation_Hall_Jazz_Band",
+    "blurb": "The Preservation Hall Jazz Band is a New Orleans jazz band founded in New Orleans by tuba player Allan Jaffe in the early 1960s.",
+    "descriptor": "American jazz band"
+  },
+  "wicked nyc": {
+    "checkedAt": "2026-09-10T10:28:47.280Z",
+    "wiki": "https://en.wikipedia.org/wiki/Steve_Conte",
+    "blurb": "Steve Conte is an American guitarist, singer and songwriter, and the frontman of the band Steve Conte NYC.",
+    "descriptor": "American rock musician"
+  },
+  "blue yster cult": {
+    "checkedAt": "2026-09-10T10:28:48.568Z",
+    "wiki": "https://en.wikipedia.org/wiki/Blue_%C3%96yster_Cult",
+    "blurb": "Blue Öyster Cult is an American rock band formed on Long Island, New York, in the hamlet of Stony Brook, in 1967.",
+    "descriptor": "American rock band"
+  },
+  "buray": {
+    "checkedAt": "2026-09-10T10:28:48.779Z",
+    "wiki": "https://en.wikipedia.org/wiki/Buray",
+    "blurb": "Buray Hoşsöz is a Turkish Cypriot pop singer.",
+    "descriptor": "Turkish Cypriot pop singer"
+  },
+  "fantastic cat": {
+    "checkedAt": "2026-09-10T10:28:49.014Z",
+    "wiki": "https://en.wikipedia.org/wiki/Fantastic_Cat",
+    "blurb": "Fantastic Cat is an indie music group consisting of Anthony D'Amato, Brian Dunne, Don DiLego, and Mike Montali.",
+    "descriptor": "Indie rock musical group"
+  },
+  "frank vignola": {
+    "checkedAt": "2026-09-10T10:28:49.230Z",
+    "wiki": "https://en.wikipedia.org/wiki/Frank_Vignola",
+    "blurb": "Frank Vignola is an American jazz guitarist.",
+    "descriptor": "American jazz guitarist"
+  },
+  "natasha diggs": {
+    "checkedAt": "2026-09-10T10:28:49.441Z",
+    "descriptor": "vocalist, dancer, visual artist"
+  },
+  "new york philharmonic": {
+    "checkedAt": "2026-09-10T10:29:02.903Z",
+    "wiki": "https://en.wikipedia.org/wiki/New_York_Philharmonic",
+    "blurb": "The New York Philharmonic is an American symphony orchestra based in New York City.",
+    "descriptor": "American symphony orchestra"
+  },
+  "ryan clark": {
+    "checkedAt": "2026-09-10T10:29:03.125Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ryan_Clark_(musician)",
+    "blurb": "Ryan Curtis Clark is an American musician who also has performed under the stage name Maven.",
+    "descriptor": "American musician (born 1979)"
+  },
+  "the deep drags": {
+    "checkedAt": "2026-09-10T10:29:03.521Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gene_Krupa",
+    "blurb": "Eugene Bertram Krupa was an American jazz drummer, bandleader, and composer.",
+    "descriptor": "American jazz drummer and bandleader (1909–1973)"
+  },
+  "all ohio balloon festival 2026 balloon museum nyc": {
+    "checkedAt": "2026-09-10T10:29:04.362Z"
+  },
+  "david morales": {
+    "checkedAt": "2026-09-10T10:29:40.191Z",
+    "genres": [
+      "electronic",
+      "house"
+    ],
+    "descriptor": "US DJ/producer"
+  },
+  "david ostwald s louis armstrong eternity band": {
+    "checkedAt": "2026-09-10T10:29:55.990Z"
+  },
+  "aitana": {
+    "checkedAt": "2026-09-10T10:30:12.129Z",
+    "wiki": "https://en.wikipedia.org/wiki/Morat_(band)",
+    "blurb": "Morat is a Colombian Latin pop rock band formed in the country's capital city, Bogotá.",
+    "descriptor": "Colombian folk-pop Band"
+  },
+  "boy 2000": {
+    "checkedAt": "2026-09-10T10:30:12.525Z",
+    "wiki": "https://en.wikipedia.org/wiki/Matthew_Herbert",
+    "blurb": "Matthew Herbert, also known as Herbert, Doctor Rockit, Radio Boy, Mr.",
+    "descriptor": "British electronic musician"
+  },
+  "byron stingily": {
+    "checkedAt": "2026-09-10T10:30:13.429Z",
+    "wiki": "https://en.wikipedia.org/wiki/Byron_Stingily",
+    "blurb": "Byron Stingily is an American R&B and house-music singer born in Chicago, Illinois, known for his falsetto voice.",
+    "descriptor": "American R&B and house-music singer"
+  },
+  "dark star orchestra": {
+    "checkedAt": "2026-09-10T10:30:13.641Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dark_Star_Orchestra",
+    "blurb": "Dark Star Orchestra is a Grateful Dead tribute band formed in Chicago, Illinois.",
+    "descriptor": "American tribute band"
+  },
+  "dave hause": {
+    "checkedAt": "2026-09-10T10:30:13.859Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dave_Hause",
+    "blurb": "Dave Hause is an American singer-songwriter.",
+    "descriptor": "American singer-songwriter (born 1978)"
+  },
+  "dave hause and the mermaid": {
+    "checkedAt": "2026-09-10T10:30:14.424Z"
+  },
+  "marcus machado": {
+    "checkedAt": "2026-09-10T10:30:16.149Z",
+    "descriptor": "guitarist"
+  },
+  "nicole atkins": {
+    "checkedAt": "2026-09-10T10:30:17.584Z",
+    "genres": [
+      "country"
+    ],
+    "descriptor": "US artist"
+  },
+  "remember jones": {
+    "checkedAt": "2026-09-10T10:30:54.860Z",
+    "descriptor": "Soul / pop singer, bandleader"
+  },
+  "el tri": {
+    "checkedAt": "2026-09-10T10:30:57.446Z"
+  },
+  "felix da housecat": {
+    "checkedAt": "2026-09-10T10:30:58.857Z"
+  },
+  "integrity": {
+    "checkedAt": "2026-09-10T10:31:40.266Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jared_Anderson_(Christian_musician)",
+    "blurb": "Jared Anderson is a Christian worship leader from Colorado Springs, Colorado.",
+    "descriptor": "Musical artist"
+  },
+  "joe dwet file": {
+    "checkedAt": "2026-09-10T10:31:40.614Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jo%C3%A9_Dw%C3%A8t_Fil%C3%A9",
+    "blurb": "Joé Dwèt Filé is a French-Haitian singer.",
+    "descriptor": "Haitian singer"
+  },
+  "los tigres del norte": {
+    "checkedAt": "2026-09-10T10:31:40.830Z",
+    "wiki": "https://en.wikipedia.org/wiki/Los_Tigres_del_Norte",
+    "blurb": "Los Tigres del Norte are a Mexican norteño band based in San Jose, California.",
+    "descriptor": "California-based norteño Mexican band"
+  },
+  "svdden death": {
+    "checkedAt": "2026-09-10T10:31:41.042Z",
+    "wiki": "https://en.wikipedia.org/wiki/Svdden_Death",
+    "blurb": "Daniel James \"Danny\" Howland, better known by his alias Svdden Death, is a Los Angeles DJ and producer from San Jose, California.",
+    "descriptor": "American DJ and producer"
+  },
+  "troyboi": {
+    "checkedAt": "2026-09-10T10:31:41.257Z",
+    "wiki": "https://en.wikipedia.org/wiki/TroyBoi",
+    "blurb": "Troy Austin Attoh Henry, known professionally as TroyBoi, is a British DJ, record producer, and musician.",
+    "descriptor": "British DJ, record producer and musician"
+  },
+  "tyla": {
+    "checkedAt": "2026-09-10T10:31:41.469Z",
+    "wiki": "https://en.wikipedia.org/wiki/Tyla",
+    "blurb": "Tyla Laura Seethal is a South African singer and songwriter.",
+    "descriptor": "South African singer and songwriter (born 2002)"
+  },
+  "dragonforce": {
+    "checkedAt": "2026-09-10T10:31:41.673Z",
+    "wiki": "https://en.wikipedia.org/wiki/DragonForce",
+    "blurb": "DragonForce are a British power metal band from London, formed in 1999.",
+    "descriptor": "British power metal band"
+  },
+  "geoffrey keezer": {
+    "checkedAt": "2026-09-10T10:31:41.887Z",
+    "wiki": "https://en.wikipedia.org/wiki/Geoffrey_Keezer",
+    "blurb": "Geoffrey Keezer is an American jazz pianist.",
+    "descriptor": "American jazz pianist (born 1970)"
+  },
+  "harlem gospel choir": {
+    "checkedAt": "2026-09-10T10:31:43.774Z",
+    "descriptor": "US"
+  },
+  "lea salonga": {
+    "checkedAt": "2026-09-10T10:31:45.956Z",
+    "genres": [
+      "pop",
+      "opm"
+    ],
+    "descriptor": "PH artist"
+  },
+  "kevin sun": {
+    "checkedAt": "2026-09-10T10:31:47.393Z"
+  },
+  "zohar adam": {
+    "checkedAt": "2026-09-10T10:31:48.803Z"
+  },
+  "allison kelly": {
+    "checkedAt": "2026-09-10T10:31:50.249Z"
+  },
+  "doja cat": {
+    "checkedAt": "2026-09-10T10:32:11.254Z",
+    "wiki": "https://en.wikipedia.org/wiki/Doja_Cat",
+    "blurb": "Amala Ratna Zandile Dlamini, known professionally as Doja Cat, is an American rapper, singer, and songwriter.",
+    "descriptor": "American rapper (born 1995)"
+  },
+  "joe lovano nonet": {
+    "checkedAt": "2026-09-10T10:32:11.513Z",
+    "wiki": "https://en.wikipedia.org/wiki/52nd_Street_Themes",
+    "blurb": "52nd Street Themes is a studio album by the American jazz saxophonist Joe Lovano.",
+    "descriptor": "2000 studio album by Joe Lovano"
+  },
+  "kingdom of giants": {
+    "checkedAt": "2026-09-10T10:32:12.702Z",
+    "wiki": "https://en.wikipedia.org/wiki/Kingdom_of_Giants",
+    "blurb": "Kingdom of Giants is an American metalcore band from Sacramento, California.",
+    "descriptor": "American metalcore band"
+  },
+  "nor ll": {
+    "checkedAt": "2026-09-10T10:32:13.511Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ola_H%C3%A5kansson",
+    "blurb": "Ola Håkansson is a Swedish singer, composer and producer.",
+    "descriptor": "Swedish singer, composer and producer (born 1945)"
+  },
+  "stray cats": {
+    "checkedAt": "2026-09-10T10:32:15.139Z",
+    "wiki": "https://en.wikipedia.org/wiki/Stray_Cats",
+    "blurb": " Stray Cats is an American rockabilly band formed in 1979 by guitarist and vocalist Brian Setzer, double bassist Lee Rocker, and drummer Slim Jim Phantom in the Long Island hamlet of Massapequa, New York.",
+    "descriptor": "American rockabilly band"
+  },
+  "aura": {
+    "checkedAt": "2026-09-10T10:32:15.413Z"
+  },
+  "gift usa": {
+    "checkedAt": "2026-09-10T10:32:16.829Z"
+  },
+  "nate smith": {
+    "checkedAt": "2026-09-10T10:32:18.261Z",
+    "genres": [
+      "country"
+    ],
+    "descriptor": "US country singer"
+  },
+  "static dress": {
+    "checkedAt": "2026-09-10T10:32:19.695Z",
+    "genres": [
+      "post-hardcore",
+      "metalcore"
+    ],
+    "descriptor": "English post-hardcore/rock band"
+  },
+  "temples": {
+    "checkedAt": "2026-09-10T10:32:21.128Z",
+    "genres": [
+      "psychedelic rock",
+      "neo-psychedelia"
+    ],
+    "descriptor": "English pyschedelic rock band"
+  },
+  "the hold steady": {
+    "checkedAt": "2026-09-10T10:32:22.591Z",
+    "genres": [
+      "indie rock",
+      "rock"
+    ],
+    "descriptor": "US group"
+  },
+  "turnover": {
+    "checkedAt": "2026-09-10T10:32:25.601Z",
+    "genres": [
+      "dream pop",
+      "indie rock"
+    ],
+    "descriptor": "rock band from Virginia Beach, Virginia"
+  },
+  "b la fleck": {
+    "checkedAt": "2026-09-10T10:32:27.142Z",
+    "genres": [
+      "folk",
+      "bluegrass"
+    ],
+    "descriptor": "US artist"
+  },
+  "hayden everett": {
+    "checkedAt": "2026-09-10T10:32:34.536Z",
+    "descriptor": "US artist"
+  },
+  "ken pomeroy": {
+    "checkedAt": "2026-09-10T10:33:03.934Z",
+    "wiki": "https://en.wikipedia.org/wiki/Life_Is_a_Many_Splendored_Gig",
+    "blurb": "Life Is a Many Splendored Gig is an album by the Herb Pomeroy Orchestra.",
+    "descriptor": "1957 studio album by Herb Pomeroy"
+  },
+  "lucy": {
+    "checkedAt": "2026-09-10T10:33:04.629Z",
+    "wiki": "https://en.wikipedia.org/wiki/Juicy_Lucy_(band)",
+    "blurb": "Juicy Lucy was a British blues rock band officially formed on 1 October 1969.",
+    "descriptor": "British blues rock band (1969–2018)"
+  },
+  "venna uk": {
+    "checkedAt": "2026-09-10T10:33:05.383Z",
+    "wiki": "https://en.wikipedia.org/wiki/Flu_Game_(album)",
+    "blurb": "Flu Game is the second studio album by British rapper AJ Tracey.",
+    "descriptor": "2021 studio album by AJ Tracey"
+  },
+  "daily bread": {
+    "checkedAt": "2026-09-10T10:33:06.333Z",
+    "descriptor": "electronic artist based in Atlanta, GA"
+  },
+  "death from above 1979": {
+    "checkedAt": "2026-09-10T10:33:16.457Z",
+    "genres": [
+      "rock",
+      "dance-punk"
+    ],
+    "descriptor": "Canadian rock duo"
+  },
+  "la s curit": {
+    "checkedAt": "2026-09-10T10:33:17.917Z",
+    "wiki": "https://en.wikipedia.org/wiki/La_S%C3%A9curit%C3%A9",
+    "blurb": "La Sécurité is a Canadian dance-punk group from Montreal, Quebec, whose debut album Stay Safe! was released in 2023.",
+    "descriptor": "Canadian musical group"
+  },
+  "nilsix": {
+    "checkedAt": "2026-09-10T10:33:18.121Z",
+    "genres": [
+      "trance",
+      "electronic"
+    ],
+    "descriptor": "trance duo Ørjan Nilsen and Mark Sixma"
+  },
+  "noizu": {
+    "checkedAt": "2026-09-10T10:33:19.556Z"
+  },
+  "shintaro sakamoto": {
+    "checkedAt": "2026-09-10T10:33:20.976Z"
+  },
+  "yo la tengo": {
+    "checkedAt": "2026-09-10T10:33:22.439Z",
+    "wiki": "https://en.wikipedia.org/wiki/Yo_La_Tengo",
+    "blurb": "Yo La Tengo is an American indie rock band formed in Hoboken, New Jersey, in 1984.",
+    "descriptor": "American indie rock band"
+  },
+  "sander van doorn": {
+    "checkedAt": "2026-09-10T10:33:22.644Z",
+    "genres": [
+      "trance",
+      "house"
+    ],
+    "descriptor": "NL artist"
+  },
+  "daine": {
+    "checkedAt": "2026-09-10T10:33:31.664Z",
+    "descriptor": "Filipino‐Australian artist, based in Melbourne"
+  },
+  "dexter and the moonrocks": {
+    "checkedAt": "2026-09-10T10:33:45.258Z",
+    "descriptor": "US | country-rock"
+  },
+  "friendship philly": {
+    "checkedAt": "2026-09-10T10:33:46.750Z"
+  },
+  "men without hats": {
+    "checkedAt": "2026-09-10T10:33:48.207Z",
+    "genres": [
+      "new wave",
+      "pop"
+    ],
+    "descriptor": "Canadian new wave/synthpop group"
+  },
+  "pig destroyer": {
+    "checkedAt": "2026-09-10T10:33:49.641Z",
+    "genres": [
+      "grindcore",
+      "metal"
+    ],
+    "descriptor": "US group"
+  },
+  "s carey": {
+    "checkedAt": "2026-09-10T10:34:06.145Z",
+    "wiki": "https://en.wikipedia.org/wiki/S._Carey",
+    "blurb": "Sean Carey, also known as S.",
+    "descriptor": "American musician"
+  },
+  "suzanne vega": {
+    "checkedAt": "2026-09-10T10:34:06.360Z",
+    "wiki": "https://en.wikipedia.org/wiki/Suzanne_Vega",
+    "blurb": "Suzanne Nadine Vega is an American singer-songwriter of folk-inspired music.",
+    "descriptor": "American singer-songwriter (born 1959)"
+  },
+  "the allman betts family revival": {
+    "checkedAt": "2026-09-10T10:34:06.575Z",
+    "wiki": "https://en.wikipedia.org/wiki/Duane_Betts",
+    "blurb": "Duane Betts is an American guitarist and singer-songwriter.",
+    "descriptor": "American singer-songwriter"
+  },
+  "vanessa racci": {
+    "checkedAt": "2026-09-10T10:34:09.547Z"
+  },
+  "dolly a true original musical": {
+    "checkedAt": "2026-09-10T10:34:11.308Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dolly_Parton",
+    "blurb": "Dolly Rebecca Parton Dean was an American singer-songwriter, actress, and businesswoman.",
+    "descriptor": "American singer-songwriter (1946–2026)"
+  },
+  "leslie odom jr": {
+    "checkedAt": "2026-09-10T10:34:12.688Z",
+    "wiki": "https://en.wikipedia.org/wiki/Leslie_Odom_Jr.",
+    "blurb": "Leslie Lloyd Odom Jr.",
+    "descriptor": "American actor, singer and songwriter (born 1981)"
+  },
+  "mareux": {
+    "checkedAt": "2026-09-10T10:34:13.432Z",
+    "genres": [
+      "darkwave"
+    ],
+    "descriptor": "LA darkwave"
+  },
+  "rehfhgh": {
+    "checkedAt": "2026-09-10T10:34:14.866Z"
+  },
+  "bodysnatcher": {
+    "checkedAt": "2026-09-10T10:34:16.297Z",
+    "genres": [
+      "hardcore",
+      "deathcore"
+    ],
+    "descriptor": "Florida metalcore"
+  },
+  "corey parsons": {
+    "checkedAt": "2026-09-10T10:34:17.733Z",
+    "descriptor": "artist"
+  },
+  "emmet cohen trio": {
+    "checkedAt": "2026-09-10T10:34:19.391Z",
+    "descriptor": "group"
+  },
+  "meek": {
+    "checkedAt": "2026-09-10T10:34:40.501Z"
+  },
+  "underoath": {
+    "checkedAt": "2026-09-10T10:35:21.921Z",
+    "wiki": "https://en.wikipedia.org/wiki/Underoath",
+    "blurb": "Underoath is an American rock band from Tampa, Florida.",
+    "descriptor": "American rock band"
+  },
+  "detroit rivers": {
+    "checkedAt": "2026-09-10T10:35:22.131Z",
+    "wiki": "https://en.wikipedia.org/wiki/List_of_jazz_musicians",
+    "blurb": "This is a list of jazz musicians by instrument based on existing articles on Wikipedia."
+  },
+  "eloise": {
+    "checkedAt": "2026-09-10T10:35:48.671Z",
+    "wiki": "https://en.wikipedia.org/wiki/Arvingarna",
+    "blurb": "Arvingarna is a Swedish dansband formed in Gothenburg in 1989.",
+    "descriptor": "Swedish dansband"
+  },
+  "jackie evans": {
+    "checkedAt": "2026-09-10T10:35:48.980Z",
+    "wiki": "https://en.wikipedia.org/wiki/Mike_Richmond_(musician)",
+    "blurb": "Mike Richmond is an American jazz bassist.",
+    "descriptor": "American jazz musician (born 1948)"
+  },
+  "jady": {
+    "checkedAt": "2026-09-10T10:35:49.658Z",
+    "descriptor": "Pop/Alternative"
+  },
+  "lisette oropesa": {
+    "checkedAt": "2026-09-10T10:35:54.693Z",
+    "genres": [
+      "cuban american",
+      "lyric coloratura"
+    ],
+    "descriptor": "soprano opera singer"
+  },
+  "shakey graves": {
+    "checkedAt": "2026-09-10T10:36:20.344Z",
+    "wiki": "https://en.wikipedia.org/wiki/Shakey_Graves",
+    "blurb": "Shakey Graves is an American musician and actor from Austin, Texas.",
+    "descriptor": "American Americana musician"
+  },
+  "the dresden dolls": {
+    "checkedAt": "2026-09-10T10:36:20.563Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Dresden_Dolls",
+    "blurb": "The Dresden Dolls is an American musical duo from Boston, Massachusetts.",
+    "descriptor": "American musical duo (formed 2000)"
+  },
+  "chris botti": {
+    "checkedAt": "2026-09-10T10:36:20.839Z",
+    "wiki": "https://en.wikipedia.org/wiki/Chris_Botti",
+    "blurb": "Christopher Stephen Botti is an American trumpeter and composer.",
+    "descriptor": "American trumpeter and composer (born 1962)"
+  },
+  "gallant": {
+    "checkedAt": "2026-09-10T10:36:21.052Z",
+    "wiki": "https://en.wikipedia.org/wiki/Larrie_Londin",
+    "blurb": "Ralph Gallant, known professionally as Larrie Londin, was an American drummer and session musician.",
+    "descriptor": "American drummer"
+  },
+  "gwar": {
+    "checkedAt": "2026-09-10T10:36:21.670Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gwar",
+    "blurb": "Gwar, often stylized as GWAR, is an American heavy metal band formed in Richmond, Virginia, in 1984, composed of and operated by a frequently rotating line-up of musicians, artists, and filmmakers collectively known as Slave Pit Inc.",
+    "descriptor": "American heavy metal band"
+  },
+  "rhye": {
+    "checkedAt": "2026-09-10T10:36:21.874Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rhye",
+    "blurb": "Rhye is an R&B musical project of Canadian singer Mike Milosh.",
+    "descriptor": "R&B musical project"
+  },
+  "the hot sardines": {
+    "checkedAt": "2026-09-10T10:36:22.087Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Hot_Sardines",
+    "blurb": "The Hot Sardines is an American jazz band formed in New York City in 2007 by the artistic director, singer, and writer Elizabeth Bougerol and the artistic director, actor, and pianist Evan Palazzo.",
+    "descriptor": "American jazz band"
+  },
+  "the mountain goats": {
+    "checkedAt": "2026-09-10T10:36:22.297Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Mountain_Goats",
+    "blurb": "The Mountain Goats are an American indie folk band formed in Claremont, California, by singer-songwriter John Darnielle.",
+    "descriptor": "American indie folk band"
+  },
+  "the smithereens": {
+    "checkedAt": "2026-09-10T10:36:22.511Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Smithereens",
+    "blurb": "The Smithereens are an American rock band from Carteret, New Jersey.",
+    "descriptor": "American rock band"
+  },
+  "they are gutting a body of water": {
+    "checkedAt": "2026-09-10T10:36:22.791Z",
+    "descriptor": "US group"
+  },
+  "chris janson": {
+    "checkedAt": "2026-09-10T10:36:32.571Z",
+    "genres": [
+      "contemporary country",
+      "country"
+    ],
+    "descriptor": "US artist"
+  },
+  "jesse malin": {
+    "checkedAt": "2026-09-10T10:36:58.516Z",
+    "genres": [
+      "rock",
+      "alternative rock"
+    ],
+    "descriptor": "US artist"
+  },
+  "king buffalo": {
+    "checkedAt": "2026-09-10T10:37:12.762Z",
+    "wiki": "https://en.wikipedia.org/wiki/Steve_Miller_Band",
+    "blurb": "The Steve Miller Band is an American rock band formed in San Francisco, California, in 1966.",
+    "descriptor": "American rock band"
+  },
+  "miniature tigers": {
+    "checkedAt": "2026-09-10T10:37:13.355Z",
+    "wiki": "https://en.wikipedia.org/wiki/Miniature_Tigers",
+    "blurb": "Miniature Tigers is an American indie pop band based in Brooklyn that combines elements of indie rock, synth-pop, and dream pop.",
+    "descriptor": "American indie pop band"
+  },
+  "valerie june": {
+    "checkedAt": "2026-09-10T10:37:13.573Z",
+    "wiki": "https://en.wikipedia.org/wiki/Valerie_June",
+    "blurb": "Valerie June Hockett is a Grammy-nominated American singer, songwriter, multi-instrumentalist, and author.",
+    "descriptor": "American musician (born 1982)"
+  },
+  "amtrac": {
+    "checkedAt": "2026-09-10T10:37:13.805Z",
+    "wiki": "https://en.wikipedia.org/wiki/Amtrac_(musician)",
+    "blurb": "Caleb Cornett, known professionally as Amtrac, is an American DJ, electronic music producer, singer, multi-instrumentalist, and songwriter.",
+    "descriptor": "American DJ and electronic music producer (born 1987)"
+  },
+  "dru hill": {
+    "checkedAt": "2026-09-10T10:37:14.090Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dru_Hill",
+    "blurb": "Dru Hill is an American R&B boy band that achieved popularity in the late 1990s.",
+    "descriptor": "American contemporary R&B group"
+  },
+  "jai wolf": {
+    "checkedAt": "2026-09-10T10:37:14.306Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jai_Wolf",
+    "blurb": "Sajeeb Saha, known professionally as Jai Wolf, is a Bangladeshi-American DJ and producer.",
+    "descriptor": "American electronic music producer (born 1991)"
+  },
+  "story of the year": {
+    "checkedAt": "2026-09-10T10:37:14.520Z",
+    "wiki": "https://en.wikipedia.org/wiki/Story_of_the_Year",
+    "blurb": "Story of the Year is an American rock band formed in St.",
+    "descriptor": "American rock band"
+  },
+  "the bouncing souls": {
+    "checkedAt": "2026-09-10T10:37:14.733Z",
+    "genres": [
+      "punk",
+      "pop punk"
+    ],
+    "descriptor": "US group"
+  },
+  "wild pink": {
+    "checkedAt": "2026-09-10T10:37:39.785Z",
+    "genres": [
+      "indie rock"
+    ],
+    "descriptor": "group"
+  },
+  "into it over it": {
+    "checkedAt": "2026-09-10T10:37:41.231Z",
+    "genres": [
+      "emo",
+      "indie rock"
+    ],
+    "descriptor": "US group"
+  },
+  "pink martini": {
+    "checkedAt": "2026-09-10T10:38:06.188Z",
+    "wiki": "https://en.wikipedia.org/wiki/Pink_Martini",
+    "blurb": "Pink Martini is an American band founded in 1994 by pianist Thomas Lauderdale in Portland, Oregon.",
+    "descriptor": "American pop jazz lounge music band (formed 1994)"
+  },
+  "selina albright": {
+    "checkedAt": "2026-09-10T10:38:06.405Z",
+    "wiki": "https://en.wikipedia.org/wiki/Manufactured_Superstars",
+    "blurb": "The Manufactured Superstars are an electronic dance music DJ/production duo from Denver, Colorado consisting of Bradley Roulier and Shawn Sabo.",
+    "descriptor": "US electronic dance music duo"
+  },
+  "the last bison": {
+    "checkedAt": "2026-09-10T10:38:07.636Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Last_Bison",
+    "blurb": "The Last Bison, formerly known as Bison, is an American indie folk band formed in Chesapeake, Virginia.",
+    "descriptor": "American indie folk band"
+  },
+  "yunchan lim": {
+    "checkedAt": "2026-09-10T10:38:07.848Z",
+    "wiki": "https://en.wikipedia.org/wiki/Yunchan_Lim",
+    "blurb": "Yunchan Lim is a South Korean pianist.",
+    "descriptor": "South Korean pianist (born 2004)"
+  },
+  "holiday express 2026 hackensack meridian health theatre count basie center": {
+    "checkedAt": "2026-09-10T10:38:08.063Z"
+  },
+  "stacey kent": {
+    "checkedAt": "2026-09-10T10:38:10.545Z",
+    "wiki": "https://en.wikipedia.org/wiki/Stacey_Kent",
+    "blurb": "Stacey Kent is an American jazz singer from South Orange, New Jersey.",
+    "descriptor": "American jazz singer (born 1965)"
+  },
+  "andrea bocelli": {
+    "checkedAt": "2026-09-10T10:38:10.756Z",
+    "genres": [
+      "classical",
+      "tenor"
+    ],
+    "descriptor": "tenor"
+  },
+  "oneus": {
+    "checkedAt": "2026-09-10T10:38:33.633Z",
+    "genres": [
+      "k-pop",
+      "boy band"
+    ],
+    "descriptor": "KR group"
+  },
+  "stephan crump": {
+    "checkedAt": "2026-09-10T10:38:37.475Z",
+    "genres": [
+      "jazz",
+      "jazz fusion"
+    ],
+    "descriptor": "US artist"
+  },
+  "jon mclaughlin": {
+    "checkedAt": "2026-09-10T10:39:03.153Z",
+    "wiki": "https://en.wikipedia.org/wiki/John_McLaughlin_(musician)",
+    "blurb": "John McLaughlin, also previously known as Mahavishnu, is an English guitarist, bandleader, and composer.",
+    "descriptor": "English jazz fusion guitarist (born 1942)"
+  },
+  "lady a": {
+    "checkedAt": "2026-09-10T10:39:03.746Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lady_A",
+    "blurb": "Lady A, known until 2020 as Lady Antebellum, is an American country music group formed in Nashville, Tennessee, in 2006.",
+    "descriptor": "American country music group"
+  },
+  "thee sinseers": {
+    "checkedAt": "2026-09-10T10:39:03.959Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cuco_(musician)",
+    "blurb": "Omar Banos, known professionally as Cuco, is an American singer-songwriter from Hawthorne, California.",
+    "descriptor": "American singer-songwriter (born 1998)"
+  },
+  "brett eldredge": {
+    "checkedAt": "2026-09-10T10:39:06.625Z",
+    "wiki": "https://en.wikipedia.org/wiki/Brett_Eldredge",
+    "blurb": "Brett Ryan Eldredge is an American country music singer, songwriter and record producer.",
+    "descriptor": "American country singer-songwriter and producer (born 1986)"
+  },
+  "esperanza spalding": {
+    "checkedAt": "2026-09-10T10:39:06.840Z",
+    "wiki": "https://en.wikipedia.org/wiki/Esperanza_Spalding",
+    "blurb": "Esperanza Emily Spalding, sometimes professionally known with the stylized name of esperanza spalding, is an American bassist, singer, songwriter, and composer.",
+    "descriptor": "American jazz bassist and singer"
+  },
+  "lord huron": {
+    "checkedAt": "2026-09-10T10:39:07.052Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lord_Huron",
+    "blurb": "Lord Huron is a Los Angeles-based American indie rock band composed of Mark Barry, Miguel Briseño, Tom Renaud (guitar), and founder Ben Schneider.",
+    "descriptor": "American indie folk band"
+  },
+  "senses fail": {
+    "checkedAt": "2026-09-10T10:39:07.269Z",
+    "genres": [
+      "pop punk",
+      "emo"
+    ],
+    "descriptor": "US pop punk / emo band"
+  },
+  "son lux": {
+    "checkedAt": "2026-09-10T10:39:08.697Z",
+    "genres": [
+      "experimental",
+      "electronic"
+    ],
+    "descriptor": "American experimental band"
+  },
+  "the slackers": {
+    "checkedAt": "2026-09-10T10:39:36.965Z",
+    "genres": [
+      "ska",
+      "reggae"
+    ],
+    "descriptor": "New York ska band"
+  },
+  "amorphis": {
+    "checkedAt": "2026-09-10T10:40:05.318Z",
+    "wiki": "https://en.wikipedia.org/wiki/Amorphis",
+    "blurb": "Amorphis is a Finnish progressive metal band founded by Jan Rechberger, Tomi Koivusaari, and Esa Holopainen in 1990.",
+    "descriptor": "Finnish progressive metal band"
+  },
+  "deathpact": {
+    "checkedAt": "2026-09-10T10:40:05.534Z",
+    "wiki": "https://en.wikipedia.org/wiki/Mau5trap",
+    "blurb": "Mau5trap is a Canadian independent record label founded in 2007 by electronic music producer Deadmau5.",
+    "descriptor": "Canadian record label"
+  },
+  "jonas brothers": {
+    "checkedAt": "2026-09-10T10:40:06.535Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jonas_Brothers",
+    "blurb": "The Jonas Brothers are an American pop rock band formed in 2005 comprising brothers Kevin Jonas, Joe Jonas, and Nick Jonas.",
+    "descriptor": "American pop rock band"
+  },
+  "chris pinnella": {
+    "checkedAt": "2026-09-10T10:40:06.745Z",
+    "wiki": "https://en.wikipedia.org/wiki/Michael_Pinnella",
+    "blurb": "Michael Pinnella is an American keyboard player, most notably for the band Symphony X.",
+    "descriptor": "Musical artist"
+  },
+  "richard marx": {
+    "checkedAt": "2026-09-10T10:40:07.403Z",
+    "wiki": "https://en.wikipedia.org/wiki/Richard_Marx",
+    "blurb": "Richard Noel Marx is an American singer-songwriter.",
+    "descriptor": "American singer-songwriter (born 1963)"
+  },
+  "the weight band": {
+    "checkedAt": "2026-09-10T10:40:07.623Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Weight_Band",
+    "blurb": "The Weight Band is an American rock band formed in 2013.",
+    "descriptor": "American rock band"
+  },
+  "zoso the ultimate led zeppelin experience": {
+    "checkedAt": "2026-09-10T10:40:07.843Z"
+  },
+  "stela cole": {
+    "checkedAt": "2026-09-10T10:40:09.281Z",
+    "genres": [
+      "pop",
+      "stela cole"
+    ],
+    "descriptor": "artist"
+  },
+  "stella cole": {
+    "checkedAt": "2026-09-10T10:40:10.719Z",
+    "descriptor": "US jazz vocalist"
+  },
+  "steven page": {
+    "checkedAt": "2026-09-10T10:40:12.174Z",
+    "descriptor": "Barenaked Ladies"
+  },
+  "darlene love": {
+    "checkedAt": "2026-09-10T10:40:13.605Z",
+    "genres": [
+      "pop",
+      "likedis auto"
+    ],
+    "descriptor": "US artist"
+  },
+  "emma smith quartet": {
+    "checkedAt": "2026-09-10T10:40:40.187Z"
+  },
+  "new york string orchestra": {
+    "checkedAt": "2026-09-10T10:40:41.642Z"
+  },
+  "drmagdn": {
+    "checkedAt": "2026-09-10T10:40:43.073Z"
+  },
+  "adam ezra group": {
+    "checkedAt": "2026-09-10T10:40:44.509Z",
+    "descriptor": "US group"
+  },
+  "the birdland big band": {
+    "checkedAt": "2026-09-10T10:40:45.948Z",
+    "genres": [
+      "jazz"
+    ],
+    "descriptor": "jazz orchestra at the Birdland Jazz Club, NYC"
+  },
+  "belinda carlisle": {
+    "checkedAt": "2026-09-10T10:40:47.386Z",
+    "genres": [
+      "pop",
+      "pop rock"
+    ],
+    "descriptor": "US artist"
+  },
+  "marilyn maye": {
+    "checkedAt": "2026-09-10T10:40:48.826Z",
+    "descriptor": "US artist"
+  },
+  "ripe": {
+    "checkedAt": "2026-09-10T10:41:00.597Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cam_Avery",
+    "blurb": "Cameron Avery is an Australian multi-instrumentalist, musician, singer and songwriter.",
+    "descriptor": "Australian musician (born 1988)"
+  },
+  "dj storm": {
+    "checkedAt": "2026-09-10T10:41:02.222Z",
+    "wiki": "https://en.wikipedia.org/wiki/Metalheadz",
+    "blurb": "Metalheadz is a major drum and bass record label based in the United Kingdom.",
+    "descriptor": "British record label"
+  },
+  "liz callaway": {
+    "checkedAt": "2026-09-10T10:41:03.694Z",
+    "wiki": "https://en.wikipedia.org/wiki/Liz_Callaway",
+    "blurb": "Liz Callaway is an American actress and singer, who is best known for having provided the singing voices of many female characters in animated films, such as Anastasia in Anastasia, Odette in The Swan Princess, Jasmine in the Aladdin sequel",
+    "descriptor": "American actress and singer (born 1961)"
   }
 }
