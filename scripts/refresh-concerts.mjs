@@ -12,11 +12,14 @@ import { enrich } from './enrich-artists.mjs';
 // Jersey City metro. Verified by fetching both and reading the localities.
 // Songkick also lists '34687-us-new-jersey', but it returns zero events —
 // do not use it.
+// Canonical slugs: '7644-us-new-york' 301-redirects to '…-nyc', and paying a
+// redirect on every request is a wasted round trip against a host that is
+// already counting them.
 const REGIONS = {
   nynj: {
     name: 'New York & New Jersey',
     tz: 'America/New_York',
-    metros: ['7644-us-new-york', '4690-us-jersey-city'],
+    metros: ['7644-us-new-york-nyc', '4690-us-jersey-city'],
   },
   la: { name: 'Los Angeles', tz: 'America/Los_Angeles', metros: ['17835-us-los-angeles-la'] },
   sf: { name: 'San Francisco', tz: 'America/Los_Angeles', metros: ['26330-us-san-francisco'] },
@@ -25,7 +28,18 @@ const REGIONS = {
 // Coverage runs to the end of the third month ahead: in September you get
 // September plus October, November and December.
 const MONTHS_AHEAD = 3;
-const MAX_PAGES = 60;          // a four-month window is far deeper than 28 days
+
+// Songkick blocks the runner's datacentre IP after roughly five page requests
+// and does not release it within several minutes — verified: retries at
+// 21s/47s/90s/151s all returned 406, and the block carried into the next metro.
+// The same pages fetched from a home connection return 200 all the way to page
+// 15, so this is IP reputation, not depth, pacing or cookies.
+//
+// So one run cannot crawl four months of New York (~28 pages). Instead each run
+// takes a slice and MERGES into what is already on disk, resuming from where
+// the last run was cut off. Coverage builds over a few runs and then just stays
+// fresh. This is why the file is never simply replaced.
+const MAX_PAGES_PER_RUN = 12;
 const UA = 'Mozilla/5.0 (compatible; SanctumConcerts/1.0; personal use)';
 
 const regionId = process.argv[2] || 'nynj';
@@ -142,44 +156,64 @@ async function fetchPage(metro, page) {
   throw lastErr || new Error('unknown fetch failure');
 }
 
-async function collect(regionId) {
+const evKey = (ev) => `${ev.date}|${slug(ev.artist)}|${slug(ev.venue)}`;
+
+async function collect(regionId, previous) {
   const seen = new Map();
   let partial = false;
 
-  // Metros are crawled in turn into one shared map, so a show listed under both
-  // New York and Jersey City (an East Rutherford date, say) appears once.
-  for (const metro of region.metros) {
-    let emptyStreak = 0;
-    let before = seen.size;
-    console.log(`\n— metro ${metro} —`);
+  // Start from everything already known that is still in the window. Past dates
+  // fall away on their own; nothing else is discarded, because a run that gets
+  // blocked at page 3 must not wipe out coverage earlier runs paid for.
+  for (const ev of previous?.events || []) {
+    if (ev.date >= startISO && ev.date <= endISO) seen.set(evKey(ev), ev);
+  }
+  const carried = seen.size;
+  console.log(`Carried forward ${carried} events still in the window.`);
 
-    for (let page = 1; page <= MAX_PAGES; page++) {
+  const cursors = { ...(previous?.cursors || {}) };
+
+  for (const metro of region.metros) {
+    const before = seen.size;
+    let emptyStreak = 0;
+    let blockedAt = null;
+
+    // Page 1 always, for freshness (new announcements land at the front), then
+    // continue from wherever the previous run was cut off.
+    const resumeAt = Math.max(2, cursors[metro] || 2);
+    const plan = [1, ...Array.from({ length: MAX_PAGES_PER_RUN - 1 }, (_, i) => resumeAt + i)];
+    console.log(`\n— metro ${metro} — pages ${plan[0]}, then ${plan[1]}…${plan[plan.length - 1]}`);
+
+    for (const page of plan) {
       let html;
       try { html = await fetchPage(metro, page); }
       catch (e) {
-        console.error(`page ${page}: ${e.message} — giving up on further pages for this metro`);
+        console.error(`page ${page}: ${e.message} — blocked; will resume here next run`);
+        blockedAt = page;
         partial = true;
         break;
       }
 
-      const parsed = extractLdJson(html).map(toEvent);
-      const inWindow = parsed.filter(Boolean).filter((e) => !isComedy(e));
+      const inWindow = extractLdJson(html).map(toEvent).filter(Boolean).filter((e) => !isComedy(e));
+      const total = extractLdJson(html).filter((n) => n['@type'] === 'MusicEvent').length;
       let added = 0;
       for (const ev of inWindow) {
-        const key = `${ev.date}|${slug(ev.artist)}|${slug(ev.venue)}`;
+        const key = evKey(ev);
         if (!seen.has(key)) { seen.set(key, ev); added++; }
       }
-      console.log(`page ${page}: ${inWindow.length} in window, ${added} new (region total ${seen.size})`);
+      console.log(`page ${page}: ${total} listed, ${inWindow.length} in window, ${added} new (region total ${seen.size})`);
 
-      // Listings run chronologically. A page can legitimately add nothing while
-      // still being inside the window (all duplicates of the other metro), so
-      // stop only after two consecutive pages that also yielded no in-window
-      // events at all — otherwise overlap between metros truncates the crawl.
-      emptyStreak = (added === 0 && inWindow.length === 0) ? emptyStreak + 1 : 0;
-      if (emptyStreak >= 2) break;
-      await sleep(jitter(PAGE_DELAY));   // be a polite client, and stay unblocked
+      // `total === 0` means the metro has no more listings at all — that is the
+      // end of this metro, not a throttle. Two in a row and we are done, so the
+      // cursor resets and the next run starts over from the front for freshness.
+      emptyStreak = total === 0 ? emptyStreak + 1 : 0;
+      if (emptyStreak >= 2) { blockedAt = null; break; }
+      await sleep(jitter(PAGE_DELAY));
     }
-    console.log(`  metro ${metro} contributed ${seen.size - before} events`);
+
+    // Resume next run where we stopped; reset to the front once exhausted.
+    cursors[metro] = blockedAt || (emptyStreak >= 2 ? 1 : plan[plan.length - 1] + 1);
+    console.log(`  metro ${metro}: +${seen.size - before} new, next run resumes at page ${cursors[metro]}`);
   }
 
   const events = [...seen.values()].sort((a, b) =>
@@ -194,32 +228,30 @@ async function collect(regionId) {
     used.add(id);
     ev.id = id;
   }
-  return { events, partial };
+  return { events, partial, cursors };
 }
-
-console.log(`Region ${regionId} (${region.name}); window ${startISO} → ${endISO}`);
-const { events, partial } = await collect(regionId);
 
 const outPath = `data/concerts-${regionId}.json`;
 let previous = null;
 try { previous = JSON.parse(await readFile(outPath, 'utf8')); } catch {}
 
+console.log(`Region ${regionId} (${region.name}); window ${startISO} → ${endISO}`);
+const { events, partial, cursors } = await collect(regionId, previous);
+
 if (events.length < 20) {
-  console.error(`Only ${events.length} events found — refusing to overwrite with a likely-broken scrape.`);
+  console.error(`Only ${events.length} events found — refusing to write a likely-broken file.`);
   process.exit(1);
 }
 
-// A throttled crawl once cut 258 events down to 89 and happily saved it.
-// Never let a partial result replace a healthy file.
-const prevCount = previous?.events?.length || 0;
-if (prevCount && events.length < prevCount * 0.6) {
-  console.error(
-    `Found only ${events.length} events but the existing file has ${prevCount}` +
-    `${partial ? ' (the crawl was cut short by the source)' : ''}. ` +
-    `Refusing to overwrite — re-run later.`);
+// Because runs merge rather than replace, the count can only fall when dates
+// age out of the window — never because a crawl was throttled. Compare against
+// the previous file's *in-window* count so the guard still means something.
+const prevInWindow = (previous?.events || []).filter((e) => e.date >= startISO && e.date <= endISO).length;
+if (prevInWindow && events.length < prevInWindow) {
+  console.error(`Merged result (${events.length}) is smaller than the previous in-window count (${prevInWindow}). Refusing to write.`);
   process.exit(1);
 }
-if (partial) console.warn('Note: the crawl ended early, so later dates may be thin.');
+if (partial) console.warn('Note: a metro was cut short by the source; the next run resumes from there.');
 
 // Enrichment is a nice-to-have: blurbs and Wikipedia links. It must never be
 // able to lose a good crawl — an ENOENT writing the cache once threw away a
@@ -237,6 +269,10 @@ const payload = {
   coversFrom: startISO,
   coversTo: endISO,
   metros: region.metros,
+  // Where the next run picks up per metro. Coverage is built across runs
+  // because the source blocks the runner's IP after a handful of pages.
+  cursors,
+  reachesTo: events.length ? events[events.length - 1].date : startISO,
   generatedAt: new Date().toISOString(),
   sources: ['songkick.com (schema.org JSON-LD)'],
   note: 'Compiled automatically from public listings. Always confirm on the venue page before buying.',
@@ -245,9 +281,12 @@ const payload = {
 
 // Ignore the timestamp when deciding whether anything actually changed, but do
 // compare the full event objects so newly-added genres/links count as a change.
-const sig = (o) => JSON.stringify(o?.events || []);
+// The cursors MUST be part of this signature. Without them a run that found no
+// new events would exit before writing, the cursor would never advance, and
+// coverage would be stuck at page 5 forever.
+const sig = (o) => JSON.stringify([o?.events || [], o?.cursors || {}]);
 if (previous && sig(previous) === sig(payload)) {
-  console.log('No listing changes — leaving the file alone.');
+  console.log('No listing changes and no cursor movement — leaving the file alone.');
   process.exit(0);
 }
 

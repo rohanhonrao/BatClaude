@@ -249,10 +249,11 @@ deliberately sync-ready (only ciphertext would move).
 Browser-side scraping is impossible: verified that Bandsintown and Ticketmaster
 both fail CORS from the page while a control request succeeded. So instead:
 
-`.github/workflows/refresh-concerts.yml` runs **daily at 09:00 UTC** (5am
-America/New_York) plus `workflow_dispatch` on demand. It was dispatch-only for a
-while, which meant it never refreshed unless someone pressed the button — the
-file sat five weeks stale. Do not remove the schedule.
+`.github/workflows/refresh-concerts.yml` runs **every six hours** plus
+`workflow_dispatch` on demand. Four runs a day, because each run can only fetch
+a slice before the source blocks the runner — see below. It was dispatch-only
+for a while, which meant it never refreshed unless someone pressed the button;
+the file sat five weeks stale. Do not remove the schedule.
 
 It runs `scripts/refresh-concerts.mjs`, which:
 
@@ -277,10 +278,37 @@ read to confirm this. Songkick also lists `34687-us-new-jersey`, which returns
 **zero events** — do not use it.
 
 Metros are crawled in turn into one shared map, so a show listed under both
-appears once. Pagination stops after **two consecutive pages with no in-window
-events at all** — not merely no *new* ones, because with two overlapping metros a
-page can be entirely duplicates while still being inside the window, and the old
-condition would have truncated the crawl there.
+appears once.
+
+### The source blocks the runner, so coverage is built across runs
+
+**Songkick 406s the GitHub Actions datacentre IP after roughly five page
+requests**, and does not release it for at least several minutes: retries at
+21s/47s/90s/151s all failed, and the block carried straight into the second
+metro. The identical pages fetched from a home connection return 200 all the way
+to page 15, so this is IP reputation — **not** depth, pacing, or cookies. Do not
+try to fix it with more backoff; that was tried and measured.
+
+New York needs ~28 pages to reach four months out. Jersey City is only ~2 pages
+in total. So a single run cannot do it, and instead:
+
+- each run takes a **slice** and **merges** into the file on disk
+- it always refetches **page 1** for freshness, then resumes from `cursors[metro]`
+- on a block, the cursor records that page so the next run resumes there
+- when a metro runs out of listings (two consecutive pages with **zero** events
+  listed at all — not zero *new*), the cursor resets to 1
+- the file is therefore **never replaced**, only merged; events drop out only by
+  ageing past the window
+
+Four runs a day builds full coverage in about two days, then keeps it fresh.
+
+Two traps this creates, both already handled:
+
+- **`cursors` must be inside the change signature.** Otherwise a run that found
+  no new events exits before writing, the cursor never advances, and coverage
+  sticks at page 5 for ever.
+- **The "refuse to shrink" guard compares against the previous *in-window*
+  count**, since merging means the total can only fall as dates age out.
 
 The window runs from today to the **end of the third month ahead** (in September
 you get September through December), computed in the region's own timezone —
@@ -544,6 +572,9 @@ Rules learned the hard way:
 | Blank screen, or every `db` call hangs forever | an IndexedDB version upgrade blocked by **another open tab** still holding the old version. Bit again when `DB_VERSION` went 6 → 7 for `todos`: the module mounted but never rendered, with no console error. Close every other tab on the origin before testing a version bump |
 | Install option missing in Chrome | a stale WebAPK still registered; removing the home-screen icon does not uninstall it |
 | Concert listings never update | the workflow was `workflow_dispatch` only, with no cron, so it only ran when someone pressed the button. Five weeks stale before anyone noticed |
+| Crawl dies at page ~5 with HTTP 406, backoff doesn't help | Songkick blocks the Actions datacentre IP, not the depth or the pace. Verified: same pages return 200 from a home connection to page 15. Coverage is built across runs via `cursors`, not by waiting longer |
+| A script writes to `data/` and throws ENOENT | git does not track empty directories. Deleting the last committed file in `data/` meant a fresh checkout had no such directory. Both scripts `mkdir` it before writing |
+| Coverage stuck at the same page every run | `cursors` was left out of the change signature, so a run that found no new events exited before writing and never advanced |
 | Artist enrichment slow and endlessly re-fetching | the workflow committed only `data/concerts-*.json`, so `data/artists.json` was written on the runner and discarded. Every run re-looked-up every artist; the 45-day recheck never applied |
 | A new setting's default appears to be ignored | a value already saved in `settings` wins over the code default. Changing a default needs a one-time migration flag (see `concertRegionMoved`), not just a new fallback |
 | A category set to 50/50 still split by income | choosing "Category default" stores `rule: ''` on the expense. `''` is not `undefined`, so `shareOf`'s default parameter never fired and it fell through to income ratio. The expense form's live preview resolved the category rule, so it previewed 50/50 and settled by income. Always resolve through `Split.effectiveRule` |

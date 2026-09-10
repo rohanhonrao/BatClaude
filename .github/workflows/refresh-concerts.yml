@@ -9,7 +9,10 @@ name: Refresh concert listings
 # weeks stale. If you remove the schedule, that comes back.
 on:
   schedule:
-    - cron: '0 9 * * *'      # 09:00 UTC = 5am America/New_York (4am in winter)
+    # Every six hours, not daily: the source blocks the runner IP after ~5 pages,
+    # so each run only takes a slice and merges it in. Four runs a day builds
+    # full coverage within a day or so, then just keeps it fresh.
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
