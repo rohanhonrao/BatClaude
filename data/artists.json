@@ -4591,5 +4591,17 @@
     "wiki": "https://en.wikipedia.org/wiki/Liz_Callaway",
     "blurb": "Liz Callaway is an American actress and singer, who is best known for having provided the singing voices of many female characters in animated films, such as Anastasia in Anastasia, Odette in The Swan Princess, Jasmine in the Aladdin sequel",
     "descriptor": "American actress and singer (born 1961)"
+  },
+  "negativland": {
+    "checkedAt": "2026-09-10T15:38:09.178Z",
+    "wiki": "https://en.wikipedia.org/wiki/Negativland",
+    "blurb": "Negativland is an American experimental music band formed in Concord, California, in 1979.",
+    "descriptor": "American experimental music group"
+  },
+  "jodeci": {
+    "checkedAt": "2026-09-10T15:38:09.406Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jodeci",
+    "blurb": "Jodeci is an American R&B quartet consisting of members K-Ci, JoJo, DeVanté Swing, and Mr.",
+    "descriptor": "American R&B quartet"
   }
 }
