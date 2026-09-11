@@ -1,6 +1,6 @@
 // concerts.js — gigs near you.
 //
-// Data comes from `data/concerts-<region>.json`, rebuilt every morning by
+// Data comes from `data/concerts-<region>.json`, rebuilt every six hours by
 // .github/workflows/refresh-concerts.yml from Songkick's schema.org JSON-LD
 // (one source, not the several this comment used to claim). A region may span
 // several metro areas — New York & New Jersey spans two.
@@ -26,6 +26,14 @@ let artists = [];       // tracked artist names
 let view = 'all';       // 'all' | 'forYou'
 let search = '';
 let loading = false;
+// Widening the window from four weeks of LA to four months of NY/NJ took the
+// list from ~240 events to over 1,000. Rendering all of them builds an 85,000px
+// page and cost ~600ms per re-render on a desktop — far worse on a phone, and
+// every keystroke in the search box triggers one. So the list renders in pages
+// and grows as you scroll.
+const PAGE_SIZE = 200;
+let limit = PAGE_SIZE;
+let searchTimer = null;
 let hubHandler = null;
 export function setConcertsHubHandler(fn) { hubHandler = fn; }
 
@@ -36,7 +44,7 @@ const cityName = () => (CITIES.find((c) => c.id === cityId()) || CITIES[0]).name
 export async function mountConcerts() {
   await migrateRegion();
   artists = getSetting('concertArtists') || [];
-  view = 'all'; search = '';
+  view = 'all'; search = ''; limit = PAGE_SIZE;
   data = (await db.get('settings', 'concertsCache'))?.value?.[cityId()] || null;
   render();
   loadData();          // refresh in the background
@@ -91,7 +99,9 @@ function upcoming() {
 
 // --- render ------------------------------------------------------------------
 function render() {
-  const list = upcoming();
+  const all = upcoming();
+  const list = all.slice(0, limit);
+  const remaining = all.length - list.length;
   const trackedCount = (data?.events || []).filter((e) => e.date >= todayISO() && matchesTracked(e)).length;
   const groups = {};
   for (const e of list) (groups[e.date] ||= []).push(e);
@@ -127,9 +137,22 @@ function render() {
       <div class="section-title">${escapeHtml(dayHeading(d))}</div>
       <div class="card">${groups[d].map(eventRow).join('')}</div>
     `).join('') : emptyBlock()}
+
+    ${remaining > 0 ? `<div class="c-more" id="c-more">
+      <button class="chip" data-c-more>Show ${Math.min(remaining, PAGE_SIZE)} more</button>
+      <div class="tiny muted mt">${list.length} of ${all.length} shown</div>
+    </div>` : ''}
   </div>`;
 
   bind();
+}
+
+// Re-render keeping the reading position, which is what makes growing the list
+// and filtering feel like the page changed rather than jumped.
+function rerenderInPlace() {
+  const y = window.scrollY;
+  render();
+  window.scrollTo(0, y);
 }
 
 function emptyBlock() {
@@ -180,14 +203,36 @@ function bind() {
   root.querySelector('#c-artists').addEventListener('click', artistsSheet);
   root.querySelector('#c-refresh').addEventListener('click', () => loadData({ manual: true }));
   root.querySelector('#c-city').addEventListener('click', citySheet);
-  root.querySelectorAll('#c-view button').forEach((b) => b.addEventListener('click', () => { view = b.dataset.v; render(); }));
+  root.querySelectorAll('#c-view button').forEach((b) => b.addEventListener('click', () => {
+    view = b.dataset.v; limit = PAGE_SIZE; render();
+  }));
+
+  // Debounced: without it every keystroke re-rendered the whole list, which at
+  // a thousand events is hundreds of milliseconds of frozen UI per character.
   const s = root.querySelector('#c-search');
   s.addEventListener('input', (e) => {
     search = e.target.value;
-    const y = window.scrollY; render(); window.scrollTo(0, y);
-    const n = document.getElementById('c-search');
-    if (n) { n.focus(); n.setSelectionRange(n.value.length, n.value.length); }
+    limit = PAGE_SIZE;                 // a new query starts from the top
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      rerenderInPlace();
+      const n = document.getElementById('c-search');
+      if (n) { n.focus(); n.setSelectionRange(n.value.length, n.value.length); }
+    }, 180);
   });
+
+  root.querySelector('[data-c-more]')?.addEventListener('click', () => {
+    limit += PAGE_SIZE; rerenderInPlace();
+  });
+  // Grow automatically as the sentinel comes into view, so scrolling to
+  // December just works; the button stays for anyone who taps it first.
+  const more = root.querySelector('#c-more');
+  if (more && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((x) => x.isIntersecting)) { io.disconnect(); limit += PAGE_SIZE; rerenderInPlace(); }
+    }, { rootMargin: '600px' });
+    io.observe(more);
+  }
   root.querySelectorAll('[data-ev]').forEach((el) => el.addEventListener('click', () => {
     const ev = (data?.events || []).find((x) => String(x.id) === el.dataset.ev);
     if (ev) eventSheet(ev);
@@ -241,6 +286,7 @@ function citySheet() {
   `);
   sheet.querySelectorAll('[data-city]').forEach((el) => el.addEventListener('click', async () => {
     await setSetting('concertCity', el.dataset.city);
+    limit = PAGE_SIZE;
     closeSheet();
     data = (await db.get('settings', 'concertsCache'))?.value?.[cityId()] || null;
     render(); loadData();

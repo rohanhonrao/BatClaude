@@ -1052,3 +1052,6 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .j-mbar { flex: 1; height: 7px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
 .j-mbar > span { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
 .j-mamt { min-width: 74px; text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; }
+
+/* --- Concerts: paged list ------------------------------------------------- */
+.c-more { text-align: center; padding: 18px 0 8px; }

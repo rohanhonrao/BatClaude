@@ -282,12 +282,17 @@ appears once.
 
 ### The source blocks the runner, so coverage is built across runs
 
-**Songkick 406s the GitHub Actions datacentre IP after roughly five page
-requests**, and does not release it for at least several minutes: retries at
-21s/47s/90s/151s all failed, and the block carried straight into the second
-metro. The identical pages fetched from a home connection return 200 all the way
-to page 15, so this is IP reputation — **not** depth, pacing, or cookies. Do not
-try to fix it with more backoff; that was tried and measured.
+**Songkick 406s the GitHub Actions datacentre IP partway through a crawl**, and
+does not release it for at least several minutes: retries at 21s/47s/90s/151s
+all failed, and the block carried straight into the second metro. The identical
+pages fetched from a home connection return 200 all the way to page 15, so this
+is IP reputation — **not** depth, pacing, or cookies. Do not try to fix it with
+more backoff; that was tried and measured.
+
+How far a run gets **varies with whichever IP the runner draws**: observed runs
+stopped at page 5 and at page 7, while another sailed through all twelve pages
+it was allowed. So the design must not assume a fixed budget — it just takes
+what it can get and records where it stopped.
 
 New York needs ~28 pages to reach four months out. Jersey City is only ~2 pages
 in total. So a single run cannot do it, and instead:
@@ -333,6 +338,22 @@ Two things that were wrong for a long time and matter at this scale:
   four-month two-metro window would be an hours-long nightly job. Un-enriched
   events still ship, just without a blurb, and the backlog drains over a few
   days. Never-seen artists are looked up before stale refreshes.
+
+### The app renders the list in pages
+
+Four months of NY/NJ is **over a thousand events**, against ~240 for four weeks
+of LA. Rendering them all produced an 85,000px page, and since `render()`
+rebuilds `innerHTML` wholesale, every keystroke in the search box cost 40-135ms
+and clearing it cost ~600ms — on a desktop, so considerably worse on the Pixel.
+
+So `concerts.js` renders `PAGE_SIZE` (200) at a time, grows on a "Show more"
+button and on an IntersectionObserver sentinel, and **debounces the search input
+by 180ms**. `limit` resets to one page whenever the query, the view or the
+region changes. Measured after: keystrokes and clearing both drop to ~0ms and
+the page is 16,678px.
+
+If the event count grows much further, the next step is windowing the rows
+rather than raising `PAGE_SIZE` — each grow re-renders everything below it.
 
 The app reads `data/concerts-<region>.json` same-origin and caches the last fetch
 for offline. `nynj` is the only region the daily workflow feeds; `la` and `sf`
