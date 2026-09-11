@@ -4639,5 +4639,57 @@
     "wiki": "https://en.wikipedia.org/wiki/Kidz_Bop",
     "blurb": "Kidz Bop is an American children's music group that produces family-friendly covers of pop songs and related media.",
     "descriptor": "American children's music group"
+  },
+  "stevie wonder": {
+    "checkedAt": "2026-09-11T02:21:12.405Z",
+    "wiki": "https://en.wikipedia.org/wiki/Stevie_Wonder",
+    "blurb": "Stevland Hardaway Morris, known professionally as Stevie Wonder, is an American singer-songwriter, musician, and record producer.",
+    "descriptor": "American musician (born 1950)"
+  },
+  "the silos": {
+    "checkedAt": "2026-09-11T02:21:12.668Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Silos",
+    "blurb": "The Silos is an American rock band formed by Walter Salas-Humara and Bob Rupe in New York City, United States, in 1985.",
+    "descriptor": "American rock band"
+  },
+  "ingrid michaelson": {
+    "checkedAt": "2026-09-11T02:21:12.925Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ingrid_Michaelson",
+    "blurb": "Ingrid Ellen Michaelson is an American singer-songwriter.",
+    "descriptor": "American singer-songwriter (born 1979)"
+  },
+  "jay and the americans": {
+    "checkedAt": "2026-09-11T02:21:13.179Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jay_and_the_Americans",
+    "blurb": "Jay and the Americans are an American vocal group who were popular in the 1960s.",
+    "descriptor": "1960s American vocal group"
+  },
+  "bonobo": {
+    "checkedAt": "2026-09-11T02:21:14.764Z",
+    "wiki": "https://en.wikipedia.org/wiki/Bonobo_(musician)",
+    "blurb": "Simon Charles Green, known by his stage name Bonobo, is an English musician, producer, and DJ based in Los Angeles.",
+    "descriptor": "English musician, producer, and DJ (born 1976)"
+  },
+  "david archuleta": {
+    "checkedAt": "2026-09-11T02:21:15.216Z",
+    "wiki": "https://en.wikipedia.org/wiki/David_Archuleta",
+    "blurb": "David James Archuleta is an American singer and songwriter.",
+    "descriptor": "American singer-songwriter (born 1990)"
+  },
+  "engelbert humperdinck": {
+    "checkedAt": "2026-09-11T02:21:15.471Z"
+  },
+  "rick springfield": {
+    "checkedAt": "2026-09-11T02:21:17.356Z"
+  },
+  "sue foley": {
+    "checkedAt": "2026-09-11T02:21:18.911Z"
+  },
+  "tamar braxton": {
+    "checkedAt": "2026-09-11T02:21:20.468Z",
+    "genres": [
+      "soul"
+    ],
+    "descriptor": "US artist"
   }
 }
