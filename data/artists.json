@@ -4691,5 +4691,35 @@
       "soul"
     ],
     "descriptor": "US artist"
+  },
+  "lang lang": {
+    "checkedAt": "2026-09-11T20:21:05.054Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lang_Lang",
+    "blurb": "Lang Lang is a Chinese classical pianist.",
+    "descriptor": "Chinese pianist (born 1982)"
+  },
+  "afrojack": {
+    "checkedAt": "2026-09-11T20:21:05.423Z",
+    "wiki": "https://en.wikipedia.org/wiki/Afrojack",
+    "blurb": "Nick Leonardus van de Wall, known professionally as Afrojack, is a Dutch DJ, record producer and remixer.",
+    "descriptor": "Dutch DJ and record producer (born 1987)"
+  },
+  "willow": {
+    "checkedAt": "2026-09-11T20:21:05.694Z",
+    "wiki": "https://en.wikipedia.org/wiki/Supper's_Ready",
+    "blurb": "\"Supper's Ready\" is a song by English progressive rock band Genesis, recorded for their 1972 studio album Foxtrot.",
+    "descriptor": "1972 song by Genesis"
+  },
+  "50 cent": {
+    "checkedAt": "2026-09-11T20:21:06.280Z",
+    "wiki": "https://en.wikipedia.org/wiki/50_Cent",
+    "blurb": "Curtis James Jackson III, known professionally as 50 Cent, is an American rapper, actor, television producer, record executive, and businessman.",
+    "descriptor": "American rapper and actor (born 1975)"
+  },
+  "neurosis": {
+    "checkedAt": "2026-09-11T20:21:06.500Z",
+    "wiki": "https://en.wikipedia.org/wiki/Scott_Kelly_(musician)",
+    "blurb": "Scott Michael Kelly is an American retired musician.",
+    "descriptor": "American guitarist and singer"
   }
 }
