@@ -33,7 +33,7 @@ leave the device. The network calls are:
 | Strongbox | `docs` | `js/docs.js` | done — encrypted IDs/records, separate passcode vault |
 | Hearth | `hearth` | `js/hearth.js` | done — the shared sub-app: one header, two tabs, one sync connection |
 | ├ Lists | — | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
-| └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, month + calendar-year summaries |
+| └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, week / month / calendar-year summaries with per-category drill-down |
 | Slate | `todos` | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
 | Concerts | `concerts` | `js/concerts.js` | done — NY & NJ gigs, 4-month window, artist tracking |
 | Movies / Sports / Stocks | — | — | placeholders, `ready:false` in the registry |
@@ -443,6 +443,21 @@ personal Treasury module. They share no data on purpose.
   because `expenseSheet` falls back to `cats[0]`. Names must be unique,
   case-insensitively. Icons come from `CAT_ICONS`, all of which must exist in
   the bundled Tabler font — a name that isn't there renders as a blank square.
+- **Tapping a category in any summary — Week, Month or Year — opens every
+  expense in that category for that period** (`categorySheet`), with the
+  category's total and each person's share and paid. Week gained the same
+  total / people / category breakdown as month and year so it has something to
+  tap; it is Monday–Sunday, matching the weekly cycle.
+- **`period()` is the one definition of "what is in view".** The expense list,
+  the summary and the drill-down all filter through it, and the drill-down keys
+  categories with the same `categoryId || '_none'` rule `periodSummary` groups
+  by. So a category's drill-down can never list a different set of expenses
+  than the one its total was built from — including an expense whose category
+  was deleted, which lands under "Uncategorised" in both places.
+- Editing an expense from inside a drill-down returns **to that list**, not all
+  the way out: `expenseSheet(existing, onDone)` re-opens via `onDone` in place
+  rather than calling `closeSheet()` first, which would hit the popstate race in
+  the gotchas table.
 - **Month and year summaries share one code path.** `periodSummary()` takes a
   `match` predicate; `monthlySummary()` and `yearSummary()` are both thin
   wrappers, so the two views can never disagree about what a category cost or

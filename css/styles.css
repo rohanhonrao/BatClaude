@@ -1055,3 +1055,15 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 
 /* --- Concerts: paged list ------------------------------------------------- */
 .c-more { text-align: center; padding: 18px 0 8px; }
+
+/* --- Joint: category drill-down ------------------------------------------ */
+/* Category rows in every summary are tappable; the chevron says so. */
+.j-cat-row .j-cat-chev { flex: none; margin-left: 6px; font-size: 16px; }
+.j-cat-row:active { background: var(--surface-3); }
+.j-week-title { width: 100%; text-align: center; }
+.j-cat-period { margin: -4px 2px 0; }
+.sheet-title-row h2 i { margin-right: 4px; opacity: .85; }
+.j-cat-shares { display: flex; gap: 22px; margin-top: 12px; }
+.j-cat-shares > div { display: flex; flex-direction: column; gap: 1px; }
+.j-cat-shares .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.j-cat-shares b { font-size: 17px; font-variant-numeric: tabular-nums; }

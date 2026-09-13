@@ -122,11 +122,9 @@ function render() {
 
   const pos = Split.positions({ people, expenses, settlements, categories: cats, basis: basis() });
   const bal = Split.balanceBetween(people, pos.net);
-  const weekOf = todayISO();
-  const shown = tab === 'week' ? expenses.filter((e) => Split.inWeek(e.date, weekOf))
-    : tab === 'month' ? expenses.filter((e) => Split.inMonth(e.date, month))
-    : tab === 'year' ? expenses.filter((e) => Split.inYear(e.date, year))
-    : expenses;
+  // period() is the single definition shared with the summaries and the
+  // category drill-down, so all three always agree on what is in view.
+  const shown = expenses.filter(period().match);
 
   const iOwe = !bal.settled && bal.debtor?.id === meId;
   const headline = bal.settled
@@ -165,7 +163,8 @@ function render() {
       <button data-j-tab="all" class="${tab === 'all' ? 'active' : ''}">All</button>
     </div>
 
-    ${tab === 'month' ? monthSummaryHTML()
+    ${tab === 'week' ? weekSummaryHTML()
+      : tab === 'month' ? monthSummaryHTML()
       : tab === 'year' ? yearSummaryHTML()
       : `<div class="j-meta">
       <span>${shown.length} expense${shown.length === 1 ? '' : 's'}</span>
@@ -319,13 +318,94 @@ function peopleCardHTML(s, whatFor) {
 function categoriesCardHTML(s) {
   if (!s.categories.length) return '';
   return `<div class="section-title">By category</div>
-  <div class="card">${s.categories.map((c) => `<div class="row">
+  <div class="card">${s.categories.map((c) => `<div class="row tappable j-cat-row" data-j-cat="${escapeHtml(c.id)}">
     <div class="ic"><i class="ti ${escapeHtml(c.icon)}"></i></div>
     <div class="main"><div class="t">${escapeHtml(c.name)} <span class="j-kind-tag ${c.kind}">${c.kind}</span></div>
       <div class="s">${c.count} item${c.count === 1 ? '' : 's'} · ${people.map((p) =>
         `${escapeHtml(p.name)} ${fmtMoney(D(c.perPerson[p.id] || 0))}`).join(' · ')}</div></div>
     <div class="amt">${fmtMoney(D(c.total))}</div>
-  </div>`).join('')}</div>`;
+    <i class="ti ti-chevron-right muted j-cat-chev"></i>
+  </div>`).join('')}</div>
+  <div class="hint">Tap a category to see its expenses.</div>`;
+}
+
+// --- the current period -------------------------------------------------------
+// ONE definition of "which expenses belong to the tab you're on". The expense
+// list, the summary and the category drill-down all use it, so tapping a
+// category can never show a different set than the one its total was built from.
+const catKey = (e) => e.categoryId || '_none';   // same grouping key periodSummary uses
+
+function period() {
+  if (tab === 'week') {
+    const start = Split.weekStart(todayISO());
+    return { match: (e) => Split.inWeek(e.date, todayISO()), whatFor: 'week',
+      label: `${fmtDateShort(start)} – ${fmtDateShort(addDays(start, 6))}` };
+  }
+  if (tab === 'month') {
+    if (!month) month = Split.monthKey(todayISO());
+    return { match: (e) => Split.inMonth(e.date, month), whatFor: 'month', label: monthLabel(month) };
+  }
+  if (tab === 'year') {
+    if (!year) year = Number(Split.yearKey(todayISO()));
+    return { match: (e) => Split.inYear(e.date, year), whatFor: 'year', label: String(year) };
+  }
+  return { match: () => true, whatFor: 'everything', label: 'All time' };
+}
+
+// --- weekly summary -----------------------------------------------------------
+// Week had only a count and a total. It gets the same breakdown as month and
+// year so there is a category to tap into — Monday to Sunday, like the weekly
+// cycle everywhere else in Joint.
+function weekSummaryHTML() {
+  const p = period();
+  const s = Split.periodSummary({ people, expenses, categories: cats, basis: basis(),
+    match: p.match, label: p.label });
+  return `
+    <div class="j-month-nav">
+      <div class="j-month-title j-week-title">This week<span class="tiny muted"> · ${escapeHtml(p.label)}</span></div>
+    </div>
+    ${totalCardHTML(s, 'week')}
+    ${peopleCardHTML(s, 'week')}
+    ${categoriesCardHTML(s)}
+    <div class="section-title">Expenses this week</div>`;
+}
+
+// --- category drill-down --------------------------------------------------------
+// Every expense in one category for whatever period the tab is showing.
+function categorySheet(key) {
+  const p = period();
+  const items = expenses.filter((e) => p.match(e) && catKey(e) === key)
+    .sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id));
+  const s = Split.periodSummary({ people, expenses, categories: cats, basis: basis(),
+    match: (e) => p.match(e) && catKey(e) === key, label: p.label });
+  const c = catOf(key);
+  const name = c?.name || 'Uncategorised';
+
+  const sheet = openSheet(`
+    <div class="sheet-title-row">
+      <h2><i class="ti ${escapeHtml(c?.icon || 'ti-dots')}"></i> ${escapeHtml(name)}</h2>
+      <button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="tiny muted j-cat-period">${escapeHtml(p.label)}${c ? ` · <span class="j-kind-tag ${c.kind}">${c.kind}</span>` : ''}</div>
+
+    <div class="card j-sum mt">
+      <div class="j-sum-total"><span class="label">${items.length} expense${items.length === 1 ? '' : 's'}</span>
+        <b>${fmtMoney(D(s.total))}</b></div>
+      <div class="j-cat-shares">${people.map((pp) => `<div>
+        <span class="label">${escapeHtml(pp.name)}${pp.id === meId ? ' (you)' : ''}</span>
+        <b>${fmtMoney(D(s.share[pp.id] || 0))}</b>
+        <span class="tiny muted">paid ${fmtMoney(D(s.paid[pp.id] || 0))}</span>
+      </div>`).join('')}</div>
+    </div>
+
+    <div class="card mt">${items.length ? items.map(expenseRow).join('')
+      : '<div class="tiny muted center" style="padding:16px">Nothing in this category for this period.</div>'}</div>
+    ${items.length ? '<div class="hint">Tap an expense to edit it.</div>' : ''}
+  `);
+
+  // Editing from here returns to this list, not all the way out, so fixing
+  // several expenses in a category doesn't mean re-opening it each time.
+  sheet.querySelectorAll('[data-j-edit]').forEach((el) => el.addEventListener('click', () =>
+    expenseSheet(expenses.find((x) => x.id === el.dataset.jEdit), () => categorySheet(key))));
 }
 
 function monthSummaryHTML() {
@@ -382,7 +462,7 @@ function yearSummaryHTML() {
 }
 
 // --- expense editor -----------------------------------------------------------
-function expenseSheet(existing) {
+function expenseSheet(existing, onDone) {   // onDone: return to a drill-down instead of closing
   const e = existing || {
     id: uid('je_'), date: todayISO(), desc: '', amount: '',
     categoryId: cats[0]?.id, payerId: meId, rule: '',
@@ -446,10 +526,17 @@ function expenseSheet(existing) {
       payerId, rule: q('#j-rule').value, customPct: Number(q('#j-pct').value),
       date: q('#j-date').value || todayISO(),
     });
-    closeSheet(); render(); toast(existing ? 'Saved' : 'Added');
+    // From a category drill-down, go back to that list in place; otherwise close.
+    // (closeSheet() then re-opening races the pending popstate — gotchas table.)
+    render();
+    if (onDone) onDone(); else closeSheet();
+    toast(existing ? 'Saved' : 'Added');
   });
   q('#j-del')?.addEventListener('click', async () => {
-    await remove('jointExpenses', e.id); closeSheet(); render(); toast('Deleted');
+    await remove('jointExpenses', e.id);
+    render();
+    if (onDone) onDone(); else closeSheet();
+    toast('Deleted');
   });
   setTimeout(() => q('#j-amt').focus(), 100);
 }
@@ -698,4 +785,8 @@ function bind() {
   }));
   root.querySelectorAll('[data-j-edit]').forEach((el) => el.addEventListener('click',
     () => expenseSheet(expenses.find((x) => x.id === el.dataset.jEdit))));
+  // Category rows in the week / month / year summaries open that category's
+  // expenses for the period currently in view.
+  root.querySelectorAll('[data-j-cat]').forEach((el) => el.addEventListener('click',
+    () => categorySheet(el.dataset.jCat)));
 }
