@@ -1067,3 +1067,9 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .j-cat-shares > div { display: flex; flex-direction: column; gap: 1px; }
 .j-cat-shares .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
 .j-cat-shares b { font-size: 17px; font-variant-numeric: tabular-nums; }
+
+/* --- Joint: primary actions at the top ----------------------------------- */
+/* Add expense used to sit below the whole list, so in Month or Year you had to
+   scroll past the summary and every expense to reach it. It now lives under the
+   balance, sharing a row with Settle up (or alone when you're square). */
+.j-actions .btn { flex: 1; margin-top: 0; min-width: 0; }

@@ -154,7 +154,10 @@ function render() {
       </div>
     </div>
 
-    ${bal.settled ? '' : `<button class="btn primary mt" data-j-settle><i class="ti ti-arrows-exchange"></i> Settle up</button>`}
+    <div class="btn-row j-actions">
+      <button class="btn primary" data-j-add><i class="ti ti-plus"></i> Add expense</button>
+      ${bal.settled ? '' : `<button class="btn" data-j-settle><i class="ti ti-arrows-exchange"></i> Settle up</button>`}
+    </div>
 
     <div class="seg mt" id="j-tab">
       <button data-j-tab="week" class="${tab === 'week' ? 'active' : ''}">Week</button>
@@ -176,7 +179,6 @@ function render() {
           <div>Nothing logged ${tab === 'week' ? 'this week' : tab === 'month' ? 'this month' : tab === 'year' ? 'this year' : 'yet'}</div>
           <div class="tiny mt">Add what you've paid for and the split works itself out.</div></div>`}</div>
 
-    <button class="btn primary mt2" data-j-add><i class="ti ti-plus"></i> Add expense</button>
     <div class="j-foot">
       <button class="chip" data-j-recurring><i class="ti ti-calendar-repeat"></i> Fixed monthly</button>
       <button class="chip" data-j-history><i class="ti ti-history"></i> Settlements</button>

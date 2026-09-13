@@ -443,6 +443,11 @@ personal Treasury module. They share no data on purpose.
   because `expenseSheet` falls back to `cats[0]`. Names must be unique,
   case-insensitively. Icons come from `CAT_ICONS`, all of which must exist in
   the bundled Tabler font — a name that isn't there renders as a blank square.
+- **Add expense sits at the top**, under the balance and beside Settle up (alone
+  when square). It used to follow the expense list, so in Month or Year it was
+  below the entire summary *and* every expense — the most frequent action was
+  the hardest to reach. The header is not sticky, so a header button would have
+  scrolled away just the same.
 - **Tapping a category in any summary — Week, Month or Year — opens every
   expense in that category for that period** (`categorySheet`), with the
   category's total and each person's share and paid. Week gained the same
