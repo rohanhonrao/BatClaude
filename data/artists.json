@@ -5034,5 +5034,17 @@
   "hilary gardner": {
     "checkedAt": "2026-09-18T02:30:57.084Z",
     "descriptor": "artist"
+  },
+  "first day back": {
+    "checkedAt": "2026-09-18T10:23:43.521Z",
+    "wiki": "https://en.wikipedia.org/wiki/Somos_(band)",
+    "blurb": "Somos is an American rock band from Boston, Massachusetts.",
+    "descriptor": "American rock band"
+  },
+  "william black": {
+    "checkedAt": "2026-09-18T10:23:45.059Z",
+    "wiki": "https://en.wikipedia.org/wiki/Bill_Stevenson_(American_musician)",
+    "blurb": "John William Stevenson is an American musician, songwriter, and record producer.",
+    "descriptor": "American musician"
   }
 }
