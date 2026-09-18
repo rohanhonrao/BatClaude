@@ -4941,5 +4941,98 @@
     "wiki": "https://en.wikipedia.org/wiki/DJ_Snake",
     "blurb": "William Sami Étienne Grigahcine, known by his stage name DJ Snake, is a French record producer.",
     "descriptor": "French record producer (born 1986)"
+  },
+  "jojo": {
+    "checkedAt": "2026-09-18T02:30:04.093Z",
+    "wiki": "https://en.wikipedia.org/wiki/John_Hermann",
+    "blurb": "John \"JoJo\" Hermann is an American singer, musician and songwriter, best known for his involvement in the band Widespread Panic.",
+    "descriptor": "American singer, musician and songwriter"
+  },
+  "rachael yamagata": {
+    "checkedAt": "2026-09-18T02:30:05.662Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rachael_Yamagata",
+    "blurb": "Rachael Amanda Yamagata is an American singer-songwriter and pianist from Arlington, Virginia.",
+    "descriptor": "American musician (born 1977)"
+  },
+  "glassjaw": {
+    "checkedAt": "2026-09-18T02:30:05.943Z",
+    "wiki": "https://en.wikipedia.org/wiki/Glassjaw",
+    "blurb": "Glassjaw is an American post-hardcore band from Hempstead, New York.",
+    "descriptor": "American post-hardcore band"
+  },
+  "antibalas": {
+    "checkedAt": "2026-09-18T02:30:06.213Z",
+    "wiki": "https://en.wikipedia.org/wiki/Antibalas",
+    "blurb": "Antibalas is an American, Brooklyn-based afrobeat band founded in 1998 by Martín Perna.",
+    "descriptor": "American afrobeat band"
+  },
+  "susan mckeown": {
+    "checkedAt": "2026-09-18T02:30:06.486Z",
+    "wiki": "https://en.wikipedia.org/wiki/Susan_McKeown",
+    "blurb": "Susan McKeown is an Irish-American folk singer, songwriter, and producer.",
+    "descriptor": "Irish folk singer, songwriter, and producer"
+  },
+  "the rock and roll playhouse": {
+    "checkedAt": "2026-09-18T02:30:06.762Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cliff_Martinez",
+    "blurb": "Cliff Robert Martinez is an American musician and composer.",
+    "descriptor": "American musician and composer"
+  },
+  "dan pugach nonet": {
+    "checkedAt": "2026-09-18T02:30:08.568Z",
+    "descriptor": "group"
+  },
+  "syd": {
+    "checkedAt": "2026-09-18T02:30:20.846Z",
+    "genres": [
+      "rock",
+      "psychedelic rock"
+    ],
+    "descriptor": "GB artist"
+  },
+  "norah jones": {
+    "checkedAt": "2026-09-18T02:30:34.165Z",
+    "genres": [
+      "vocal jazz",
+      "jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "puss n boots": {
+    "checkedAt": "2026-09-18T02:30:35.869Z",
+    "descriptor": "Norah Jones country band"
+  },
+  "puss n boots band": {
+    "checkedAt": "2026-09-18T02:30:37.478Z"
+  },
+  "matisyahu": {
+    "checkedAt": "2026-09-18T02:30:39.219Z",
+    "genres": [
+      "alternative rock",
+      "reggae"
+    ],
+    "descriptor": "US reggae singer, rapper & beatboxer"
+  },
+  "haley heynderickx": {
+    "checkedAt": "2026-09-18T02:30:40.844Z",
+    "genres": [
+      "folk",
+      "singer-songwriter"
+    ],
+    "descriptor": "Portland, OR"
+  },
+  "the motortown all stars": {
+    "checkedAt": "2026-09-18T02:30:53.769Z"
+  },
+  "edna s goldfish": {
+    "checkedAt": "2026-09-18T02:30:55.475Z",
+    "genres": [
+      "ska punk"
+    ],
+    "descriptor": "US group"
+  },
+  "hilary gardner": {
+    "checkedAt": "2026-09-18T02:30:57.084Z",
+    "descriptor": "artist"
   }
 }
