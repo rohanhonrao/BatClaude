@@ -1073,3 +1073,37 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
    scroll past the summary and every expense to reach it. It now lives under the
    balance, sharing a row with Settle up (or alone when you're square). */
 .j-actions .btn { flex: 1; margin-top: 0; min-width: 0; }
+
+/* --- Vitrine: the perfume collection -------------------------------------- */
+.vt-hero { padding: 18px 16px; }
+.vt-counts { display: flex; justify-content: center; gap: 42px; }
+.vt-counts > div { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.vt-counts b { font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
+.vt-counts .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+
+.vt-group { margin-top: 18px; }
+.vt-house { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+  font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.vt-row .vt-right { text-align: right; flex: none; }
+.vt-status { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; padding: 2px 7px;
+  border-radius: 6px; white-space: nowrap; }
+.vt-status.have { background: rgba(99,201,154,.14); color: var(--green); }
+.vt-status.want { background: var(--surface-3); color: var(--muted); }
+
+/* A dupe claim is the user's belief until something confirms it, so the
+   unconfirmed state is styled as a hedge rather than a fact. */
+.vt-dupe { font-style: italic; opacity: .85; }
+.vt-dupe.ok { font-style: normal; color: var(--green); opacity: 1; }
+
+.vt-auth { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; padding: 1px 6px; border-radius: 5px; }
+.vt-auth.ok  { background: rgba(99,201,154,.15); color: var(--green); }
+.vt-auth.mid { background: var(--surface-3); color: var(--muted); }
+.vt-auth.bad { background: rgba(232,105,95,.15); color: var(--red); }
+
+.vt-best { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; font-size: 13px;
+  padding: 10px 14px; border-radius: 12px; background: var(--surface-2); margin-bottom: 10px; }
+
+.alert.ok { background: rgba(99,201,154,.12); border: 1px solid rgba(99,201,154,.36); color: #9fe0c0; }
+/* Only four short chips, and they are the main filter — wrap them so "Unisex"
+   is visible rather than hidden behind a horizontal swipe. */
+.vt-genders { flex-wrap: wrap; overflow-x: visible; }

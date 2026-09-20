@@ -35,6 +35,7 @@ leave the device. The network calls are:
 | ├ Lists | — | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
 | └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, week / month / calendar-year summaries with per-category drill-down |
 | Slate | `todos` | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
+| Vitrine | `vitrine` | `js/vitrine.js` | done — perfume collection, sellers with user-recorded authenticity. **Not shared** |
 | Concerts | `concerts` | `js/concerts.js` | done — NY & NJ gigs, 4-month window, artist tracking |
 | Movies / Sports / Stocks | — | — | placeholders, `ready:false` in the registry |
 
@@ -109,6 +110,7 @@ js/
   joint.js          Hearth's Money tab
   todos.js          SLATE module (personal, never synced)
   when.js           SLATE parsing: natural-language dates, repeats, buckets
+  vitrine.js        VITRINE module: perfume collection (personal, never synced)
   passwords.js docs.js concerts.js  modules
   split.js          JOINT maths: ratios, cent-exact shares, balances,
                     weeks, monthly + calendar-year summaries
@@ -148,7 +150,7 @@ for its sub-routes.
 
 ---
 
-## 5. Data layer (`js/db.js`, `DB_VERSION = 7`)
+## 5. Data layer (`js/db.js`, `DB_VERSION = 8`)
 
 All stores keyed by `id` except `settings` (keyed by `key`).
 
@@ -172,6 +174,7 @@ All stores keyed by `id` except `settings` (keyed by `key`).
 | `jointRecurring` | id, name, amount, categoryId, payerId, frequency, nextDate, paused |
 | `jointMeta` | single record `id:'config'`: basis gross/net |
 | `todos` | id, title, notes, due (ISO or null), priority 0/1/2, done, doneAt, repeat `{unit,interval}`, createdAt, updatedAt — **never synced** |
+| `perfumes` | id, name, house, concentration, kind original/dupe, dupeOf (believed), dupeConfirmed, gender, status collected/coveted, notes, sellers[] {name, kind bottle/decant, price, size, url, authenticity, note}, createdAt, updatedAt — **never synced** |
 
 Which person *this phone* is lives in `settings.jointMe` — **device-local and
 never synced**, otherwise both phones would think they were the same person.
@@ -551,6 +554,50 @@ the behaviour is never a surprise after the fact.
   the 31st does not skip February.
 - All date maths is on `YYYY-MM-DD` strings via local-midnight `Date`s, so a
   timezone can never shift a due date.
+
+---
+
+## 8f. Vitrine — the perfume collection (`js/vitrine.js`)
+
+What you own, what you are after, and where a bottle can actually be bought.
+Personal, so **not synced** — like Slate.
+
+Store `perfumes`; `sellers[]` is nested rather than its own store because nothing
+queries a seller independently of its bottle.
+
+### Two things this module refuses to assert
+
+Both follow from CLAUDE.md rule 3, and both concern claims that cost real money
+if wrong:
+
+- **A dupe claim stays "believed".** The user supplies what they heard a bottle
+  is a dupe of; there is no dupe database to check it against, so it renders in
+  italics as *believed dupe of X* and only becomes a plain statement once
+  `dupeConfirmed` is set with a source. Nothing sets that field yet — see below.
+- **Authenticity is never decided by the app.** `authenticity` records the
+  judgement the *user* made about a seller (a batch code, a receipt, an
+  authorised-retailer listing). Unchecked stays Unchecked.
+
+### Best price
+
+`bestPrice()` is computed only from prices the user entered. It **excludes
+suspect sellers entirely** and prefers verified ones — a cheaper price from a
+seller you distrust is not a better price, and offering it as "best" would be
+actively misleading.
+
+### Decant sources
+
+Derived by gathering every seller marked `kind: 'decant'` across the collection,
+verified first. There is deliberately **no built-in list of decant shops**: the
+app cannot tell an honest decanter from a dishonest one, and a list that looked
+authoritative would be worse than none.
+
+### Open: the lookup layer
+
+Three of the original requirements need a data source the app does not have —
+confirming a dupe, searching live prices, and checking a seller. Browser-side
+scraping fails CORS (§8), so each would need a GitHub Action feeding a data file
+the way Concerts does. Not built; the fields and UI states exist to receive it.
 
 ---
 

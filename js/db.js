@@ -2,7 +2,7 @@
 // Nothing here ever leaves the phone. No network, no accounts.
 
 const DB_NAME = 'batvault';
-const DB_VERSION = 7;
+const DB_VERSION = 8;
 
 // Object stores and their keyPaths. All records use a string `id`.
 const STORES = {
@@ -27,6 +27,14 @@ const STORES = {
   jointMeta: 'id',        // single record id='config': {basis:'gross'|'net', updatedAt}
   // --- Slate: personal tasks (deliberately NOT synced) ---
   todos: 'id',            // {id, title, notes, due, priority 0-2, done, doneAt, repeat, order, createdAt, updatedAt}
+  // --- Vitrine: the perfume collection (personal, NOT synced) ---
+  // sellers[] is nested rather than its own store: nothing ever queries a
+  // seller independently of the perfume it belongs to.
+  perfumes: 'id',         // {id, name, house, concentration, kind:'original'|'dupe', dupeOf, dupeConfirmed,
+                          //  gender:'masculine'|'feminine'|'unisex', status:'collected'|'coveted', notes,
+                          //  sellers:[{id, name, kind:'bottle'|'decant', price, size, url,
+                          //            authenticity:'verified'|'unverified'|'suspect', note, checkedAt}],
+                          //  createdAt, updatedAt}
 };
 
 let _dbPromise = null;
