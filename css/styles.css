@@ -1107,3 +1107,21 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 /* Only four short chips, and they are the main filter — wrap them so "Unisex"
    is visible rather than hidden behind a horizontal swipe. */
 .al-genders { flex-wrap: wrap; overflow-x: visible; }
+
+/* --- Alcove: reference data from the daily routine ------------------------ */
+/* Visually distinct from the user's own fields: this is what research found,
+   not what they recorded, and the two must never look interchangeable. */
+.al-ref { border: 1px solid var(--line); border-radius: 13px; padding: 13px 14px; margin-top: 10px;
+  background: linear-gradient(180deg, rgba(233,228,218,.04), transparent); }
+.al-ref-head { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 8px; }
+.al-ref-row { font-size: 13px; line-height: 1.45; margin-top: 6px; }
+.al-ref-row .lbl { color: var(--muted); }
+.al-ref-review { font-size: 13px; line-height: 1.5; margin-top: 8px; color: var(--text); }
+.al-ref a { color: var(--accent); text-decoration: none; }
+.al-ref .stale { color: var(--muted); font-size: 11px; }
+.chip.mini { padding: 3px 9px; font-size: 11px; }
+/* .alert is a flex row, so its text must be ONE child — bare text nodes and
+   <b> each became their own flex item and wrapped into ragged columns. */
+.alert > span { min-width: 0; }
+.alert a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }

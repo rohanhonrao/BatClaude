@@ -40,6 +40,7 @@ const AUTHENTICITY = [
 ];
 
 let items = [];
+let reference = null;     // data/perfumes.json — research, never the user's own record
 let status = 'all';       // 'all' | 'collected' | 'coveted'
 let gender = 'all';       // 'all' | masculine | feminine | unisex
 let search = '';
@@ -58,10 +59,36 @@ async function load() {
 }
 const save = async (p) => { p.updatedAt = Date.now(); await db.put('perfumes', p); await load(); };
 
+// --- reference data -------------------------------------------------------------
+// data/perfumes.json is compiled by a daily routine (ARCHITECTURE §8f) and served
+// same-origin, exactly like the concert listings. It is REFERENCE only: it never
+// overwrites what the user recorded, and a dupe claim in it stays attributed to
+// its source until the user chooses to accept it.
+async function loadReference() {
+  try {
+    const res = await fetch('./data/perfumes.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('no reference file');
+    reference = await res.json();
+    await db.put('settings', { key: 'alcoveReference', value: reference });
+  } catch {
+    reference = (await db.get('settings', 'alcoveReference'))?.value || null;   // offline
+  }
+}
+
+/** Match a bottle to the reference table by name, and by house when both have one. */
+function referenceFor(p) {
+  const list = reference?.perfumes || [];
+  if (!p?.name) return null;
+  const n = norm(p.name), h = norm(p.house);
+  return list.find((r) => norm(r.name) === n && (!h || !norm(r.house) || norm(r.house) === h)) || null;
+}
+
 export async function mountAlcove() {
   await load();
+  reference = (await db.get('settings', 'alcoveReference'))?.value || null;
   status = 'all'; gender = 'all'; search = '';
   render();
+  loadReference().then(render);         // refresh in the background
 }
 
 // --- derived ------------------------------------------------------------------
@@ -215,10 +242,16 @@ function perfumeSheet(existing) {
       <div class="field"><label>Believed to be a dupe of</label>
         <input class="input" id="v-dupeof" value="${escapeHtml(p.dupeOf || '')}" placeholder="e.g. Kilian Angels' Share"></div>
       ${p.dupeConfirmed
-        ? `<div class="alert ok"><i class="ti ti-rosette-discount-check"></i> Confirmed as a dupe of
-            <b>${escapeHtml(p.dupeConfirmed.of)}</b>${p.dupeConfirmed.source ? ` — ${escapeHtml(p.dupeConfirmed.source)}` : ''}</div>`
-        : `<div class="hint">Stored as <b>believed</b>. Sanctum has no dupe database, so it will not claim this is confirmed — see the note under Decant sources.</div>`}
+        ? `<div class="alert ok"><i class="ti ti-rosette-discount-check"></i>
+            <span>Confirmed as a dupe of <b>${escapeHtml(p.dupeConfirmed.of)}</b>${
+              p.dupeConfirmed.confidence ? ` — ${escapeHtml(p.dupeConfirmed.confidence)}` : ''}${
+              p.dupeConfirmed.source
+                ? ` · <a href="${escapeHtml(p.dupeConfirmed.source)}" target="_blank" rel="noopener">source</a>`
+                : ''}</span></div>`
+        : `<div class="hint">Stored as <b>believed</b> — your claim, not the app's. If the reference below agrees, you can accept it and the source is recorded with it.</div>`}
     </div>
+
+    ${referenceCardHTML(p)}
 
     <div class="field mt"><label>Notes</label><textarea class="input" id="v-notes" rows="2"
       placeholder="Optional — how it wears, longevity, where you tried it">${escapeHtml(p.notes || '')}</textarea></div>
@@ -273,6 +306,23 @@ function perfumeSheet(existing) {
     sellerSheet(draft, (draft.sellers || []).find((s) => s.id === el.dataset.vSeller));
   }));
 
+  // Accepting a reference dupe claim is the user's decision, and the source URL
+  // is stored with it — so "confirmed" always means confirmed *by something*.
+  sheet.querySelector('#v-ref-accept')?.addEventListener('click', async () => {
+    const r = referenceFor(p);
+    if (!r?.dupeOf) return;
+    await save({
+      ...collect(), kind: 'dupe', dupeOf: r.dupeOf.name,
+      dupeConfirmed: {
+        of: r.dupeOf.name,
+        confidence: r.dupeOf.confidence || '',
+        source: (r.dupeOf.sources || [])[0] || '',
+        acceptedAt: todayISO(),
+      },
+    });
+    closeSheet(); render(); toast('Recorded, with its source');
+  });
+
   sheet.querySelector('#v-save').addEventListener('click', async () => {
     const next = collect();
     if (!next.name) return toast('Give the perfume a name', true);
@@ -283,6 +333,50 @@ function perfumeSheet(existing) {
     await db.del('perfumes', p.id); await load();
     closeSheet(); render(); toast('Removed');
   });
+}
+
+// Reference is rendered as a distinct card, never merged into the user's own
+// fields: it is what research found, and the two must stay tellable apart.
+function referenceCardHTML(p) {
+  const r = referenceFor(p);
+  if (!r) {
+    if (!p.name) return '';
+    return `<div class="hint mt"><i class="ti ti-search"></i> No reference entry for this bottle yet.
+      The daily research routine covers ${escapeHtml((reference?.houses || []).join(', ') || 'selected houses')}
+      and originals under $${reference?.originalsUnderUSD ?? 100}.</div>`;
+  }
+  const days = r.checkedAt
+    ? Math.round((Date.parse(todayISO()) - Date.parse(r.checkedAt)) / 86400000) : null;
+  const stale = days !== null && days > 45;
+  const price = r.priceUSD && (r.priceUSD.low || r.priceUSD.high)
+    ? `${fmtMoney(Number(r.priceUSD.low || r.priceUSD.high))}${
+        r.priceUSD.high && r.priceUSD.low && r.priceUSD.high !== r.priceUSD.low
+          ? ` – ${fmtMoney(Number(r.priceUSD.high))}` : ''}` : null;
+
+  return `<div class="al-ref">
+    <div class="al-ref-head"><span><i class="ti ti-search"></i> Reference — from research</span>
+      ${r.checkedAt ? `<span class="stale">${stale ? 'checked ' : ''}${escapeHtml(fmtDateShort(r.checkedAt))}</span>` : ''}</div>
+
+    ${r.dupeOf ? `<div class="al-ref-row"><span class="lbl">Dupe of</span>
+      <b>${escapeHtml(r.dupeOf.name)}</b>
+      ${r.dupeOf.confidence ? `<span class="stale"> — ${escapeHtml(r.dupeOf.confidence)}</span>` : ''}
+      ${(r.dupeOf.sources || []).slice(0, 1).map((u) =>
+        ` <a href="${escapeHtml(u)}" target="_blank" rel="noopener">source</a>`).join('')}
+      ${p.dupeConfirmed ? '' : '<button class="chip mini mt" id="v-ref-accept">Accept, with source</button>'}
+    </div>` : ''}
+
+    ${price ? `<div class="al-ref-row"><span class="lbl">Typically</span> <b>${price}</b>
+      ${stale ? '<span class="stale"> — may be out of date</span>' : ''}</div>` : ''}
+
+    ${(r.retailers || []).length ? `<div class="al-ref-row"><span class="lbl">Sold by</span>
+      ${r.retailers.slice(0, 4).map((t) => `${escapeHtml(t.name)}${
+        t.authorised === true ? ' <span class="al-auth ok">authorised</span>' : ''}`).join(', ')}</div>` : ''}
+
+    ${r.review ? `<div class="al-ref-review">${escapeHtml(r.review)}</div>` : ''}
+    ${(r.reviewSources || []).length
+      ? `<div class="al-ref-row"><span class="stale">Summarised from ${r.reviewSources.length}
+          source${r.reviewSources.length === 1 ? '' : 's'}</span></div>` : ''}
+  </div>`;
 }
 
 function sellerRowHTML(s) {

@@ -592,12 +592,38 @@ verified first. There is deliberately **no built-in list of decant shops**: the
 app cannot tell an honest decanter from a dishonest one, and a list that looked
 authoritative would be worse than none.
 
-### Open: the lookup layer
+### The reference layer (`data/perfumes.json`)
 
-Three of the original requirements need a data source the app does not have —
-confirming a dupe, searching live prices, and checking a seller. Browser-side
-scraping fails CORS (§8), so each would need a GitHub Action feeding a data file
-the way Concerts does. Not built; the fields and UI states exist to receive it.
+Confirming a dupe, finding prices and judging a seller all need a data source the
+app cannot reach from the browser (CORS, §8). The answer is the Concerts pattern:
+a file in the repo, served same-origin, compiled **outside** the app.
+
+`data/perfumes.json` holds, per bottle: `dupeOf {name, confidence, sources[]}`,
+a 2-4 sentence `review` summary with `reviewSources[]`, `priceUSD {low, high,
+checkedAt}`, and `retailers[] {name, url, authorised}`.
+
+The app reads it on mount, caches it in `settings.alcoveReference` for offline,
+and matches by normalised name (plus house when both have one). It is rendered
+as a **separate card** and never merged into the user's own fields — the whole
+point is that you can tell what you recorded from what research found. A dupe
+claim there stays attributed until the user taps **Accept, with source**, which
+writes `dupeConfirmed` *including the source URL*.
+
+`authorised` is only ever true when the brand's own site lists that retailer;
+otherwise null. Prices carry `checkedAt` and are marked as possibly out of date
+past 45 days, because a stale price that looks current is worse than no price.
+
+**Compiled by a daily cloud routine**, not a GitHub Action — the research needs
+web search and judgement, not a scraper, and fragrance retailers block scrapers
+hard anyway. The routine's prompt carries the same hard rules (never invent;
+attribute dupe claims; never guess `authorised`; summarise reviews rather than
+copying them).
+
+**Blocked on one authorisation:** creating the routine returns
+`Connect your GitHub account before saving a routine that uses a GitHub
+repository`. Only the user can install the Claude GitHub App. Until then the
+reference file stays empty and the app simply shows "no reference entry yet" —
+it degrades to the purely local collection, which is fully functional.
 
 ---
 
