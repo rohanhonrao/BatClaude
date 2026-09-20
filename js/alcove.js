@@ -1,6 +1,6 @@
-// vitrine.js — VITRINE: the perfume collection.
+// alcove.js — ALCOVE: the perfume collection.
 //
-// A vitrine is the glass case a collection is kept in, which is what this is:
+// An alcove is the recess a collection sits in, which is what this is:
 // what you own, what you're after, and where a bottle can actually be bought
 // without being a knockoff.
 //
@@ -44,7 +44,7 @@ let status = 'all';       // 'all' | 'collected' | 'coveted'
 let gender = 'all';       // 'all' | masculine | feminine | unisex
 let search = '';
 let hubHandler = null;
-export function setVitrineHubHandler(fn) { hubHandler = fn; }
+export function setAlcoveHubHandler(fn) { hubHandler = fn; }
 
 const $app = () => document.getElementById('app');
 const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -58,7 +58,7 @@ async function load() {
 }
 const save = async (p) => { p.updatedAt = Date.now(); await db.put('perfumes', p); await load(); };
 
-export async function mountVitrine() {
+export async function mountAlcove() {
   await load();
   status = 'all'; gender = 'all'; search = '';
   render();
@@ -102,46 +102,46 @@ function render() {
 
   const body = shown.length
     ? houseNames.map((h) => `
-        <div class="vt-group">
-          <div class="vt-house"><span>${escapeHtml(h)}</span><span class="vt-n">${houses[h].length}</span></div>
+        <div class="al-group">
+          <div class="al-house"><span>${escapeHtml(h)}</span><span class="al-n">${houses[h].length}</span></div>
           <div class="card">${houses[h].map(rowHTML).join('')}</div>
         </div>`).join('')
     : `<div class="empty"><span class="em"><i class="ti ti-perfume"></i></span>
-        <div>${items.length ? 'Nothing matches' : 'The vitrine is empty'}</div>
+        <div>${items.length ? 'Nothing matches' : 'The alcove is empty'}</div>
         <div class="tiny mt">${items.length ? 'Try a different filter.' : 'Add the first bottle above.'}</div></div>`;
 
   $app().innerHTML = `<div class="view">
     <div class="app-header">
       <div class="title">
         <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
-        <h1 class="mod-title">Vitrine</h1>
+        <h1 class="mod-title">Alcove</h1>
       </div>
-      <button class="header-btn" data-vt-decants aria-label="Decant sources"><i class="ti ti-flask"></i></button>
+      <button class="header-btn" data-al-decants aria-label="Decant sources"><i class="ti ti-flask"></i></button>
     </div>
 
-    <div class="hero vt-hero">
-      <div class="vt-counts">
+    <div class="hero al-hero">
+      <div class="al-counts">
         <div><b>${collected}</b><span class="label">Collected</span></div>
         <div><b>${coveted}</b><span class="label">Coveted</span></div>
       </div>
     </div>
 
     <div class="btn-row j-actions">
-      <button class="btn primary" data-vt-add><i class="ti ti-plus"></i> Add perfume</button>
+      <button class="btn primary" data-al-add><i class="ti ti-plus"></i> Add perfume</button>
     </div>
 
-    <div class="seg mt" id="vt-status">
+    <div class="seg mt" id="al-status">
       ${[['all', 'All'], ['collected', 'Collected'], ['coveted', 'Coveted']].map(([v, l]) =>
-        `<button data-vt-status="${v}" class="${status === v ? 'active' : ''}">${l}</button>`).join('')}
+        `<button data-al-status="${v}" class="${status === v ? 'active' : ''}">${l}</button>`).join('')}
     </div>
 
-    <div class="hh-chips vt-genders mt">
-      <button class="chip ${gender === 'all' ? 'active' : ''}" data-vt-gender="all">Any wear</button>
-      ${GENDERS.map((g) => `<button class="chip ${gender === g.id ? 'active' : ''}" data-vt-gender="${g.id}">
+    <div class="hh-chips al-genders mt">
+      <button class="chip ${gender === 'all' ? 'active' : ''}" data-al-gender="all">Any wear</button>
+      ${GENDERS.map((g) => `<button class="chip ${gender === g.id ? 'active' : ''}" data-al-gender="${g.id}">
         <i class="ti ${g.icon}"></i>${g.label}</button>`).join('')}
     </div>
 
-    <div class="field mt"><input class="input" id="vt-search" placeholder="Search name, house or dupe…"
+    <div class="field mt"><input class="input" id="al-search" placeholder="Search name, house or dupe…"
       value="${escapeHtml(search)}"></div>
 
     ${body}
@@ -156,20 +156,20 @@ function rowHTML(p) {
     p.concentration ? escapeHtml(p.concentration) : '',
     `<i class="ti ${g.icon}"></i> ${g.label}`,
     p.kind === 'dupe'
-      ? `<span class="vt-dupe ${p.dupeConfirmed ? 'ok' : ''}">${p.dupeConfirmed
+      ? `<span class="al-dupe ${p.dupeConfirmed ? 'ok' : ''}">${p.dupeConfirmed
           ? `dupe of ${escapeHtml(p.dupeConfirmed.of)}`
           : p.dupeOf ? `believed dupe of ${escapeHtml(p.dupeOf)}` : 'dupe'}</span>`
       : '',
   ].filter(Boolean).join(' · ');
 
-  return `<div class="row tappable vt-row" data-vt-edit="${p.id}">
+  return `<div class="row tappable al-row" data-al-edit="${p.id}">
     <div class="ic"><i class="ti ti-perfume"></i></div>
     <div class="main">
       <div class="t">${escapeHtml(p.name || 'Untitled')}</div>
       <div class="s">${meta}</div>
     </div>
-    <div class="vt-right">
-      <span class="vt-status ${p.status === 'collected' ? 'have' : 'want'}">${
+    <div class="al-right">
+      <span class="al-status ${p.status === 'collected' ? 'have' : 'want'}">${
         p.status === 'collected' ? 'Collected' : 'Coveted'}</span>
       ${best ? `<div class="j-share">${fmtMoney(Number(best.price))}</div>` : ''}
     </div>
@@ -225,15 +225,15 @@ function perfumeSheet(existing) {
 
     <div class="section-title spread"><span>Where to buy</span>
       <button class="mini-btn" data-v-addseller aria-label="Add seller"><i class="ti ti-plus"></i></button></div>
-    ${best ? `<div class="vt-best"><i class="ti ti-tag"></i> Best recorded:
+    ${best ? `<div class="al-best"><i class="ti ti-tag"></i> Best recorded:
       <b>${fmtMoney(Number(best.price))}</b> at ${escapeHtml(best.name)}
-      <span class="vt-auth ${authOf(best.authenticity).cls}">${authOf(best.authenticity).label}</span></div>` : ''}
+      <span class="al-auth ${authOf(best.authenticity).cls}">${authOf(best.authenticity).label}</span></div>` : ''}
     <div class="card">${(p.sellers || []).length
       ? p.sellers.map(sellerRowHTML).join('')
       : '<div class="tiny muted center" style="padding:14px">No sellers recorded yet.</div>'}</div>
 
-    <button class="btn primary mt2" id="v-save">${existing ? 'Save' : 'Add to vitrine'}</button>
-    ${existing ? '<button class="btn danger mt" id="v-del"><i class="ti ti-trash"></i> Remove from vitrine</button>' : ''}
+    <button class="btn primary mt2" id="v-save">${existing ? 'Save' : 'Add to the alcove'}</button>
+    ${existing ? '<button class="btn danger mt" id="v-del"><i class="ti ti-trash"></i> Remove from the alcove</button>' : ''}
   `);
 
   let kind = p.kind || 'original', gsel = p.gender || 'unisex', ssel = p.status || 'coveted';
@@ -277,7 +277,7 @@ function perfumeSheet(existing) {
     const next = collect();
     if (!next.name) return toast('Give the perfume a name', true);
     await save(next);
-    closeSheet(); render(); toast(existing ? 'Saved' : 'Added to the vitrine');
+    closeSheet(); render(); toast(existing ? 'Saved' : 'Added to the alcove');
   });
   sheet.querySelector('#v-del')?.addEventListener('click', async () => {
     await db.del('perfumes', p.id); await load();
@@ -292,7 +292,7 @@ function sellerRowHTML(s) {
     <div class="main">
       <div class="t">${escapeHtml(s.name)}</div>
       <div class="s">${s.kind === 'decant' ? 'Decant' : 'Full bottle'}${s.size ? ` · ${escapeHtml(s.size)}` : ''}
-        · <span class="vt-auth ${a.cls}">${a.label}</span></div>
+        · <span class="al-auth ${a.cls}">${a.label}</span></div>
     </div>
     <div class="amt">${Number(s.price) > 0 ? fmtMoney(Number(s.price)) : '—'}</div>
   </div>`;
@@ -395,7 +395,7 @@ function decantsSheet() {
       <div class="ic"><i class="ti ti-flask"></i></div>
       <div class="main"><div class="t">${escapeHtml(r.name)}</div>
         <div class="s">${escapeHtml(r.perfume)}${r.size ? ` · ${escapeHtml(r.size)}` : ''}
-          · <span class="vt-auth ${authOf(r.authenticity).cls}">${authOf(r.authenticity).label}</span></div></div>
+          · <span class="al-auth ${authOf(r.authenticity).cls}">${authOf(r.authenticity).label}</span></div></div>
       <div class="amt">${Number(r.price) > 0 ? fmtMoney(Number(r.price)) : '—'}</div>
     </div>`).join('') : '<div class="tiny muted center" style="padding:16px">No decant sellers recorded yet.</div>'}</div>
     <div class="hint mt"><b>Why there is no built-in list.</b> Sanctum has no way to check whether a shop sells
@@ -408,22 +408,22 @@ function decantsSheet() {
 function bind() {
   const root = $app();
   root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
-  root.querySelector('[data-vt-decants]').addEventListener('click', decantsSheet);
-  root.querySelector('[data-vt-add]').addEventListener('click', () => perfumeSheet());
-  root.querySelectorAll('[data-vt-status]').forEach((b) => b.addEventListener('click', () => {
-    status = b.dataset.vtStatus; render();
+  root.querySelector('[data-al-decants]').addEventListener('click', decantsSheet);
+  root.querySelector('[data-al-add]').addEventListener('click', () => perfumeSheet());
+  root.querySelectorAll('[data-al-status]').forEach((b) => b.addEventListener('click', () => {
+    status = b.dataset.alStatus; render();
   }));
-  root.querySelectorAll('[data-vt-gender]').forEach((b) => b.addEventListener('click', () => {
-    gender = b.dataset.vtGender; render();
+  root.querySelectorAll('[data-al-gender]').forEach((b) => b.addEventListener('click', () => {
+    gender = b.dataset.alGender; render();
   }));
-  root.querySelectorAll('[data-vt-edit]').forEach((el) => el.addEventListener('click',
-    () => perfumeSheet(items.find((x) => x.id === el.dataset.vtEdit))));
+  root.querySelectorAll('[data-al-edit]').forEach((el) => el.addEventListener('click',
+    () => perfumeSheet(items.find((x) => x.id === el.dataset.alEdit))));
 
-  const s = root.querySelector('#vt-search');
+  const s = root.querySelector('#al-search');
   s.addEventListener('input', (e) => {
     search = e.target.value;
     const y = window.scrollY; render(); window.scrollTo(0, y);
-    const n = document.getElementById('vt-search');
+    const n = document.getElementById('al-search');
     if (n) { n.focus(); n.setSelectionRange(n.value.length, n.value.length); }
   });
 }

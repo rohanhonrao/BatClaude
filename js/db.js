@@ -27,7 +27,7 @@ const STORES = {
   jointMeta: 'id',        // single record id='config': {basis:'gross'|'net', updatedAt}
   // --- Slate: personal tasks (deliberately NOT synced) ---
   todos: 'id',            // {id, title, notes, due, priority 0-2, done, doneAt, repeat, order, createdAt, updatedAt}
-  // --- Vitrine: the perfume collection (personal, NOT synced) ---
+  // --- Alcove: the perfume collection (personal, NOT synced) ---
   // sellers[] is nested rather than its own store: nothing ever queries a
   // seller independently of the perfume it belongs to.
   perfumes: 'id',         // {id, name, house, concentration, kind:'original'|'dupe', dupeOf, dupeConfirmed,

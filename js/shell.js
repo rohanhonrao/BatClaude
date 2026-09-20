@@ -14,13 +14,13 @@ import { mountDocs, setDocsHubHandler } from './docs.js';
 import { mountConcerts, setConcertsHubHandler } from './concerts.js';
 import { mountHearth, setHearthHubHandler } from './hearth.js';
 import { mountTodos, setTodosHubHandler } from './todos.js';
-import { mountVitrine, setVitrineHubHandler } from './vitrine.js';
+import { mountAlcove, setAlcoveHubHandler } from './alcove.js';
 
 const $app = () => document.getElementById('app');
 const chrome = () => document.getElementById('chrome');
 let lockTimer = null;
 const AUTO_LOCK_MS = 5 * 60 * 1000;
-export const APP_VERSION = '47';
+export const APP_VERSION = '48';
 
 // Wide, sharp bat emblem (viewBox 0 0 300 86), symmetric about x=150.
 // Sanctum mark — a minimal pointed arch (a doorway to a private room),
@@ -39,7 +39,7 @@ const MODULES = [
   { id: 'docs', name: 'Strongbox', icon: 'ti-id', desc: 'IDs & records · biometric‑locked', ready: true },
   { id: 'hearth', name: 'Hearth', icon: 'ti-flame', desc: 'Shared lists · shared money', ready: true },
   { id: 'todos', name: 'Slate', icon: 'ti-checkbox', desc: 'Personal tasks · smart dates', ready: true },
-  { id: 'vitrine', name: 'Vitrine', icon: 'ti-perfume', desc: 'Perfume collection · sellers', ready: true },
+  { id: 'alcove', name: 'Alcove', icon: 'ti-perfume', desc: 'Perfume collection · sellers', ready: true },
   { id: 'concerts', name: 'Concerts', icon: 'ti-music', desc: 'Gigs near you · your artists', ready: true },
   { id: 'movies', name: 'Movies', icon: 'ti-movie', desc: 'Ratings, watchlist, radar', ready: false },
   { id: 'sports', name: 'Sports', icon: 'ti-ball-basketball', desc: 'Teams, fixtures, analysis', ready: false },
@@ -224,7 +224,7 @@ function showHub() {
   setDocsHubHandler(goHub);
   setHearthHubHandler(goHub);
   setTodosHubHandler(goHub);
-  setVitrineHubHandler(goHub);
+  setAlcoveHubHandler(goHub);
   setConcertsHubHandler(goHub);
   const name = getSetting('name') || 'Wayne';
   $app().innerHTML = `<div class="view">
@@ -267,7 +267,7 @@ function openModule(id) {
   else if (id === 'docs') mountDocs();
   else if (id === 'hearth') mountHearth();
   else if (id === 'todos') mountTodos();
-  else if (id === 'vitrine') mountVitrine();
+  else if (id === 'alcove') mountAlcove();
   else if (id === 'concerts') mountConcerts();
 }
 

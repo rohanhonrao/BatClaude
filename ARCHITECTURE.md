@@ -35,7 +35,7 @@ leave the device. The network calls are:
 | ├ Lists | — | `js/household.js` | done — lists by store, priority, due dates, notes/links (supersedes Grocery) |
 | └ Money | — | `js/joint.js` + `js/split.js` | done — shared costs, income-ratio split, settle-up, editable categories, week / month / calendar-year summaries with per-category drill-down |
 | Slate | `todos` | `js/todos.js` + `js/when.js` | done — personal tasks, natural-language dates, repeats. **Not shared** |
-| Vitrine | `vitrine` | `js/vitrine.js` | done — perfume collection, sellers with user-recorded authenticity. **Not shared** |
+| Alcove | `alcove` | `js/alcove.js` | done — perfume collection, sellers with user-recorded authenticity. **Not shared** |
 | Concerts | `concerts` | `js/concerts.js` | done — NY & NJ gigs, 4-month window, artist tracking |
 | Movies / Sports / Stocks | — | — | placeholders, `ready:false` in the registry |
 
@@ -110,7 +110,7 @@ js/
   joint.js          Hearth's Money tab
   todos.js          SLATE module (personal, never synced)
   when.js           SLATE parsing: natural-language dates, repeats, buckets
-  vitrine.js        VITRINE module: perfume collection (personal, never synced)
+  alcove.js        ALCOVE module: perfume collection (personal, never synced)
   passwords.js docs.js concerts.js  modules
   split.js          JOINT maths: ratios, cent-exact shares, balances,
                     weeks, monthly + calendar-year summaries
@@ -557,7 +557,7 @@ the behaviour is never a surprise after the fact.
 
 ---
 
-## 8f. Vitrine — the perfume collection (`js/vitrine.js`)
+## 8f. Alcove — the perfume collection (`js/alcove.js`)
 
 What you own, what you are after, and where a bottle can actually be bought.
 Personal, so **not synced** — like Slate.
