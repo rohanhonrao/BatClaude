@@ -107,6 +107,7 @@ For each one, find:
 - a 2-4 sentence summary of what reviewers say: how it smells, longevity and sillage, and the most common criticism
 - a typical current price in USD (a low-high range is fine)
 - retailers that sell it, and whether each is listed as an AUTHORISED retailer on the brand's own site
+- a direct image URL of the bottle, if one is publicly available
 
 Rules that matter more than completeness:
 1. Never invent a fact. If you cannot find something, leave the field out entirely. A missing field is correct; a guessed one is a bug.
@@ -114,9 +115,10 @@ Rules that matter more than completeness:
 3. Set authorised to true ONLY if the brand's own website lists that retailer. Otherwise null. Never guess.
 4. Summarise reviews in your own words; do not copy review text. Cite the sources.
 5. Prices are a snapshot — set checkedAt to today.
+6. imageUrl must be a DIRECT link to an image file (.jpg/.png/.webp) showing that exact bottle — prefer the brand's own site, then a major retailer. Leave it out if you are not certain it is the right bottle. A missing image is fine; the app draws a monogram instead. The wrong bottle is not.
 
 Output as JSON in exactly this shape:
-{"perfumes":[{"id":"","name":"","house":"","gender":"masculine|feminine|unisex","concentration":"","dupeOf":{"name":"","confidence":"","sources":[""]},"review":"","reviewSources":[""],"priceUSD":{"low":0,"high":0,"checkedAt":"YYYY-MM-DD"},"retailers":[{"name":"","url":"","authorised":true}],"checkedAt":"YYYY-MM-DD"}]}
+{"perfumes":[{"id":"","name":"","house":"","gender":"masculine|feminine|unisex","concentration":"","imageUrl":"","dupeOf":{"name":"","confidence":"","sources":[""]},"review":"","reviewSources":[""],"priceUSD":{"low":0,"high":0,"checkedAt":"YYYY-MM-DD"},"retailers":[{"name":"","url":"","authorised":true}],"checkedAt":"YYYY-MM-DD"}]}
 
 Then do ONE of these:
 - If you have access to the rohanhonrao/BatClaude repository, merge those entries into data/perfumes.json (match on name + house, replace existing entries, keep the other top-level fields, write compact JSON, validate it parses) and commit as "Alcove: refresh perfume reference".
@@ -181,19 +183,11 @@ function render() {
   const collected = items.filter((p) => p.status === 'collected').length;
   const coveted = items.filter((p) => p.status === 'coveted').length;
 
-  // Grouped by house — a collection reads by maison, not alphabetically overall.
-  const houses = {};
-  for (const p of shown) (houses[p.house || 'Unattributed'] ||= []).push(p);
-  const houseNames = Object.keys(houses).sort((a, b) => a.localeCompare(b));
-
-  // Shelves by maison: a collection reads by house, and a labelled shelf of
-  // bottles looks like a collection in a way a list never does.
+  // One uninterrupted shelf, three across. House headings were breaking a small
+  // collection into a stack of one- and two-bottle fragments; load() still sorts
+  // by house, so bottles from the same maison sit together without the labels.
   const body = shown.length
-    ? houseNames.map((h) => `
-        <div class="al-group">
-          <div class="al-house"><span>${escapeHtml(h)}</span><span class="al-n">${houses[h].length}</span></div>
-          <div class="al-grid">${houses[h].map(tileHTML).join('')}</div>
-        </div>`).join('')
+    ? `<div class="al-grid">${shown.map(tileHTML).join('')}</div>`
     : `<div class="empty"><span class="em"><i class="ti ti-perfume"></i></span>
         <div>${items.length
           ? 'Nothing on this shelf'
@@ -232,6 +226,7 @@ function render() {
       value="${escapeHtml(search)}"></div>
 
     ${body}
+    <input type="file" accept="image/*" id="al-shelf-photo" hidden>
   </div>`;
   bind();
 }
@@ -281,13 +276,15 @@ function tileHTML(p) {
     <div class="al-tile-body">
       <div class="al-tile-name">${escapeHtml(p.name || 'Untitled')}</div>
       ${p.house ? `<div class="al-tile-house">${escapeHtml(p.house)}</div>` : ''}
-      <div class="al-tile-badges">
-        ${p.gender ? `<span class="al-badge">${escapeHtml(g.label)}</span>` : ''}
-        ${p.kind === 'dupe'
-          ? `<span class="al-badge dupe ${p.dupeConfirmed ? 'ok' : ''}">${escapeHtml(dupeText)}</span>` : ''}
-        ${best ? `<span class="al-badge price">${fmtMoney(Number(best.price))}</span>`
-          : r?.priceUSD?.low ? `<span class="al-badge price">${fmtMoney(Number(r.priceUSD.low))}</span>` : ''}
-      </div>
+      <div class="al-tile-badges">${[
+        p.gender ? `<span class="al-badge">${escapeHtml(g.label)}</span>` : '',
+        p.kind === 'dupe'
+          ? `<span class="al-badge dupe ${p.dupeConfirmed ? 'ok' : ''}">${escapeHtml(dupeText)}</span>` : '',
+        best ? `<span class="al-badge price">${fmtMoney(Number(best.price))}</span>`
+          : r?.priceUSD?.low ? `<span class="al-badge price">${fmtMoney(Number(r.priceUSD.low))}</span>` : '',
+      // At three across there is room for two badges. A third wraps and leaves
+      // the row of tiles ragged, which is what this grid is for avoiding.
+      ].filter(Boolean).slice(0, 2).join('')}</div>
     </div>
   </button>`;
 }
@@ -816,8 +813,33 @@ function bind() {
   root.querySelectorAll('[data-al-gender]').forEach((b) => b.addEventListener('click', () => {
     gender = b.dataset.alGender; render();
   }));
-  root.querySelectorAll('[data-al-edit]').forEach((el) => el.addEventListener('click',
-    () => perfumeSheet(items.find((x) => x.id === el.dataset.alEdit))));
+  // Tapping the camera badge on a tile goes straight to the picker — two taps
+  // from the shelf to a photographed bottle instead of four. Anywhere else on
+  // the tile opens the bottle as usual.
+  let pendingPhotoId = null;
+  const shelfInput = root.querySelector('#al-shelf-photo');
+  root.querySelectorAll('[data-al-edit]').forEach((el) => el.addEventListener('click', (e) => {
+    const id = el.dataset.alEdit;
+    if (e.target.closest('.al-tile-flag')) {
+      pendingPhotoId = id;
+      shelfInput.click();
+      return;
+    }
+    perfumeSheet(items.find((x) => x.id === id));
+  }));
+  shelfInput.addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    const target = items.find((x) => x.id === pendingPhotoId);
+    e.target.value = '';                       // so the same file can be picked again
+    if (!file || !target) return;
+    try {
+      await save({ ...target, photo: await readPhoto(file) });
+      render();
+      toast('Photo added');
+    } catch (err) {
+      toast(err.message || 'Could not use that image', true);
+    }
+  });
 
   const s = root.querySelector('#al-search');
   s.addEventListener('input', (e) => {

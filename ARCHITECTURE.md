@@ -568,8 +568,13 @@ queries a seller independently of its bottle.
 ### Two shelves, not a list
 
 **Collected** and **Coveted** are the only two views — there is deliberately no
-combined "All". Each is a grid of bottles grouped by maison, because a
-collection should look like a collection; a row of text does not.
+combined "All". Each is one uninterrupted grid, **three bottles across**,
+because a collection should look like a collection; a row of text does not.
+
+House headings were tried and removed: on a small collection they split the
+shelf into a stack of one- and two-bottle fragments. `load()` still sorts by
+house then name, so bottles from the same maison sit together without labels
+doing it.
 
 Each tile's picture falls back in order of what is actually trustworthy:
 

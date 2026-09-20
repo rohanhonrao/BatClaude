@@ -1076,9 +1076,6 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 
 /* --- Alcove: the perfume collection -------------------------------------- */
 
-.al-group { margin-top: 18px; }
-.al-house { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
-  font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
 .al-row .al-right { text-align: right; flex: none; }
 .al-status { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; padding: 2px 7px;
   border-radius: 6px; white-space: nowrap; }
@@ -1129,7 +1126,7 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 /* --- Alcove: the shelf ---------------------------------------------------- */
 /* A collection should look like a collection, so Collected and Coveted are
    shelves of bottles rather than rows of text. */
-.al-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.al-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 14px; }
 .al-tile { position: relative; display: block; width: 100%; text-align: left; padding: 0;
   background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
 .al-tile:active { transform: scale(.985); }
@@ -1171,3 +1168,20 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .al-genders { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
 .al-genders::-webkit-scrollbar { display: none; }
 .al-genders .chip { flex: none; }
+/* Three across: the tile text has to come down with it or the cards crowd. */
+.al-grid .al-tile { border-radius: 13px; }
+.al-grid .al-tile-body { padding: 7px 8px 9px; }
+.al-grid .al-tile-name { font-size: 12px; line-height: 1.2; }
+.al-grid .al-tile-house { font-size: 9px; margin-top: 2px; letter-spacing: .05em; }
+.al-grid .al-tile-badges { gap: 3px; margin-top: 5px; }
+.al-grid .al-badge { font-size: 8.5px; padding: 1px 4px; }
+.al-grid .al-mono { font-size: 24px; }
+.al-grid .al-tile-flag { width: 21px; height: 21px; font-size: 11px; top: 6px; right: 6px; }
+/* Grid items stretch to the tallest in the row by default, which was stretching
+   each tile's photo to a different height and fighting its aspect ratio. Make
+   the tile a column so only the text block absorbs the slack. */
+.al-tile { display: flex; flex-direction: column; }
+.al-shot { flex: none; }
+.al-tile-body { flex: 1; }
+/* A long dupe name wrapping to two lines was the other source of ragged rows. */
+.al-badge { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
