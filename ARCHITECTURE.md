@@ -565,6 +565,33 @@ Personal, so **not synced** — like Slate.
 Store `perfumes`; `sellers[]` is nested rather than its own store because nothing
 queries a seller independently of its bottle.
 
+### Two shelves, not a list
+
+**Collected** and **Coveted** are the only two views — there is deliberately no
+combined "All". Each is a grid of bottles grouped by maison, because a
+collection should look like a collection; a row of text does not.
+
+Each tile's picture falls back in order of what is actually trustworthy:
+
+1. **a photo the user added** — theirs, stored on the device, works offline;
+2. **an `imageUrl` from research** — remote, so it can 404 or be hotlink-blocked;
+   it removes itself on error rather than leaving a broken frame;
+3. **a generated monogram** — initials over a gradient hashed from the name, so
+   it is stable per bottle. No network, never fails, and looks deliberate rather
+   than like a missing asset.
+
+Photos are **downscaled before storage** (longest edge 640px, JPEG). A phone
+photo is several megabytes and IndexedDB holds the whole collection; fifty
+full-size shots would be a quarter of a gigabyte.
+
+### Capture is name, house, shelf — nothing else
+
+Adding a bottle asks only for the name, the house, and which shelf. Wear,
+original-vs-dupe, notes and where to buy are meant to arrive from research, not
+from typing. `applyResearch()` fills those fields from the reference entry and
+records which ones it set in `fromResearch`, so a later refresh can update them
+while anything the user edited by hand is left alone.
+
 ### Two things this module refuses to assert
 
 Both follow from CLAUDE.md rule 3, and both concern claims that cost real money

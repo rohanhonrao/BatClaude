@@ -1075,11 +1075,6 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .j-actions .btn { flex: 1; margin-top: 0; min-width: 0; }
 
 /* --- Alcove: the perfume collection -------------------------------------- */
-.al-hero { padding: 18px 16px; }
-.al-counts { display: flex; justify-content: center; gap: 42px; }
-.al-counts > div { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.al-counts b { font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
-.al-counts .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
 
 .al-group { margin-top: 18px; }
 .al-house { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
@@ -1130,3 +1125,49 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 .al-ref-cta { margin-top: 10px; }
 .al-research-note { font-size: 12px; color: var(--muted); line-height: 1.5; }
 .al-paste { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+
+/* --- Alcove: the shelf ---------------------------------------------------- */
+/* A collection should look like a collection, so Collected and Coveted are
+   shelves of bottles rather than rows of text. */
+.al-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.al-tile { position: relative; display: block; width: 100%; text-align: left; padding: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.al-tile:active { transform: scale(.985); }
+.al-shot { position: relative; aspect-ratio: 3 / 4; width: 100%; overflow: hidden; background: var(--surface-2); }
+.al-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Fallback when there is no photograph: a monogram, generated from the name so
+   it is stable per bottle. Deliberate-looking beats a broken image icon. */
+.al-mono { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', Georgia, serif; font-size: 34px; letter-spacing: .06em; color: rgba(233,228,218,.82); }
+.al-mono::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 -40px 50px -30px rgba(0,0,0,.65); }
+
+.al-tile-body { padding: 10px 11px 12px; }
+.al-tile-name { font-weight: 650; font-size: 14px; line-height: 1.25;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.al-tile-house { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em;
+  margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.al-tile-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+.al-badge { font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em; padding: 2px 6px;
+  border-radius: 5px; background: var(--surface-3); color: var(--muted); }
+.al-badge.dupe { background: rgba(245,197,66,.13); color: var(--gold); }
+.al-badge.dupe.ok { background: rgba(99,201,154,.15); color: var(--green); }
+.al-badge.price { background: transparent; color: var(--text); padding-left: 0; }
+.al-tile-flag { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+  background: rgba(10,10,11,.6); backdrop-filter: blur(6px); color: var(--accent); }
+.al-photo-row { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+.al-photo-prev { position: relative; width: 84px; height: 112px; flex: none; border-radius: 12px;
+  overflow: hidden; background: var(--surface-2); }
+.al-photo-prev img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.al-photo-prev .al-mono { font-size: 24px; }
+.al-photo-actions { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
+.al-photo-actions .btn { margin-top: 0; }
+/* The collection is the point, so the chrome above it stays thin: counts ride
+   on the shelf switch, Add moves into the header, and the wear filter is one
+   scrolling row rather than two wrapped ones. */
+.al-seg-n { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; margin-left: 2px; }
+.seg button.active .al-seg-n { color: var(--text); }
+.al-genders { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.al-genders::-webkit-scrollbar { display: none; }
+.al-genders .chip { flex: none; }

@@ -42,7 +42,7 @@ const AUTHENTICITY = [
 let items = [];
 let reference = null;      // data/perfumes.json as fetched — research, never the user's own record
 let referenceLocal = null; // pasted research; kept apart so a refetch cannot erase it
-let status = 'all';       // 'all' | 'collected' | 'coveted'
+let status = 'collected';  // 'collected' | 'coveted' — no combined view, by design
 let gender = 'all';       // 'all' | masculine | feminine | unisex
 let search = '';
 let hubHandler = null;
@@ -61,7 +61,7 @@ async function load() {
 const save = async (p) => { p.updatedAt = Date.now(); await db.put('perfumes', p); await load(); };
 
 // --- reference data -------------------------------------------------------------
-// data/perfumes.json is compiled by a daily routine (ARCHITECTURE §8f) and served
+// data/perfumes.json is filled on demand via the Research button (ARCHITECTURE §8f) and served
 // same-origin, exactly like the concert listings. It is REFERENCE only: it never
 // overwrites what the user recorded, and a dupe claim in it stays attributed to
 // its source until the user chooses to accept it.
@@ -127,7 +127,7 @@ export async function mountAlcove() {
   await load();
   reference = (await db.get('settings', 'alcoveReference'))?.value || null;
   referenceLocal = (await db.get('settings', 'alcoveReferenceLocal'))?.value || null;
-  status = 'all'; gender = 'all'; search = '';
+  status = 'collected'; gender = 'all'; search = '';
   render();
   loadReference().then(render);         // refresh in the background
 }
@@ -140,6 +140,13 @@ async function importReference(json) {
     !incoming.some((i) => norm(i.name) === norm(r.name) && norm(i.house || '') === norm(r.house || '')));
   referenceLocal = { importedAt: new Date().toISOString(), perfumes: [...keep, ...incoming] };
   await db.put('settings', { key: 'alcoveReferenceLocal', value: referenceLocal });
+
+  // Push the new findings into the bottles themselves, so the shelf shows wear
+  // and dupe without the user ever typing them.
+  for (const p of [...items]) {
+    const r = referenceFor(p);
+    if (r) await save(applyResearch(p, r));
+  }
   return incoming.length;
 }
 
@@ -159,7 +166,7 @@ function bestPrice(p) {
 
 function visible() {
   let list = items;
-  if (status !== 'all') list = list.filter((p) => (p.status || 'coveted') === status);
+  list = list.filter((p) => (p.status || 'coveted') === status);
   if (gender !== 'all') list = list.filter((p) => (p.gender || 'unisex') === gender);
   if (search) {
     const q = norm(search);
@@ -179,15 +186,21 @@ function render() {
   for (const p of shown) (houses[p.house || 'Unattributed'] ||= []).push(p);
   const houseNames = Object.keys(houses).sort((a, b) => a.localeCompare(b));
 
+  // Shelves by maison: a collection reads by house, and a labelled shelf of
+  // bottles looks like a collection in a way a list never does.
   const body = shown.length
     ? houseNames.map((h) => `
         <div class="al-group">
           <div class="al-house"><span>${escapeHtml(h)}</span><span class="al-n">${houses[h].length}</span></div>
-          <div class="card">${houses[h].map(rowHTML).join('')}</div>
+          <div class="al-grid">${houses[h].map(tileHTML).join('')}</div>
         </div>`).join('')
     : `<div class="empty"><span class="em"><i class="ti ti-perfume"></i></span>
-        <div>${items.length ? 'Nothing matches' : 'The alcove is empty'}</div>
-        <div class="tiny mt">${items.length ? 'Try a different filter.' : 'Add the first bottle above.'}</div></div>`;
+        <div>${items.length
+          ? 'Nothing on this shelf'
+          : status === 'collected' ? 'Nothing collected yet' : 'Nothing coveted yet'}</div>
+        <div class="tiny mt">${items.length
+          ? 'Try the other shelf, or clear the filter.'
+          : 'Add a bottle above — name and house is all it needs.'}</div></div>`;
 
   $app().innerHTML = `<div class="view">
     <div class="app-header">
@@ -196,25 +209,17 @@ function render() {
         <h1 class="mod-title">Alcove</h1>
       </div>
       <div class="header-actions">
+        <button class="header-btn primary-btn" data-al-add aria-label="Add a bottle"><i class="ti ti-plus"></i></button>
         <button class="header-btn" data-al-research aria-label="Research"><i class="ti ti-search"></i></button>
         <button class="header-btn" data-al-decants aria-label="Decant sources"><i class="ti ti-flask"></i></button>
       </div>
     </div>
 
-    <div class="hero al-hero">
-      <div class="al-counts">
-        <div><b>${collected}</b><span class="label">Collected</span></div>
-        <div><b>${coveted}</b><span class="label">Coveted</span></div>
-      </div>
-    </div>
-
-    <div class="btn-row j-actions">
-      <button class="btn primary" data-al-add><i class="ti ti-plus"></i> Add perfume</button>
-    </div>
-
-    <div class="seg mt" id="al-status">
-      ${[['all', 'All'], ['collected', 'Collected'], ['coveted', 'Coveted']].map(([v, l]) =>
-        `<button data-al-status="${v}" class="${status === v ? 'active' : ''}">${l}</button>`).join('')}
+    <div class="seg" id="al-status">
+      ${STATUSES.map((s) =>
+        `<button data-al-status="${s.id}" class="${status === s.id ? 'active' : ''}">
+          <i class="ti ${s.icon}"></i> ${s.label}
+          <span class="al-seg-n">${s.id === 'collected' ? collected : coveted}</span></button>`).join('')}
     </div>
 
     <div class="hh-chips al-genders mt">
@@ -231,31 +236,162 @@ function render() {
   bind();
 }
 
-function rowHTML(p) {
+/**
+ * A bottle's picture, in order of what is actually trustworthy:
+ *   1. a photo the user added — theirs, on the device, works offline
+ *   2. an image URL from research — remote, so it can 404 or be hotlink-blocked;
+ *      it removes itself on error rather than leaving a broken frame
+ *   3. a generated monogram — no network, never fails, looks deliberate
+ */
+function shotHTML(p) {
+  const r = referenceFor(p);
+  const mono = monogramHTML(p);
+  if (p.photo) return `<div class="al-shot"><img src="${escapeHtml(p.photo)}" alt=""></div>`;
+  if (r?.imageUrl) {
+    return `<div class="al-shot">${mono}
+      <img src="${escapeHtml(r.imageUrl)}" alt="" loading="lazy"
+        onerror="this.remove()" style="position:absolute;inset:0"></div>`;
+  }
+  return `<div class="al-shot">${mono}</div>`;
+}
+
+// Stable per bottle: the same name always gives the same colour and initials,
+// so a shelf of monograms looks composed rather than random.
+function monogramHTML(p) {
+  const text = `${p.name || ''} ${p.house || ''}`;
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
+  const hue = h % 360;
+  const initials = (p.name || '?').split(/\s+/).filter(Boolean).slice(0, 2)
+    .map((w) => w[0].toUpperCase()).join('');
+  return `<div class="al-mono" style="background:linear-gradient(150deg,
+    hsl(${hue} 18% 22%), hsl(${(hue + 40) % 360} 14% 12%))">${escapeHtml(initials)}</div>`;
+}
+
+function tileHTML(p) {
   const g = genderOf(p.gender);
   const best = bestPrice(p);
-  const meta = [
-    p.concentration ? escapeHtml(p.concentration) : '',
-    `<i class="ti ${g.icon}"></i> ${g.label}`,
-    p.kind === 'dupe'
-      ? `<span class="al-dupe ${p.dupeConfirmed ? 'ok' : ''}">${p.dupeConfirmed
-          ? `dupe of ${escapeHtml(p.dupeConfirmed.of)}`
-          : p.dupeOf ? `believed dupe of ${escapeHtml(p.dupeOf)}` : 'dupe'}</span>`
-      : '',
-  ].filter(Boolean).join(' · ');
+  const r = referenceFor(p);
+  const dupeText = p.dupeConfirmed ? `dupe of ${p.dupeConfirmed.of}`
+    : p.dupeOf ? `dupe of ${p.dupeOf}` : 'dupe';
 
-  return `<div class="row tappable al-row" data-al-edit="${p.id}">
-    <div class="ic"><i class="ti ti-perfume"></i></div>
-    <div class="main">
-      <div class="t">${escapeHtml(p.name || 'Untitled')}</div>
-      <div class="s">${meta}</div>
+  return `<button class="al-tile" data-al-edit="${p.id}">
+    ${shotHTML(p)}
+    ${p.photo ? '' : '<span class="al-tile-flag" aria-label="No photo yet"><i class="ti ti-camera"></i></span>'}
+    <div class="al-tile-body">
+      <div class="al-tile-name">${escapeHtml(p.name || 'Untitled')}</div>
+      ${p.house ? `<div class="al-tile-house">${escapeHtml(p.house)}</div>` : ''}
+      <div class="al-tile-badges">
+        ${p.gender ? `<span class="al-badge">${escapeHtml(g.label)}</span>` : ''}
+        ${p.kind === 'dupe'
+          ? `<span class="al-badge dupe ${p.dupeConfirmed ? 'ok' : ''}">${escapeHtml(dupeText)}</span>` : ''}
+        ${best ? `<span class="al-badge price">${fmtMoney(Number(best.price))}</span>`
+          : r?.priceUSD?.low ? `<span class="al-badge price">${fmtMoney(Number(r.priceUSD.low))}</span>` : ''}
+      </div>
     </div>
-    <div class="al-right">
-      <span class="al-status ${p.status === 'collected' ? 'have' : 'want'}">${
-        p.status === 'collected' ? 'Collected' : 'Coveted'}</span>
-      ${best ? `<div class="j-share">${fmtMoney(Number(best.price))}</div>` : ''}
+  </button>`;
+}
+
+// --- adding ---------------------------------------------------------------------
+// Three fields, deliberately. Wear, dupe, notes and sellers are meant to arrive
+// from research; asking the user to type them defeats the point.
+//
+// Nothing is defaulted here either — gender and kind stay undefined rather than
+// guessing "unisex"/"original", so applyResearch() can tell "not known yet"
+// apart from "the user chose this".
+function addSheet() {
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2>Add a bottle</h2>
+      <button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="field"><label>Name</label>
+      <input class="input" id="a-name" placeholder="e.g. Khamrah" autocomplete="off"></div>
+    <div class="field"><label>House</label>
+      <input class="input" id="a-house" placeholder="e.g. Lattafa" autocomplete="off"></div>
+    <div class="field"><label>Shelf</label><div class="seg" id="a-status">
+      ${STATUSES.map((s) => `<button data-s="${s.id}" class="${s.id === status ? 'active' : ''}">
+        <i class="ti ${s.icon}"></i> ${s.label}</button>`).join('')}</div></div>
+    <div class="btn-row">
+      <button class="btn" id="a-save">Add</button>
+      <button class="btn primary" id="a-save-research"><i class="ti ti-search"></i> Add &amp; research</button>
     </div>
-  </div>`;
+    <div class="hint mt">Wear, original-or-dupe, notes and where to buy all come from research.</div>
+  `);
+
+  let st = status;
+  sheet.querySelectorAll('#a-status button').forEach((b) => b.addEventListener('click', () => {
+    st = b.dataset.s;
+    sheet.querySelectorAll('#a-status button').forEach((x) => x.classList.toggle('active', x === b));
+  }));
+
+  const commit = async () => {
+    const name = sheet.querySelector('#a-name').value.trim();
+    if (!name) { toast('Give the bottle a name', true); return null; }
+    const house = sheet.querySelector('#a-house').value.trim();
+    const rec = { id: uid('pf_'), name, house, status: st, sellers: [], createdAt: Date.now() };
+    await save(applyResearch(rec, referenceFor(rec)));
+    status = st;                       // land on the shelf it went to
+    return rec;
+  };
+  sheet.querySelector('#a-save').addEventListener('click', async () => {
+    if (!await commit()) return;
+    closeSheet(); render(); toast('Added');
+  });
+  sheet.querySelector('#a-save-research').addEventListener('click', async () => {
+    const rec = await commit();
+    if (!rec) return;
+    closeSheet(); render();
+    handOff([{ name: rec.name, house: rec.house }]);
+  });
+  setTimeout(() => sheet.querySelector('#a-name').focus(), 100);
+}
+
+/**
+ * Fill in the fields research is supposed to provide, remembering which ones it
+ * set. A later refresh may update those; anything the user edited by hand is
+ * left alone, which is why `fromResearch` exists rather than overwriting freely.
+ */
+function applyResearch(p, r) {
+  if (!r) return p;
+  const from = { ...(p.fromResearch || {}) };
+  const take = (key, value) => {
+    if (value === undefined || value === null || value === '') return;
+    if (p[key] && !from[key]) return;          // user set it — leave it
+    p[key] = value; from[key] = true;
+  };
+  take('gender', r.gender);
+  take('concentration', r.concentration);
+  if (r.dupeOf?.name && (!p.dupeOf || from.dupeOf)) {
+    p.kind = 'dupe'; p.dupeOf = r.dupeOf.name;
+    from.dupeOf = true; from.kind = true;
+  }
+  p.fromResearch = from;
+  return p;
+}
+
+/**
+ * Phone photos are several megabytes and the whole collection lives in
+ * IndexedDB, so fifty of them would be a quarter of a gigabyte. Downscale to a
+ * 640px long edge and re-encode as JPEG before storing.
+ */
+function readPhoto(file, maxEdge = 640) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onerror = () => reject(new Error('could not read that file'));
+    fr.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error("that doesn't look like an image"));
+      img.onload = () => {
+        const scale = Math.min(1, maxEdge / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.width * scale));
+        c.height = Math.max(1, Math.round(img.height * scale));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        resolve(c.toDataURL('image/jpeg', 0.72));
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
 }
 
 // --- the bottle ---------------------------------------------------------------
@@ -271,6 +407,16 @@ function perfumeSheet(existing) {
     <div class="sheet-title-row">
       <h2>${existing ? escapeHtml(p.name || 'Perfume') : 'Add perfume'}</h2>
       <button class="close" data-close><i class="ti ti-x"></i></button></div>
+
+    <div class="al-photo-row">
+      <div class="al-photo-prev">${p.photo
+        ? `<img src="${escapeHtml(p.photo)}" alt="">` : monogramHTML(p)}</div>
+      <div class="al-photo-actions">
+        <button class="btn" id="v-photo"><i class="ti ti-camera"></i> ${p.photo ? 'Replace' : 'Add photo'}</button>
+        ${p.photo ? '<button class="chip" id="v-photo-x">Remove</button>' : ''}
+      </div>
+    </div>
+    <input type="file" accept="image/*" id="v-photo-input" hidden>
 
     <div class="field"><label>Name</label><input class="input" id="v-name" value="${escapeHtml(p.name)}"
       placeholder="e.g. Khamrah"></div>
@@ -324,7 +470,11 @@ function perfumeSheet(existing) {
     ${existing ? '<button class="btn danger mt" id="v-del"><i class="ti ti-trash"></i> Remove from the alcove</button>' : ''}
   `);
 
-  let kind = p.kind || 'original', gsel = p.gender || 'unisex', ssel = p.status || 'coveted';
+  // These start UNDEFINED rather than defaulted. The segments below show
+  // 'original'/'unisex' as their resting state, but merely opening this sheet
+  // must not stamp those onto the record — applyResearch() would then read them
+  // as the user's own choice and refuse to fill the field in.
+  let kind = p.kind, gsel = p.gender, ssel = p.status || 'coveted';
   const pick = (sel, set) => sheet.querySelectorAll(`${sel} button`).forEach((b) => b.addEventListener('click', () => {
     set(b);
     sheet.querySelectorAll(`${sel} button`).forEach((x) => x.classList.toggle('active', x === b));
@@ -336,16 +486,22 @@ function perfumeSheet(existing) {
     sheet.querySelector('#v-dupe-wrap').style.display = kind === 'dupe' ? '' : 'none';
   });
 
-  const collect = () => ({
-    ...p,
-    name: sheet.querySelector('#v-name').value.trim(),
-    house: sheet.querySelector('#v-house').value.trim(),
-    concentration: sheet.querySelector('#v-conc').value,
-    kind, gender: gsel, status: ssel,
-    dupeOf: kind === 'dupe' ? sheet.querySelector('#v-dupeof').value.trim() : '',
-    dupeConfirmed: kind === 'dupe' ? p.dupeConfirmed : null,
-    notes: sheet.querySelector('#v-notes').value.trim(),
-  });
+  const collect = () => {
+    // Only an explicit "Original" clears the dupe fields. Testing `kind ===
+    // 'dupe'` would wipe a research-filled dupeOf the moment the sheet was
+    // opened and saved without touching that segment.
+    const saidOriginal = kind === 'original';
+    return {
+      ...p,
+      name: sheet.querySelector('#v-name').value.trim(),
+      house: sheet.querySelector('#v-house').value.trim(),
+      concentration: sheet.querySelector('#v-conc').value,
+      kind, gender: gsel, status: ssel,
+      dupeOf: saidOriginal ? '' : sheet.querySelector('#v-dupeof').value.trim(),
+      dupeConfirmed: saidOriginal ? null : p.dupeConfirmed,
+      notes: sheet.querySelector('#v-notes').value.trim(),
+    };
+  };
 
   // Adding a seller saves the bottle first, so a half-filled new perfume is not
   // lost behind the seller editor.
@@ -360,6 +516,30 @@ function perfumeSheet(existing) {
     if (draft.name) await save(draft);
     sellerSheet(draft, (draft.sellers || []).find((s) => s.id === el.dataset.vSeller));
   }));
+
+  // Photos are stored on the record itself, downscaled first — see readPhoto().
+  const reopen = async (rec) => {
+    await save(rec);
+    render();
+    perfumeSheet(items.find((x) => x.id === p.id));   // in place; see §11 popstate
+  };
+  sheet.querySelector('#v-photo').addEventListener('click', () =>
+    sheet.querySelector('#v-photo-input').click());
+  sheet.querySelector('#v-photo-input').addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    try {
+      const photo = await readPhoto(file);
+      await reopen({ ...collect(), photo });
+      toast('Photo added');
+    } catch (err) {
+      toast(err.message || 'Could not use that image', true);
+    }
+  });
+  sheet.querySelector('#v-photo-x')?.addEventListener('click', async () => {
+    await reopen({ ...collect(), photo: null });
+    toast('Photo removed');
+  });
 
   // Uses the fields as currently typed, so a name entered seconds ago is the one
   // researched rather than whatever was last saved.
@@ -629,7 +809,7 @@ function bind() {
   root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
   root.querySelector('[data-al-research]').addEventListener('click', researchSheet);
   root.querySelector('[data-al-decants]').addEventListener('click', decantsSheet);
-  root.querySelector('[data-al-add]').addEventListener('click', () => perfumeSheet());
+  root.querySelector('[data-al-add]').addEventListener('click', addSheet);
   root.querySelectorAll('[data-al-status]').forEach((b) => b.addEventListener('click', () => {
     status = b.dataset.alStatus; render();
   }));
