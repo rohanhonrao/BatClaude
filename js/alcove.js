@@ -40,7 +40,8 @@ const AUTHENTICITY = [
 ];
 
 let items = [];
-let reference = null;     // data/perfumes.json — research, never the user's own record
+let reference = null;      // data/perfumes.json as fetched — research, never the user's own record
+let referenceLocal = null; // pasted research; kept apart so a refetch cannot erase it
 let status = 'all';       // 'all' | 'collected' | 'coveted'
 let gender = 'all';       // 'all' | masculine | feminine | unisex
 let search = '';
@@ -75,20 +76,71 @@ async function loadReference() {
   }
 }
 
-/** Match a bottle to the reference table by name, and by house when both have one. */
+/**
+ * Match a bottle to the reference table by name, and by house when both have one.
+ *
+ * Locally imported entries win over the repo file. They have to be kept apart:
+ * loadReference() overwrites the fetched copy every mount, so anything pasted in
+ * would be silently lost if the two shared a slot.
+ */
 function referenceFor(p) {
-  const list = reference?.perfumes || [];
   if (!p?.name) return null;
   const n = norm(p.name), h = norm(p.house);
-  return list.find((r) => norm(r.name) === n && (!h || !norm(r.house) || norm(r.house) === h)) || null;
+  const hit = (list) => (list || []).find((r) =>
+    norm(r.name) === n && (!h || !norm(r.house) || norm(r.house) === h));
+  return hit(referenceLocal?.perfumes) || hit(reference?.perfumes) || null;
+}
+
+/**
+ * The research request, written so it stands alone in a fresh session that has
+ * none of this context. The rules are the module's rules — an invented field or
+ * a guessed "authorised" costs real money on a counterfeit bottle.
+ */
+function researchPrompt(bottles) {
+  const list = bottles.map((b) => `- ${b.name}${b.house ? ` (${b.house})` : ''}`).join('\n');
+  return `Research ${bottles.length === 1 ? 'this perfume' : 'these perfumes'} for my collection app:
+
+${list}
+
+For each one, find:
+- what it is commonly cited as a dupe of, if anything
+- a 2-4 sentence summary of what reviewers say: how it smells, longevity and sillage, and the most common criticism
+- a typical current price in USD (a low-high range is fine)
+- retailers that sell it, and whether each is listed as an AUTHORISED retailer on the brand's own site
+
+Rules that matter more than completeness:
+1. Never invent a fact. If you cannot find something, leave the field out entirely. A missing field is correct; a guessed one is a bug.
+2. A dupe claim is community consensus, not manufacturer fact. Include at least one source URL and set confidence to what the evidence supports: "commonly cited", "disputed", or "single source".
+3. Set authorised to true ONLY if the brand's own website lists that retailer. Otherwise null. Never guess.
+4. Summarise reviews in your own words; do not copy review text. Cite the sources.
+5. Prices are a snapshot — set checkedAt to today.
+
+Output as JSON in exactly this shape:
+{"perfumes":[{"id":"","name":"","house":"","gender":"masculine|feminine|unisex","concentration":"","dupeOf":{"name":"","confidence":"","sources":[""]},"review":"","reviewSources":[""],"priceUSD":{"low":0,"high":0,"checkedAt":"YYYY-MM-DD"},"retailers":[{"name":"","url":"","authorised":true}],"checkedAt":"YYYY-MM-DD"}]}
+
+Then do ONE of these:
+- If you have access to the rohanhonrao/BatClaude repository, merge those entries into data/perfumes.json (match on name + house, replace existing entries, keep the other top-level fields, write compact JSON, validate it parses) and commit as "Alcove: refresh perfume reference".
+- Otherwise just print the JSON in a single code block so I can paste it into the app.`;
 }
 
 export async function mountAlcove() {
   await load();
   reference = (await db.get('settings', 'alcoveReference'))?.value || null;
+  referenceLocal = (await db.get('settings', 'alcoveReferenceLocal'))?.value || null;
   status = 'all'; gender = 'all'; search = '';
   render();
   loadReference().then(render);         // refresh in the background
+}
+
+/** Merge pasted research into the local layer, replacing entries by name+house. */
+async function importReference(json) {
+  const incoming = (json?.perfumes || []).filter((r) => r && r.name);
+  if (!incoming.length) throw new Error('no perfumes in that');
+  const keep = (referenceLocal?.perfumes || []).filter((r) =>
+    !incoming.some((i) => norm(i.name) === norm(r.name) && norm(i.house || '') === norm(r.house || '')));
+  referenceLocal = { importedAt: new Date().toISOString(), perfumes: [...keep, ...incoming] };
+  await db.put('settings', { key: 'alcoveReferenceLocal', value: referenceLocal });
+  return incoming.length;
 }
 
 // --- derived ------------------------------------------------------------------
@@ -143,7 +195,10 @@ function render() {
         <button class="header-btn" data-hub aria-label="All apps"><i class="ti ti-apps"></i></button>
         <h1 class="mod-title">Alcove</h1>
       </div>
-      <button class="header-btn" data-al-decants aria-label="Decant sources"><i class="ti ti-flask"></i></button>
+      <div class="header-actions">
+        <button class="header-btn" data-al-research aria-label="Research"><i class="ti ti-search"></i></button>
+        <button class="header-btn" data-al-decants aria-label="Decant sources"><i class="ti ti-flask"></i></button>
+      </div>
     </div>
 
     <div class="hero al-hero">
@@ -306,6 +361,13 @@ function perfumeSheet(existing) {
     sellerSheet(draft, (draft.sellers || []).find((s) => s.id === el.dataset.vSeller));
   }));
 
+  // Uses the fields as currently typed, so a name entered seconds ago is the one
+  // researched rather than whatever was last saved.
+  sheet.querySelector('[data-al-research-one]')?.addEventListener('click', () => handOff([{
+    name: sheet.querySelector('#v-name').value.trim() || p.name,
+    house: sheet.querySelector('#v-house').value.trim() || p.house,
+  }]));
+
   // Accepting a reference dupe claim is the user's decision, and the source URL
   // is stored with it — so "confirmed" always means confirmed *by something*.
   sheet.querySelector('#v-ref-accept')?.addEventListener('click', async () => {
@@ -341,9 +403,9 @@ function referenceCardHTML(p) {
   const r = referenceFor(p);
   if (!r) {
     if (!p.name) return '';
-    return `<div class="hint mt"><i class="ti ti-search"></i> No reference entry for this bottle yet.
-      The daily research routine covers ${escapeHtml((reference?.houses || []).join(', ') || 'selected houses')}
-      and originals under $${reference?.originalsUnderUSD ?? 100}.</div>`;
+    return `<div class="hint mt"><i class="ti ti-search"></i> No reference entry for this bottle yet.</div>
+      <button class="btn al-ref-cta" data-al-research-one="${p.id}">
+        <i class="ti ti-search"></i> Research this bottle</button>`;
   }
   const days = r.checkedAt
     ? Math.round((Date.parse(todayISO()) - Date.parse(r.checkedAt)) / 86400000) : null;
@@ -467,6 +529,69 @@ function sellerSheet(perfume, existing) {
   });
 }
 
+// --- research hand-off ------------------------------------------------------------
+// Alcove cannot do the lookup itself: it is a static page, and no key may ever
+// ship in a public app. So it hands over a finished prompt instead.
+// claude.ai/code/new is the documented way to start a session from the phone;
+// there is NO documented prefill parameter, so this is deliberately copy-then-
+// paste rather than a link pretending to carry the prompt with it.
+async function handOff(bottles) {
+  if (!bottles.length) return toast('Nothing to research', true);
+  try {
+    await navigator.clipboard.writeText(researchPrompt(bottles));
+  } catch {
+    return toast('Could not copy — open Research and copy it by hand', true);
+  }
+  toast(`Prompt copied for ${bottles.length} bottle${bottles.length === 1 ? '' : 's'} — paste it into Claude`);
+  window.open('https://claude.ai/code/new', '_blank', 'noopener');
+}
+
+function researchSheet() {
+  const missing = items.filter((p) => p.name && !referenceFor(p));
+  const sheet = openSheet(`
+    <div class="sheet-title-row"><h2><i class="ti ti-search"></i> Research</h2>
+      <button class="close" data-close><i class="ti ti-x"></i></button></div>
+    <div class="al-research-note">Alcove can't look things up itself — it's a static page on your phone, and no
+      key may ship in a public app. So it hands Claude a finished prompt: copy, paste, done.</div>
+
+    <div class="card mt"><div class="row">
+      <div class="ic"><i class="ti ti-perfume"></i></div>
+      <div class="main">
+        <div class="t">${missing.length} bottle${missing.length === 1 ? '' : 's'} without reference</div>
+        <div class="s">${missing.length
+          ? escapeHtml(missing.slice(0, 3).map((p) => p.name).join(', ')) +
+            (missing.length > 3 ? ` +${missing.length - 3} more` : '')
+          : 'Everything in the alcove has reference data'}</div>
+      </div>
+    </div></div>
+
+    ${missing.length ? `<button class="btn primary mt" id="al-copy-all">
+      <i class="ti ti-copy"></i> Copy prompt &amp; open Claude</button>` : ''}
+
+    <div class="section-title">Got results back?</div>
+    <textarea class="input al-paste" id="al-paste" rows="4"
+      placeholder="Paste the JSON block Claude gives you"></textarea>
+    <button class="btn mt" id="al-import"><i class="ti ti-download"></i> Import results</button>
+    <div class="hint mt">Imported entries live on this device and survive the next refresh. If your Claude
+      session can reach the repo it commits instead, and then every device picks them up.</div>
+  `);
+
+  sheet.querySelector('#al-copy-all')?.addEventListener('click', () => handOff(missing));
+  sheet.querySelector('#al-import').addEventListener('click', async () => {
+    const raw = sheet.querySelector('#al-paste').value.trim();
+    if (!raw) return toast('Paste the JSON first', true);
+    try {
+      // Claude answers in a fenced code block; accept it either way.
+      const cleaned = raw.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+      const n = await importReference(JSON.parse(cleaned));
+      closeSheet(); render();
+      toast(`Imported ${n} ${n === 1 ? 'entry' : 'entries'}`);
+    } catch (e) {
+      toast(`That didn't parse — ${e.message}`, true);
+    }
+  });
+}
+
 // --- decant sources ---------------------------------------------------------------
 // Aggregated from the sellers you recorded, rather than from a built-in list:
 // the app has no way to tell an honest decanter from a dishonest one, and
@@ -502,6 +627,7 @@ function decantsSheet() {
 function bind() {
   const root = $app();
   root.querySelector('[data-hub]').addEventListener('click', () => hubHandler && hubHandler());
+  root.querySelector('[data-al-research]').addEventListener('click', researchSheet);
   root.querySelector('[data-al-decants]').addEventListener('click', decantsSheet);
   root.querySelector('[data-al-add]').addEventListener('click', () => perfumeSheet());
   root.querySelectorAll('[data-al-status]').forEach((b) => b.addEventListener('click', () => {

@@ -613,17 +613,35 @@ writes `dupeConfirmed` *including the source URL*.
 otherwise null. Prices carry `checkedAt` and are marked as possibly out of date
 past 45 days, because a stale price that looks current is worse than no price.
 
-**Compiled by a daily cloud routine**, not a GitHub Action — the research needs
-web search and judgement, not a scraper, and fragrance retailers block scrapers
-hard anyway. The routine's prompt carries the same hard rules (never invent;
-attribute dupe claims; never guess `authorised`; summarise reviews rather than
-copying them).
+### Filled on demand, not on a schedule
 
-**Blocked on one authorisation:** creating the routine returns
-`Connect your GitHub account before saving a routine that uses a GitHub
-repository`. Only the user can install the Claude GitHub App. Until then the
-reference file stays empty and the app simply shows "no reference entry yet" —
-it degrades to the purely local collection, which is fully functional.
+A daily cloud routine was designed and rejected in favour of a **button**: the
+user adds bottles occasionally, so a schedule would spend most runs researching
+nothing. (The routine also could not be created — the API returns `Connect your
+GitHub account before saving a routine that uses a GitHub repository`, which
+only the user can authorise.)
+
+**Research this bottle** copies a self-contained prompt to the clipboard and
+opens `claude.ai/code/new` — the documented way to start a session from the
+phone. There is **no documented prefill parameter**, so the flow is copy then
+paste rather than a magic link; do not invent one.
+
+The prompt carries the module's rules verbatim (never invent a field; attribute
+every dupe claim with a source and a confidence; never guess `authorised`;
+summarise reviews rather than copying them) and ends with two branches: commit
+to `data/perfumes.json` if the session can reach the repo, otherwise print JSON
+to paste back.
+
+### Two reference layers
+
+`settings.alcoveReference` is the fetched repo file. `settings.alcoveReferenceLocal`
+holds pasted imports, and `referenceFor()` checks local **first**. They must stay
+separate: `loadReference()` overwrites the fetched copy on every mount, so a
+pasted entry sharing that slot would vanish silently.
+
+This means the whole feature works with **no authorisation at all** — paste the
+JSON and it lands. Connecting GitHub only upgrades it so the session commits
+directly and every device picks the data up.
 
 ---
 

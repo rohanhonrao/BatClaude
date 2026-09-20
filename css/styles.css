@@ -1125,3 +1125,8 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
    <b> each became their own flex item and wrapped into ragged columns. */
 .alert > span { min-width: 0; }
 .alert a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+/* Alcove: research hand-off. The app cannot do the lookup itself (static page,
+   and no token may ship in a public app), so the button hands off a prompt. */
+.al-ref-cta { margin-top: 10px; }
+.al-research-note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.al-paste { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
