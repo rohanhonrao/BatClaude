@@ -79,16 +79,23 @@ async function loadReference() {
 /**
  * Match a bottle to the reference table by name, and by house when both have one.
  *
- * Locally imported entries win over the repo file. They have to be kept apart:
- * loadReference() overwrites the fetched copy every mount, so anything pasted in
- * would be silently lost if the two shared a slot.
+ * The two layers are kept apart because loadReference() overwrites the fetched
+ * copy every mount: anything pasted in would be silently lost if they shared a
+ * slot. Between them, the FRESHER checkedAt wins. Local-always-wins was the
+ * original rule and it aged badly — an old pasted entry went on shadowing a
+ * better one that had since landed in the repo, prices and all. Local still wins
+ * a tie, and still wins outright when the repo has nothing to offer.
  */
 function referenceFor(p) {
   if (!p?.name) return null;
   const n = norm(p.name), h = norm(p.house);
   const hit = (list) => (list || []).find((r) =>
     norm(r.name) === n && (!h || !norm(r.house) || norm(r.house) === h));
-  return hit(referenceLocal?.perfumes) || hit(reference?.perfumes) || null;
+  const mine = hit(referenceLocal?.perfumes);
+  const repo = hit(reference?.perfumes);
+  if (!mine) return repo || null;
+  if (!repo) return mine;
+  return String(repo.checkedAt || '') > String(mine.checkedAt || '') ? repo : mine;
 }
 
 /**
@@ -337,7 +344,7 @@ function addSheet() {
     const rec = await commit();
     if (!rec) return;
     closeSheet(); render();
-    handOff([{ name: rec.name, house: rec.house }]);
+    requestResearch([{ name: rec.name, house: rec.house }]);
   });
   setTimeout(() => sheet.querySelector('#a-name').focus(), 100);
 }
@@ -540,7 +547,7 @@ function perfumeSheet(existing) {
 
   // Uses the fields as currently typed, so a name entered seconds ago is the one
   // researched rather than whatever was last saved.
-  sheet.querySelector('[data-al-research-one]')?.addEventListener('click', () => handOff([{
+  sheet.querySelector('[data-al-research-one]')?.addEventListener('click', () => requestResearch([{
     name: sheet.querySelector('#v-name').value.trim() || p.name,
     house: sheet.querySelector('#v-house').value.trim() || p.house,
   }]));
@@ -708,10 +715,37 @@ function sellerSheet(perfume, existing) {
 
 // --- research hand-off ------------------------------------------------------------
 // Alcove cannot do the lookup itself: it is a static page, and no key may ever
-// ship in a public app. So it hands over a finished prompt instead.
-// claude.ai/code/new is the documented way to start a session from the phone;
-// there is NO documented prefill parameter, so this is deliberately copy-then-
-// paste rather than a link pretending to carry the prompt with it.
+// ship in a public app. Two ways out, in order of how little work they cost you:
+//
+// 1. REQUEST (default). Opens a pre-filled GitHub issue on this repo. One tap to
+//    submit, nothing to copy. A session with repo access answers it by committing
+//    data/perfumes.json, and every device picks the answer up on next open.
+//    GitHub *does* document title/body/labels query params on /issues/new, which is
+//    why this one can genuinely carry the request with it.
+// 2. COPY (fallback, offline or no GitHub). Puts the same prompt on the clipboard
+//    for pasting into any Claude session.
+const REPO_ISSUES = 'https://github.com/rohanhonrao/BatClaude/issues/new';
+
+function requestResearch(bottles) {
+  if (!bottles.length) return toast('Nothing to research', true);
+  const names = bottles.map((b) => `${b.name}${b.house ? ` (${b.house})` : ''}`);
+  const title = `Alcove: research ${names.length === 1 ? names[0] : `${names.length} bottles`}`;
+  const build = (body) => `${REPO_ISSUES}?labels=alcove`
+    + `&title=${encodeURIComponent(title)}`
+    + `&body=${encodeURIComponent(body)}`;
+  // GitHub drops a prefilled body past roughly 8k of URL. The full prompt is ~3k,
+  // so a long list would silently lose its body — send the short form instead.
+  // Whoever answers has the repo, and the rules live in researchPrompt() above.
+  let url = build(researchPrompt(bottles));
+  if (url.length > 6000) {
+    url = build(`Research these for Alcove:\n\n${names.map((n) => `- ${n}`).join('\n')}\n\n`
+      + 'Follow the rules and the JSON shape in researchPrompt() in js/alcove.js, '
+      + 'then merge the results into data/perfumes.json and commit.');
+  }
+  window.open(url, '_blank', 'noopener');
+  toast('Filed — submit it on GitHub and the answer lands in the app');
+}
+
 async function handOff(bottles) {
   if (!bottles.length) return toast('Nothing to research', true);
   try {
@@ -728,8 +762,8 @@ function researchSheet() {
   const sheet = openSheet(`
     <div class="sheet-title-row"><h2><i class="ti ti-search"></i> Research</h2>
       <button class="close" data-close><i class="ti ti-x"></i></button></div>
-    <div class="al-research-note">Alcove can't look things up itself — it's a static page on your phone, and no
-      key may ship in a public app. So it hands Claude a finished prompt: copy, paste, done.</div>
+    <div class="al-research-note">Most bottles from the houses you collect are already in the shared library
+      and fill themselves in. For anything that isn't, ask — one tap, nothing to copy.</div>
 
     <div class="card mt"><div class="row">
       <div class="ic"><i class="ti ti-perfume"></i></div>
@@ -742,17 +776,23 @@ function researchSheet() {
       </div>
     </div></div>
 
-    ${missing.length ? `<button class="btn primary mt" id="al-copy-all">
-      <i class="ti ti-copy"></i> Copy prompt &amp; open Claude</button>` : ''}
+    ${missing.length ? `<button class="btn primary mt" id="al-request-all">
+      <i class="ti ti-send"></i> ${missing.length === 1 ? 'Ask about this one' : `Ask about these ${missing.length}`}</button>
+      <div class="hint mt">Opens a pre-filled request on GitHub. Submit it and the answer arrives as a
+        library update — nothing to paste back.</div>` : ''}
 
-    <div class="section-title">Got results back?</div>
-    <textarea class="input al-paste" id="al-paste" rows="4"
-      placeholder="Paste the JSON block Claude gives you"></textarea>
-    <button class="btn mt" id="al-import"><i class="ti ti-download"></i> Import results</button>
-    <div class="hint mt">Imported entries live on this device and survive the next refresh. If your Claude
-      session can reach the repo it commits instead, and then every device picks them up.</div>
+    <details class="al-fallback mt"><summary>No GitHub, or offline?</summary>
+      ${missing.length ? `<button class="btn mt" id="al-copy-all">
+        <i class="ti ti-copy"></i> Copy the prompt instead</button>` : ''}
+      <div class="section-title">Got results back?</div>
+      <textarea class="input al-paste" id="al-paste" rows="4"
+        placeholder="Paste the JSON block Claude gives you"></textarea>
+      <button class="btn mt" id="al-import"><i class="ti ti-download"></i> Import results</button>
+      <div class="hint mt">Imported entries live on this device only and survive the next refresh.</div>
+    </details>
   `);
 
+  sheet.querySelector('#al-request-all')?.addEventListener('click', () => requestResearch(missing));
   sheet.querySelector('#al-copy-all')?.addEventListener('click', () => handOff(missing));
   sheet.querySelector('#al-import').addEventListener('click', async () => {
     const raw = sheet.querySelector('#al-paste').value.trim();

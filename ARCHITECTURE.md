@@ -645,34 +645,51 @@ writes `dupeConfirmed` *including the source URL*.
 otherwise null. Prices carry `checkedAt` and are marked as possibly out of date
 past 45 days, because a stale price that looks current is worse than no price.
 
-### Filled on demand, not on a schedule
+### Seeded by house, then filled on request
 
-A daily cloud routine was designed and rejected in favour of a **button**: the
-user adds bottles occasionally, so a schedule would spend most runs researching
-nothing. (The routine also could not be created — the API returns `Connect your
-GitHub account before saving a routine that uses a GitHub repository`, which
-only the user can authorise.)
+The library ships populated. `data/perfumes.json` carries the houses the user
+actually collects — Lattafa, Afnan, Rasasi and the rest of §8f's list — so a
+bottle added from one of them lights up with a dupe, a price and a review
+summary the moment it is saved, with no request at all. **Covering the houses
+beats chasing individual bottles**: research that is already there costs the
+user nothing, and the file is small enough that breadth is cheap.
 
-**Research this bottle** copies a self-contained prompt to the clipboard and
-opens `claude.ai/code/new` — the documented way to start a session from the
-phone. There is **no documented prefill parameter**, so the flow is copy then
-paste rather than a magic link; do not invent one.
+A daily cloud routine was designed and rejected: the user adds bottles
+occasionally, so a schedule would spend most runs researching nothing. (It also
+could not be created — the API returns `Connect your GitHub account before
+saving a routine that uses a GitHub repository`, which only the user can
+authorise.)
 
-The prompt carries the module's rules verbatim (never invent a field; attribute
-every dupe claim with a source and a confidence; never guess `authorised`;
-summarise reviews rather than copying them) and ends with two branches: commit
-to `data/perfumes.json` if the session can reach the repo, otherwise print JSON
-to paste back.
+For the leftovers, **Ask about this one** opens a pre-filled GitHub issue
+(`/issues/new?title=&body=&labels=alcove` — these params *are* documented, which
+is why this link can genuinely carry the request). One tap to submit, nothing to
+copy. A session with repo access answers it by committing `data/perfumes.json`,
+and every device picks the answer up on next open.
+
+The body is the module's rules verbatim (never invent a field; attribute every
+dupe claim with a source and a confidence; never guess `authorised`; summarise
+reviews rather than copying them) plus the JSON shape. Past ~6000 URL characters
+GitHub silently drops the body, so `requestResearch()` falls back to a short body
+pointing at `researchPrompt()` in the source — the responder has the repo anyway.
+
+Copy-to-clipboard survives behind **No GitHub, or offline?** as the fallback. It
+was the default until the user reported that copying on the phone, pasting into
+the Claude app and being rejected "is not working" — a flow that depends on the
+user retyping the machine's job is the wrong default.
 
 ### Two reference layers
 
 `settings.alcoveReference` is the fetched repo file. `settings.alcoveReferenceLocal`
-holds pasted imports, and `referenceFor()` checks local **first**. They must stay
-separate: `loadReference()` overwrites the fetched copy on every mount, so a
-pasted entry sharing that slot would vanish silently.
+holds pasted imports. They must stay separate: `loadReference()` overwrites the
+fetched copy on every mount, so a pasted entry sharing that slot would vanish
+silently.
+
+Between them, `referenceFor()` prefers the **fresher `checkedAt`**; local wins a
+tie and wins outright when the repo has no entry. Local-always-wins was the
+original rule and it aged badly — see the gotcha in §11.
 
 This means the whole feature works with **no authorisation at all** — paste the
-JSON and it lands. Connecting GitHub only upgrades it so the session commits
+JSON and it lands. Filing an issue only upgrades it so a session commits
 directly and every device picks the data up.
 
 ---
@@ -745,6 +762,7 @@ Rules learned the hard way:
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
+| Alcove shows stale, thinner research for a bottle the repo library covers well | `referenceFor()` preferred `alcoveReferenceLocal` unconditionally, so a one-off pasted entry shadowed a better one that later landed in `data/perfumes.json` — for good. Nothing errors; the card just quietly stays worse. It now compares `checkedAt` and takes the fresher, local winning ties. Caught only by looking at the rendered card against the file on disk |
 
 ---
 
@@ -807,6 +825,16 @@ Rules learned the hard way:
 - **Icon geometry targets Android, not the spec.** See the gotchas table: the
   maskable mark is sized to the adaptive icon's real safe zone, which is tighter
   than what the maskable spec promises.
+- **Alcove's research library is seeded by house, and requested by issue**
+  (Sep 2026). The user rejected the copy-prompt-paste-into-the-phone flow
+  outright. Two changes followed. First, stop researching bottle by bottle:
+  `data/perfumes.json` now covers the houses they collect, so most additions
+  need no request at all — the work happens once, in the repo, for everyone.
+  Second, when something *is* missing, the request is a pre-filled GitHub issue,
+  not a clipboard. Tap, submit, done; the answer returns as a library update.
+  Copy-paste is kept as the offline fallback, not the default. The principle:
+  **if a step exists only because the machine could not carry the data across,
+  it is the machine's bug, not the user's job.**
 
 ---
 
