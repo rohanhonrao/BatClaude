@@ -703,7 +703,7 @@ was the default until the user reported that copying on the phone, pasting into
 the Claude app and being rejected "is not working" — a flow that depends on the
 user retyping the machine's job is the wrong default.
 
-### Matching is tolerant, but never ambiguous
+### Matching drops filler, never content
 
 `matchReference()` compares a **key**: lowercased, punctuation collapsed, filler
 words dropped (`edp`, `eau de parfum`, `and`, `the`, a leading repeat of the
@@ -711,17 +711,31 @@ house), then spaces removed. So `Khamrah EDP`, `khamrah` under house
 `Lattafa Perfumes`, and `Lattafa Khamrah` all reach `Khamrah`, and
 `Badee Al Oud Honor & Glory` reaches `Bade'e Al Oud Honor and Glory`.
 
-Two rules keep tolerance from becoming invention:
+**That is the whole of the tolerance. The key must then match exactly.** The
+governing rule, and the one to apply to any future change here:
 
-- **Gendered words are never filler.** `him`, `her`, `homme`, `femme`, `pour`
-  stay in the key, because *Hawas for Him* and *Hawas for Her* are different
-  bottles and collapsing them would print one's review under the other's name.
-- **A prefix match must be unique.** Exact keys are tried first; only if none
-  matches does it allow one key to be a prefix of the other, and only when
-  exactly one candidate qualifies. `Khamrah` must not resolve to
-  `Khamrah Dukhan` merely because it appears first in the file. Ambiguity
-  returns nothing — a monogram and an offer to research, which is the honest
-  outcome.
+> Filler describes the bottle — concentration, packaging, punctuation, the house
+> repeated. It never identifies the product, so dropping it is safe. Every other
+> word identifies it. `Black`, `Elixir`, `Qahwa`, `Zanzibar`, `Intense`, `Him`,
+> `Her` are content, and content is never dropped, shortened or extended.
+
+A previous version allowed a prefix match "when exactly one candidate
+qualifies", on the theory that ambiguity would be caught. It is not: that guard
+only fires when the library *contains* the longer name. Perfume houses ship
+flankers by the dozen — Rasasi lists **39** bottles beginning "Hawas" — so a
+base name is a prefix of nearly every flanker the library lacks and silently
+claimed them all. Hawas Black, Hawas Fire, Khamrah Qahwa and Asad Zanzibar each
+came back as the base perfume, wearing its photo, its price and its dupe claim.
+Do not reintroduce prefix, substring or fuzzy-distance matching here.
+
+Genuine alternate names go in the data as **`aka: []`** on a reference entry,
+compared by the same key. They are then deliberate and reviewable in a diff
+rather than emergent from a heuristic. `Hawas for Him` carries `aka: ["Hawas"]`
+for exactly this reason.
+
+A miss costs a monogram and a **Not researched** badge. A wrong match costs
+trust in every field on the page. They are not comparable, so the tie always
+breaks toward the miss.
 
 ### Research is applied on mount, not only on save
 
@@ -732,6 +746,20 @@ its entry existed stayed blank permanently while the library grew underneath it.
 It is safe to re-run: `applyResearch()` writes only into empty fields or ones it
 set itself (tracked in `fromResearch`), so hand-edits survive, and only records
 that actually changed are written back.
+
+Backfill also **retracts**. A bottle that no longer matches anything goes through
+`retractResearch()`, which deletes the fields research had set and leaves
+hand-typed ones alone. Without it, fixing a bad match would not fix the damage:
+the prefix matcher had already persisted a base perfume's gender and dupe claim
+onto its flankers, and `applyResearch()` only ever fills blanks — Hawas Black
+would have stayed labelled a Paco Rabanne dupe for ever. **A cache of derived
+data needs an invalidation path, not just a write path.**
+
+Bottles with no reference show a **Not researched** badge, placed first so the
+two-badge cap can never drop it. A monogram on its own is ambiguous — it looks
+the same whether the library has nothing or the lookup silently failed — and
+that ambiguity is precisely what hid the broken matcher across two rounds of
+"where are my photos?".
 
 ### Two reference layers
 
@@ -818,6 +846,7 @@ Rules learned the hard way:
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
+| An Alcove bottle wears another bottle's photo, price and dupe claim | prefix matching. `Hawas Black` matched the library's `Hawas` because the "only one candidate qualifies" guard only fires when the library *holds* the longer name — and with 39 Hawas flankers in existence it almost never does. Every flanker of a covered base was affected (Hawas Fire, Khamrah Qahwa, Asad Zanzibar…). Matching is now exact-key-or-nothing with explicit `aka` aliases, and `retractResearch()` undoes the fields the bad matches persisted. **Tolerant matching may drop filler, never content** |
 | Alcove bottles *still* show monograms after the library was populated | `referenceFor()` required an **exact** normalised name, so ordinary spellings missed: `Khamrah EDP`, `Hawas For Him`, `Badee Al Oud Honor & Glory`, or a house typed `Lattafa Perfumes`. Every miss is silent — the monogram is the same thing you see when there is genuinely no data — so a collection can look entirely unresearched while the library holds every bottle in it. Matching is now key-based and tolerant (§8f), and the Research button carries a dot while any bottle lacks reference, so the miss is at least visible |
 | Every Alcove bottle shows a monogram; no photos anywhere | the fallback chain in `shotHTML()` had three rungs and the middle one was never populated — nothing in `data/perfumes.json` carried an `imageUrl`, so every bottle without a user photo landed on the monogram. Nothing errors, nothing 404s, and the monogram looks intentional, so it reads as a design choice rather than a missing feature. **A fallback chain is only as good as its middle rung: after adding one, assert something actually reaches it.** The `researchPrompt` had the same hole earlier — it never asked for `imageUrl` while `shotHTML` looked for one |
 | Alcove shows stale, thinner research for a bottle the repo library covers well | `referenceFor()` preferred `alcoveReferenceLocal` unconditionally, so a one-off pasted entry shadowed a better one that later landed in `data/perfumes.json` — for good. Nothing errors; the card just quietly stays worse. It now compares `checkedAt` and takes the fresher, local winning ties. Caught only by looking at the rendered card against the file on disk |

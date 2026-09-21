@@ -114,30 +114,35 @@ function houseOk(a, b) {
 }
 
 /**
- * Find the reference entry for a bottle, tolerantly but never ambiguously.
+ * Find the reference entry for a bottle. Exact key, or nothing.
  *
- * Exact key first. Only if nothing matches exactly does it try a prefix match,
- * and then ONLY when exactly one candidate qualifies — "Khamrah" must not
- * silently resolve to "Khamrah Dukhan" just because it is the first in the file.
- * Ambiguity returns nothing, which shows a monogram and offers research: the
- * honest outcome. Guessing here would quietly put another bottle's price and
- * review on this one.
+ * THE RULE, learned the expensive way: tolerance may drop **filler**, never
+ * **content**. `EDP`, `eau de parfum`, punctuation and a repeated house name do
+ * not identify a product, so removing them is safe. Any remaining word does
+ * identify it.
+ *
+ * An earlier version allowed a prefix match when exactly one candidate
+ * qualified, reasoning that ambiguity would be caught. It is not: the guard only
+ * fires when the library *contains* the longer name. Perfume houses ship
+ * flankers by the dozen — Rasasi lists 39 bottles beginning "Hawas" — so a base
+ * name is a prefix of almost every flanker the library lacks, and it claimed
+ * them all. Hawas Black, Hawas Fire, Khamrah Qahwa and Asad Zanzibar every one
+ * came back as the base perfume, wearing its photo, price and review.
+ *
+ * Legitimate alternate spellings belong in the data as `aka`, where they are
+ * deliberate and reviewable, not in a heuristic that guesses on the user's
+ * behalf. A miss costs a monogram; a wrong match costs trust in every field on
+ * the page.
  */
 function matchReference(list, p) {
   if (!list?.length) return null;
   const key = nameKey(p.name, p.house);
   if (!key) return null;
-  const pool = list.filter((r) => houseOk(r.house, p.house));
-
-  const exact = pool.filter((r) => nameKey(r.name, r.house) === key);
-  if (exact.length) return exact[0];
-
-  const partial = pool.filter((r) => {
-    const k = nameKey(r.name, r.house);
-    if (k.length < 4 || key.length < 4) return false;
-    return k.startsWith(key) || key.startsWith(k);
-  });
-  return partial.length === 1 ? partial[0] : null;
+  return list.find((r) => {
+    if (!houseOk(r.house, p.house)) return false;
+    if (nameKey(r.name, r.house) === key) return true;
+    return (r.aka || []).some((a) => nameKey(a, r.house) === key);
+  }) || null;
 }
 
 function referenceFor(p) {
@@ -210,9 +215,8 @@ async function backfill() {
   let changed = 0;
   for (const p of items) {
     const r = referenceFor(p);
-    if (!r) continue;
     const before = JSON.stringify([p.gender, p.concentration, p.kind, p.dupeOf]);
-    applyResearch(p, r);
+    if (!r) { retractResearch(p); } else { applyResearch(p, r); }
     if (JSON.stringify([p.gender, p.concentration, p.kind, p.dupeOf]) === before) continue;
     p.updatedAt = Date.now();
     await db.put('perfumes', p);
@@ -365,6 +369,11 @@ function tileHTML(p) {
       <div class="al-tile-name">${escapeHtml(p.name || 'Untitled')}</div>
       ${p.house ? `<div class="al-tile-house">${escapeHtml(p.house)}</div>` : ''}
       <div class="al-tile-badges">${[
+        // "Not researched" has to be visible. A monogram alone looks identical
+        // whether the library has nothing or the lookup quietly failed, and that
+        // ambiguity hid a broken matcher across two rounds of "where are my
+        // photos?". First badge, so it is never the one the slice(0,2) drops.
+        r ? '' : '<span class="al-badge none">Not researched</span>',
         p.gender ? `<span class="al-badge">${escapeHtml(g.label)}</span>` : '',
         p.kind === 'dupe'
           ? `<span class="al-badge dupe ${p.dupeConfirmed ? 'ok' : ''}">${escapeHtml(dupeText)}</span>` : '',
@@ -435,6 +444,30 @@ function addSheet() {
  * set. A later refresh may update those; anything the user edited by hand is
  * left alone, which is why `fromResearch` exists rather than overwriting freely.
  */
+/**
+ * Undo fields that research filled in, when the bottle no longer matches
+ * anything in the reference.
+ *
+ * This is the cleanup path for data the old prefix matcher poisoned: it wrote a
+ * base perfume's gender and dupe claim onto every flanker, and those writes are
+ * persisted on the record. Fixing the matcher alone would leave Hawas Black
+ * still labelled a Paco Rabanne dupe for ever, because applyResearch() only
+ * ever fills blanks.
+ *
+ * Only touches keys flagged in `fromResearch`, so anything typed by hand — the
+ * whole reason that flag exists — is left exactly as it is.
+ */
+function retractResearch(p) {
+  const from = p.fromResearch;
+  if (!from || !Object.keys(from).length) return p;
+  if (from.gender) delete p.gender;
+  if (from.concentration) delete p.concentration;
+  if (from.dupeOf) { delete p.dupeOf; delete p.dupeConfirmed; }
+  if (from.kind) delete p.kind;
+  delete p.fromResearch;
+  return p;
+}
+
 function applyResearch(p, r) {
   if (!r) return p;
   const from = { ...(p.fromResearch || {}) };
