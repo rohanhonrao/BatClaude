@@ -116,7 +116,10 @@ js/
                     weeks, monthly + calendar-year summaries
                     (fixed/variable, per-category, share vs paid)
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
-data/               generated data served same-origin (concerts, artist cache)
+data/               generated data served same-origin (concerts, artist cache,
+                    perfume reference)
+img/perfumes/       one catalogue JPEG per reference bottle, same-origin so the
+                    shelf keeps its pictures offline (§8f)
 ```
 
 ---
@@ -578,12 +581,35 @@ doing it.
 
 Each tile's picture falls back in order of what is actually trustworthy:
 
-1. **a photo the user added** — theirs, stored on the device, works offline;
-2. **an `imageUrl` from research** — remote, so it can 404 or be hotlink-blocked;
-   it removes itself on error rather than leaving a broken frame;
+1. **a photo the user added** — theirs, stored on the device, works offline. It
+   wins outright: a picture of *your* bottle beats a catalogue shot of the model;
+2. **an `imageUrl` from the reference file** — see below; it removes itself on
+   error rather than leaving a broken frame;
 3. **a generated monogram** — initials over a gradient hashed from the name, so
    it is stable per bottle. No network, never fails, and looks deliberate rather
    than like a missing asset.
+
+### Catalogue images live in the repo (`img/perfumes/`)
+
+Rung 2 shipped empty — the chain was written before there was anything to put in
+it, so every un-photographed bottle fell through to a monogram and the feature
+looked broken (see §11). The images are now **vendored**, one JPEG per bottle at
+`img/perfumes/<reference id>.jpg`, and `imageUrl` is a same-origin relative path.
+
+Vendored rather than hotlinked, for three reasons: it survives the source going
+away or blocking hotlinks; the service worker runtime-caches it like any other
+same-origin GET, so the shelf keeps its pictures **offline**, which is the whole
+premise of the app; and it costs ~700KB for the current library. They are
+deliberately *not* in `sw.js` ASSETS — precaching every bottle would make install
+heavier for images the user may never scroll to.
+
+How they were sourced, because guessing here produces the wrong bottle and that
+is worse than no bottle (CLAUDE.md rule 3). Fragrantica's **brand index pages**
+map a perfume name to a numeric id, and the image CDN is
+`fimgs.net/mdimg/perfume/375x500.<id>.jpg`. Reading the id off the brand page is
+a lookup; probing ids is not — a random 78544 turned out to be *9pm pour Femme*,
+not the Khamrah it was guessed for. Every URL was then checked for a 200 and a
+real JPEG, and a sample opened and looked at. Do the same for any addition.
 
 Photos are **downscaled before storage** (longest edge 640px, JPEG). A phone
 photo is several megabytes and IndexedDB holds the whole collection; fifty
@@ -762,6 +788,7 @@ Rules learned the hard way:
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
+| Every Alcove bottle shows a monogram; no photos anywhere | the fallback chain in `shotHTML()` had three rungs and the middle one was never populated — nothing in `data/perfumes.json` carried an `imageUrl`, so every bottle without a user photo landed on the monogram. Nothing errors, nothing 404s, and the monogram looks intentional, so it reads as a design choice rather than a missing feature. **A fallback chain is only as good as its middle rung: after adding one, assert something actually reaches it.** The `researchPrompt` had the same hole earlier — it never asked for `imageUrl` while `shotHTML` looked for one |
 | Alcove shows stale, thinner research for a bottle the repo library covers well | `referenceFor()` preferred `alcoveReferenceLocal` unconditionally, so a one-off pasted entry shadowed a better one that later landed in `data/perfumes.json` — for good. Nothing errors; the card just quietly stays worse. It now compares `checkedAt` and takes the fresher, local winning ties. Caught only by looking at the rendered card against the file on disk |
 
 ---
