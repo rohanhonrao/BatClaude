@@ -1138,12 +1138,27 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
 /* --- Alcove: the shelf ---------------------------------------------------- */
 /* A collection should look like a collection, so Collected and Coveted are
    shelves of bottles rather than rows of text. */
-.al-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 14px; }
+/* The Collected shelf. The card chrome is deliberately gone: the bottle shots
+   are keyed onto the same near-black ground the page uses (see
+   scripts/darken-bottle-shots.ps1), so a border and a raised panel around each
+   one would draw a box around something meant to float. What is left is the
+   bottle, its name, and air. */
+.al-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 11px; margin-top: 16px; }
 .al-tile { position: relative; display: block; width: 100%; text-align: left; padding: 0;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-.al-tile:active { transform: scale(.985); }
-.al-shot { position: relative; aspect-ratio: 3 / 4; width: 100%; overflow: hidden; background: var(--surface-2); }
+  background: none; border: 0; border-radius: 14px; overflow: hidden;
+  transition: transform .18s var(--ease); }
+.al-tile:active { transform: scale(.97); }
+
+/* Matches the rim colour the shots are composited onto, so the photograph has
+   no visible edge — it dissolves into the page instead of sitting in a frame.
+   Keep this in step with EdgeR/G/B in scripts/darken-bottle-shots.ps1. */
+.al-shot { position: relative; aspect-ratio: 3 / 4; width: 100%; overflow: hidden;
+  background: #0A0A0B; border-radius: 12px; }
 .al-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* A hairline of light down the top edge, the way a bottle catches a studio key
+   light. Inset so it reads as sheen on the image rather than a border. */
+.al-shot::after { content: ''; position: absolute; inset: 0; border-radius: 12px; pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(233,228,218,.07), inset 0 -36px 44px -32px rgba(0,0,0,.8); }
 
 /* Fallback when there is no photograph: a monogram, generated from the name so
    it is stable per bottle. Deliberate-looking beats a broken image icon. */
@@ -1151,21 +1166,39 @@ select.input { width: 100%; max-width: 100%; text-overflow: ellipsis; padding-ri
   font-family: 'Cinzel', Georgia, serif; font-size: 34px; letter-spacing: .06em; color: rgba(233,228,218,.82); }
 .al-mono::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 -40px 50px -30px rgba(0,0,0,.65); }
 
-.al-tile-body { padding: 10px 11px 12px; }
-.al-tile-name { font-weight: 650; font-size: 14px; line-height: 1.25;
+/* Cinzel is already bundled for the wordmark; using it for the bottle names ties
+   the shelf to the ALCOVE masthead and reads like a label rather than a list. */
+.al-tile-body { padding: 9px 2px 0; }
+/* Two lines are reserved whether or not the name needs them, so the house and
+   badges land on the same baseline across a row. Ragged rows are the fastest
+   way to make a grid look accidental. */
+.al-tile-name { font-family: 'Cinzel', Georgia, serif; font-weight: 600; font-size: 12.5px;
+  line-height: 1.3; letter-spacing: .02em; color: var(--text); min-height: 2.6em;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.al-tile-house { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em;
-  margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.al-tile-house { font-size: 9.5px; color: var(--gold-dim); text-transform: uppercase; letter-spacing: .12em;
+  margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .75; }
 .al-tile-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
-.al-badge { font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em; padding: 2px 6px;
-  border-radius: 5px; background: var(--surface-3); color: var(--muted); }
-.al-badge.dupe { background: rgba(245,197,66,.13); color: var(--gold); }
-.al-badge.dupe.ok { background: rgba(99,201,154,.15); color: var(--green); }
-.al-badge.price { background: transparent; color: var(--text); padding-left: 0; }
-.al-badge.none { background: rgba(255,255,255,.06); color: var(--muted); }
-.al-tile-flag { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 14px;
-  background: rgba(10,10,11,.6); backdrop-filter: blur(6px); color: var(--accent); }
+/* Default badge is bare text, not a pill. The wear is already a filter at the
+   top of the screen, so a grey chip per tile was repeating a control as
+   decoration. Only the badges that carry news — a dupe, a price, missing
+   research — get any weight. */
+.al-badge { font-size: 9px; text-transform: uppercase; letter-spacing: .09em; padding: 0;
+  border-radius: 5px; background: none; color: var(--muted); opacity: .62; }
+.al-badge.dupe { background: none; color: var(--gold); opacity: .85; }
+.al-badge.dupe.ok { background: none; color: var(--green); opacity: .9; }
+.al-badge.price { background: none; color: var(--text); opacity: 1;
+  font-family: 'Cinzel', Georgia, serif; letter-spacing: .04em; font-size: 10.5px; }
+.al-badge.none { background: none; color: var(--muted); opacity: .5; font-style: italic;
+  text-transform: none; letter-spacing: .02em; }
+/* "Add your own photograph." It is a shortcut, not a status worth announcing —
+   most bottles legitimately wear the catalogue shot — so it sits at low opacity
+   and only asserts itself on press. A lit chip on every tile was reading as a
+   badge of something wrong. */
+.al-tile-flag { position: absolute; top: 7px; right: 7px; width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
+  background: rgba(10,10,11,.35); backdrop-filter: blur(6px);
+  color: var(--gold); opacity: .28; transition: opacity .16s var(--ease); }
+.al-tile:active .al-tile-flag, .al-tile-flag:active { opacity: .95; }
 .al-photo-row { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
 .al-photo-prev { position: relative; width: 84px; height: 112px; flex: none; border-radius: 12px;
   overflow: hidden; background: var(--surface-2); }

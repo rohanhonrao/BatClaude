@@ -116,6 +116,8 @@ js/
                     weeks, monthly + calendar-year summaries
                     (fixed/variable, per-category, share vs paid)
 scripts/            Node scripts run by GitHub Actions (never shipped to browser)
+                    + darken-bottle-shots.ps1, a local one-off that keys
+                    catalogue shots onto Alcove's dark ground (§8f)
 data/               generated data served same-origin (concerts, artist cache,
                     perfume reference)
 img/perfumes/       one catalogue JPEG per reference bottle, same-origin so the
@@ -579,6 +581,17 @@ shelf into a stack of one- and two-bottle fragments. `load()` still sorts by
 house then name, so bottles from the same maison sit together without labels
 doing it.
 
+The tiles carry **no card chrome** — no panel, no border. Once the shots are
+keyed onto the page's own ground (below), a frame would be drawing a box around
+something meant to float. Names are set in Cinzel, already bundled for the
+wordmark, which ties the shelf to the masthead. Badges are bare text rather than
+pills, and the wear badge is the quietest of them: it repeats a filter that is
+already at the top of the screen, so as a grey chip on every tile it was
+decoration. Only a dupe, a price or missing research gets any weight. The
+name reserves two lines whether or not it needs them, so a row's houses and
+badges share a baseline — ragged rows are the quickest way to make a grid look
+accidental.
+
 Each tile's picture falls back in order of what is actually trustworthy:
 
 1. **a photo the user added** — theirs, stored on the device, works offline. It
@@ -602,6 +615,39 @@ same-origin GET, so the shelf keeps its pictures **offline**, which is the whole
 premise of the app; and it costs ~700KB for the current library. They are
 deliberately *not* in `sw.js` ASSETS — precaching every bottle would make install
 heavier for images the user may never scroll to.
+
+**The shots are keyed onto a dark ground before they are committed.** Catalogue
+photography comes on white paper, and a grid of white rectangles on a near-black
+page looked cheap — the user's words were that it should be "classy, sexy".
+`scripts/darken-bottle-shots.ps1` takes each one off the paper and composites it
+onto a radial ground matching the tile, so the photograph has no visible edge.
+
+Baked in rather than shipped as transparent PNGs: photographic PNGs with alpha
+run to several megabytes across the set against ~25KB each as JPEG, and this app
+must work offline. There is no light theme — `css/styles.css` defines one
+near-black palette — so a baked dark ground is never wrong. The trade is that
+`.al-shot`'s background and the script's `EdgeR/G/B` constants must stay in
+step; both carry a comment saying so.
+
+Three things the script has to survive, all found by looking at the output:
+
+- **A white label inside the bottle.** The fill is seeded from the border and
+  only spreads through connected pixels, so Zara's cream label survives. A plain
+  brightness threshold would have punched a hole through every label in the set.
+- **Clear glass.** Khamrah's crystal cap really is the same 255 as the paper
+  behind it, so the fill walked inside and left hard black holes. No threshold
+  fixes that. A morphological close seals thin channels, and then a per-row span
+  fill — bottles are horizontally convex — declares everything between the
+  silhouette's edges to be bottle. Run on the largest blob only, so a speck of
+  keying noise cannot stretch a row across the frame.
+- **Soft drop shadows.** A source with a shadow leaves a pale band wherever the
+  gradient falls below the threshold, and span fill makes it worse because the
+  shadow *is* foreground. There is no threshold that suits both a shadowed
+  source and a silver cap. Fix it at the crop instead: `em5-aghori` is cropped to
+  the bottle's measured bounding box with no margin on the shadowed sides.
+
+The script is **not idempotent** — a second pass keys against a background that
+is no longer white. Re-run it on pristine downloads.
 
 How they were sourced, because guessing here produces the wrong bottle and that
 is worse than no bottle (CLAUDE.md rule 3). Fragrantica's **brand index pages**
