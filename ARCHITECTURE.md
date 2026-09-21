@@ -674,8 +674,12 @@ past 45 days, because a stale price that looks current is worse than no price.
 ### Seeded by house, then filled on request
 
 The library ships populated. `data/perfumes.json` carries the houses the user
-actually collects — Lattafa, Afnan, Rasasi and the rest of §8f's list — so a
-bottle added from one of them lights up with a dupe, a price and a review
+actually collects — the `houses` array is what is **genuinely researched**, and
+`housesRequested` records names the user mentioned that nobody has covered yet.
+Keep them apart: the two were one list at first, which read as coverage that did
+not exist.
+
+A bottle from a covered house lights up with a dupe, a price and a review
 summary the moment it is saved, with no request at all. **Covering the houses
 beats chasing individual bottles**: research that is already there costs the
 user nothing, and the file is small enough that breadth is cheap.
@@ -691,6 +695,14 @@ For the leftovers, **Ask about this one** opens a pre-filled GitHub issue
 is why this link can genuinely carry the request). One tap to submit, nothing to
 copy. A session with repo access answers it by committing `data/perfumes.json`,
 and every device picks the answer up on next open.
+
+**Nothing watches the `alcove` label.** There is no bot and no schedule; a filed
+issue waits until someone runs a session on this repo. Be straight with the user
+about that rather than implying a queue is draining — the honest answer to "how
+long?" is "when we next sit down, and I can do it right now." Working the queue
+is: `gh issue list --label alcove --state open`, research, commit, then
+`gh issue close`. Automating it needs the Claude GitHub App, which only the user
+can install.
 
 The body is the module's rules verbatim (never invent a field; attribute every
 dupe claim with a source and a confidence; never guess `authorised`; summarise

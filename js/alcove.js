@@ -708,10 +708,17 @@ function referenceCardHTML(p) {
   const days = r.checkedAt
     ? Math.round((Date.parse(todayISO()) - Date.parse(r.checkedAt)) / 86400000) : null;
   const stale = days !== null && days > 45;
+  // Some bottles are only sold in one market — House of EM5 prices in rupees and
+  // does not list a dollar price at all. Storing a field nothing renders is how
+  // imageUrl sat dead for a week (§11), so priceINR renders rather than lurks.
   const price = r.priceUSD && (r.priceUSD.low || r.priceUSD.high)
     ? `${fmtMoney(Number(r.priceUSD.low || r.priceUSD.high))}${
         r.priceUSD.high && r.priceUSD.low && r.priceUSD.high !== r.priceUSD.low
-          ? ` – ${fmtMoney(Number(r.priceUSD.high))}` : ''}` : null;
+          ? ` – ${fmtMoney(Number(r.priceUSD.high))}` : ''}`
+    : r.priceINR?.amount
+      ? `₹${Number(r.priceINR.amount).toLocaleString('en-IN')}${
+          r.priceINR.size ? ` · ${escapeHtml(r.priceINR.size)}` : ''}`
+      : null;
 
   return `<div class="al-ref">
     <div class="al-ref-head"><span><i class="ti ti-search"></i> Reference — from research</span>
