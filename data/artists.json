@@ -5106,5 +5106,17 @@
     "wiki": "https://en.wikipedia.org/wiki/Unkle",
     "blurb": "Unkle is a British musical act founded in 1992 by James Lavelle.",
     "descriptor": "British electronica band"
+  },
+  "the charlatans": {
+    "checkedAt": "2026-09-21T17:39:06.508Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Charlatans_(English_band)",
+    "blurb": "The Charlatans are an English rock band formed in the West Midlands in 1988.",
+    "descriptor": "English alternative rock band"
+  },
+  "seasick steve": {
+    "checkedAt": "2026-09-21T17:39:06.921Z",
+    "wiki": "https://en.wikipedia.org/wiki/Seasick_Steve",
+    "blurb": "Steven Gene Wold, commonly known as Seasick Steve, is an American blues musician.",
+    "descriptor": "American blues musician (born 1951)"
   }
 }
