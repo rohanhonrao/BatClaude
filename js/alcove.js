@@ -86,11 +86,63 @@ async function loadReference() {
  * better one that had since landed in the repo, prices and all. Local still wins
  * a tie, and still wins outright when the repo has nothing to offer.
  */
+/**
+ * Words that describe the bottle rather than name the scent, plus connectives.
+ * Dropped from BOTH sides before comparing, so "Khamrah EDP" still finds
+ * "Khamrah" and "Honor and Glory" still finds "Honor & Glory".
+ *
+ * Gendered words (him/her/homme/femme/pour) are deliberately NOT here: "Hawas
+ * for Him" and "Hawas for Her" are different bottles, and collapsing them would
+ * attach the wrong review to the wrong perfume. Losing a match is recoverable;
+ * showing confident data for a bottle the user does not own is not.
+ */
+const FILLER = /\b(?:edp|edt|edc|eau|de|parfum|parfums|toilette|cologne|spray|ml|oz|and|the|by|perfume|perfumes)\b/g;
+
+/** Punctuation- and spacing-insensitive key: "Bade'e Al Oud" -> "badealoud". */
+function nameKey(s, house) {
+  let t = norm(s).replace(FILLER, ' ');
+  const h = norm(house).replace(FILLER, ' ').trim();
+  if (h && t.startsWith(h + ' ')) t = t.slice(h.length + 1);   // "Lattafa Khamrah" -> "Khamrah"
+  return t.replace(/\s+/g, '');
+}
+
+/** Houses agree if either is blank, or one contains the other ("Lattafa" ~ "Lattafa Perfumes"). */
+function houseOk(a, b) {
+  const x = norm(a).replace(FILLER, ' ').replace(/\s+/g, '');
+  const y = norm(b).replace(FILLER, ' ').replace(/\s+/g, '');
+  return !x || !y || x.includes(y) || y.includes(x);
+}
+
+/**
+ * Find the reference entry for a bottle, tolerantly but never ambiguously.
+ *
+ * Exact key first. Only if nothing matches exactly does it try a prefix match,
+ * and then ONLY when exactly one candidate qualifies — "Khamrah" must not
+ * silently resolve to "Khamrah Dukhan" just because it is the first in the file.
+ * Ambiguity returns nothing, which shows a monogram and offers research: the
+ * honest outcome. Guessing here would quietly put another bottle's price and
+ * review on this one.
+ */
+function matchReference(list, p) {
+  if (!list?.length) return null;
+  const key = nameKey(p.name, p.house);
+  if (!key) return null;
+  const pool = list.filter((r) => houseOk(r.house, p.house));
+
+  const exact = pool.filter((r) => nameKey(r.name, r.house) === key);
+  if (exact.length) return exact[0];
+
+  const partial = pool.filter((r) => {
+    const k = nameKey(r.name, r.house);
+    if (k.length < 4 || key.length < 4) return false;
+    return k.startsWith(key) || key.startsWith(k);
+  });
+  return partial.length === 1 ? partial[0] : null;
+}
+
 function referenceFor(p) {
   if (!p?.name) return null;
-  const n = norm(p.name), h = norm(p.house);
-  const hit = (list) => (list || []).find((r) =>
-    norm(r.name) === n && (!h || !norm(r.house) || norm(r.house) === h));
+  const hit = (list) => matchReference(list, p);
   const mine = hit(referenceLocal?.perfumes);
   const repo = hit(reference?.perfumes);
   if (!mine) return repo || null;
@@ -138,7 +190,35 @@ export async function mountAlcove() {
   referenceLocal = (await db.get('settings', 'alcoveReferenceLocal'))?.value || null;
   status = 'collected'; gender = 'all'; search = '';
   render();
-  loadReference().then(render);         // refresh in the background
+  loadReference().then(async () => { await backfill(); render(); });
+}
+
+/**
+ * Fill blank fields on bottles the library has since learned about.
+ *
+ * `applyResearch()` used to run only when a bottle was saved or an import
+ * landed, so a bottle added before its entry existed stayed blank for ever —
+ * the library could grow underneath it and nothing would pick that up. The user
+ * asked for wear, original-vs-dupe and the rest to be "researched and inputted
+ * by the app", and a bottle added yesterday is squarely part of that.
+ *
+ * Safe to run on every mount: `applyResearch()` writes only into empty fields
+ * or ones it set itself (`fromResearch`), so a hand-edit is never overwritten.
+ * Only bottles that actually changed are written back.
+ */
+async function backfill() {
+  let changed = 0;
+  for (const p of items) {
+    const r = referenceFor(p);
+    if (!r) continue;
+    const before = JSON.stringify([p.gender, p.concentration, p.kind, p.dupeOf]);
+    applyResearch(p, r);
+    if (JSON.stringify([p.gender, p.concentration, p.kind, p.dupeOf]) === before) continue;
+    p.updatedAt = Date.now();
+    await db.put('perfumes', p);
+    changed++;
+  }
+  if (changed) await load();
 }
 
 /** Merge pasted research into the local layer, replacing entries by name+house. */
@@ -211,7 +291,8 @@ function render() {
       </div>
       <div class="header-actions">
         <button class="header-btn primary-btn" data-al-add aria-label="Add a bottle"><i class="ti ti-plus"></i></button>
-        <button class="header-btn" data-al-research aria-label="Research"><i class="ti ti-search"></i></button>
+        <button class="header-btn${items.some((p) => p.name && !referenceFor(p)) ? ' has-dot' : ''}"
+          data-al-research aria-label="Research"><i class="ti ti-search"></i></button>
         <button class="header-btn" data-al-decants aria-label="Decant sources"><i class="ti ti-flask"></i></button>
       </div>
     </div>

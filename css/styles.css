@@ -566,6 +566,14 @@ h3 { font-size: 15px; font-weight: 600; }
   color: var(--muted); transition: background .16s var(--ease), color .16s var(--ease);
 }
 .header-btn { width: 36px; height: 36px; font-size: 16px; }
+/* A bottle with no reference data is otherwise invisible — the monogram looks
+   deliberate. This dot is the only signal that research is outstanding. */
+.header-btn.has-dot { position: relative; }
+.header-btn.has-dot::after {
+  content: ''; position: absolute; top: 5px; right: 5px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold, #c9a227); box-shadow: 0 0 0 2px var(--bg, #0d0d0f);
+}
 .header-btn:active, .mini-btn:active { background: var(--surface-3); color: var(--text); }
 
 /* --- Segmented + chips --------------------------------------------------- */

@@ -1,5 +1,5 @@
 // sw.js — offline cache. Bump CACHE when you change app files.
-const CACHE = 'sanctum-v55';
+const CACHE = 'sanctum-v56';
 const ASSETS = [
   './',
   './index.html',

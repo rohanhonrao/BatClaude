@@ -703,6 +703,36 @@ was the default until the user reported that copying on the phone, pasting into
 the Claude app and being rejected "is not working" — a flow that depends on the
 user retyping the machine's job is the wrong default.
 
+### Matching is tolerant, but never ambiguous
+
+`matchReference()` compares a **key**: lowercased, punctuation collapsed, filler
+words dropped (`edp`, `eau de parfum`, `and`, `the`, a leading repeat of the
+house), then spaces removed. So `Khamrah EDP`, `khamrah` under house
+`Lattafa Perfumes`, and `Lattafa Khamrah` all reach `Khamrah`, and
+`Badee Al Oud Honor & Glory` reaches `Bade'e Al Oud Honor and Glory`.
+
+Two rules keep tolerance from becoming invention:
+
+- **Gendered words are never filler.** `him`, `her`, `homme`, `femme`, `pour`
+  stay in the key, because *Hawas for Him* and *Hawas for Her* are different
+  bottles and collapsing them would print one's review under the other's name.
+- **A prefix match must be unique.** Exact keys are tried first; only if none
+  matches does it allow one key to be a prefix of the other, and only when
+  exactly one candidate qualifies. `Khamrah` must not resolve to
+  `Khamrah Dukhan` merely because it appears first in the file. Ambiguity
+  returns nothing — a monogram and an offer to research, which is the honest
+  outcome.
+
+### Research is applied on mount, not only on save
+
+`backfill()` runs after the reference file loads and fills blank fields on
+bottles the library has since learned about. Without it, `applyResearch()` only
+ever fired when a bottle was saved or an import landed, so a bottle added before
+its entry existed stayed blank permanently while the library grew underneath it.
+It is safe to re-run: `applyResearch()` writes only into empty fields or ones it
+set itself (tracked in `fromResearch`), so hand-edits survive, and only records
+that actually changed are written back.
+
 ### Two reference layers
 
 `settings.alcoveReference` is the fetched repo file. `settings.alcoveReferenceLocal`
@@ -788,6 +818,7 @@ Rules learned the hard way:
 | Sharing set up but nothing ever syncs | the Firebase **console** URL was pasted instead of the database URL. The old guard only tested for the string "firebase", which `console.firebase.google.com` contains, so a dead connection was created silently. `Sync.validateDbUrl` now requires a `firebaseio.com` / `firebasedatabase.app` host and no path |
 | Home-screen logo cropped | the maskable icon was drawn to the web spec's safe circle (radius 0.4·S). Android's adaptive icon only guarantees the centre 72 of 108dp — radius ≈0.33·S. The arch's corners sat at 0.36·S, inside the spec but inside the crop band too. Fit the mark's **diagonal** within 0.30·S |
 | A sheet reopened after closing vanishes instantly | `closeSheet()` pops history asynchronously; the pending popstate then closes the *replacement* sheet. `openSheet()` already swaps content in place — never close first |
+| Alcove bottles *still* show monograms after the library was populated | `referenceFor()` required an **exact** normalised name, so ordinary spellings missed: `Khamrah EDP`, `Hawas For Him`, `Badee Al Oud Honor & Glory`, or a house typed `Lattafa Perfumes`. Every miss is silent — the monogram is the same thing you see when there is genuinely no data — so a collection can look entirely unresearched while the library holds every bottle in it. Matching is now key-based and tolerant (§8f), and the Research button carries a dot while any bottle lacks reference, so the miss is at least visible |
 | Every Alcove bottle shows a monogram; no photos anywhere | the fallback chain in `shotHTML()` had three rungs and the middle one was never populated — nothing in `data/perfumes.json` carried an `imageUrl`, so every bottle without a user photo landed on the monogram. Nothing errors, nothing 404s, and the monogram looks intentional, so it reads as a design choice rather than a missing feature. **A fallback chain is only as good as its middle rung: after adding one, assert something actually reaches it.** The `researchPrompt` had the same hole earlier — it never asked for `imageUrl` while `shotHTML` looked for one |
 | Alcove shows stale, thinner research for a bottle the repo library covers well | `referenceFor()` preferred `alcoveReferenceLocal` unconditionally, so a one-off pasted entry shadowed a better one that later landed in `data/perfumes.json` — for good. Nothing errors; the card just quietly stays worse. It now compares `checkedAt` and takes the fresher, local winning ties. Caught only by looking at the rendered card against the file on disk |
 
