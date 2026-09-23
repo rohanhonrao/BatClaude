@@ -5163,5 +5163,35 @@
     "wiki": "https://en.wikipedia.org/wiki/Jimmy_Buffett",
     "blurb": "James William Buffett was an American singer-songwriter, author, and businessman.",
     "descriptor": "American singer-songwriter (1946–2023)"
+  },
+  "alicia keys": {
+    "checkedAt": "2026-09-23T02:47:40.509Z",
+    "wiki": "https://en.wikipedia.org/wiki/Alicia_Keys",
+    "blurb": "Alicia Augello Cook, known professionally as Alicia Keys, is an American singer, songwriter, and pianist.",
+    "descriptor": "American singer and songwriter (born 1981)"
+  },
+  "charlie puth": {
+    "checkedAt": "2026-09-23T02:47:40.794Z",
+    "wiki": "https://en.wikipedia.org/wiki/Charlie_Puth",
+    "blurb": "Charles Otto Puth Jr.",
+    "descriptor": "American singer-songwriter (born 1991)"
+  },
+  "armin van buuren": {
+    "checkedAt": "2026-09-23T02:47:41.022Z",
+    "wiki": "https://en.wikipedia.org/wiki/Armin_van_Buuren",
+    "blurb": "Armin Jozef Jacobus Daniël van Buuren OON is a Dutch DJ, musician and record producer.",
+    "descriptor": "Dutch DJ and producer (born 1976)"
+  },
+  "eric roberson": {
+    "checkedAt": "2026-09-23T02:47:41.249Z",
+    "wiki": "https://en.wikipedia.org/wiki/Eric_Roberson",
+    "blurb": "Eric Roberson is an American singer, songwriter, former rapper and music producer.",
+    "descriptor": "Musical artist"
+  },
+  "jenna davis": {
+    "checkedAt": "2026-09-23T02:47:41.479Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jenna_Davis",
+    "blurb": "Jenna Davis is an American actress, Internet personality, and singer-songwriter.",
+    "descriptor": "American actress and singer (born 2004)"
   }
 }
