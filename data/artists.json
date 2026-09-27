@@ -5238,5 +5238,17 @@
     "wiki": "https://en.wikipedia.org/wiki/Beach_Fossils",
     "blurb": "Beach Fossils is an American indie rock band from Brooklyn, New York, formed in 2009.",
     "descriptor": "American indie rock band"
+  },
+  "torche": {
+    "checkedAt": "2026-09-27T20:48:29.500Z",
+    "wiki": "https://en.wikipedia.org/wiki/Torche_(band)",
+    "blurb": "Torche is an American stoner metal/sludge metal band from Miami, Florida.",
+    "descriptor": "American stoner metal band"
+  },
+  "chicago": {
+    "checkedAt": "2026-09-27T20:48:29.902Z",
+    "wiki": "https://en.wikipedia.org/wiki/Steve_Miller_Band",
+    "blurb": "The Steve Miller Band is an American rock band formed in San Francisco, California, in 1966.",
+    "descriptor": "American rock band"
   }
 }
