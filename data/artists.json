@@ -5409,5 +5409,23 @@
     "wiki": "https://en.wikipedia.org/wiki/Even_It_Up",
     "blurb": "\"Even It Up\" is a song recorded by the rock band Heart.",
     "descriptor": "1980 single by Heart"
+  },
+  "floorplan": {
+    "checkedAt": "2026-10-04T11:43:51.624Z",
+    "wiki": "https://en.wikipedia.org/wiki/Robert_Hood",
+    "blurb": "Robert Hood is an American electronic music producer and DJ.",
+    "descriptor": "American electronic music producer and DJ"
+  },
+  "lennon stella": {
+    "checkedAt": "2026-10-04T11:43:51.935Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lennon_Stella",
+    "blurb": "Lennon Ray Louise Stella is a Canadian singer and actress.",
+    "descriptor": "Canadian singer and actress (born 1999)"
+  },
+  "the blaze": {
+    "checkedAt": "2026-10-04T11:43:52.151Z",
+    "wiki": "https://en.wikipedia.org/wiki/Angel_(American_band)",
+    "blurb": "Angel is an American rock band from Washington, D.C., formed in 1975 by Punky Meadows, Mickey Jones, and Gregg Giuffria.",
+    "descriptor": "American rock band"
   }
 }
