@@ -5427,5 +5427,93 @@
     "wiki": "https://en.wikipedia.org/wiki/Angel_(American_band)",
     "blurb": "Angel is an American rock band from Washington, D.C., formed in 1975 by Punky Meadows, Mickey Jones, and Gregg Giuffria.",
     "descriptor": "American rock band"
+  },
+  "rapsody": {
+    "checkedAt": "2026-10-05T13:14:24.049Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rapsody",
+    "blurb": "Marlanna Evans, better known by her stage name Rapsody, is an American rapper.",
+    "descriptor": "American rapper"
+  },
+  "boris": {
+    "checkedAt": "2026-10-05T13:14:24.314Z",
+    "wiki": "https://en.wikipedia.org/wiki/Boris_Williams",
+    "blurb": "Boris Peter Bransby Williams is an English musician, best known as the drummer for The Cure from 1984 until 1994, and for forming the band Babacar in the late 1990s.",
+    "descriptor": "French/English drummer (born 1951)"
+  },
+  "omer adam": {
+    "checkedAt": "2026-10-05T13:14:24.776Z",
+    "wiki": "https://en.wikipedia.org/wiki/Omer_Adam",
+    "blurb": "Omer Adam is an Israeli singer whose music fuses elements of Mizrahi music with Western pop instrumentation.",
+    "descriptor": "Israeli singer (born 1993)"
+  },
+  "the fabulous thunderbirds": {
+    "checkedAt": "2026-10-05T13:14:26.174Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Fabulous_Thunderbirds",
+    "blurb": "The Fabulous Thunderbirds is an American rock band formed in 1974.",
+    "descriptor": "American rock band"
+  },
+  "avalon emerson": {
+    "checkedAt": "2026-10-05T13:14:26.425Z",
+    "wiki": "https://en.wikipedia.org/wiki/Avalon_Emerson",
+    "blurb": "Avalon Emerson is an American electronic music producer and DJ.",
+    "descriptor": "American electronic music producer and DJ"
+  },
+  "kate nash": {
+    "checkedAt": "2026-10-05T13:14:26.678Z",
+    "wiki": "https://en.wikipedia.org/wiki/Kate_Nash",
+    "blurb": "Kate Marie Nash is an English singer, songwriter, musician, and actress.",
+    "descriptor": "British musician (born 1987)"
+  },
+  "the pharcyde": {
+    "checkedAt": "2026-10-05T13:14:26.931Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Pharcyde",
+    "blurb": "The Pharcyde is an American hip-hop group, formed in South Central Los Angeles in 1991.",
+    "descriptor": "American hip-hop group"
+  },
+  "why": {
+    "checkedAt": "2026-10-05T13:14:27.182Z",
+    "genres": [
+      "hip hop",
+      "indie pop"
+    ],
+    "descriptor": "Cincinnati, OH, US / hip-hop, indie rock"
+  },
+  "hohyun": {
+    "checkedAt": "2026-10-05T13:14:31.223Z"
+  },
+  "lcd soundsystem": {
+    "checkedAt": "2026-10-05T13:14:32.789Z",
+    "genres": [
+      "dance-punk",
+      "electronic"
+    ],
+    "descriptor": "US group"
+  },
+  "labretta suede and the motel 6": {
+    "checkedAt": "2026-10-05T13:14:34.358Z",
+    "descriptor": "NZ group"
+  },
+  "warboy": {
+    "checkedAt": "2026-10-05T13:14:35.971Z"
+  },
+  "lucy dacus": {
+    "checkedAt": "2026-10-05T13:14:37.537Z",
+    "genres": [
+      "folk",
+      "indie rock"
+    ],
+    "descriptor": "US artist"
+  },
+  "storefront church": {
+    "checkedAt": "2026-10-05T13:14:39.108Z",
+    "descriptor": "artist"
+  },
+  "kim petras": {
+    "checkedAt": "2026-10-05T13:14:40.679Z",
+    "genres": [
+      "pop",
+      "electronic"
+    ],
+    "descriptor": "US artist"
   }
 }
