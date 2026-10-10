@@ -5966,5 +5966,53 @@
   },
   "the gabe dixon band": {
     "checkedAt": "2026-10-05T23:40:53.604Z"
+  },
+  "nation of language": {
+    "checkedAt": "2026-10-10T16:45:02.006Z",
+    "wiki": "https://en.wikipedia.org/wiki/Nation_of_Language",
+    "blurb": "Nation of Language is an American indie pop band that formed in Brooklyn, New York, in 2016.",
+    "descriptor": "American indie pop band"
+  },
+  "high vis": {
+    "checkedAt": "2026-10-10T16:45:02.307Z",
+    "wiki": "https://en.wikipedia.org/wiki/High_Vis",
+    "blurb": "High Vis is an English rock band formed in London in 2016.",
+    "descriptor": "English rock band"
+  },
+  "paul mccartney": {
+    "checkedAt": "2026-10-10T16:45:02.537Z",
+    "wiki": "https://en.wikipedia.org/wiki/Paul_McCartney",
+    "blurb": "Sir James Paul McCartney is an English musician and songwriter.",
+    "descriptor": "English musician and songwriter (born 1942)"
+  },
+  "meat puppets": {
+    "checkedAt": "2026-10-10T16:45:02.760Z",
+    "wiki": "https://en.wikipedia.org/wiki/Meat_Puppets",
+    "blurb": "Meat Puppets are an American rock band formed in January 1980 in Phoenix, Arizona.",
+    "descriptor": "American rock band"
+  },
+  "guy gerber": {
+    "checkedAt": "2026-10-10T16:45:02.983Z",
+    "wiki": "https://en.wikipedia.org/wiki/Guy_Gerber",
+    "blurb": "Guy Avraham Gerber, is an Israeli electronic DJ/producer and musician who works in the underground techno scene.",
+    "descriptor": "Israeli musical artist"
+  },
+  "h l ne grimaud": {
+    "checkedAt": "2026-10-10T16:45:03.207Z",
+    "wiki": "https://en.wikipedia.org/wiki/H%C3%A9l%C3%A8ne_Grimaud",
+    "blurb": "Hélène Rose Paule Grimaud is a French classical pianist and the founder of the Wolf Conservation Center in South Salem, New York.",
+    "descriptor": "French pianist (born 1969)"
+  },
+  "sasha alex sloan": {
+    "checkedAt": "2026-10-10T16:45:03.431Z",
+    "wiki": "https://en.wikipedia.org/wiki/Sasha_Alex_Sloan",
+    "blurb": "Alexandra Artourovna Yatchenko, better known as Sasha Alex Sloan or simply Sasha Sloan, is an American singer-songwriter.",
+    "descriptor": "American singer-songwriter (born 1995)"
+  },
+  "sun kil moon": {
+    "checkedAt": "2026-10-10T16:45:03.654Z",
+    "wiki": "https://en.wikipedia.org/wiki/Sun_Kil_Moon",
+    "blurb": "Sun Kil Moon is an American folk rock act from San Francisco, California, founded in 2002.",
+    "descriptor": "American folk rock act"
   }
 }
