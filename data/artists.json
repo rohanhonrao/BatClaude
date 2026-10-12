@@ -6020,5 +6020,51 @@
     "wiki": "https://en.wikipedia.org/wiki/Only_Built_4_Cuban_Linx..._Pt._II",
     "blurb": "Only Built 4 Cuban Linx...",
     "descriptor": "2009 studio album by Raekwon"
+  },
+  "sahn": {
+    "checkedAt": "2026-10-12T14:03:21.953Z",
+    "wiki": "https://en.wikipedia.org/wiki/Wu_Kwang",
+    "blurb": "Wu Kwang Soen Sa Nim (1950–present), born Richard Shrobe, is head Zen teacher at Chogye International Zen Center of New York, a practice center of the Kwan Um School of Zen."
+  },
+  "phantoms": {
+    "checkedAt": "2026-10-12T14:03:24.403Z",
+    "wiki": "https://en.wikipedia.org/wiki/Freezepop",
+    "blurb": "Freezepop is an American electronic band from Boston, Massachusetts, United States, formed in 1999 by Liz Enthusiasm, Sean T.",
+    "descriptor": "American synthpop band"
+  },
+  "bike routes": {
+    "checkedAt": "2026-10-12T14:03:24.903Z"
+  },
+  "kyle watson": {
+    "checkedAt": "2026-10-12T14:03:27.359Z",
+    "genres": [
+      "pop",
+      "drum and bass"
+    ],
+    "descriptor": "house music"
+  },
+  "ryan castro": {
+    "checkedAt": "2026-10-12T14:03:28.800Z",
+    "genres": [
+      "latin",
+      "reggaeton"
+    ],
+    "descriptor": "CO artist"
+  },
+  "zo": {
+    "checkedAt": "2026-10-12T14:03:30.237Z",
+    "genres": [
+      "trance",
+      "drum and bass"
+    ],
+    "descriptor": "GB artist"
+  },
+  "fcukers": {
+    "checkedAt": "2026-10-12T14:03:31.675Z",
+    "genres": [
+      "electronic",
+      "electro house"
+    ],
+    "descriptor": "group"
   }
 }
