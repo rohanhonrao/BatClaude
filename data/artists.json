@@ -6237,5 +6237,31 @@
     "wiki": "https://en.wikipedia.org/wiki/Troye_Sivan",
     "blurb": "Troye Sivan Mellet is an Australian singer-songwriter and actor.",
     "descriptor": "Australian singer and actor (born 1995)"
+  },
+  "adolescentes": {
+    "checkedAt": "2026-10-14T21:18:01.377Z",
+    "wiki": "https://en.wikipedia.org/wiki/Pat_Smear",
+    "blurb": "Georg Albert Ruthenberg, better known by his stage name Pat Smear, is an American musician who plays guitar for Foo Fighters.",
+    "descriptor": "American guitarist (born 1959)"
+  },
+  "los adolescentes": {
+    "checkedAt": "2026-10-14T21:18:01.956Z",
+    "wiki": "https://en.wikipedia.org/wiki/Pat_Smear",
+    "blurb": "Georg Albert Ruthenberg, better known by his stage name Pat Smear, is an American musician who plays guitar for Foo Fighters.",
+    "descriptor": "American guitarist (born 1959)"
+  },
+  "p vel": {
+    "checkedAt": "2026-10-14T21:18:05.668Z",
+    "wiki": "https://en.wikipedia.org/wiki/Habana_Abierta",
+    "blurb": "Habana Abierta is a Cuban band.",
+    "descriptor": "Cuban band"
+  },
+  "pavel n ez": {
+    "checkedAt": "2026-10-14T21:18:07.518Z",
+    "genres": [
+      "latin",
+      "latin pop"
+    ],
+    "descriptor": "DO artist"
   }
 }
