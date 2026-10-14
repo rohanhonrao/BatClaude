@@ -6231,5 +6231,11 @@
       "world fusion"
     ],
     "descriptor": "artist"
+  },
+  "troye sivan": {
+    "checkedAt": "2026-10-14T16:25:26.487Z",
+    "wiki": "https://en.wikipedia.org/wiki/Troye_Sivan",
+    "blurb": "Troye Sivan Mellet is an Australian singer-songwriter and actor.",
+    "descriptor": "Australian singer and actor (born 1995)"
   }
 }
