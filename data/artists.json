@@ -6263,5 +6263,17 @@
       "latin pop"
     ],
     "descriptor": "DO artist"
+  },
+  "amenazzy": {
+    "checkedAt": "2026-10-15T16:12:52.666Z",
+    "wiki": "https://en.wikipedia.org/wiki/Amenazzy",
+    "blurb": "José Daniel Betances, known professionally as Amenazzy, or sometimes El Nene La Amenaza, is a Dominican urban music singer from Santiago de los Caballeros.",
+    "descriptor": "Dominican singer"
+  },
+  "bass envy": {
+    "checkedAt": "2026-10-15T16:12:52.938Z",
+    "wiki": "https://en.wikipedia.org/wiki/Envy_on_the_Coast",
+    "blurb": "Envy on the Coast are a post-hardcore band from Long Island, New York.",
+    "descriptor": "American post-hardcore band"
   }
 }
