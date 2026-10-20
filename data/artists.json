@@ -6442,5 +6442,72 @@
     "wiki": "https://en.wikipedia.org/wiki/Shmueli_Ungar",
     "blurb": "Shmuel Dovid \"Shmueli\" Ungar is an American Hasidic singer, songwriter and entertainer in the contemporary Jewish religious music industry.",
     "descriptor": "Musical artist"
+  },
+  "steven maglio": {
+    "checkedAt": "2026-10-20T10:51:52.025Z",
+    "wiki": "https://en.wikipedia.org/wiki/Joe_Keery",
+    "blurb": "Joseph David Keery, also known by his musical stage name Djo, is an American actor, singer, musician, and songwriter.",
+    "descriptor": "American actor and musician (born 1992)"
+  },
+  "justin robinson": {
+    "checkedAt": "2026-10-20T10:51:54.133Z",
+    "wiki": "https://en.wikipedia.org/wiki/Justin_Robinson_(musician)",
+    "blurb": "Justin Robinson is an American jazz alto saxophonist.",
+    "descriptor": "American saxophonist (born 1968)"
+  },
+  "son of jacob": {
+    "checkedAt": "2026-10-20T10:51:56.767Z",
+    "wiki": "https://en.wikipedia.org/wiki/Harry_Vanda",
+    "blurb": "Johannes Hendrikus Jacob van den Berg, better known as Harry Vanda, is a Dutch-Australian singer, musician, songwriter and record producer.",
+    "descriptor": "Australian musician (born 1946)"
+  },
+  "mike davis": {
+    "checkedAt": "2026-10-20T10:51:59.238Z",
+    "descriptor": "UK production music"
+  },
+  "gabrielle cavassa": {
+    "checkedAt": "2026-10-20T10:52:01.795Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gabrielle_Cavassa",
+    "blurb": "Gabrielle Cavassa is an American jazz vocalist.",
+    "descriptor": "American jazz singer (born 1994)"
+  },
+  "lael neale": {
+    "checkedAt": "2026-10-20T10:52:02.066Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lael_Neale",
+    "blurb": "Lael Sinclair Neale is an American indie rock musician from Virginia.",
+    "descriptor": "American indie rock musician"
+  },
+  "lawrence trailer": {
+    "checkedAt": "2026-10-20T10:52:02.338Z",
+    "wiki": "https://en.wikipedia.org/wiki/Mates_of_State",
+    "blurb": "Mates of State are an American indie pop duo, active since 1997.",
+    "descriptor": "American indie pop duo"
+  },
+  "richard thompson": {
+    "checkedAt": "2026-10-20T10:52:03.310Z",
+    "wiki": "https://en.wikipedia.org/wiki/Richard_Thompson_(musician)",
+    "blurb": "Richard Thompson is an English songwriter, musician, singer and record producer.",
+    "descriptor": "English singer-songwriter and guitarist (born 1949)"
+  },
+  "wicked in concert": {
+    "checkedAt": "2026-10-20T10:52:03.842Z"
+  },
+  "benny green": {
+    "checkedAt": "2026-10-20T10:52:06.885Z",
+    "genres": [
+      "jazz",
+      "post-bop"
+    ],
+    "descriptor": "jazz pianist"
+  },
+  "kinda kinks": {
+    "checkedAt": "2026-10-20T10:52:08.968Z"
+  },
+  "kamijo": {
+    "checkedAt": "2026-10-20T10:52:10.995Z",
+    "genres": [
+      "visual kei"
+    ],
+    "descriptor": "JP artist"
   }
 }
