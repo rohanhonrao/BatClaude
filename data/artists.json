@@ -6509,5 +6509,23 @@
       "visual kei"
     ],
     "descriptor": "JP artist"
+  },
+  "ghostemane": {
+    "checkedAt": "2026-10-21T11:02:37.419Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ghostemane",
+    "blurb": "Eric Thomas John Whitney, known professionally as Ghostemane or Eric Ghoste, is an American rapper and record producer.",
+    "descriptor": "American rapper and record producer (born 1991)"
+  },
+  "pomme": {
+    "checkedAt": "2026-10-21T11:02:37.715Z",
+    "wiki": "https://en.wikipedia.org/wiki/Pomme_(singer)",
+    "blurb": "Claire Pommet, known professionally as Pomme, is a French singer, songwriter, musician, and actress.",
+    "descriptor": "French musician (born 1996)"
+  },
+  "swae lee": {
+    "checkedAt": "2026-10-21T11:02:38.254Z",
+    "wiki": "https://en.wikipedia.org/wiki/Swae_Lee",
+    "blurb": "Khalif Malik Ibn Shaman Brown, known professionally as Swae Lee, is an American rapper and singer from Inglewood, California.",
+    "descriptor": "American rapper and singer (born 1993)"
   }
 }
