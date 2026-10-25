@@ -3885,239 +3885,258 @@
     "descriptor": "American jazz band"
   },
   "wicked nyc": {
-    "checkedAt": "2026-09-10T10:28:47.280Z",
-    "wiki": "https://en.wikipedia.org/wiki/Steve_Conte",
-    "blurb": "Steve Conte is an American guitarist, singer and songwriter, and the frontman of the band Steve Conte NYC.",
-    "descriptor": "American rock musician"
+    "checkedAt": "2026-10-25T10:32:41.037Z"
   },
   "blue yster cult": {
-    "checkedAt": "2026-09-10T10:28:48.568Z",
-    "wiki": "https://en.wikipedia.org/wiki/Blue_%C3%96yster_Cult",
-    "blurb": "Blue Öyster Cult is an American rock band formed on Long Island, New York, in the hamlet of Stony Brook, in 1967.",
-    "descriptor": "American rock band"
+    "checkedAt": "2026-10-25T10:32:42.450Z",
+    "genres": [
+      "hard rock",
+      "rock"
+    ],
+    "descriptor": "US rock band"
   },
   "buray": {
-    "checkedAt": "2026-09-10T10:28:48.779Z",
-    "wiki": "https://en.wikipedia.org/wiki/Buray",
-    "blurb": "Buray Hoşsöz is a Turkish Cypriot pop singer.",
-    "descriptor": "Turkish Cypriot pop singer"
+    "checkedAt": "2026-10-25T10:32:46.044Z"
   },
   "fantastic cat": {
-    "checkedAt": "2026-09-10T10:28:49.014Z",
-    "wiki": "https://en.wikipedia.org/wiki/Fantastic_Cat",
-    "blurb": "Fantastic Cat is an indie music group consisting of Anthony D'Amato, Brian Dunne, Don DiLego, and Mike Montali.",
-    "descriptor": "Indie rock musical group"
+    "checkedAt": "2026-10-25T10:32:51.730Z",
+    "descriptor": "Supergroup featuring Mike Montali of Hollis Brown"
   },
   "frank vignola": {
-    "checkedAt": "2026-09-10T10:28:49.230Z",
-    "wiki": "https://en.wikipedia.org/wiki/Frank_Vignola",
-    "blurb": "Frank Vignola is an American jazz guitarist.",
-    "descriptor": "American jazz guitarist"
+    "checkedAt": "2026-10-25T10:32:56.309Z",
+    "genres": [
+      "jazz",
+      "swing"
+    ],
+    "descriptor": "US artist"
   },
   "natasha diggs": {
-    "checkedAt": "2026-09-10T10:28:49.441Z",
-    "descriptor": "vocalist, dancer, visual artist"
+    "checkedAt": "2026-10-25T10:33:00.704Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cactus_Child",
+    "blurb": "Cactus Child were an Australian folk, pop group formed in 1993 by mainstays, Gemma Deacon on lead vocals and Ian Housten-Shadwell on guitar.",
+    "descriptor": "Australian folk pop group"
   },
   "new york philharmonic": {
-    "checkedAt": "2026-09-10T10:29:02.903Z",
+    "checkedAt": "2026-10-25T10:33:01.364Z",
     "wiki": "https://en.wikipedia.org/wiki/New_York_Philharmonic",
     "blurb": "The New York Philharmonic is an American symphony orchestra based in New York City.",
     "descriptor": "American symphony orchestra"
   },
   "ryan clark": {
-    "checkedAt": "2026-09-10T10:29:03.125Z",
+    "checkedAt": "2026-10-25T10:33:01.578Z",
     "wiki": "https://en.wikipedia.org/wiki/Ryan_Clark_(musician)",
     "blurb": "Ryan Curtis Clark is an American musician who also has performed under the stage name Maven.",
     "descriptor": "American musician (born 1979)"
   },
   "the deep drags": {
-    "checkedAt": "2026-09-10T10:29:03.521Z",
+    "checkedAt": "2026-10-25T10:33:04.066Z",
     "wiki": "https://en.wikipedia.org/wiki/Gene_Krupa",
     "blurb": "Eugene Bertram Krupa was an American jazz drummer, bandleader, and composer.",
     "descriptor": "American jazz drummer and bandleader (1909–1973)"
   },
   "all ohio balloon festival 2026 balloon museum nyc": {
-    "checkedAt": "2026-09-10T10:29:04.362Z"
+    "checkedAt": "2026-10-25T10:33:04.712Z"
   },
   "david morales": {
-    "checkedAt": "2026-09-10T10:29:40.191Z",
-    "genres": [
-      "electronic",
-      "house"
-    ],
-    "descriptor": "US DJ/producer"
+    "checkedAt": "2026-10-25T10:33:06.150Z"
   },
   "david ostwald s louis armstrong eternity band": {
-    "checkedAt": "2026-09-10T10:29:55.990Z"
+    "checkedAt": "2026-10-25T10:32:47.456Z"
   },
   "aitana": {
-    "checkedAt": "2026-09-10T10:30:12.129Z",
-    "wiki": "https://en.wikipedia.org/wiki/Morat_(band)",
-    "blurb": "Morat is a Colombian Latin pop rock band formed in the country's capital city, Bogotá.",
-    "descriptor": "Colombian folk-pop Band"
+    "checkedAt": "2026-10-25T10:33:07.566Z",
+    "genres": [
+      "pop",
+      "electropop"
+    ],
+    "descriptor": "Spanish singer Aitana Ocaña Morales"
   },
   "boy 2000": {
-    "checkedAt": "2026-09-10T10:30:12.525Z",
-    "wiki": "https://en.wikipedia.org/wiki/Matthew_Herbert",
-    "blurb": "Matthew Herbert, also known as Herbert, Doctor Rockit, Radio Boy, Mr.",
-    "descriptor": "British electronic musician"
+    "checkedAt": "2026-10-25T10:33:12.191Z",
+    "genres": [
+      "electronic",
+      "drum and bass"
+    ],
+    "descriptor": "artist"
   },
   "byron stingily": {
-    "checkedAt": "2026-09-10T10:30:13.429Z",
-    "wiki": "https://en.wikipedia.org/wiki/Byron_Stingily",
-    "blurb": "Byron Stingily is an American R&B and house-music singer born in Chicago, Illinois, known for his falsetto voice.",
-    "descriptor": "American R&B and house-music singer"
+    "checkedAt": "2026-10-25T10:33:16.932Z",
+    "genres": [
+      "vocal house",
+      "chicago house"
+    ],
+    "descriptor": "US artist"
   },
   "dark star orchestra": {
-    "checkedAt": "2026-09-10T10:30:13.641Z",
-    "wiki": "https://en.wikipedia.org/wiki/Dark_Star_Orchestra",
-    "blurb": "Dark Star Orchestra is a Grateful Dead tribute band formed in Chicago, Illinois.",
-    "descriptor": "American tribute band"
+    "checkedAt": "2026-10-25T10:33:21.519Z",
+    "genres": [
+      "rock",
+      "psychedelic rock"
+    ],
+    "descriptor": "US group"
   },
   "dave hause": {
-    "checkedAt": "2026-09-10T10:30:13.859Z",
-    "wiki": "https://en.wikipedia.org/wiki/Dave_Hause",
-    "blurb": "Dave Hause is an American singer-songwriter.",
-    "descriptor": "American singer-songwriter (born 1978)"
+    "checkedAt": "2026-10-25T10:33:22.968Z",
+    "genres": [
+      "folk punk",
+      "rock"
+    ],
+    "descriptor": "US singer-songwriter"
   },
   "dave hause and the mermaid": {
-    "checkedAt": "2026-09-10T10:30:14.424Z"
+    "checkedAt": "2026-10-25T10:33:24.407Z"
   },
   "marcus machado": {
-    "checkedAt": "2026-09-10T10:30:16.149Z",
+    "checkedAt": "2026-10-25T10:33:25.838Z",
     "descriptor": "guitarist"
   },
   "nicole atkins": {
-    "checkedAt": "2026-09-10T10:30:17.584Z",
+    "checkedAt": "2026-10-25T10:33:30.504Z",
     "genres": [
       "country"
     ],
     "descriptor": "US artist"
   },
   "remember jones": {
-    "checkedAt": "2026-09-10T10:30:54.860Z",
+    "checkedAt": "2026-10-25T10:33:31.955Z",
     "descriptor": "Soul / pop singer, bandleader"
   },
   "el tri": {
-    "checkedAt": "2026-09-10T10:30:57.446Z"
+    "checkedAt": "2026-10-25T10:33:33.391Z",
+    "genres": [
+      "rock",
+      "blues"
+    ],
+    "descriptor": "MX group"
   },
   "felix da housecat": {
-    "checkedAt": "2026-09-10T10:30:58.857Z"
+    "checkedAt": "2026-10-25T10:33:34.832Z",
+    "genres": [
+      "house",
+      "big beat"
+    ],
+    "descriptor": "Felix Stallings, Jr."
   },
   "integrity": {
-    "checkedAt": "2026-09-10T10:31:40.266Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jared_Anderson_(Christian_musician)",
-    "blurb": "Jared Anderson is a Christian worship leader from Colorado Springs, Colorado.",
-    "descriptor": "Musical artist"
+    "checkedAt": "2026-10-25T10:33:39.304Z",
+    "genres": [
+      "metalcore",
+      "hardcore punk"
+    ],
+    "descriptor": "US metalcore/hardcore punk band"
   },
   "joe dwet file": {
-    "checkedAt": "2026-09-10T10:31:40.614Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jo%C3%A9_Dw%C3%A8t_Fil%C3%A9",
-    "blurb": "Joé Dwèt Filé is a French-Haitian singer.",
-    "descriptor": "Haitian singer"
+    "checkedAt": "2026-10-25T10:33:40.763Z",
+    "genres": [
+      "soul",
+      "r&b"
+    ],
+    "descriptor": "FR artist"
   },
   "los tigres del norte": {
-    "checkedAt": "2026-09-10T10:31:40.830Z",
-    "wiki": "https://en.wikipedia.org/wiki/Los_Tigres_del_Norte",
-    "blurb": "Los Tigres del Norte are a Mexican norteño band based in San Jose, California.",
-    "descriptor": "California-based norteño Mexican band"
+    "checkedAt": "2026-10-25T10:33:42.196Z"
   },
   "svdden death": {
-    "checkedAt": "2026-09-10T10:31:41.042Z",
-    "wiki": "https://en.wikipedia.org/wiki/Svdden_Death",
-    "blurb": "Daniel James \"Danny\" Howland, better known by his alias Svdden Death, is a Los Angeles DJ and producer from San Jose, California.",
-    "descriptor": "American DJ and producer"
+    "checkedAt": "2026-10-25T10:33:43.608Z",
+    "genres": [
+      "electronic",
+      "dubstep"
+    ],
+    "descriptor": "DJ and producer"
   },
   "troyboi": {
-    "checkedAt": "2026-09-10T10:31:41.257Z",
-    "wiki": "https://en.wikipedia.org/wiki/TroyBoi",
-    "blurb": "Troy Austin Attoh Henry, known professionally as TroyBoi, is a British DJ, record producer, and musician.",
-    "descriptor": "British DJ, record producer and musician"
+    "checkedAt": "2026-10-25T10:33:45.139Z",
+    "genres": [
+      "trap edm",
+      "electronic"
+    ],
+    "descriptor": "artist"
   },
   "tyla": {
-    "checkedAt": "2026-09-10T10:31:41.469Z",
+    "checkedAt": "2026-10-25T10:33:46.574Z",
     "wiki": "https://en.wikipedia.org/wiki/Tyla",
-    "blurb": "Tyla Laura Seethal is a South African singer and songwriter.",
-    "descriptor": "South African singer and songwriter (born 2002)"
+    "blurb": "Tyla Laura Seethal is a South African singer-songwriter.",
+    "descriptor": "South African singer-songwriter (born 2002)"
   },
   "dragonforce": {
-    "checkedAt": "2026-09-10T10:31:41.673Z",
-    "wiki": "https://en.wikipedia.org/wiki/DragonForce",
-    "blurb": "DragonForce are a British power metal band from London, formed in 1999.",
-    "descriptor": "British power metal band"
+    "checkedAt": "2026-10-25T10:33:46.778Z",
+    "genres": [
+      "power metal",
+      "heavy metal"
+    ],
+    "descriptor": "GB group"
   },
   "geoffrey keezer": {
-    "checkedAt": "2026-09-10T10:31:41.887Z",
-    "wiki": "https://en.wikipedia.org/wiki/Geoffrey_Keezer",
-    "blurb": "Geoffrey Keezer is an American jazz pianist.",
-    "descriptor": "American jazz pianist (born 1970)"
+    "checkedAt": "2026-10-25T10:33:48.213Z",
+    "genres": [
+      "post-bop",
+      "hard bop"
+    ],
+    "descriptor": "US artist"
   },
   "harlem gospel choir": {
-    "checkedAt": "2026-09-10T10:31:43.774Z",
+    "checkedAt": "2026-10-25T10:33:49.659Z",
     "descriptor": "US"
   },
   "lea salonga": {
-    "checkedAt": "2026-09-10T10:31:45.956Z",
-    "genres": [
-      "pop",
-      "opm"
-    ],
-    "descriptor": "PH artist"
+    "checkedAt": "2026-10-25T10:33:51.093Z"
   },
   "kevin sun": {
-    "checkedAt": "2026-09-10T10:31:47.393Z"
+    "checkedAt": "2026-10-25T10:33:52.517Z",
+    "descriptor": "artist"
   },
   "zohar adam": {
-    "checkedAt": "2026-09-10T10:31:48.803Z"
+    "checkedAt": "2026-10-25T10:33:53.964Z"
   },
   "allison kelly": {
-    "checkedAt": "2026-09-10T10:31:50.249Z"
+    "checkedAt": "2026-10-25T10:32:39.623Z"
   },
   "doja cat": {
-    "checkedAt": "2026-09-10T10:32:11.254Z",
-    "wiki": "https://en.wikipedia.org/wiki/Doja_Cat",
-    "blurb": "Amala Ratna Zandile Dlamini, known professionally as Doja Cat, is an American rapper, singer, and songwriter.",
-    "descriptor": "American rapper (born 1995)"
+    "checkedAt": "2026-10-25T10:33:58.914Z",
+    "genres": [
+      "hip hop",
+      "pop"
+    ],
+    "descriptor": "US artist"
   },
   "joe lovano nonet": {
-    "checkedAt": "2026-09-10T10:32:11.513Z",
+    "checkedAt": "2026-10-25T10:34:00.361Z",
     "wiki": "https://en.wikipedia.org/wiki/52nd_Street_Themes",
     "blurb": "52nd Street Themes is a studio album by the American jazz saxophonist Joe Lovano.",
     "descriptor": "2000 studio album by Joe Lovano"
   },
   "kingdom of giants": {
-    "checkedAt": "2026-09-10T10:32:12.702Z",
+    "checkedAt": "2026-10-25T10:34:02.559Z",
     "wiki": "https://en.wikipedia.org/wiki/Kingdom_of_Giants",
     "blurb": "Kingdom of Giants is an American metalcore band from Sacramento, California.",
     "descriptor": "American metalcore band"
   },
   "nor ll": {
-    "checkedAt": "2026-09-10T10:32:13.511Z",
+    "checkedAt": "2026-10-25T10:34:02.763Z",
     "wiki": "https://en.wikipedia.org/wiki/Ola_H%C3%A5kansson",
     "blurb": "Ola Håkansson is a Swedish singer, composer and producer.",
     "descriptor": "Swedish singer, composer and producer (born 1945)"
   },
   "stray cats": {
-    "checkedAt": "2026-09-10T10:32:15.139Z",
+    "checkedAt": "2026-10-25T10:34:03.300Z",
     "wiki": "https://en.wikipedia.org/wiki/Stray_Cats",
-    "blurb": " Stray Cats is an American rockabilly band formed in 1979 by guitarist and vocalist Brian Setzer, double bassist Lee Rocker, and drummer Slim Jim Phantom in the Long Island hamlet of Massapequa, New York.",
+    "blurb": " Stray Cats are an American rockabilly band formed in 1979 by guitarist and vocalist Brian Setzer, double bassist Lee Rocker, and drummer Slim Jim Phantom in the Long Island hamlet of Massapequa, New York.",
     "descriptor": "American rockabilly band"
   },
   "aura": {
-    "checkedAt": "2026-09-10T10:32:15.413Z"
+    "checkedAt": "2026-10-25T10:34:03.513Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rune_Eriksen",
+    "blurb": "Rune Eriksen, also known by his stage name Blasphemer, is a Norwegian musician best known as the former guitarist and songwriter of black metal band Mayhem.",
+    "descriptor": "Norwegian guitarist"
   },
   "gift usa": {
-    "checkedAt": "2026-09-10T10:32:16.829Z"
+    "checkedAt": "2026-10-25T10:34:03.839Z"
   },
   "nate smith": {
-    "checkedAt": "2026-09-10T10:32:18.261Z",
-    "genres": [
-      "country"
-    ],
-    "descriptor": "US country singer"
+    "checkedAt": "2026-10-25T10:34:05.274Z"
   },
   "static dress": {
-    "checkedAt": "2026-09-10T10:32:19.695Z",
+    "checkedAt": "2026-10-25T10:34:06.900Z",
     "genres": [
       "post-hardcore",
       "metalcore"
@@ -4125,7 +4144,7 @@
     "descriptor": "English post-hardcore/rock band"
   },
   "temples": {
-    "checkedAt": "2026-09-10T10:32:21.128Z",
+    "checkedAt": "2026-10-25T10:34:10.790Z",
     "genres": [
       "psychedelic rock",
       "neo-psychedelia"
@@ -4133,7 +4152,7 @@
     "descriptor": "English pyschedelic rock band"
   },
   "the hold steady": {
-    "checkedAt": "2026-09-10T10:32:22.591Z",
+    "checkedAt": "2026-10-25T10:34:12.224Z",
     "genres": [
       "indie rock",
       "rock"
@@ -4141,7 +4160,7 @@
     "descriptor": "US group"
   },
   "turnover": {
-    "checkedAt": "2026-09-10T10:32:25.601Z",
+    "checkedAt": "2026-10-25T10:34:13.658Z",
     "genres": [
       "dream pop",
       "indie rock"
@@ -4149,7 +4168,7 @@
     "descriptor": "rock band from Virginia Beach, Virginia"
   },
   "b la fleck": {
-    "checkedAt": "2026-09-10T10:32:27.142Z",
+    "checkedAt": "2026-10-25T10:34:15.099Z",
     "genres": [
       "folk",
       "bluegrass"
@@ -6745,5 +6764,44 @@
     "wiki": "https://en.wikipedia.org/wiki/Dylan_LeBlanc",
     "blurb": "Dylan LeBlanc is an American singer-songwriter and guitarist.",
     "descriptor": "American singer-songwriter (born 1990)"
+  },
+  "saya gray": {
+    "checkedAt": "2026-10-25T10:32:32.722Z",
+    "wiki": "https://en.wikipedia.org/wiki/Saya_Gray",
+    "blurb": "Saya Gray is a Canadian musician.",
+    "descriptor": "Canadian musician (born 1995)"
+  },
+  "49th main": {
+    "checkedAt": "2026-10-25T10:32:34.294Z",
+    "wiki": "https://en.wikipedia.org/wiki/Vicarious_(song)",
+    "blurb": "\"Vicarious\" is a song by the American rock band Tool.",
+    "descriptor": "2006 song by Tool"
+  },
+  "maleek berry": {
+    "checkedAt": "2026-10-25T10:32:34.633Z",
+    "wiki": "https://en.wikipedia.org/wiki/Maleek_Berry",
+    "blurb": "Maleek Shoyebi, professionally known as Maleek Berry, is a British-Nigerian record producer and recording artist.",
+    "descriptor": "Musical artist (born 1987)"
+  },
+  "chris garneau": {
+    "checkedAt": "2026-10-25T10:32:35.934Z",
+    "wiki": "https://en.wikipedia.org/wiki/Chris_Garneau",
+    "blurb": "Chris Garneau is an American singer-songwriter and musician.",
+    "descriptor": "American singer-songwriter and musician (born 1982)"
+  },
+  "young m a": {
+    "checkedAt": "2026-10-25T10:32:36.155Z",
+    "wiki": "https://en.wikipedia.org/wiki/Young_M.A",
+    "blurb": "Katorah Kasanova Marrero, better known by her stage name Young M.A, is an American rapper.",
+    "descriptor": "American rapper"
+  },
+  "delicate steve": {
+    "checkedAt": "2026-10-25T10:32:36.368Z",
+    "wiki": "https://en.wikipedia.org/wiki/Delicate_Steve",
+    "blurb": "Steve Marion, known professionally as Delicate Steve, is an American multi-instrumentalist who leads the band by the same name.",
+    "descriptor": "Musical artist"
+  },
+  "rob garcia quartet": {
+    "checkedAt": "2026-10-25T10:32:36.906Z"
   }
 }
