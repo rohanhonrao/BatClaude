@@ -6,10 +6,12 @@
     "descriptor": "Plains Cree in Saskatchewan Canada"
   },
   "angine de poitrine": {
-    "checkedAt": "2026-09-10T00:20:08.918Z",
-    "wiki": "https://en.wikipedia.org/wiki/Angine_de_Poitrine",
-    "blurb": "Angine de Poitrine is a Canadian rock duo formed in Saguenay, Quebec, in 2019.",
-    "descriptor": "Canadian experimental rock duo"
+    "checkedAt": "2026-10-25T02:40:52.525Z",
+    "genres": [
+      "math rock",
+      "experimental rock"
+    ],
+    "descriptor": "group"
   },
   "babymetal": {
     "checkedAt": "2026-09-10T00:20:09.214Z",
@@ -30,16 +32,18 @@
     "descriptor": "American rock band"
   },
   "harry styles": {
-    "checkedAt": "2026-09-10T00:20:09.893Z",
+    "checkedAt": "2026-10-25T02:34:53.879Z",
     "wiki": "https://en.wikipedia.org/wiki/Harry_Styles",
     "blurb": "Harry Edward Styles is an English singer, songwriter, and actor.",
-    "descriptor": "English singer, songwriter and actor (born 1994)"
+    "descriptor": "English singer, songwriter, and actor (born 1994)"
   },
   "lolo zoua": {
-    "checkedAt": "2026-09-10T00:20:10.112Z",
-    "wiki": "https://en.wikipedia.org/wiki/Lolo_Zoua%C3%AF",
-    "blurb": "Laureen Rebeha Zouaï, known professionally as Lolo Zouaï, is a French singer.",
-    "descriptor": "French singer (born 1995)"
+    "checkedAt": "2026-10-25T02:43:45.411Z",
+    "genres": [
+      "pop",
+      "r&b"
+    ],
+    "descriptor": "US/FR | pop"
   },
   "lucki": {
     "checkedAt": "2026-09-10T00:20:10.340Z",
@@ -108,12 +112,10 @@
     "descriptor": "Swedish singer (born 1979)"
   },
   "st vincent": {
-    "checkedAt": "2026-09-10T00:20:26.764Z",
-    "genres": [
-      "electronic",
-      "indie rock"
-    ],
-    "descriptor": "USA guitarist, singer and songwriter Annie Clark"
+    "checkedAt": "2026-10-25T02:36:09.548Z",
+    "wiki": "https://en.wikipedia.org/wiki/St._Vincent_(musician)",
+    "blurb": "Anne Erin Clark, known professionally as St.",
+    "descriptor": "American musician (born 1982)"
   },
   "worldsucks": {
     "checkedAt": "2026-09-10T00:20:28.262Z"
@@ -205,12 +207,10 @@
     "checkedAt": "2026-09-10T00:21:16.884Z"
   },
   "diplo": {
-    "checkedAt": "2026-09-10T00:21:18.350Z",
-    "genres": [
-      "electronic",
-      "hip hop"
-    ],
-    "descriptor": "DJ and music producer"
+    "checkedAt": "2026-10-25T02:34:53.236Z",
+    "wiki": "https://en.wikipedia.org/wiki/Diplo",
+    "blurb": "Thomas Wesley \"Wes\" Pentz Jr., known professionally as Diplo, is an American DJ and record producer.",
+    "descriptor": "American DJ and record producer (born 1978)"
   },
   "tlc": {
     "checkedAt": "2026-09-10T00:21:19.867Z"
@@ -471,7 +471,12 @@
     "checkedAt": "2026-09-10T00:22:37.405Z"
   },
   "john summit": {
-    "checkedAt": "2026-09-10T00:22:38.871Z"
+    "checkedAt": "2026-10-25T02:43:43.975Z",
+    "genres": [
+      "dance",
+      "house"
+    ],
+    "descriptor": "EDM DJ & producer"
   },
   "jungle": {
     "checkedAt": "2026-09-10T00:22:40.337Z",
@@ -485,13 +490,16 @@
     "checkedAt": "2026-09-10T00:22:41.912Z"
   },
   "pixies": {
-    "checkedAt": "2026-09-10T00:22:43.378Z"
+    "checkedAt": "2026-10-25T02:34:54.510Z",
+    "wiki": "https://en.wikipedia.org/wiki/Black_Francis",
+    "blurb": "Charles Michael Kittridge Thompson IV, known professionally as Black Francis and formerly Frank Black, is an American singer, songwriter, and guitarist who is the lead vocalist of the alternative rock band Pixies.",
+    "descriptor": "American musician (born 1965)"
   },
   "shannon curtis": {
     "checkedAt": "2026-09-10T00:22:44.846Z"
   },
   "the war on drugs": {
-    "checkedAt": "2026-09-10T00:22:46.316Z",
+    "checkedAt": "2026-10-25T02:40:47.750Z",
     "genres": [
       "indie rock",
       "dream pop"
@@ -628,10 +636,12 @@
     "descriptor": "FR artist"
   },
   "action bronson": {
-    "checkedAt": "2026-09-10T00:24:06.992Z",
-    "wiki": "https://en.wikipedia.org/wiki/Action_Bronson",
-    "blurb": "Ariyan Arslani, better known by his stage name Action Bronson, is an American rapper, chef, and television host.",
-    "descriptor": "American rapper (born 1983)"
+    "checkedAt": "2026-10-25T02:35:02.771Z",
+    "genres": [
+      "hip hop",
+      "east coast hip hop"
+    ],
+    "descriptor": "rapper from Queens, NYC"
   },
   "alabaster deplume": {
     "checkedAt": "2026-09-10T00:24:07.251Z",
@@ -646,10 +656,12 @@
     "descriptor": "Australian folk and indie pop group"
   },
   "baby rose": {
-    "checkedAt": "2026-09-10T00:24:07.707Z",
-    "wiki": "https://en.wikipedia.org/wiki/Baby_Rose",
-    "blurb": "Jasmine Rose Wilson, known professionally as Baby Rose, is an American singer.",
-    "descriptor": "American singer, songwriter, and composer (born 1994)"
+    "checkedAt": "2026-10-25T02:35:04.208Z",
+    "genres": [
+      "soul",
+      "r&b"
+    ],
+    "descriptor": "US artist"
   },
   "jane remover": {
     "checkedAt": "2026-09-10T00:24:07.926Z",
@@ -842,16 +854,14 @@
     "checkedAt": "2026-09-10T00:25:22.789Z"
   },
   "patti smith": {
-    "checkedAt": "2026-09-10T00:26:04.255Z",
-    "wiki": "https://en.wikipedia.org/wiki/Patti_Smith",
-    "blurb": "Patricia Lee Smith is an American singer, songwriter, poet, and author.",
-    "descriptor": "American singer and songwriter (born 1946)"
+    "checkedAt": "2026-10-25T02:37:11.576Z"
   },
   "tinlicker": {
-    "checkedAt": "2026-09-10T00:26:04.518Z",
-    "wiki": "https://en.wikipedia.org/wiki/Tinlicker",
-    "blurb": "Tinlicker is a Dutch electronic music group from Utrecht comprising Micha Heyboer, Jordi van Achthoven & Hero Baldwin.",
-    "descriptor": "Dutch electronic music duo"
+    "checkedAt": "2026-10-25T02:43:48.284Z",
+    "genres": [
+      "dance"
+    ],
+    "descriptor": "melodic techno & house group"
   },
   "carly rae jepsen": {
     "checkedAt": "2026-09-10T00:26:04.746Z",
@@ -1010,10 +1020,7 @@
     "checkedAt": "2026-09-10T00:26:29.592Z"
   },
   "nacho estrella": {
-    "checkedAt": "2026-09-10T00:27:11.057Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Blue_Star_(film)",
-    "blurb": "The Blue Star is a 2023 drama film written and directed by Javier Macipe inspired by the life of Aragonese musician Mauricio Aznar which stars Pepe Lorente.",
-    "descriptor": "2023 film"
+    "checkedAt": "2026-10-25T02:37:25.041Z"
   },
   "the bob band": {
     "checkedAt": "2026-09-10T00:27:15.209Z",
@@ -1043,7 +1050,7 @@
     "descriptor": "American R&B singer‐songwriter"
   },
   "bow wow": {
-    "checkedAt": "2026-09-10T00:27:22.634Z",
+    "checkedAt": "2026-10-25T02:43:46.850Z",
     "genres": [
       "hip hop",
       "pop rap"
@@ -1057,20 +1064,34 @@
     "checkedAt": "2026-09-10T00:27:25.863Z"
   },
   "shattered realm": {
-    "checkedAt": "2026-09-10T00:27:27.331Z"
+    "checkedAt": "2026-10-25T02:35:00.822Z",
+    "wiki": "https://en.wikipedia.org/wiki/Figure_Four",
+    "blurb": "The Figure Four is a Canadian hardcore punk band formed in December 1997, and having recorded three albums since.",
+    "descriptor": "Canadian hardcore punk band"
   },
   "mariachi herencia de mexico": {
-    "checkedAt": "2026-09-10T00:27:28.800Z",
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:36:08.552Z",
+    "wiki": "https://en.wikipedia.org/wiki/Latin_Grammy_Award_for_Best_Ranchero%2FMariachi_Album",
+    "blurb": "The Latin Grammy Award for Best Ranchero/Mariachi Album was an honor presented annually at the Latin Grammy Awards, a ceremony that recognizes excellence and creates a wider awareness of cultural diversity and contributions of Latin recordi",
+    "descriptor": "Award presented annually to Ranchero music albums"
   },
   "becky crosby": {
-    "checkedAt": "2026-09-10T00:27:30.337Z"
+    "checkedAt": "2026-10-25T02:36:34.768Z"
   },
   "h ctor acosta el torito": {
-    "checkedAt": "2026-09-10T00:27:31.805Z"
+    "checkedAt": "2026-10-25T02:36:56.991Z",
+    "genres": [
+      "bachata",
+      "latin"
+    ],
+    "descriptor": "DO artist"
   },
   "amy rigby": {
-    "checkedAt": "2026-09-10T00:27:33.275Z"
+    "checkedAt": "2026-10-25T02:40:11.154Z",
+    "genres": [
+      "american"
+    ],
+    "descriptor": "US artist"
   },
   "audrey hobert": {
     "checkedAt": "2026-09-10T00:44:50.139Z",
@@ -1279,9 +1300,9 @@
     "descriptor": "AU artist"
   },
   "ninajirachi": {
-    "checkedAt": "2026-09-10T00:46:18.819Z",
+    "checkedAt": "2026-10-25T02:43:55.388Z",
     "wiki": "https://en.wikipedia.org/wiki/Ninajirachi",
-    "blurb": "Nina Jo Wilson, known by her stage name, Ninajirachi, is an Australian electronic music producer and DJ from Central Coast, New South Wales.",
+    "blurb": "Nina Jo Wilson, better known by her stage name, Ninajirachi, is an Australian electronic music producer and DJ from Central Coast, New South Wales.",
     "descriptor": "Australian music producer and DJ (born 1999)"
   },
   "pennywise": {
@@ -1306,10 +1327,12 @@
     "descriptor": "American singer and songwriter (born 1996)"
   },
   "chief keef": {
-    "checkedAt": "2026-09-10T00:46:23.000Z",
-    "wiki": "https://en.wikipedia.org/wiki/Chief_Keef",
-    "blurb": "Keith Farrelle Cozart, known professionally as Chief Keef, is an American rapper and record producer.",
-    "descriptor": "American rapper (born 1995)"
+    "checkedAt": "2026-10-25T02:37:07.282Z",
+    "genres": [
+      "drill",
+      "chicago drill"
+    ],
+    "descriptor": "US rapper"
   },
   "justin nozuka": {
     "checkedAt": "2026-09-10T00:46:23.228Z",
@@ -1324,7 +1347,7 @@
     "descriptor": "1979 song by Motörhead"
   },
   "robert glasper": {
-    "checkedAt": "2026-09-10T00:46:24.003Z",
+    "checkedAt": "2026-10-25T02:37:00.638Z",
     "wiki": "https://en.wikipedia.org/wiki/Robert_Glasper",
     "blurb": "Robert Andre Glasper is an American pianist, record producer, songwriter, and musical arranger.",
     "descriptor": "American jazz pianist, record producer, and songwriter"
@@ -1390,16 +1413,19 @@
     "descriptor": "American blues musician, singer, and songwriter"
   },
   "vacations": {
-    "checkedAt": "2026-09-10T00:47:11.353Z",
-    "wiki": "https://en.wikipedia.org/wiki/Gary_McCracken",
-    "blurb": "Gary McCracken is a Canadian musician.",
-    "descriptor": "Canadian musician (born 1951)"
+    "checkedAt": "2026-10-25T02:40:50.142Z",
+    "genres": [
+      "indie rock",
+      "surf rock"
+    ],
+    "descriptor": "Australian indie surf rock band"
   },
   "vince giordano the nighthawks": {
-    "checkedAt": "2026-09-10T00:47:12.924Z",
-    "wiki": "https://en.wikipedia.org/wiki/Vince_Giordano",
-    "blurb": "Vince Giordano is an American saxophonist and leader of the New York-based Nighthawks Orchestra.",
-    "descriptor": "American musician (born 1952)"
+    "checkedAt": "2026-10-25T02:35:35.486Z",
+    "genres": [
+      "jazz"
+    ],
+    "descriptor": "US group"
   },
   "angelo de augustine": {
     "checkedAt": "2026-09-10T00:47:13.600Z",
@@ -1513,7 +1539,12 @@
     ]
   },
   "caroline rose": {
-    "checkedAt": "2026-09-10T00:48:13.916Z"
+    "checkedAt": "2026-10-25T02:35:05.848Z",
+    "genres": [
+      "pop",
+      "indie pop"
+    ],
+    "descriptor": "US artist"
   },
   "elder island": {
     "checkedAt": "2026-09-10T00:48:15.438Z",
@@ -1699,7 +1730,7 @@
     "checkedAt": "2026-09-10T00:59:22.142Z"
   },
   "cortex": {
-    "checkedAt": "2026-09-10T00:59:23.767Z",
+    "checkedAt": "2026-10-25T02:42:53.553Z",
     "descriptor": "French jazz funk group"
   },
   "de wayne": {
@@ -1999,12 +2030,7 @@
     "descriptor": "American singer (born 1995)"
   },
   "boney james": {
-    "checkedAt": "2026-09-10T01:03:26.015Z",
-    "genres": [
-      "jazz",
-      "contemporary jazz"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:37:03.461Z"
   },
   "haai": {
     "checkedAt": "2026-09-10T01:03:27.696Z",
@@ -2105,7 +2131,7 @@
     "descriptor": "DO artist"
   },
   "toad the wet sprocket": {
-    "checkedAt": "2026-09-10T01:05:09.497Z",
+    "checkedAt": "2026-10-25T02:37:01.269Z",
     "wiki": "https://en.wikipedia.org/wiki/Toad_the_Wet_Sprocket",
     "blurb": "Toad the Wet Sprocket is an American alternative rock band formed in Santa Barbara, California, in 1986.",
     "descriptor": "American alternative rock band"
@@ -2160,7 +2186,10 @@
     "descriptor": "GB group"
   },
   "built to spill": {
-    "checkedAt": "2026-09-10T01:05:28.852Z"
+    "checkedAt": "2026-10-25T02:38:28.704Z",
+    "wiki": "https://en.wikipedia.org/wiki/Built_to_Spill",
+    "blurb": "Built to Spill is an American indie rock band that was formed in Boise, Idaho, in 1992.",
+    "descriptor": "American indie rock band"
   },
   "castle rat": {
     "checkedAt": "2026-09-10T01:05:30.456Z",
@@ -2171,22 +2200,19 @@
     "descriptor": "US group"
   },
   "robert glasper experiment": {
-    "checkedAt": "2026-09-10T01:05:32.080Z",
-    "genres": [
-      "nu jazz"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:37:03.029Z",
+    "wiki": "https://en.wikipedia.org/wiki/Robert_Glasper",
+    "blurb": "Robert Andre Glasper is an American pianist, record producer, songwriter, and musical arranger.",
+    "descriptor": "American jazz pianist, record producer, and songwriter"
   },
   "rodrigo y gabriela": {
-    "checkedAt": "2026-09-10T01:05:33.708Z",
-    "genres": [
-      "acoustic rock",
-      "world"
-    ],
-    "descriptor": "MX group"
+    "checkedAt": "2026-10-25T02:36:09.335Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rodrigo_y_Gabriela",
+    "blurb": "Rodrigo y Gabriela are a Mexican acoustic guitar duo featuring musicians Rodrigo Sánchez and Gabriela Quintero.",
+    "descriptor": "Mexican guitar duo"
   },
   "tab benoit": {
-    "checkedAt": "2026-09-10T01:05:43.974Z",
+    "checkedAt": "2026-10-25T02:43:53.947Z",
     "genres": [
       "blues",
       "soul blues"
@@ -2291,107 +2317,106 @@
     "descriptor": "US singer-songwriter & bassist"
   },
   "arch enemy": {
-    "checkedAt": "2026-09-10T01:06:41.603Z",
-    "genres": [
-      "melodic death metal",
-      "death metal"
-    ],
-    "descriptor": "SE group"
+    "checkedAt": "2026-10-25T02:34:53.005Z",
+    "wiki": "https://en.wikipedia.org/wiki/Arch_Enemy",
+    "blurb": "Arch Enemy is a Swedish melodic death metal band, originally a supergroup from Halmstad, formed in 1995.",
+    "descriptor": "Swedish melodic death metal band"
   },
   "el michels affair": {
-    "checkedAt": "2026-09-10T01:06:57.429Z",
-    "genres": [
-      "hip hop",
-      "cinematic soul"
-    ],
-    "descriptor": "group"
+    "checkedAt": "2026-10-25T02:34:53.447Z",
+    "wiki": "https://en.wikipedia.org/wiki/El_Michels_Affair",
+    "blurb": "El Michels Affair is an American cinematic soul group led by musician and producer Leon Michels.",
+    "descriptor": "Musical artist"
   },
   "floating points": {
-    "checkedAt": "2026-09-10T01:06:59.155Z",
-    "genres": [
-      "electronic",
-      "dubstep"
-    ],
-    "descriptor": "GB artist"
+    "checkedAt": "2026-10-25T02:34:53.667Z",
+    "wiki": "https://en.wikipedia.org/wiki/Floating_Points",
+    "blurb": "Samuel Thomas Shepherd, known professionally as Floating Points, is a British electronic music producer, DJ, and musician.",
+    "descriptor": "British musician and producer"
   },
   "katseye": {
-    "checkedAt": "2026-09-10T01:07:00.782Z",
+    "checkedAt": "2026-10-25T02:34:54.082Z",
     "wiki": "https://en.wikipedia.org/wiki/Katseye",
-    "blurb": "Katseye is a girl group based in Los Angeles.",
-    "descriptor": "Los Angeles-based girl group"
+    "blurb": "Katseye is a girl group formed in 2024, based in Los Angeles.",
+    "descriptor": "Los Angeles–based girl group"
   },
   "mac demarco": {
-    "checkedAt": "2026-09-10T01:07:01.059Z",
+    "checkedAt": "2026-10-25T02:34:54.296Z",
     "wiki": "https://en.wikipedia.org/wiki/Mac_DeMarco",
     "blurb": "McBriare Samuel Lanyon DeMarco is a Canadian singer-songwriter, multi-instrumentalist and producer.",
     "descriptor": "Canadian musician (born 1990)"
   },
   "steve aoki": {
-    "checkedAt": "2026-09-10T01:07:01.336Z",
+    "checkedAt": "2026-10-25T02:34:54.857Z",
     "wiki": "https://en.wikipedia.org/wiki/Steve_Aoki",
     "blurb": "Steven Hiroyuki Aoki is an American DJ and record producer.",
     "descriptor": "American DJ and music producer (born 1977)"
   },
   "tinashe": {
-    "checkedAt": "2026-09-10T01:07:01.619Z",
+    "checkedAt": "2026-10-25T02:34:55.069Z",
     "wiki": "https://en.wikipedia.org/wiki/Tinashe",
     "blurb": "Tinashe Jorgensen Kachingwe is an American singer, songwriter, dancer, and actress.",
     "descriptor": "American singer (born 1993)"
   },
   "cavetown": {
-    "checkedAt": "2026-09-10T01:07:01.895Z",
-    "wiki": "https://en.wikipedia.org/wiki/Cavetown",
-    "blurb": "Robin Daniel Skinner, known professionally as Cavetown, is an English singer-songwriter, record producer, and YouTuber.",
-    "descriptor": "English singer-songwriter (born 1998)"
+    "checkedAt": "2026-10-25T02:34:55.273Z",
+    "genres": [
+      "pop",
+      "indie pop"
+    ],
+    "descriptor": "English singer"
   },
   "helado negro": {
-    "checkedAt": "2026-09-10T01:07:02.173Z",
-    "wiki": "https://en.wikipedia.org/wiki/Helado_Negro",
-    "blurb": "Roberto Carlos Lange, better known by his stage name Helado Negro, is an American musician.",
+    "checkedAt": "2026-10-25T02:34:57.223Z",
+    "genres": [
+      "indie rock",
+      "indietronica"
+    ],
     "descriptor": "American musician"
   },
   "l l": {
-    "checkedAt": "2026-09-10T01:07:02.454Z",
+    "checkedAt": "2026-10-25T02:34:58.661Z",
     "wiki": "https://en.wikipedia.org/wiki/L%C3%98L%C3%98",
     "blurb": "Lauren Mandel, known by her stage name LØLØ, is a Canadian singer-songwriter.",
     "descriptor": "Canadian singer-songwriter"
   },
   "marcus miller": {
-    "checkedAt": "2026-09-10T01:07:02.731Z",
-    "wiki": "https://en.wikipedia.org/wiki/Marcus_Miller",
-    "blurb": "William Henry Marcus Miller Jr.",
-    "descriptor": "American musician, composer and producer (born 1959)"
+    "checkedAt": "2026-10-25T02:34:58.865Z",
+    "genres": [
+      "jazz",
+      "jazz-funk"
+    ],
+    "descriptor": "jazz musician"
   },
   "scott bradlee s postmodern jukebox": {
-    "checkedAt": "2026-09-10T01:07:03.012Z"
+    "checkedAt": "2026-10-25T02:35:00.317Z",
+    "wiki": "https://en.wikipedia.org/wiki/Scott_Bradlee",
+    "blurb": "Scott Bradlee is an American musician, pianist, and arranger.",
+    "descriptor": "American musician (born 1981)"
   },
   "the living tombstone": {
-    "checkedAt": "2026-09-10T01:07:05.809Z",
-    "genres": [
-      "electronic",
-      "edm"
-    ],
-    "descriptor": "IL group"
+    "checkedAt": "2026-10-25T02:35:02.183Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Living_Tombstone",
+    "blurb": "The Living Tombstone (TLT) is a Los Angeles-based electronic rock group and YouTube channel, founded as a solo project by Israeli-American producer Yoav Landau in 2011, and becoming a musical duo with American singer Sam Haft in 2016.",
+    "descriptor": "American rock duo"
   },
   "the story so far": {
-    "checkedAt": "2026-09-10T01:07:24.509Z",
-    "genres": [
-      "pop punk",
-      "punk rock"
-    ],
-    "descriptor": "pop punk band from Walnut Creek, CA, 2007–present"
+    "checkedAt": "2026-10-25T02:35:02.398Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Story_So_Far_(band)",
+    "blurb": "The Story So Far is an American pop-punk band from Walnut Creek, California, formed in 2007.",
+    "descriptor": "American pop-punk band"
   },
   "candlebox": {
-    "checkedAt": "2026-09-10T01:07:26.238Z",
+    "checkedAt": "2026-10-25T02:35:05.644Z",
     "wiki": "https://en.wikipedia.org/wiki/Candlebox",
     "blurb": "Candlebox is an American rock band from Seattle, Washington.",
     "descriptor": "American rock band"
   },
   "ensemble connect": {
-    "checkedAt": "2026-09-10T01:07:26.475Z"
+    "checkedAt": "2026-10-25T02:35:07.294Z"
   },
   "fuller": {
-    "checkedAt": "2026-09-10T01:07:51.352Z",
+    "checkedAt": "2026-10-25T02:35:19.038Z",
     "genres": [
       "hard bop",
       "jazz"
@@ -2399,43 +2424,41 @@
     "descriptor": "US artist"
   },
   "isabel van gelder": {
-    "checkedAt": "2026-09-10T01:08:17.577Z",
-    "wiki": "https://en.wikipedia.org/wiki/Isabel_van_Gelder",
-    "blurb": "Isabel van Gelder is a Dutch singer-songwriter.",
-    "descriptor": "Dutch singer-songwriter"
+    "checkedAt": "2026-10-25T02:35:20.486Z",
+    "genres": [
+      "singer-songwriter"
+    ],
+    "descriptor": "NL artist"
   },
   "nicolas namoradze": {
-    "checkedAt": "2026-09-10T01:08:17.904Z",
-    "wiki": "https://en.wikipedia.org/wiki/Nicolas_Namoradze",
-    "blurb": "Nicolas Namoradze is a classical pianist, composer, and educator.",
-    "descriptor": "Classical musician, pianist, composer from Georgia (born 1992)"
+    "checkedAt": "2026-10-25T02:35:32.604Z",
+    "descriptor": "pianist/composer"
   },
   "the dazies": {
-    "checkedAt": "2026-09-10T01:08:20.658Z",
-    "wiki": "https://en.wikipedia.org/wiki/Gear_Daddies",
-    "blurb": "Gear Daddies are a rock band originally from Austin, Minnesota.",
-    "descriptor": "American band"
+    "checkedAt": "2026-10-25T02:35:34.055Z"
   },
   "dana and alden": {
-    "checkedAt": "2026-09-10T01:08:22.467Z",
-    "wiki": "https://en.wikipedia.org/wiki/Alex_Amen",
-    "blurb": "Alex Amen is an American folk musician from Texas.",
-    "descriptor": "American singer-songwriter"
+    "checkedAt": "2026-10-25T02:35:36.921Z",
+    "descriptor": "group"
   },
   "esteman": {
-    "checkedAt": "2026-09-10T01:08:24.211Z",
-    "wiki": "https://en.wikipedia.org/wiki/Esteman",
-    "blurb": "Esteban Mateus Williamson, known professionally as Esteman, is a Colombian singer and songwriter from Bogotá, Colombia.",
-    "descriptor": "Colombian singer and songwriter (born 1984)"
+    "checkedAt": "2026-10-25T02:35:38.354Z",
+    "genres": [
+      "español",
+      "colombia"
+    ],
+    "descriptor": "CO artist"
   },
   "haley reinhart": {
-    "checkedAt": "2026-09-10T01:08:24.488Z",
-    "wiki": "https://en.wikipedia.org/wiki/Haley_Reinhart",
-    "blurb": "Haley Elizabeth Reinhart is an American singer, songwriter, and actress from Wheeling, Illinois.",
-    "descriptor": "American singer (born 1990)"
+    "checkedAt": "2026-10-25T02:35:52.634Z",
+    "genres": [
+      "american idol",
+      "soul"
+    ],
+    "descriptor": "US artist"
   },
   "ivri": {
-    "checkedAt": "2026-09-10T01:08:24.763Z",
+    "checkedAt": "2026-10-25T02:35:54.077Z",
     "genres": [
       "shoegaze",
       "alternative"
@@ -2443,67 +2466,77 @@
     "descriptor": "artist"
   },
   "judah the lion": {
-    "checkedAt": "2026-09-10T01:08:26.390Z",
-    "descriptor": "Americana/folk band from Nashville, TN"
+    "checkedAt": "2026-10-25T02:36:08.334Z",
+    "wiki": "https://en.wikipedia.org/wiki/Judah_%26_the_Lion",
+    "blurb": "Judah & the Lion are an American rock and roll band from Nashville, Tennessee, formed in 2011.",
+    "descriptor": "American band"
   },
   "rod wave": {
-    "checkedAt": "2026-09-10T01:08:57.246Z",
-    "genres": [
-      "trap",
-      "2020s"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:36:09.120Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rod_Wave",
+    "blurb": "Rodarius Marcell Green, known professionally as Rod Wave, is an American rapper, singer, and songwriter.",
+    "descriptor": "American rapper and singer (born 1998)"
   },
   "vince staples": {
-    "checkedAt": "2026-09-10T01:09:33.469Z",
+    "checkedAt": "2026-10-25T02:36:09.912Z",
     "wiki": "https://en.wikipedia.org/wiki/Vince_Staples",
     "blurb": "Vincent Jamal Staples is an American rapper, singer, songwriter, and actor.",
     "descriptor": "American rapper and actor (born 1993)"
   },
   "dent may": {
-    "checkedAt": "2026-09-10T01:09:33.802Z",
-    "wiki": "https://en.wikipedia.org/wiki/Dent_May",
-    "blurb": "James Dent May Jr.",
-    "descriptor": "American singer-songwriter (born 1985)"
+    "checkedAt": "2026-10-25T02:36:10.129Z",
+    "descriptor": "artist"
   },
   "eiv r": {
-    "checkedAt": "2026-09-10T01:09:34.078Z",
-    "wiki": "https://en.wikipedia.org/wiki/G!_Festival",
-    "blurb": "The G! Festival is a Faroese musical festival, held annually at the seaside village Syðrugøta in Eysturoy in mid or late July, but always before Ólavsøka.",
-    "descriptor": "Faroese musical festival"
+    "checkedAt": "2026-10-25T02:36:11.563Z",
+    "genres": [
+      "singer-songwriter",
+      "faroese"
+    ],
+    "descriptor": "Faroese singer‐songwriter Eivør Pálsdóttir"
   },
   "isabel larosa": {
-    "checkedAt": "2026-09-10T01:09:34.591Z",
-    "wiki": "https://en.wikipedia.org/wiki/Isabel_LaRosa",
-    "blurb": "Isabel Sofia LaRosa, is a Cuban-American singer, songwriter and video director from Annapolis, Maryland.",
-    "descriptor": "American singer-songwriter (born 2004)"
+    "checkedAt": "2026-10-25T02:36:12.990Z",
+    "genres": [
+      "alternative pop",
+      "2020s"
+    ],
+    "descriptor": "US artist"
   },
   "jeff tweedy": {
-    "checkedAt": "2026-09-10T01:09:34.869Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jeff_Tweedy",
-    "blurb": "Jeffrey Scot Tweedy is an American musician, author, and record producer, best known as the lead vocalist and guitarist of the band Wilco.",
-    "descriptor": "American musician (born 1967)"
+    "checkedAt": "2026-10-25T02:36:14.560Z",
+    "genres": [
+      "rock",
+      "alternative rock"
+    ],
+    "descriptor": "US artist"
   },
   "lilyisthatyou": {
-    "checkedAt": "2026-09-10T01:09:35.148Z",
-    "wiki": "https://en.wikipedia.org/wiki/Lilyisthatyou",
-    "blurb": "Lillian Davies, known professionally as Lilyisthatyou is a singer songwriter from Toronto, Canada.",
-    "descriptor": "Canadian pop musician"
+    "checkedAt": "2026-10-25T02:36:15.997Z",
+    "genres": [
+      "pop",
+      "dance-pop"
+    ],
+    "descriptor": "artist"
   },
   "the string cheese incident": {
-    "checkedAt": "2026-09-10T01:09:35.424Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_String_Cheese_Incident",
-    "blurb": "The String Cheese Incident (SCI) is an American jam band from Crested Butte and Telluride, Colorado, formed in 1993.",
-    "descriptor": "American jam band"
+    "checkedAt": "2026-10-25T02:36:28.993Z",
+    "genres": [
+      "rock",
+      "bluegrass"
+    ],
+    "descriptor": "US group"
   },
   "watsky": {
-    "checkedAt": "2026-09-10T01:09:35.702Z",
-    "wiki": "https://en.wikipedia.org/wiki/George_Watsky",
-    "blurb": "George Virden Watsky is an American rapper, singer, songwriter, record producer, poet, author, and illustrator.",
-    "descriptor": "American rapper, singer and poet"
+    "checkedAt": "2026-10-25T02:36:30.449Z",
+    "genres": [
+      "hip hop",
+      "spoken word"
+    ],
+    "descriptor": "US artist"
   },
   "a boogie wit da hoodie": {
-    "checkedAt": "2026-09-10T01:09:35.980Z",
+    "checkedAt": "2026-10-25T02:36:31.891Z",
     "genres": [
       "hip hop",
       "rap"
@@ -2511,134 +2544,146 @@
     "descriptor": "US artist"
   },
   "a g cook": {
-    "checkedAt": "2026-09-10T01:10:00.036Z",
-    "wiki": "https://en.wikipedia.org/wiki/A._G._Cook",
-    "blurb": "Alexander Guy Cook is an English record producer.",
-    "descriptor": "English record producer (born 1990)"
+    "checkedAt": "2026-10-25T02:36:33.330Z",
+    "genres": [
+      "hyperpop",
+      "experimental pop"
+    ],
+    "descriptor": "artist"
   },
   "horsegiirl": {
-    "checkedAt": "2026-09-10T01:10:00.365Z",
-    "wiki": "https://en.wikipedia.org/wiki/HorsegiirL",
-    "blurb": "Stella Stallion, known by her stage name HorsegiirL, is a German DJ, singer, and songwriter, known for wearing a horse head mask.",
-    "descriptor": "German DJ and singer (born 2000)"
+    "checkedAt": "2026-10-25T02:36:45.997Z",
+    "genres": [
+      "hyperpop",
+      "happy hardcore"
+    ],
+    "descriptor": "DE | electronic pop"
   },
   "justin moore": {
-    "checkedAt": "2026-09-10T01:10:00.643Z",
-    "wiki": "https://en.wikipedia.org/wiki/Justin_Moore",
-    "blurb": "Justin Cole Moore is an American country music singer and songwriter, signed to Big Machine Records imprint Valory Music Group.",
-    "descriptor": "American country singer and songwriter (born 1984)"
+    "checkedAt": "2026-10-25T02:36:47.453Z",
+    "genres": [
+      "country",
+      "contemporary country"
+    ],
+    "descriptor": "US country singer"
   },
   "lawrence": {
-    "checkedAt": "2026-09-10T01:10:00.920Z",
-    "wiki": "https://en.wikipedia.org/wiki/Bud_Freeman",
-    "blurb": "Lawrence \"Bud\" Freeman was an American jazz musician, bandleader, and composer, known mainly for playing tenor saxophone, but also the clarinet.",
-    "descriptor": "American jazz musician (1906–1991)"
+    "checkedAt": "2026-10-25T02:36:49.066Z",
+    "genres": [
+      "2008 universal fire victim",
+      "check it"
+    ],
+    "descriptor": "US artist"
   },
   "nekrogoblikon": {
-    "checkedAt": "2026-09-10T01:10:01.507Z",
-    "wiki": "https://en.wikipedia.org/wiki/Nekrogoblikon",
-    "blurb": "Nekrogoblikon is an American melodic death metal band based in Los Angeles, California.",
-    "descriptor": "American melodic death metal band"
+    "checkedAt": "2026-10-25T02:36:50.513Z",
+    "genres": [
+      "melodic death metal",
+      "death metal"
+    ],
+    "descriptor": "US group"
   },
   "the barr brothers": {
-    "checkedAt": "2026-09-10T01:10:01.784Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Barr_Brothers",
-    "blurb": "The Barr Brothers is an indie folk band founded in Montreal, Quebec in 2006, consisting of two American brothers Andrew and Brad Barr, pedal steel guitarist Brett Lanier, and harpist Eveline Gregoire-Rousseau.",
-    "descriptor": "Canadian-American indie folk band"
+    "checkedAt": "2026-10-25T02:36:51.942Z",
+    "genres": [
+      "indie folk",
+      "folk rock"
+    ],
+    "descriptor": "CA group"
   },
   "kaytranada": {
-    "checkedAt": "2026-09-10T01:10:02.061Z",
+    "checkedAt": "2026-10-25T02:36:58.525Z",
     "wiki": "https://en.wikipedia.org/wiki/Kaytranada",
     "blurb": "Louis Kevin Celestin, known professionally as Kaytranada, is a Haitian-Canadian music producer, and DJ.",
     "descriptor": "Haitian and Canadian DJ and music producer (born 1992)"
   },
   "les savy fav": {
-    "checkedAt": "2026-09-10T01:10:02.339Z",
+    "checkedAt": "2026-10-25T02:36:58.731Z",
     "wiki": "https://en.wikipedia.org/wiki/Les_Savy_Fav",
     "blurb": "Les Savy Fav is an American indie rock band based in New York City.",
     "descriptor": "American indie rock band"
   },
   "machine girl": {
-    "checkedAt": "2026-09-10T01:10:02.616Z"
+    "checkedAt": "2026-10-25T02:36:58.935Z",
+    "genres": [
+      "breakcore",
+      "electronic"
+    ],
+    "descriptor": "digital hardcore duo"
   },
   "she wants revenge": {
-    "checkedAt": "2026-09-10T01:10:44.268Z",
-    "genres": [
-      "rock",
-      "indie rock"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:37:00.853Z",
+    "wiki": "https://en.wikipedia.org/wiki/She_Wants_Revenge",
+    "blurb": "She Wants Revenge is an American rock band, based in San Fernando Valley, California.",
+    "descriptor": "American rock band"
   },
   "the lemon twigs": {
-    "checkedAt": "2026-09-10T01:10:46.506Z",
-    "genres": [
-      "psychedelic pop",
-      "rock"
-    ],
-    "descriptor": "group"
+    "checkedAt": "2026-10-25T02:37:01.064Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Lemon_Twigs",
+    "blurb": "The Lemon Twigs are an American rock band from Hicksville, Long Island, New York.",
+    "descriptor": "American rock band"
   },
   "bassvictim": {
-    "checkedAt": "2026-09-10T01:11:12.864Z",
+    "checkedAt": "2026-10-25T02:37:01.553Z",
     "wiki": "https://en.wikipedia.org/wiki/Bassvictim",
     "blurb": "Bassvictim is an electronic music duo formed in London in 2022 by Polish-English singer songwriter Maria Manow and American-English producer Ike Clateman.",
     "descriptor": "Electronic music duo"
   },
   "cypress hill": {
-    "checkedAt": "2026-09-10T01:11:13.192Z",
+    "checkedAt": "2026-10-25T02:37:01.757Z",
     "wiki": "https://en.wikipedia.org/wiki/Cypress_Hill",
     "blurb": "Cypress Hill is an American hip-hop group formed in South Gate, California in 1988.",
     "descriptor": "American hip-hop group"
   },
   "krewella": {
-    "checkedAt": "2026-09-10T01:11:13.469Z",
+    "checkedAt": "2026-10-25T02:37:01.969Z",
     "wiki": "https://en.wikipedia.org/wiki/Krewella",
     "blurb": "Krewella is an American electronic dance music group formed in Northbrook, Illinois, a suburb of Chicago in 2007.",
     "descriptor": "American electronic dance music group"
   },
   "lost kings": {
-    "checkedAt": "2026-09-10T01:11:13.746Z",
+    "checkedAt": "2026-10-25T02:37:02.174Z",
     "wiki": "https://en.wikipedia.org/wiki/Lost_Kings",
     "blurb": "Lost Kings are an American DJ duo consisting of Robert Abisi and Nick Shanholtz, based in Los Angeles.",
     "descriptor": "American DJ duo"
   },
   "paul oakenfold": {
-    "checkedAt": "2026-09-10T01:11:14.024Z",
+    "checkedAt": "2026-10-25T02:37:02.388Z",
     "wiki": "https://en.wikipedia.org/wiki/Paul_Oakenfold",
     "blurb": "Paul Mark Oakenfold, formerly known mononymously as Oakenfold, is an English record producer, remixer, and electronic music DJ.",
     "descriptor": "British record producer and trance music DJ (born 1963)"
   },
   "purple disco machine": {
-    "checkedAt": "2026-09-10T01:11:14.302Z",
+    "checkedAt": "2026-10-25T02:37:02.602Z",
     "wiki": "https://en.wikipedia.org/wiki/Purple_Disco_Machine",
     "blurb": "Tino Piontek, better known by the stage name Purple Disco Machine, is a German nu-disco and house record producer and DJ.",
     "descriptor": "German DJ and house music producer (born 1980)"
   },
   "rawayana": {
-    "checkedAt": "2026-09-10T01:11:14.579Z",
+    "checkedAt": "2026-10-25T02:37:02.816Z",
     "wiki": "https://en.wikipedia.org/wiki/Rawayana",
     "blurb": "Rawayana is a Venezuelan band formed in Caracas in 2007.",
     "descriptor": "Venezuelan musical group"
   },
   "said the sky": {
-    "checkedAt": "2026-09-10T01:11:14.857Z",
+    "checkedAt": "2026-10-25T02:37:03.245Z",
     "wiki": "https://en.wikipedia.org/wiki/Said_the_Sky",
     "blurb": "Trevor Christensen, known professionally as Said the Sky, is an American electronic dance music producer, DJ and musician.",
-    "descriptor": "American DJ and music producer"
+    "descriptor": "American DJ and producer (born 1993)"
   },
   "carsie blanton": {
-    "checkedAt": "2026-09-10T01:11:15.133Z",
-    "wiki": "https://en.wikipedia.org/wiki/Carsie_Blanton",
-    "blurb": "Carson Amanda \"Carsie\" Blanton is an American singer-songwriter and guitarist based in New Jersey.",
-    "descriptor": "American musician (born 1985)"
+    "checkedAt": "2026-10-25T02:37:04.883Z",
+    "genres": [
+      "socialism",
+      "communism"
+    ],
+    "descriptor": "US artist"
   },
   "mike dawes": {
-    "checkedAt": "2026-09-10T01:11:15.411Z",
-    "wiki": "https://en.wikipedia.org/wiki/Mike_Dawes",
-    "blurb": "Michael Kenneth James Dawes is an English fingerstyle guitar player known for composing, arranging, and performing multiple parts simultaneously on the guitar.",
-    "descriptor": "English guitarist (born 1989)"
+    "checkedAt": "2026-10-25T02:37:08.720Z"
   },
   "paledusk": {
-    "checkedAt": "2026-09-10T01:11:15.687Z",
+    "checkedAt": "2026-10-25T02:37:10.136Z",
     "genres": [
       "metalcore",
       "post-hardcore"
@@ -2646,7 +2691,7 @@
     "descriptor": "Japanese metalcore"
   },
   "paul anka": {
-    "checkedAt": "2026-09-10T01:11:30.685Z",
+    "checkedAt": "2026-10-25T02:37:12.989Z",
     "genres": [
       "pop",
       "jazz"
@@ -2654,72 +2699,65 @@
     "descriptor": "Canadian singer, songwriter and actor"
   },
   "ryan mcmullan": {
-    "checkedAt": "2026-09-10T01:11:38.998Z",
+    "checkedAt": "2026-10-25T02:37:14.426Z",
     "descriptor": "artist"
   },
   "yana": {
-    "checkedAt": "2026-09-10T01:11:48.348Z",
+    "checkedAt": "2026-10-25T02:37:15.862Z",
     "genres": [
       "latvian"
     ],
     "descriptor": "LV artist"
   },
   "blake whiten": {
-    "checkedAt": "2026-09-10T01:12:14.523Z",
-    "wiki": "https://en.wikipedia.org/wiki/Still_the_Problem_Tour",
-    "blurb": "The Still the Problem Tour is the fourth headlining concert tour by American country music singer Morgan Wallen, launched in support of his fourth studio album, I'm the Problem (2025).",
-    "descriptor": "2026 concert tour by Morgan Wallen"
+    "checkedAt": "2026-10-25T02:37:19.280Z",
+    "genres": [
+      "country"
+    ],
+    "descriptor": "Country"
   },
   "edgar alejandro": {
-    "checkedAt": "2026-09-10T01:12:16.953Z",
-    "wiki": "https://en.wikipedia.org/wiki/Latin_Grammy_Award_for_Best_Children's_Music_Album",
-    "blurb": "The Latin Grammy Award for Best Children's Music Album is an honor presented annually at the Latin Grammy Awards, a ceremony that recognizes excellence and promotes awareness of cultural diversity and the contributions of Latin musicians in",
+    "checkedAt": "2026-10-25T02:37:20.717Z",
     "descriptor": "artist"
   },
   "holywatr": {
-    "checkedAt": "2026-09-10T01:12:43.955Z",
-    "wiki": "https://en.wikipedia.org/wiki/Craig_Owens",
-    "blurb": "Craigery \"Craig\" Owens is an American musician best known as the lead vocalist of Chiodos.",
-    "descriptor": "American musician (born 1984)"
+    "checkedAt": "2026-10-25T02:37:22.150Z",
+    "genres": [
+      "shoegaze",
+      "metal"
+    ],
+    "descriptor": "US group"
   },
   "lily detaeye": {
-    "checkedAt": "2026-09-10T01:12:45.528Z"
+    "checkedAt": "2026-10-25T02:37:23.595Z"
   },
   "pisha": {
-    "checkedAt": "2026-09-10T01:13:00.373Z",
-    "wiki": "https://en.wikipedia.org/wiki/Music_of_Iran",
-    "blurb": "The music of Iran encompasses music produced by Iranian artists.",
+    "checkedAt": "2026-10-25T02:37:26.476Z",
     "descriptor": "artist"
   },
   "willi carlisle": {
-    "checkedAt": "2026-09-10T01:13:03.436Z",
-    "wiki": "https://en.wikipedia.org/wiki/Willi_Carlisle",
-    "blurb": "Willi Carlisle is an American folk singer-songwriter from Kansas and based in Arkansas.",
-    "descriptor": "American folk musician (born 1989)"
+    "checkedAt": "2026-10-25T02:37:27.913Z",
+    "genres": [
+      "folk",
+      "alternative country"
+    ],
+    "descriptor": "US artist"
   },
   "wwe live": {
-    "checkedAt": "2026-09-10T01:13:05.524Z",
-    "wiki": "https://en.wikipedia.org/wiki/Brand_New_Sin",
-    "blurb": "Brand New Sin is a hard rock/Southern rock band from Syracuse, New York, active from 2002 to 2012.",
-    "descriptor": "American hard rock band"
+    "checkedAt": "2026-10-25T02:37:29.345Z"
   },
   "agriculture": {
-    "checkedAt": "2026-09-10T01:13:07.327Z",
+    "checkedAt": "2026-10-25T02:37:32.189Z",
     "genres": [
       "blackgaze"
     ],
-    "descriptor": "Los Angeles post-black-metal/blackgaze band"
+    "descriptor": "Los Angeles post-black metal/blackgaze band"
   },
   "beauty school dropout": {
-    "checkedAt": "2026-09-10T01:13:09.779Z",
-    "genres": [
-      "rock",
-      "alternative rock"
-    ],
-    "descriptor": "Los Angeles-based rock group"
+    "checkedAt": "2026-10-25T02:37:33.624Z"
   },
   "corrosion of conformity": {
-    "checkedAt": "2026-09-10T01:13:11.638Z",
+    "checkedAt": "2026-10-25T02:37:35.034Z",
     "genres": [
       "metal",
       "stoner rock"
@@ -2727,158 +2765,167 @@
     "descriptor": "American heavy metal band"
   },
   "ethan regan": {
-    "checkedAt": "2026-09-10T01:13:33.907Z",
+    "checkedAt": "2026-10-25T02:37:36.484Z",
     "descriptor": "US artist"
   },
   "sim": {
-    "checkedAt": "2026-09-10T01:13:35.637Z"
+    "checkedAt": "2026-10-25T02:37:37.985Z",
+    "genres": [
+      "metalcore",
+      "j-rock"
+    ],
+    "descriptor": "Japanese band"
   },
   "strongboi": {
-    "checkedAt": "2026-09-10T01:13:37.241Z",
+    "checkedAt": "2026-10-25T02:37:39.423Z",
+    "genres": [
+      "chillwave",
+      "bedroom pop"
+    ],
     "descriptor": "group"
   },
   "the amity affliction": {
-    "checkedAt": "2026-09-10T01:14:03.737Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Amity_Affliction",
-    "blurb": "The Amity Affliction is an Australian post-hardcore band originally from Gympie, Queensland, formed in 2003.",
-    "descriptor": "Australian post-hardcore band"
+    "checkedAt": "2026-10-25T02:37:40.858Z",
+    "genres": [
+      "post-hardcore",
+      "emocore"
+    ],
+    "descriptor": "AU | rock"
   },
   "the wrecks": {
-    "checkedAt": "2026-09-10T01:14:04.070Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Wrecks",
-    "blurb": "The Wrecks are an American pop rock band based in Los Angeles, California.",
-    "descriptor": "American pop rock band"
+    "checkedAt": "2026-10-25T02:37:42.294Z",
+    "genres": [
+      "pop rock"
+    ],
+    "descriptor": "LA-based indie-rock band"
   },
   "twisted teens": {
-    "checkedAt": "2026-09-10T01:14:04.346Z",
-    "wiki": "https://en.wikipedia.org/wiki/Twisted_Teens",
-    "blurb": "Twisted Teens are an American rock duo formed in New Orleans, Louisiana.",
-    "descriptor": "American rock duo"
+    "checkedAt": "2026-10-25T02:37:43.731Z"
   },
   "yebba": {
-    "checkedAt": "2026-09-10T01:14:04.624Z",
-    "wiki": "https://en.wikipedia.org/wiki/Nick_Movshon",
-    "blurb": "Nicholas Anthony Movshon is an American bass guitarist, drummer and songwriter, best known for his considerable contributions to the New York funk and soul revival.",
-    "descriptor": "Musical artist"
+    "checkedAt": "2026-10-25T02:37:30.778Z"
   },
   "adrian belew": {
-    "checkedAt": "2026-09-10T01:14:07.282Z",
-    "wiki": "https://en.wikipedia.org/wiki/Adrian_Belew",
-    "blurb": "Robert Steven \"Adrian\" Belew is an American musician, singer, songwriter, and record producer.",
-    "descriptor": "American musician, songwriter, and record producer (born 1949)"
+    "checkedAt": "2026-10-25T02:37:45.169Z",
+    "genres": [
+      "progressive rock",
+      "experimental rock"
+    ],
+    "descriptor": "artist"
   },
   "bad gyal": {
-    "checkedAt": "2026-09-10T01:14:07.559Z",
-    "wiki": "https://en.wikipedia.org/wiki/Bad_Gyal",
-    "blurb": "Alba Farelo i Solé, known professionally as Bad Gyal, is a Spanish singer and songwriter.",
-    "descriptor": "Spanish singer and songwriter"
+    "checkedAt": "2026-10-25T02:37:46.606Z",
+    "genres": [
+      "neoperreo",
+      "reggaeton"
+    ],
+    "descriptor": "artist"
   },
   "blue october": {
-    "checkedAt": "2026-09-10T01:14:07.837Z",
-    "wiki": "https://en.wikipedia.org/wiki/Blue_October",
-    "blurb": "Blue October is an American rock band originally from Houston, Texas, formed in 1995.",
-    "descriptor": "American rock band"
+    "checkedAt": "2026-10-25T02:37:54.811Z",
+    "genres": [
+      "alternative rock",
+      "rock"
+    ],
+    "descriptor": "USA pop rock band"
   },
   "hovvdy": {
-    "checkedAt": "2026-09-10T01:14:08.115Z",
-    "wiki": "https://en.wikipedia.org/wiki/Hovvdy",
-    "blurb": "Hovvdy is an American indie pop duo formed in Austin, Texas by Charlie Martin and Will Taylor.",
-    "descriptor": "American indie pop duo"
+    "checkedAt": "2026-10-25T02:37:56.258Z",
+    "descriptor": "group"
   },
   "mya": {
-    "checkedAt": "2026-09-10T01:14:08.393Z",
+    "checkedAt": "2026-10-25T02:37:57.724Z",
     "genres": [
       "soul"
     ],
     "descriptor": "US | R&B"
   },
   "lafur arnalds": {
-    "checkedAt": "2026-09-10T01:14:10.020Z",
-    "genres": [
-      "ambient",
-      "modern classical"
-    ],
-    "descriptor": "Icelandic multi‐instrumentalist and producer"
+    "checkedAt": "2026-10-25T02:38:07.713Z",
+    "wiki": "https://en.wikipedia.org/wiki/%C3%93lafur_Arnalds",
+    "blurb": "Ólafur Arnalds is an Icelandic multi-instrumentalist and producer from Mosfellsbær, Iceland.",
+    "descriptor": "Icelandic musician and composer (born 1986)"
   },
   "palace": {
-    "checkedAt": "2026-09-10T01:14:11.725Z",
-    "genres": [
-      "alternative rock",
-      "singer-songwriter"
-    ],
-    "descriptor": "Will Oldham"
+    "checkedAt": "2026-10-25T02:38:07.930Z",
+    "wiki": "https://en.wikipedia.org/wiki/Caravan_Palace",
+    "blurb": "Caravan Palace is a French electro-swing band based in Paris.",
+    "descriptor": "French electro swing band"
   },
   "punch brothers": {
-    "checkedAt": "2026-09-10T01:14:41.807Z",
-    "genres": [
-      "bluegrass",
-      "progressive bluegrass"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:38:08.315Z",
+    "wiki": "https://en.wikipedia.org/wiki/Punch_Brothers",
+    "blurb": "Punch Brothers is an American band consisting of Chris Thile (mandolin), Brittany Haas (fiddle/violin), Noam Pikelny (banjo), Chris Eldridge (guitar), and Paul Kowert (bass).",
+    "descriptor": "American band"
   },
   "bass drum of death": {
-    "checkedAt": "2026-09-10T01:14:43.594Z",
-    "genres": [
-      "garage rock revival",
-      "garage punk"
-    ],
-    "descriptor": "US garage punk band"
+    "checkedAt": "2026-10-25T02:38:08.851Z",
+    "wiki": "https://en.wikipedia.org/wiki/Bass_Drum_of_Death",
+    "blurb": "Bass Drum of Death is an American garage punk band from Oxford, Mississippi, United States, currently signed to Fat Possum Records.",
+    "descriptor": "American garage punk band"
   },
   "boy harsher": {
-    "checkedAt": "2026-09-10T01:14:45.228Z",
-    "genres": [
-      "electronic",
-      "ebm"
-    ],
-    "descriptor": "American synthpop/darkwave band"
+    "checkedAt": "2026-10-25T02:38:09.065Z",
+    "wiki": "https://en.wikipedia.org/wiki/Boy_Harsher",
+    "blurb": "Boy Harsher is an American electronic music group formed in 2013 in Savannah, Georgia.",
+    "descriptor": "American electronic music band"
   },
   "deerhoof": {
-    "checkedAt": "2026-09-10T01:15:12.417Z",
+    "checkedAt": "2026-10-25T02:38:09.278Z",
     "wiki": "https://en.wikipedia.org/wiki/Deerhoof",
     "blurb": "Deerhoof is an American musical group formed in San Francisco in 1994.",
     "descriptor": "American band"
   },
   "every avenue": {
-    "checkedAt": "2026-09-10T01:15:12.753Z",
+    "checkedAt": "2026-10-25T02:38:09.499Z",
     "wiki": "https://en.wikipedia.org/wiki/Every_Avenue",
     "blurb": "Every Avenue is an American pop-punk band from Marysville, Michigan, formed in 2003.",
     "descriptor": "American pop-punk band"
   },
   "flower face": {
-    "checkedAt": "2026-09-10T01:15:13.029Z",
+    "checkedAt": "2026-10-25T02:38:09.713Z",
     "wiki": "https://en.wikipedia.org/wiki/Flower_Face",
     "blurb": "Ruby McKinnon, known professionally as Flower Face, is a Canadian goth-folk and dreampop musician based in Montreal.",
     "descriptor": "Canadian folk musician"
   },
   "honey revenge": {
-    "checkedAt": "2026-09-10T01:15:15.027Z",
-    "wiki": "https://en.wikipedia.org/wiki/Honey_Revenge",
-    "blurb": "Honey Revenge is an American pop rock band formed in Los Angeles in 2021.",
-    "descriptor": "American pop rock band"
+    "checkedAt": "2026-10-25T02:38:09.932Z",
+    "genres": [
+      "rock",
+      "female vocals"
+    ],
+    "descriptor": "2020s California pop-rock duo"
   },
   "michelle branch": {
-    "checkedAt": "2026-09-10T01:15:16.721Z",
-    "wiki": "https://en.wikipedia.org/wiki/Michelle_Branch",
-    "blurb": "Michelle Jacquet Branch is an American singer, songwriter and guitarist.",
-    "descriptor": "American musician (born 1983)"
+    "checkedAt": "2026-10-25T02:38:11.374Z",
+    "genres": [
+      "alternative rock",
+      "pop rock"
+    ],
+    "descriptor": "US artist"
   },
   "sammy rae the friends": {
-    "checkedAt": "2026-09-10T01:15:18.156Z",
-    "wiki": "https://en.wikipedia.org/wiki/Sammy_Rae_%26_The_Friends",
-    "blurb": "Sammy Rae & The Friends is an American jazz-pop band from Brooklyn, New York City, led by singer-songwriter Samantha \"Sammy Rae\" Bowers.",
-    "descriptor": "American jazz-pop band from Brooklyn"
+    "checkedAt": "2026-10-25T02:38:12.808Z",
+    "genres": [
+      "pop rock",
+      "jazz pop"
+    ],
+    "descriptor": "group"
   },
   "young miko": {
-    "checkedAt": "2026-09-10T01:15:19.718Z",
-    "wiki": "https://en.wikipedia.org/wiki/Young_Miko",
-    "blurb": "María Victoria Ramírez de Arellano Cardona, known professionally as Young Miko, is a Puerto Rican rapper, singer, songwriter and former footballer.",
-    "descriptor": "Puerto Rican rapper (born 1997)"
+    "checkedAt": "2026-10-25T02:38:14.254Z",
+    "genres": [
+      "hip hop",
+      "latin"
+    ],
+    "descriptor": "PR artist"
   },
   "": {
-    "checkedAt": "2026-09-10T01:15:19.994Z"
+    "checkedAt": "2026-10-25T02:38:15.686Z",
+    "descriptor": "Philadelphia/Baltimore folk/pop duo"
   },
   "bonnie prince billy": {
-    "checkedAt": "2026-09-10T01:15:21.606Z",
+    "checkedAt": "2026-10-25T02:38:18.879Z",
     "genres": [
       "alt-country",
       "folk"
@@ -2886,7 +2933,7 @@
     "descriptor": "US artist"
   },
   "emancipator": {
-    "checkedAt": "2026-09-10T01:15:23.236Z",
+    "checkedAt": "2026-10-25T02:38:39.052Z",
     "genres": [
       "downtempo",
       "trip hop"
@@ -2894,7 +2941,7 @@
     "descriptor": "US artist"
   },
   "hiss golden messenger": {
-    "checkedAt": "2026-09-10T01:15:24.866Z",
+    "checkedAt": "2026-10-25T02:38:40.623Z",
     "genres": [
       "folk",
       "rock"
@@ -2902,7 +2949,7 @@
     "descriptor": "US group"
   },
   "lime garden": {
-    "checkedAt": "2026-09-10T01:15:26.498Z",
+    "checkedAt": "2026-10-25T02:38:43.279Z",
     "genres": [
       "dance-punk",
       "indie pop"
@@ -2910,7 +2957,7 @@
     "descriptor": "group"
   },
   "pretty sick": {
-    "checkedAt": "2026-09-10T01:15:38.460Z",
+    "checkedAt": "2026-10-25T02:38:45.602Z",
     "genres": [
       "punk",
       "grunge"
@@ -2918,7 +2965,7 @@
     "descriptor": "indie rock band from New York"
   },
   "wheeler walker jr": {
-    "checkedAt": "2026-09-10T01:15:40.499Z",
+    "checkedAt": "2026-10-25T02:38:47.039Z",
     "genres": [
       "country",
       "comedy"
@@ -2926,26 +2973,40 @@
     "descriptor": "alias of comedian Ben Hoffman"
   },
   "amble": {
-    "checkedAt": "2026-09-10T01:15:42.160Z",
+    "checkedAt": "2026-10-25T02:38:48.475Z",
     "genres": [
       "folk"
     ],
     "descriptor": "Trio of Irish contemporary folk musicians"
   },
   "danny l harle": {
-    "checkedAt": "2026-09-10T01:15:43.788Z"
+    "checkedAt": "2026-10-25T02:38:50.140Z",
+    "genres": [
+      "electropop",
+      "pc music"
+    ],
+    "descriptor": "artist"
   },
   "desire": {
-    "checkedAt": "2026-09-10T01:15:45.390Z"
+    "checkedAt": "2026-10-25T02:38:51.712Z",
+    "descriptor": "electronic"
   },
   "dionne warwick": {
-    "checkedAt": "2026-09-10T01:15:46.993Z"
+    "checkedAt": "2026-10-25T02:38:53.152Z",
+    "genres": [
+      "pop",
+      "soul"
+    ],
+    "descriptor": "US artist"
   },
   "ginuwine": {
-    "checkedAt": "2026-09-10T01:15:48.597Z"
+    "checkedAt": "2026-10-25T02:38:54.588Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ginuwine",
+    "blurb": "Elgin Baylor Lumpkin, better known by his stage name Ginuwine, is an American R&B singer.",
+    "descriptor": "American singer (born 1970)"
   },
   "journey": {
-    "checkedAt": "2026-09-10T01:15:50.202Z",
+    "checkedAt": "2026-10-25T02:38:54.791Z",
     "genres": [
       "rock",
       "hard rock"
@@ -2953,13 +3014,21 @@
     "descriptor": "American rock band"
   },
   "nimino": {
-    "checkedAt": "2026-09-10T01:15:53.145Z"
+    "checkedAt": "2026-10-25T02:38:56.226Z",
+    "genres": [
+      "electronic",
+      "lidarr"
+    ],
+    "descriptor": "GB artist"
   },
   "saosin": {
-    "checkedAt": "2026-09-10T01:15:54.806Z"
+    "checkedAt": "2026-10-25T02:38:57.663Z",
+    "wiki": "https://en.wikipedia.org/wiki/Saosin",
+    "blurb": "Saosin is an American rock band formed in 2003 in Orange County, California.",
+    "descriptor": "American rock band"
   },
   "sleeping with sirens": {
-    "checkedAt": "2026-09-10T01:15:56.411Z",
+    "checkedAt": "2026-10-25T02:38:57.866Z",
     "genres": [
       "post-hardcore",
       "alternative rock"
@@ -2967,83 +3036,108 @@
     "descriptor": "US group"
   },
   "allan rayman": {
-    "checkedAt": "2026-09-10T01:15:58.036Z"
+    "checkedAt": "2026-10-25T02:39:07.865Z",
+    "wiki": "https://en.wikipedia.org/wiki/Allan_Rayman",
+    "blurb": "Allan Rayman is a singer/songwriter based in Toronto, Ontario, Canada.",
+    "descriptor": "Musical artist"
   },
   "almost monday": {
-    "checkedAt": "2026-09-10T01:15:59.642Z"
+    "checkedAt": "2026-10-25T02:39:08.115Z",
+    "wiki": "https://en.wikipedia.org/wiki/Almost_Monday",
+    "blurb": "Almost Monday is an American indie pop band based in San Diego, California.",
+    "descriptor": "American indie pop band"
   },
   "arde bogot": {
-    "checkedAt": "2026-09-10T01:16:01.338Z",
+    "checkedAt": "2026-10-25T02:39:08.336Z",
     "wiki": "https://en.wikipedia.org/wiki/Arde_Bogot%C3%A1",
     "blurb": "Arde Bogotá is a Spanish alternative rock band originally from the city of Cartagena located in the Region of Murcia.",
     "descriptor": "Musical ensemble"
   },
   "cowboy junkies": {
-    "checkedAt": "2026-09-10T01:16:01.617Z",
-    "wiki": "https://en.wikipedia.org/wiki/Cowboy_Junkies",
-    "blurb": "Cowboy Junkies are an alternative country and folk rock band formed in Toronto, Ontario, Canada in 1985 by Alan Anton (bassist), Michael Timmins, Peter Timmins (drummer) and Margo Timmins (vocalist).",
-    "descriptor": "Canadian band"
+    "checkedAt": "2026-10-25T02:38:28.913Z",
+    "genres": [
+      "folk",
+      "contemporary folk"
+    ],
+    "descriptor": "CA group"
   },
   "fenne lily": {
-    "checkedAt": "2026-09-10T01:16:01.894Z",
+    "checkedAt": "2026-10-25T02:39:08.550Z",
     "wiki": "https://en.wikipedia.org/wiki/Fenne_Lily",
     "blurb": "Fenne Lily is an English folk singer-songwriter.",
     "descriptor": "Musical artist"
   },
   "kino": {
-    "checkedAt": "2026-09-10T01:16:02.170Z",
+    "checkedAt": "2026-10-25T02:39:08.762Z",
     "wiki": "https://en.wikipedia.org/wiki/Kino_(band)",
     "blurb": "Kino is a Russian rock band formed in Leningrad in 1981.",
     "descriptor": "Soviet rock band"
   },
   "kyle hume": {
-    "checkedAt": "2026-09-10T01:16:03.996Z",
+    "checkedAt": "2026-10-25T02:39:09.500Z",
     "wiki": "https://en.wikipedia.org/wiki/Jon_Hume",
     "blurb": "Jon Cobbe Hume is an Australian-born New Zealand musician, songwriter and producer based between Los Angeles and Nashville.",
     "descriptor": "New Zealand musician"
   },
   "miss may i": {
-    "checkedAt": "2026-09-10T01:16:05.662Z",
-    "wiki": "https://en.wikipedia.org/wiki/Miss_May_I",
-    "blurb": "Miss May I is an American metalcore band from Troy, Ohio.",
-    "descriptor": "American metalcore band"
+    "checkedAt": "2026-10-25T02:39:10.476Z",
+    "genres": [
+      "melodic metalcore",
+      "metalcore"
+    ],
+    "descriptor": "metalcore"
   },
   "paradox": {
-    "checkedAt": "2026-09-10T01:16:05.939Z"
+    "checkedAt": "2026-10-25T02:39:11.927Z",
+    "genres": [
+      "drum and bass",
+      "thai"
+    ],
+    "descriptor": "UK drum and bass, Dev Pandya"
   },
   "the longest johns": {
-    "checkedAt": "2026-09-10T01:16:07.542Z"
+    "checkedAt": "2026-10-25T02:39:13.360Z",
+    "genres": [
+      "folk",
+      "english"
+    ],
+    "descriptor": "group"
   },
   "a place to bury strangers": {
-    "checkedAt": "2026-09-10T01:16:09.146Z",
+    "checkedAt": "2026-10-25T02:39:14.800Z",
     "genres": [
       "noise rock",
-      "post-punk"
+      "shoegaze"
     ],
     "descriptor": "US noise rock band"
   },
   "daniel lanois": {
-    "checkedAt": "2026-09-10T01:16:10.794Z"
+    "checkedAt": "2026-10-25T02:39:17.699Z",
+    "genres": [
+      "canadian",
+      "rock"
+    ],
+    "descriptor": "Canadian record producer, guitarist, vocalist, and songwriter"
   },
   "jeff harnar": {
-    "checkedAt": "2026-09-10T01:16:12.397Z",
+    "checkedAt": "2026-10-25T02:39:21.934Z",
     "descriptor": "artist"
   },
   "klein": {
-    "checkedAt": "2026-09-10T01:16:14.022Z",
+    "checkedAt": "2026-10-25T02:39:24.905Z",
     "descriptor": "UK singer-songwriter and producer"
   },
   "new constellations us": {
-    "checkedAt": "2026-09-10T01:16:15.739Z"
+    "checkedAt": "2026-10-25T02:39:26.336Z"
   },
   "orville peck": {
-    "checkedAt": "2026-09-10T01:16:17.344Z"
+    "checkedAt": "2026-10-25T02:39:27.776Z"
   },
   "william basinski": {
-    "checkedAt": "2026-09-10T01:16:18.950Z"
+    "checkedAt": "2026-10-25T02:39:29.188Z"
   },
   "all get out": {
-    "checkedAt": "2026-09-10T01:16:20.555Z",
+    "checkedAt": "2026-10-25T02:39:30.601Z",
     "genres": [
       "rock",
       "alternative rock"
@@ -3051,23 +3145,33 @@
     "descriptor": "US | rock"
   },
   "bedouine": {
-    "checkedAt": "2026-09-10T01:16:25.951Z"
+    "checkedAt": "2026-10-25T02:39:32.044Z",
+    "descriptor": "artist"
   },
   "chat pile": {
-    "checkedAt": "2026-09-10T01:16:27.660Z"
+    "checkedAt": "2026-10-25T02:39:33.798Z"
   },
   "kate bollinger": {
-    "checkedAt": "2026-09-10T01:16:29.265Z",
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:39:35.211Z"
   },
   "q": {
-    "checkedAt": "2026-09-10T01:16:35.944Z"
+    "checkedAt": "2026-10-25T02:39:36.626Z",
+    "genres": [
+      "mashup",
+      "plunderphonics"
+    ],
+    "descriptor": "AU artist"
   },
   "sweeping promises": {
-    "checkedAt": "2026-09-10T01:16:37.661Z"
+    "checkedAt": "2026-10-25T02:39:38.064Z",
+    "genres": [
+      "post-punk",
+      "new wave"
+    ],
+    "descriptor": "group"
   },
   "the afghan whigs": {
-    "checkedAt": "2026-09-10T01:16:39.265Z",
+    "checkedAt": "2026-10-25T02:39:40.267Z",
     "genres": [
       "alternative rock",
       "indie rock"
@@ -3075,17 +3179,13 @@
     "descriptor": "group"
   },
   "ax and the hatchetmen": {
-    "checkedAt": "2026-09-10T01:16:40.977Z"
+    "checkedAt": "2026-10-25T02:39:41.707Z"
   },
   "fruit bats": {
-    "checkedAt": "2026-09-10T01:16:42.584Z",
-    "genres": [
-      "indie folk"
-    ],
-    "descriptor": "US indie/folk rock band"
+    "checkedAt": "2026-10-25T02:39:43.120Z"
   },
   "george clanton": {
-    "checkedAt": "2026-09-10T01:16:44.211Z",
+    "checkedAt": "2026-10-25T02:39:44.533Z",
     "genres": [
       "hypnagogic pop",
       "alternative dance"
@@ -3093,7 +3193,7 @@
     "descriptor": "artist"
   },
   "joy oladokun": {
-    "checkedAt": "2026-09-10T01:16:52.430Z",
+    "checkedAt": "2026-10-25T02:39:45.967Z",
     "genres": [
       "lgbtqi",
       "folk"
@@ -3101,7 +3201,7 @@
     "descriptor": "US artist"
   },
   "michigander": {
-    "checkedAt": "2026-09-10T01:16:54.164Z",
+    "checkedAt": "2026-10-25T02:39:49.811Z",
     "genres": [
       "modern rock",
       "indie folk"
@@ -3109,10 +3209,11 @@
     "descriptor": "US artist"
   },
   "parachute": {
-    "checkedAt": "2026-09-10T01:16:55.788Z"
+    "checkedAt": "2026-10-25T02:39:53.842Z",
+    "descriptor": "USA pop rock, formerly Sparky's Flaw"
   },
   "sting": {
-    "checkedAt": "2026-09-10T01:16:57.392Z",
+    "checkedAt": "2026-10-25T02:39:56.480Z",
     "genres": [
       "pop",
       "pop rock"
@@ -3120,7 +3221,7 @@
     "descriptor": "singer, songwriter & member of The Police"
   },
   "dave matthews band": {
-    "checkedAt": "2026-09-10T01:16:59.024Z",
+    "checkedAt": "2026-10-25T02:39:57.925Z",
     "genres": [
       "rock",
       "alternative rock"
@@ -3128,31 +3229,33 @@
     "descriptor": "US group"
   },
   "genesis owusu": {
-    "checkedAt": "2026-09-10T01:17:00.651Z",
-    "wiki": "https://en.wikipedia.org/wiki/Genesis_Owusu",
-    "blurb": "Kofi Owusu-Ansah, known professionally as Genesis Owusu, is a Ghanaian-Australian rapper and singer from Canberra.",
-    "descriptor": "Ghanaian-Australian singer (born 1998)"
+    "checkedAt": "2026-10-25T02:39:59.374Z",
+    "genres": [
+      "hip hop",
+      "pop"
+    ],
+    "descriptor": "AU artist"
   },
   "jalen ngonda": {
-    "checkedAt": "2026-09-10T01:17:00.930Z",
+    "checkedAt": "2026-10-25T02:40:03.972Z",
     "wiki": "https://en.wikipedia.org/wiki/Jalen_Ngonda",
     "blurb": "Jalen N'Gonda is an American musician based in England.",
     "descriptor": "American soul musician"
   },
   "manchester orchestra": {
-    "checkedAt": "2026-09-10T01:17:01.208Z",
+    "checkedAt": "2026-10-25T02:40:04.216Z",
     "wiki": "https://en.wikipedia.org/wiki/Manchester_Orchestra",
     "blurb": "Manchester Orchestra is an American indie rock band from Atlanta, Georgia, which formed in 2004.",
     "descriptor": "American indie rock band"
   },
   "parra for cuva": {
-    "checkedAt": "2026-09-10T01:17:01.486Z",
+    "checkedAt": "2026-10-25T02:40:04.436Z",
     "wiki": "https://en.wikipedia.org/wiki/Parra_for_Cuva",
     "blurb": "Nicolas Demuth, known by stage name Parra for Cuva, is a German musician and DJ.",
     "descriptor": "German musician (born 1991)"
   },
   "protomartyr": {
-    "checkedAt": "2026-09-10T01:17:01.761Z",
+    "checkedAt": "2026-10-25T02:40:04.752Z",
     "wiki": "https://en.wikipedia.org/wiki/List_of_protomartyrs",
     "blurb": "A protomartyr is the first Christian martyr in a country or among a particular group, such as a religious order.",
     "genres": [
@@ -3162,27 +3265,26 @@
     "descriptor": "US post punk band"
   },
   "trivium": {
-    "checkedAt": "2026-09-10T01:17:03.454Z",
+    "checkedAt": "2026-10-25T02:40:09.300Z",
     "wiki": "https://en.wikipedia.org/wiki/Travis_Smith_(musician)",
     "blurb": "Travis Smith is an American musician best known as the original founder and former drummer of the heavy metal band Trivium, from their formation in 1999 until he officially departed on February 4, 2010.",
     "descriptor": "American drummer (born 1982)"
   },
   "windwaker": {
-    "checkedAt": "2026-09-10T01:17:05.888Z",
-    "genres": [
-      "metalcore"
-    ],
-    "descriptor": "Australian metalcore"
+    "checkedAt": "2026-10-25T02:40:09.668Z",
+    "wiki": "https://en.wikipedia.org/wiki/Windwaker_(band)",
+    "blurb": "Windwaker is an Australian metalcore band from Melbourne, Australia.",
+    "descriptor": "Australian metal band"
   },
   "catch your breath": {
-    "checkedAt": "2026-09-10T01:17:08.222Z",
+    "checkedAt": "2026-10-25T02:40:13.611Z",
     "genres": [
       "nu metal"
     ],
     "descriptor": "group"
   },
   "cut copy": {
-    "checkedAt": "2026-09-10T01:17:09.907Z",
+    "checkedAt": "2026-10-25T02:40:18.560Z",
     "genres": [
       "synth-pop",
       "electropop"
@@ -3190,7 +3292,7 @@
     "descriptor": "AU group"
   },
   "die spitz": {
-    "checkedAt": "2026-09-10T01:17:11.533Z",
+    "checkedAt": "2026-10-25T02:40:20.013Z",
     "genres": [
       "punk",
       "punk rock"
@@ -3198,7 +3300,7 @@
     "descriptor": "alternative/punk rock band from Austin, TX"
   },
   "giant rooks": {
-    "checkedAt": "2026-09-10T01:17:13.160Z",
+    "checkedAt": "2026-10-25T02:40:21.446Z",
     "genres": [
       "rock",
       "indie pop"
@@ -3206,7 +3308,7 @@
     "descriptor": "DE group"
   },
   "jessica lea mayfield": {
-    "checkedAt": "2026-09-10T01:17:20.037Z",
+    "checkedAt": "2026-10-25T02:40:22.893Z",
     "genres": [
       "folk",
       "singer-songwriter"
@@ -3214,7 +3316,7 @@
     "descriptor": "artist"
   },
   "nia archives": {
-    "checkedAt": "2026-09-10T01:17:21.769Z",
+    "checkedAt": "2026-10-25T02:40:28.004Z",
     "genres": [
       "jungle",
       "vocalist"
@@ -3222,7 +3324,7 @@
     "descriptor": "artist"
   },
   "slow pulp": {
-    "checkedAt": "2026-09-10T01:17:23.398Z",
+    "checkedAt": "2026-10-25T02:40:29.450Z",
     "genres": [
       "indie rock",
       "bedroom pop"
@@ -3230,7 +3332,7 @@
     "descriptor": "group"
   },
   "surprise chef": {
-    "checkedAt": "2026-09-10T01:17:25.024Z",
+    "checkedAt": "2026-10-25T02:40:34.271Z",
     "genres": [
       "instrumental",
       "jazz"
@@ -3238,7 +3340,7 @@
     "descriptor": "Australian jazz band from Melbourne"
   },
   "air supply": {
-    "checkedAt": "2026-09-10T01:17:26.654Z",
+    "checkedAt": "2026-10-25T02:40:35.724Z",
     "genres": [
       "soft rock",
       "adult contemporary"
@@ -3246,7 +3348,7 @@
     "descriptor": "AU group"
   },
   "bunbury": {
-    "checkedAt": "2026-09-10T01:17:43.861Z",
+    "checkedAt": "2026-10-25T02:40:38.274Z",
     "genres": [
       "rock",
       "pop"
@@ -3254,45 +3356,47 @@
     "descriptor": "ES artist"
   },
   "christian l ffler": {
-    "checkedAt": "2026-09-10T01:17:55.754Z",
+    "checkedAt": "2026-10-25T02:40:39.712Z",
     "genres": [
-      "melodic house",
-      "ambient house"
+      "tech house",
+      "microhouse"
     ],
     "descriptor": "German DJ & electronic music producer"
   },
   "freak slug": {
-    "checkedAt": "2026-09-10T01:18:03.971Z",
-    "wiki": "https://en.wikipedia.org/wiki/Freak_Slug",
-    "blurb": "Xenya Genovese, known by her stage name Freak Slug, is a British indie rock musician from Manchester.",
-    "descriptor": "British indie rock musician"
+    "checkedAt": "2026-10-25T02:40:41.147Z",
+    "genres": [
+      "shoegaze",
+      "indie"
+    ],
+    "descriptor": "GB artist"
   },
   "imminence": {
-    "checkedAt": "2026-09-10T01:18:04.730Z",
-    "wiki": "https://en.wikipedia.org/wiki/Imminence_(band)",
-    "blurb": "Imminence is a Swedish metalcore band formed in Trelleborg.",
+    "checkedAt": "2026-10-25T02:40:42.588Z",
+    "genres": [
+      "metalcore",
+      "post-hardcore"
+    ],
     "descriptor": "Swedish metalcore band"
   },
   "madeon": {
-    "checkedAt": "2026-09-10T01:18:05.424Z",
+    "checkedAt": "2026-10-25T02:40:44.674Z",
     "wiki": "https://en.wikipedia.org/wiki/Madeon",
     "blurb": "Hugo Pierre Leclercq, better known by his stage name Madeon, is a French musician, DJ, record producer, singer and songwriter from Nantes, based in Los Angeles.",
     "descriptor": "French musician and DJ (born 1994)"
   },
   "silkroad ensemble": {
-    "checkedAt": "2026-09-10T01:18:05.700Z",
-    "wiki": "https://en.wikipedia.org/wiki/Rhiannon_Giddens",
-    "blurb": "Rhiannon Giddens is an American musician, actress and author known for her eclectic folk music.",
-    "descriptor": "American musician (born 1977)"
+    "checkedAt": "2026-10-25T02:40:44.878Z"
   },
   "strawberry guy": {
-    "checkedAt": "2026-09-10T01:18:07.804Z",
-    "wiki": "https://en.wikipedia.org/wiki/Strawberry_Guy",
-    "blurb": "Alexander Morgan Stephens, better known by his stage name Strawberry Guy, is a Welsh indie pop musician.",
-    "descriptor": "Welsh indie pop musician"
+    "checkedAt": "2026-10-25T02:40:46.312Z",
+    "genres": [
+      "bedroom pop"
+    ],
+    "descriptor": "GB artist"
   },
   "armand hammer": {
-    "checkedAt": "2026-09-10T01:18:09.939Z",
+    "checkedAt": "2026-10-25T02:40:54.533Z",
     "genres": [
       "hip hop",
       "experimental hip hop"
@@ -3300,67 +3404,59 @@
     "descriptor": "experimental hip hop duo"
   },
   "jay electronica": {
-    "checkedAt": "2026-09-10T01:18:14.340Z",
-    "genres": [
-      "hip hop",
-      "experimental hip hop"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:41:00.284Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jay_Electronica",
+    "blurb": "Elpadaro F.",
+    "descriptor": "American rapper and record producer (born 1976)"
   },
   "lalah hathaway": {
-    "checkedAt": "2026-09-10T01:18:27.832Z",
-    "genres": [
-      "soul",
-      "contemporary r&b"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:41:00.515Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lalah_Hathaway",
+    "blurb": "Eulaulah Donyll \"Lalah\" Hathaway is an American singer-songwriter and music producer.",
+    "descriptor": "American singer (born 1968)"
   },
   "samantha fish": {
-    "checkedAt": "2026-09-10T01:18:36.339Z",
-    "genres": [
-      "blues",
-      "rock"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:41:00.728Z",
+    "wiki": "https://en.wikipedia.org/wiki/Samantha_Fish",
+    "blurb": "Samantha Fish is an American guitarist and singer-songwriter from Kansas City, Missouri.",
+    "descriptor": "American blues guitarist and singer-songwriter (born 1989)"
   },
   "yung gravy": {
-    "checkedAt": "2026-09-10T01:19:06.304Z",
+    "checkedAt": "2026-10-25T02:41:00.943Z",
     "wiki": "https://en.wikipedia.org/wiki/Yung_Gravy",
-    "blurb": "Matthew Raymond Hauri, known professionally as Yung Gravy, is an American rapper.",
+    "blurb": "Matthew Raymond Hauri, better known by his stage name Yung Gravy, is an American rapper.",
     "descriptor": "American rapper (born 1996)"
   },
   "el cuarteto de nos": {
-    "checkedAt": "2026-09-10T01:19:06.636Z",
+    "checkedAt": "2026-10-25T02:41:01.171Z",
     "wiki": "https://en.wikipedia.org/wiki/El_Cuarteto_de_Nos",
     "blurb": "El Cuarteto de Nos is an Uruguayan rock band formed in 1980 in Montevideo.",
     "descriptor": "Uruguayan rock band"
   },
   "jack blocker": {
-    "checkedAt": "2026-09-10T01:19:06.915Z",
+    "checkedAt": "2026-10-25T02:41:01.390Z",
     "wiki": "https://en.wikipedia.org/wiki/Jack_Blocker",
-    "blurb": "Jack Forest Blocker is an American country singer-songwriter and musician known for being a season 22 American Idol finalist from Dallas County, Texas.",
+    "blurb": "Jack Forest Blocker is an American country singer-songwriter and musician from Richardson, Texas, known for his recordings, including a 2026 album on Sony Music's Thirty Tigers label, and his touring career.",
     "descriptor": "American singer and musician (born 1998)"
   },
   "mamas gun": {
-    "checkedAt": "2026-09-10T01:19:10.161Z",
+    "checkedAt": "2026-10-25T02:41:02.222Z",
     "wiki": "https://en.wikipedia.org/wiki/Mamas_Gun",
     "blurb": "Mamas Gun is a British contemporary soul band.",
     "descriptor": "British contemporary soul band"
   },
   "qendresa": {
-    "checkedAt": "2026-09-10T01:19:10.438Z",
+    "checkedAt": "2026-10-25T02:41:02.436Z",
     "wiki": "https://en.wikipedia.org/wiki/Qendresa",
     "blurb": "Qendresa is a British-Kosovar singer, songwriter, and producer from North West London.",
     "descriptor": "British-Kosovan singer and producer"
   },
   "sir woman": {
-    "checkedAt": "2026-09-10T01:19:10.717Z",
-    "wiki": "https://en.wikipedia.org/wiki/Sir_Lord_Baltimore",
-    "blurb": "Sir Lord Baltimore was an American rock and early heavy metal band from Brooklyn, New York City, that was formed in 1968 and consisted of lead vocalist and drummer John Garner, guitarist Louis Dambra, and bassist Gary Justin.",
-    "descriptor": "American rock band"
+    "checkedAt": "2026-10-25T02:41:02.653Z",
+    "descriptor": "Kelsey Wilson of Wild Child"
   },
   "sleep": {
-    "checkedAt": "2026-09-10T01:19:13.569Z",
+    "checkedAt": "2026-10-25T02:41:04.092Z",
     "genres": [
       "doom metal",
       "stoner metal"
@@ -3368,7 +3464,7 @@
     "descriptor": "American stoner/doom metal band"
   },
   "stella lefty": {
-    "checkedAt": "2026-09-10T01:19:15.160Z",
+    "checkedAt": "2026-10-25T02:41:09.823Z",
     "genres": [
       "indie pop",
       "indie folk"
@@ -3376,7 +3472,7 @@
     "descriptor": "US artist"
   },
   "wason brazob n": {
-    "checkedAt": "2026-09-10T01:19:32.987Z",
+    "checkedAt": "2026-10-25T02:41:15.701Z",
     "genres": [
       "latin",
       "bachata"
@@ -3384,7 +3480,7 @@
     "descriptor": "DO artist"
   },
   "black belt eagle scout": {
-    "checkedAt": "2026-09-10T01:19:34.714Z",
+    "checkedAt": "2026-10-25T02:41:17.156Z",
     "genres": [
       "singer-songwriter",
       "indie rock"
@@ -3392,7 +3488,7 @@
     "descriptor": "artist"
   },
   "il volo": {
-    "checkedAt": "2026-09-10T01:19:36.343Z",
+    "checkedAt": "2026-10-25T02:41:18.596Z",
     "genres": [
       "operatic pop",
       "pop"
@@ -3400,7 +3496,7 @@
     "descriptor": "operatic pop trio"
   },
   "john scofield": {
-    "checkedAt": "2026-09-10T01:19:37.970Z",
+    "checkedAt": "2026-10-25T02:41:21.276Z",
     "genres": [
       "jazz",
       "jazz fusion"
@@ -3408,11 +3504,11 @@
     "descriptor": "US guitarist/composer"
   },
   "matt hansen": {
-    "checkedAt": "2026-09-10T01:19:39.616Z",
+    "checkedAt": "2026-10-25T02:41:22.709Z",
     "descriptor": "artist"
   },
   "phillip phillips": {
-    "checkedAt": "2026-09-10T01:19:41.248Z",
+    "checkedAt": "2026-10-25T02:41:28.651Z",
     "genres": [
       "pop",
       "pop rock"
@@ -3420,7 +3516,7 @@
     "descriptor": "US artist"
   },
   "sarah kinsley": {
-    "checkedAt": "2026-09-10T01:19:42.887Z",
+    "checkedAt": "2026-10-25T02:41:30.102Z",
     "genres": [
       "pop",
       "indie pop"
@@ -3428,14 +3524,14 @@
     "descriptor": "US artist"
   },
   "the war and treaty": {
-    "checkedAt": "2026-09-10T01:19:44.515Z",
+    "checkedAt": "2026-10-25T02:41:35.705Z",
     "genres": [
       "country soul"
     ],
     "descriptor": "US group"
   },
   "ezra collective": {
-    "checkedAt": "2026-09-10T01:19:46.227Z",
+    "checkedAt": "2026-10-25T02:41:37.151Z",
     "genres": [
       "jazz",
       "afrobeat"
@@ -3443,7 +3539,7 @@
     "descriptor": "jazz fusion group"
   },
   "fruition": {
-    "checkedAt": "2026-09-10T01:19:47.855Z",
+    "checkedAt": "2026-10-25T02:41:38.590Z",
     "genres": [
       "rock",
       "folk"
@@ -3451,113 +3547,125 @@
     "descriptor": "Portland, OR Americana/folk-rock"
   },
   "greensky bluegrass": {
-    "checkedAt": "2026-09-10T01:20:06.984Z",
-    "wiki": "https://en.wikipedia.org/wiki/Greensky_Bluegrass",
-    "blurb": "Greensky Bluegrass is a five-piece American bluegrass jam band founded in Kalamazoo, Michigan in mid-2000.",
-    "descriptor": "American bluegrass band"
+    "checkedAt": "2026-10-25T02:41:40.423Z",
+    "genres": [
+      "progressive bluegrass",
+      "bluegrass"
+    ],
+    "descriptor": "US group"
   },
   "liana flores": {
-    "checkedAt": "2026-09-10T01:20:08.084Z",
-    "wiki": "https://en.wikipedia.org/wiki/Flower_of_the_Soul",
-    "blurb": "Flower of the Soul is the debut studio album by the British-Brazilian singer-songwriter Liana Flores, released on 28 June 2024 through Verve and Fiction.",
-    "descriptor": "2024 studio album by Liana Flores"
+    "checkedAt": "2026-10-25T02:41:43.713Z",
+    "genres": [
+      "folk",
+      "bossa nova"
+    ],
+    "descriptor": "GB artist"
   },
   "lil kim": {
-    "checkedAt": "2026-09-10T01:20:11.567Z",
-    "wiki": "https://en.wikipedia.org/wiki/Lil'_Kim",
-    "blurb": "Kimberly Denise Jones, better known by her stage name Lil' Kim, is an American rapper, singer, songwriter, and model.",
-    "descriptor": "American rapper (born 1974)"
+    "checkedAt": "2026-10-25T02:41:49.890Z",
+    "genres": [
+      "hip hop",
+      "pop rap"
+    ],
+    "descriptor": "US rapper"
   },
   "mary in the junkyard": {
-    "checkedAt": "2026-09-10T01:20:11.848Z",
-    "wiki": "https://en.wikipedia.org/wiki/Boxed_In_(musician)",
-    "blurb": "Oliver George Bayston, known professionally as Boxed In, is a British singer, songwriter and record producer.",
-    "descriptor": "British singer, songwriter, and record producer"
+    "checkedAt": "2026-10-25T02:41:56.216Z",
+    "descriptor": "group"
   },
   "pimpinela": {
-    "checkedAt": "2026-09-10T01:20:15.282Z",
+    "checkedAt": "2026-10-25T02:42:02.731Z",
     "wiki": "https://en.wikipedia.org/wiki/Pimpinela",
     "blurb": "Pimpinela is an Argentine duo formed by brother and sister Joaquín Galán and Lucía Galán.",
     "descriptor": "Argentine musical duo"
   },
   "wage war": {
-    "checkedAt": "2026-09-10T01:20:15.558Z",
-    "genres": [
-      "metalcore",
-      "hardcore"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:42:02.953Z",
+    "wiki": "https://en.wikipedia.org/wiki/Wage_War",
+    "blurb": "Wage War is an American metalcore band formed in Ocala, Florida in 2010 under the name Empires.",
+    "descriptor": "American metalcore band"
   },
   "black smurf": {
-    "checkedAt": "2026-09-10T01:20:36.329Z",
+    "checkedAt": "2026-10-25T02:42:03.167Z",
     "descriptor": "rapper"
   },
   "chris smither": {
-    "checkedAt": "2026-09-10T01:20:56.781Z",
-    "genres": [
-      "folk",
-      "blues"
-    ],
-    "descriptor": "folk musician"
+    "checkedAt": "2026-10-25T02:42:11.565Z",
+    "wiki": "https://en.wikipedia.org/wiki/Chris_Smither",
+    "blurb": "William Christopher Smither is an American folk/blues singer, guitarist, and songwriter.",
+    "descriptor": "American songwriter (born 1944)"
   },
   "crystal waters": {
-    "checkedAt": "2026-09-10T01:20:58.996Z",
-    "genres": [
-      "pop",
-      "house"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-10-25T02:42:11.783Z",
+    "wiki": "https://en.wikipedia.org/wiki/Crystal_Waters",
+    "blurb": "Crystal Waters is an American house and dance music singer and songwriter, best known for her 1990s dance hits \"Gypsy Woman\" and \"100% Pure Love\", and 2007's \"Destination Calabria\" with Alex Gaudino.",
+    "descriptor": "American singer-songwriter (born 1961)"
   },
   "deer tick": {
-    "checkedAt": "2026-09-10T01:21:00.625Z",
-    "wiki": "https://en.wikipedia.org/wiki/Deer_Tick_(band)",
-    "blurb": "Deer Tick is an American alternative rock-folk band from Providence, Rhode Island, composed of singer-songwriter John J.",
-    "descriptor": "American alternative rock band"
+    "checkedAt": "2026-10-25T02:42:12.002Z",
+    "genres": [
+      "rock",
+      "folk rock"
+    ],
+    "descriptor": "US group"
   },
   "jessie reyez": {
-    "checkedAt": "2026-09-10T01:21:02.382Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jessie_Reyez",
-    "blurb": "Jessica Reyez is a Canadian singer-songwriter.",
-    "descriptor": "Canadian singer-songwriter (born 1991)"
+    "checkedAt": "2026-10-25T02:42:18.993Z",
+    "genres": [
+      "r&b",
+      "contemporary r&b"
+    ],
+    "descriptor": "Colombian‐Canadian singer‐songwriter"
   },
   "julia jacklin": {
-    "checkedAt": "2026-09-10T01:21:02.660Z",
-    "wiki": "https://en.wikipedia.org/wiki/Julia_Jacklin",
-    "blurb": "Julia Jacklin is an Australian singer-songwriter from the Blue Mountains region of New South Wales.",
-    "descriptor": "Australian singer-songwriter"
+    "checkedAt": "2026-10-25T02:41:42.269Z",
+    "genres": [
+      "indie folk",
+      "singer-songwriter"
+    ],
+    "descriptor": "AU artist"
   },
   "low cut connie": {
-    "checkedAt": "2026-09-10T01:21:02.938Z",
-    "wiki": "https://en.wikipedia.org/wiki/Low_Cut_Connie",
-    "blurb": "Low Cut Connie is an American rock and roll band based in Philadelphia, Pennsylvania.",
-    "descriptor": "American rock and roll band"
+    "checkedAt": "2026-10-25T02:42:20.435Z",
+    "genres": [
+      "rock and roll"
+    ],
+    "descriptor": "US group"
   },
   "sassy 009": {
-    "checkedAt": "2026-09-10T01:21:07.707Z",
-    "wiki": "https://en.wikipedia.org/wiki/Sassy_009",
-    "blurb": "Sunniva Lindgård, better known as Sassy 009, is a Scandinavian musician originally from Oslo, Norway.",
-    "descriptor": "Norwegian musician"
+    "checkedAt": "2026-10-25T02:42:22.201Z",
+    "genres": [
+      "group turned solo project"
+    ],
+    "descriptor": "trio until 2019, now solo project by Sunniva Lindgård"
   },
   "three dog night": {
-    "checkedAt": "2026-09-10T01:21:07.985Z",
-    "wiki": "https://en.wikipedia.org/wiki/Three_Dog_Night",
-    "blurb": "Three Dog Night is an American rock band formed in Los Angeles in 1967, founded by vocalists Chuck Negron, Cory Wells, and Danny Hutton.",
+    "checkedAt": "2026-10-25T02:42:27.782Z",
+    "genres": [
+      "rock",
+      "soft rock"
+    ],
     "descriptor": "American rock band"
   },
   "10 000 maniacs": {
-    "checkedAt": "2026-09-10T01:21:08.735Z",
-    "wiki": "https://en.wikipedia.org/wiki/10%2C000_Maniacs",
-    "blurb": "10,000 Maniacs is an American alternative rock band founded in 1981.",
-    "descriptor": "American alternative rock band"
+    "checkedAt": "2026-10-25T02:42:29.671Z",
+    "genres": [
+      "alternative rock",
+      "indie pop"
+    ],
+    "descriptor": "US group"
   },
   "cupcakke": {
-    "checkedAt": "2026-09-10T01:21:09.012Z",
-    "wiki": "https://en.wikipedia.org/wiki/Cupcakke",
-    "blurb": "Elizabeth Eden Harris, known professionally as Cupcakke, is an American rapper and singer-songwriter known for her hypersexualized, brazen, and often comical persona and music.",
-    "descriptor": "American rapper (born 1997)"
+    "checkedAt": "2026-10-25T02:42:35.045Z",
+    "genres": [
+      "dirty rap",
+      "explicit"
+    ],
+    "descriptor": "US artist"
   },
   "francis of delirium": {
-    "checkedAt": "2026-09-10T01:21:09.290Z",
+    "checkedAt": "2026-10-25T02:42:36.637Z",
     "genres": [
       "indie rock",
       "alternative folk"
@@ -3565,7 +3673,7 @@
     "descriptor": "LU group"
   },
   "gene": {
-    "checkedAt": "2026-09-10T01:21:29.463Z",
+    "checkedAt": "2026-10-25T02:42:39.076Z",
     "genres": [
       "rockabilly",
       "rock"
@@ -3573,97 +3681,103 @@
     "descriptor": "US artist"
   },
   "greg freeman": {
-    "checkedAt": "2026-09-10T01:21:43.519Z",
+    "checkedAt": "2026-10-25T02:42:40.515Z",
+    "genres": [
+      "indie rock",
+      "alternative country"
+    ],
     "descriptor": "singer-songwriter from Burlington, VT"
   },
   "guster": {
-    "checkedAt": "2026-09-10T01:21:45.256Z"
+    "checkedAt": "2026-10-25T02:42:18.782Z",
+    "wiki": "https://en.wikipedia.org/wiki/Guster",
+    "blurb": "Guster is an American alternative rock band formed in Somerville, Massachusetts.",
+    "descriptor": "American alternative rock band"
   },
   "mason jennings": {
-    "checkedAt": "2026-09-10T01:22:26.859Z",
-    "wiki": "https://en.wikipedia.org/wiki/Mason_Jennings",
-    "blurb": "Mason Jennings is an American folk-pop singer-songwriter.",
-    "descriptor": "American singer-songwriter (born 1975"
+    "checkedAt": "2026-10-25T02:42:46.328Z",
+    "genres": [
+      "folk rock"
+    ],
+    "descriptor": "US artist"
   },
   "the pineapple thief": {
-    "checkedAt": "2026-09-10T01:22:27.194Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Pineapple_Thief",
-    "blurb": "The Pineapple Thief are an English progressive rock band founded in 1999 by Bruce Soord in Yeovil, Somerset.",
-    "descriptor": "British progressive rock band"
+    "checkedAt": "2026-10-25T02:42:47.804Z"
   },
   "west 22nd": {
-    "checkedAt": "2026-09-10T01:22:27.471Z",
-    "wiki": "https://en.wikipedia.org/wiki/Charles_O'Neill_(musician)",
-    "blurb": "\nCharles O'Neill was a Canadian bandmaster, composer, organist, cornetist and music educator of Scottish birth and Irish parentage.",
-    "descriptor": "Canadian bandmaster, composer, organist, cornetist and music educator (1882–1964)"
+    "checkedAt": "2026-10-25T02:42:49.225Z",
+    "genres": [
+      "rock",
+      "alternative rock"
+    ],
+    "descriptor": "group"
   },
   "weston estate": {
-    "checkedAt": "2026-09-10T01:22:29.198Z",
-    "wiki": "https://en.wikipedia.org/wiki/Warren_Covington",
-    "blurb": "Warren Covington was an American big band trombonist.",
-    "descriptor": "American jazz trombonist (1921–1999)"
+    "checkedAt": "2026-10-25T02:42:52.121Z",
+    "descriptor": "US"
   },
   "cyndi lauper": {
-    "checkedAt": "2026-09-10T01:22:30.109Z",
-    "wiki": "https://en.wikipedia.org/wiki/Cyndi_Lauper",
-    "blurb": "Cynthia Ann Stephanie Lauper is an American singer, songwriter and actress.",
-    "descriptor": "American singer-songwriter and actress (born 1953)"
+    "checkedAt": "2026-10-25T02:42:59.648Z",
+    "genres": [
+      "pop",
+      "rock"
+    ],
+    "descriptor": "US artist"
   },
   "jorja smith": {
-    "checkedAt": "2026-09-10T01:22:30.388Z",
+    "checkedAt": "2026-10-25T02:43:02.414Z",
     "wiki": "https://en.wikipedia.org/wiki/Jorja_Smith",
     "blurb": "Jorja Alice Smith is an English singer and songwriter.",
-    "descriptor": "British singer and songwriter"
+    "descriptor": "British singer and songwriter (born 1997)"
   },
   "nessa barrett": {
-    "checkedAt": "2026-09-10T01:22:30.666Z",
+    "checkedAt": "2026-10-25T02:43:02.631Z",
     "wiki": "https://en.wikipedia.org/wiki/Nessa_Barrett",
     "blurb": "Janesa Jaida \"Nessa\" Barrett is an American singer-songwriter and social media personality.",
     "descriptor": "American singer-songwriter and media personality (born 2002)"
   },
   "other lives": {
-    "checkedAt": "2026-09-10T01:22:30.893Z",
-    "genres": [
-      "folk",
-      "indie rock"
-    ],
-    "descriptor": "US indie rock band"
+    "checkedAt": "2026-10-25T02:43:02.845Z",
+    "wiki": "https://en.wikipedia.org/wiki/Nine_Lives_(Aerosmith_song)",
+    "blurb": "\"Nine Lives\" is a song by American hard rock band Aerosmith.",
+    "descriptor": "1997 single by Aerosmith"
   },
   "resavoir": {
-    "checkedAt": "2026-09-10T01:22:33.024Z",
-    "genres": [
-      "jazz"
-    ]
+    "checkedAt": "2026-10-25T02:43:03.237Z",
+    "wiki": "https://en.wikipedia.org/wiki/Brandee_Younger",
+    "blurb": "Brandee Younger is an American harpist, composer, and educator.",
+    "descriptor": "American harpist & composer (born 1983)"
   },
   "rising appalachia": {
-    "checkedAt": "2026-09-10T01:22:37.851Z",
-    "genres": [
-      "folk"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:43:03.751Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rising_Appalachia",
+    "blurb": "Rising Appalachia is an American Appalachian folk music group, led by multi-instrumentalist sisters Leah Song and Chloe Smith.",
+    "descriptor": "American Appalachian folk music group"
   },
   "rival sons": {
-    "checkedAt": "2026-09-10T01:22:39.832Z",
-    "genres": [
-      "hard rock",
-      "blues rock"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-10-25T02:43:04.493Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rival_Sons",
+    "blurb": "Rival Sons are an American rock band formed in Long Beach, California in 2009 and also affiliated with Nashville, Tennessee.",
+    "descriptor": "American rock band"
   },
   "snakehips": {
-    "checkedAt": "2026-09-10T01:22:45.355Z",
+    "checkedAt": "2026-10-25T02:43:04.710Z",
+    "genres": [
+      "electronic",
+      "pop"
+    ],
     "descriptor": "UK electronic duo"
   },
   "inna": {
-    "checkedAt": "2026-09-10T01:22:50.903Z",
+    "checkedAt": "2026-10-25T02:43:07.602Z",
     "genres": [
       "pop",
-      "romanian"
+      "electronic"
     ],
     "descriptor": "Romanian dance singer Elena Alexandra Apostoleanu"
   },
   "jamila woods": {
-    "checkedAt": "2026-09-10T01:22:52.813Z",
+    "checkedAt": "2026-10-25T02:43:13.980Z",
     "genres": [
       "singer-songwriter",
       "r&b"
@@ -3671,61 +3785,59 @@
     "descriptor": "US artist"
   },
   "suicide silence": {
-    "checkedAt": "2026-09-10T01:23:00.368Z",
-    "wiki": "https://en.wikipedia.org/wiki/Suicide_Silence",
-    "blurb": "Suicide Silence is an American deathcore band from Riverside, California.",
-    "descriptor": "American deathcore band"
+    "checkedAt": "2026-10-25T02:43:15.426Z",
+    "genres": [
+      "deathcore",
+      "american"
+    ],
+    "descriptor": "US group"
   },
   "the menzingers": {
-    "checkedAt": "2026-09-10T01:23:00.693Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Menzingers",
-    "blurb": "The Menzingers are an American punk rock band from Scranton, Pennsylvania, formed in 2006.",
-    "descriptor": "American punk rock band"
+    "checkedAt": "2026-10-25T02:43:16.865Z",
+    "genres": [
+      "punk",
+      "punk rock"
+    ],
+    "descriptor": "US group"
   },
   "yaelokre": {
-    "checkedAt": "2026-09-10T01:23:00.971Z",
-    "wiki": "https://en.wikipedia.org/wiki/Yaelokre",
-    "blurb": "Christopher Kristjansson is a Filipino-Icelandic singer-songwriter and multimedia artist known for their folk music storytelling project under the stage name Yaelokre.",
-    "descriptor": "Filipino-Icelandic singer-songwriter and multimedia artist"
+    "checkedAt": "2026-10-25T02:43:22.929Z",
+    "descriptor": "artist"
   },
   "alyssa grace": {
-    "checkedAt": "2026-09-10T01:23:01.246Z",
-    "wiki": "https://en.wikipedia.org/wiki/Alyssa_Grace",
-    "blurb": "Alyssa Grace is an American singer-songwriter based in California.",
-    "descriptor": "American singer (born 2007)"
+    "checkedAt": "2026-10-25T02:43:24.498Z",
+    "genres": [
+      "folk pop"
+    ],
+    "descriptor": "artist"
   },
   "jenn grinels": {
-    "checkedAt": "2026-09-10T01:23:01.523Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jenn_Grinels",
-    "blurb": "Jenn Grinels is an American musician, singer and songwriter, musical theatre composer, and actress.",
-    "descriptor": "American singer-songwriter"
+    "checkedAt": "2026-10-25T02:43:25.943Z",
+    "descriptor": "artist"
   },
   "marshall crenshaw": {
-    "checkedAt": "2026-09-10T01:23:04.031Z",
-    "wiki": "https://en.wikipedia.org/wiki/Marshall_Crenshaw",
-    "blurb": "Marshall Howard Crenshaw is an American musician, singer, songwriter, and guitarist best known for hit songs such as \"Someday, Someway\", a US top 40 hit in 1982, \"Cynical Girl\", and \"Whenever You're on My Mind\".",
-    "descriptor": "American musician (born 1953)"
-  },
-  "rev vince anderson": {
-    "checkedAt": "2026-09-10T01:23:04.308Z",
-    "wiki": "https://en.wikipedia.org/wiki/Reverend_Vince_Anderson",
-    "blurb": "Reverend Vince Anderson is an American, New York City based musician.",
-    "descriptor": "American musician"
-  },
-  "rozzi": {
-    "checkedAt": "2026-09-10T01:23:05.938Z",
-    "descriptor": "US artist"
-  },
-  "sombr": {
-    "checkedAt": "2026-09-10T01:23:07.573Z",
+    "checkedAt": "2026-10-25T02:43:27.380Z",
     "genres": [
-      "indie pop",
-      "pop rock"
+      "rock",
+      "2008 universal fire victim"
     ],
     "descriptor": "US artist"
   },
+  "rev vince anderson": {
+    "checkedAt": "2026-10-25T02:43:28.816Z"
+  },
+  "rozzi": {
+    "checkedAt": "2026-10-25T02:43:30.251Z",
+    "descriptor": "US artist"
+  },
+  "sombr": {
+    "checkedAt": "2026-10-25T02:43:31.686Z",
+    "wiki": "https://en.wikipedia.org/wiki/Sombr",
+    "blurb": "Shane Michael Boose, known professionally as Sombr, is an American singer-songwriter and musician.",
+    "descriptor": "American singer and songwriter (born 2005)"
+  },
   "danna": {
-    "checkedAt": "2026-09-10T01:23:20.485Z",
+    "checkedAt": "2026-10-25T02:43:31.891Z",
     "genres": [
       "soundtrack",
       "canadian"
@@ -3733,25 +3845,32 @@
     "descriptor": "Canadian score composer"
   },
   "danna paola": {
-    "checkedAt": "2026-09-10T01:23:22.211Z"
+    "checkedAt": "2026-10-25T02:43:35.779Z",
+    "genres": [
+      "latin",
+      "pop"
+    ],
+    "descriptor": "Mexican actress, singer"
   },
   "dj jazzy jeff": {
-    "checkedAt": "2026-09-10T01:24:03.811Z",
-    "wiki": "https://en.wikipedia.org/wiki/DJ_Jazzy_Jeff",
-    "blurb": "Jeffrey Allen Townes, better known by his stage name DJ Jazzy Jeff, is an American DJ, music producer and actor.",
-    "descriptor": "American DJ, music producer and actor (born 1965)"
+    "checkedAt": "2026-10-25T02:43:37.220Z",
+    "genres": [
+      "hip hop",
+      "jazz hop"
+    ],
+    "descriptor": "DJ/turntablist"
   },
   "ghostwoman": {
-    "checkedAt": "2026-09-10T01:24:04.149Z",
-    "wiki": "https://en.wikipedia.org/wiki/Full_Time_Hobby",
-    "blurb": "Full Time Hobby is an independent record label formed in London in January 2004.",
-    "descriptor": "British record label"
+    "checkedAt": "2026-10-25T02:43:38.660Z",
+    "genres": [
+      "stoner rock",
+      "psychedelic rock"
+    ],
+    "descriptor": "CA group"
   },
   "reuben james": {
-    "checkedAt": "2026-09-10T01:24:06.402Z",
-    "wiki": "https://en.wikipedia.org/wiki/Dave_Cheeseman",
-    "blurb": "Dave Cheeseman is a prolific English underground session musician, known for his work with Sack Trick and Pillow Talk.",
-    "descriptor": "Musical artist"
+    "checkedAt": "2026-10-25T02:43:40.115Z",
+    "descriptor": "GB artist"
   },
   "gustavo dudamel": {
     "checkedAt": "2026-09-10T10:28:46.803Z",
