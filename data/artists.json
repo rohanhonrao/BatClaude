@@ -6741,5 +6741,17 @@
   },
   "rob garcia quartet": {
     "checkedAt": "2026-10-25T10:32:36.906Z"
+  },
+  "mike clark": {
+    "checkedAt": "2026-10-26T18:08:54.554Z",
+    "wiki": "https://en.wikipedia.org/wiki/Mike_Smith_(Dave_Clark_Five)",
+    "blurb": "Michael George Smith was an English singer, songwriter and music producer.",
+    "descriptor": "English singer (1943–2008)"
+  },
+  "tobias meinhart quartet": {
+    "checkedAt": "2026-10-26T18:08:56.209Z",
+    "wiki": "https://en.wikipedia.org/wiki/Tobias_Meinhart",
+    "blurb": "Tobias Meinhart is a German modern jazz soprano and tenor saxophonist and composer.",
+    "descriptor": "German Jazz saxophonist (1983)"
   }
 }
