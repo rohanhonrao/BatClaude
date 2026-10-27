@@ -728,8 +728,10 @@
     "descriptor": "US group"
   },
   "jonny couch": {
-    "checkedAt": "2026-09-10T00:24:13.456Z",
-    "descriptor": "Jersey-City-based solo pop artist and former punk drummer"
+    "checkedAt": "2026-10-27T03:10:37.510Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jonny_Quinn",
+    "blurb": "Jonathan Graham Quinn is a Northern Irish musician, best known as the former drummer for alternative rock band Snow Patrol, and was previously a member of bands like The Mighty Fall, The New Brontes and Disraeli Gears.",
+    "descriptor": "Musical artist"
   },
   "mastodon": {
     "checkedAt": "2026-09-10T00:24:32.408Z",
@@ -4808,29 +4810,36 @@
     "checkedAt": "2026-09-12T02:26:27.584Z"
   },
   "menahan street band": {
-    "checkedAt": "2026-09-12T02:26:37.130Z",
+    "checkedAt": "2026-10-27T03:10:38.338Z",
     "wiki": "https://en.wikipedia.org/wiki/Menahan_Street_Band",
     "blurb": "Menahan Street Band is an American, Brooklyn, New York–based instrumental band formed in 2007, that plays funk and soul music.",
     "descriptor": "American instrumental band"
   },
   "victoria mon t": {
-    "checkedAt": "2026-09-12T02:26:37.402Z",
+    "checkedAt": "2026-10-27T03:10:38.904Z",
     "wiki": "https://en.wikipedia.org/wiki/Victoria_Mon%C3%A9t",
     "blurb": "Victoria Monét McCants is an American singer-songwriter.",
     "descriptor": "American singer-songwriter (born 1989)"
   },
   "advance base": {
-    "checkedAt": "2026-09-12T02:26:37.674Z",
+    "checkedAt": "2026-10-27T03:10:39.116Z",
     "wiki": "https://en.wikipedia.org/wiki/Casiotone_for_the_Painfully_Alone",
     "blurb": "Casiotone for the Painfully Alone (CFTPA) was the musical solo-project of musician Owen Ashworth of Redwood City, California.",
     "descriptor": "Musical solo-project by Owen Ashworth"
   },
   "lucy fitz gibbon": {
-    "checkedAt": "2026-09-12T02:26:39.184Z",
-    "descriptor": "artist"
+    "checkedAt": "2026-10-27T03:10:39.337Z",
+    "wiki": "https://en.wikipedia.org/wiki/Sheila_Silver",
+    "blurb": "Sheila Jane Silver is an American composer.",
+    "descriptor": "American composer (born 1946)"
   },
   "nora en pure": {
-    "checkedAt": "2026-09-12T02:26:42.245Z"
+    "checkedAt": "2026-10-27T03:10:39.886Z",
+    "genres": [
+      "deep house",
+      "progressive house"
+    ],
+    "descriptor": "South African‐Swiss DJ/house producer Daniela Di Lillo"
   },
   "los marcianos": {
     "checkedAt": "2026-09-12T14:51:31.177Z",
