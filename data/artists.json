@@ -510,12 +510,10 @@
     "checkedAt": "2026-09-10T00:22:50.740Z"
   },
   "zacar as ferreira": {
-    "checkedAt": "2026-09-10T00:22:52.286Z",
-    "genres": [
-      "bachata",
-      "latin"
-    ],
-    "descriptor": "DO artist"
+    "checkedAt": "2026-11-03T22:50:04.377Z",
+    "wiki": "https://en.wikipedia.org/wiki/Zacar%C3%ADas_Ferreira",
+    "blurb": "Zacarías Ferreira is a Dominican singer.",
+    "descriptor": "Dominican singer"
   },
   "charlie burg": {
     "checkedAt": "2026-09-10T00:22:53.773Z"
@@ -772,12 +770,10 @@
     "descriptor": "GB artist"
   },
   "taking back sunday": {
-    "checkedAt": "2026-09-10T00:24:38.784Z",
-    "genres": [
-      "emo",
-      "rock"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-11-03T22:50:04.170Z",
+    "wiki": "https://en.wikipedia.org/wiki/Taking_Back_Sunday",
+    "blurb": "Taking Back Sunday is an American rock band from Amityville, New York, formed by guitarist Eddie Reyes and bassist Jesse Lacey in late 1999 before rounding out the band with vocalist Antonio Longo, lead guitarist John Nolan, and drummer Ste",
+    "descriptor": "American rock band"
   },
   "talib kweli": {
     "checkedAt": "2026-09-10T00:24:40.275Z",
@@ -2010,12 +2006,10 @@
     "descriptor": "singer, songwriter, music producer"
   },
   "gryffin": {
-    "checkedAt": "2026-09-10T01:03:10.592Z",
-    "genres": [
-      "electronic",
-      "dance-pop"
-    ],
-    "descriptor": "dance/electronic producer Dan Griffith"
+    "checkedAt": "2026-11-03T22:50:05.034Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gryffin",
+    "blurb": "Daniel Griffith, known by his stage name Gryffin, is an American musician, DJ, and music producer.",
+    "descriptor": "American musician and producer (born 1987)"
   },
   "jpegmafia": {
     "checkedAt": "2026-09-10T01:03:12.219Z",
@@ -6808,5 +6802,92 @@
     "wiki": "https://en.wikipedia.org/wiki/Hilotrons",
     "blurb": "Hilotrons is a Canadian indie pop band from Ottawa, Ontario.",
     "descriptor": "Canadian indie pop band"
+  },
+  "giveon": {
+    "checkedAt": "2026-11-03T22:49:43.411Z",
+    "wiki": "https://en.wikipedia.org/wiki/Giveon",
+    "blurb": "Giveon Dezmann Evans, mononymously known as Giveon, is an American R&B singer and songwriter.",
+    "descriptor": "American R&B singer (born 1995)"
+  },
+  "sidney gish": {
+    "checkedAt": "2026-11-03T22:49:43.661Z",
+    "wiki": "https://en.wikipedia.org/wiki/Sidney_Gish",
+    "blurb": "Sidney Gish is an American indie singer-songwriter.",
+    "descriptor": "American singer-songwriter (born 1997)"
+  },
+  "lomelda": {
+    "checkedAt": "2026-11-03T22:49:43.877Z",
+    "wiki": "https://en.wikipedia.org/wiki/Lomelda",
+    "blurb": "Lomelda is the stage name of musician Hannah Read.",
+    "descriptor": "Musical artist"
+  },
+  "vonoff1700": {
+    "checkedAt": "2026-11-03T22:49:44.092Z",
+    "wiki": "https://en.wikipedia.org/wiki/In_My_Glory",
+    "blurb": "In My Glory is the second studio album by American rapper Lil Gnar.",
+    "descriptor": "2025 studio album by Lil Gnar"
+  },
+  "cafun": {
+    "checkedAt": "2026-11-03T22:49:45.874Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cafun%C3%A9",
+    "blurb": "Cafuné is an American indie pop duo formed in 2014 by singer-songwriter Sedona Schat and producer Noah Yoo.",
+    "descriptor": "American indie pop duo"
+  },
+  "baltra": {
+    "checkedAt": "2026-11-03T22:49:46.431Z"
+  },
+  "rozes": {
+    "checkedAt": "2026-11-03T22:49:48.281Z"
+  },
+  "kes": {
+    "checkedAt": "2026-11-03T22:49:49.855Z",
+    "genres": [
+      "rock"
+    ],
+    "descriptor": "production music composer"
+  },
+  "sherrie maricle": {
+    "checkedAt": "2026-11-03T22:49:51.509Z",
+    "genres": [
+      "jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "e w harris": {
+    "checkedAt": "2026-11-03T22:49:53.011Z",
+    "descriptor": "artist"
+  },
+  "joe magnarelli": {
+    "checkedAt": "2026-11-03T22:49:54.538Z",
+    "genres": [
+      "post-bop",
+      "jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "timmy trumpet": {
+    "checkedAt": "2026-11-03T22:49:58.972Z",
+    "genres": [
+      "house",
+      "electro house"
+    ],
+    "descriptor": "Australian DJ and producer"
+  },
+  "what a wonderful year music festival 2 day pass 21 event 2026 the wonder bar": {
+    "checkedAt": "2026-11-03T22:50:00.444Z",
+    "wiki": "https://en.wikipedia.org/wiki/1967_in_music",
+    "blurb": "The year 1967 was important for psychedelic rock, and was famous for its \"Summer of Love\" in San Francisco."
+  },
+  "alex jean": {
+    "checkedAt": "2026-11-03T22:50:02.689Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jean-Beno%C3%AEt_Dunckel",
+    "blurb": "Jean-Benoît Dunckel-Barbier is a French musician best known for being one half of the French music duo Air, along with Nicolas Godin.",
+    "descriptor": "French musician"
+  },
+  "frank catalano": {
+    "checkedAt": "2026-11-03T22:50:03.700Z",
+    "wiki": "https://en.wikipedia.org/wiki/Frank_Catalano",
+    "blurb": "Frank Catalano is an American jazz saxophonist.",
+    "descriptor": "Musical artist"
   }
 }
