@@ -5141,10 +5141,12 @@
     "descriptor": "Brazilian DJ and music producer (born 1993)"
   },
   "rostam": {
-    "checkedAt": "2026-09-18T20:17:40.704Z",
-    "wiki": "https://en.wikipedia.org/wiki/Rostam_Batmanglij",
-    "blurb": "Rostam Batmanglij also known mononymously as Rostam, is an American musician, record producer, and songwriter.",
-    "descriptor": "American musician"
+    "checkedAt": "2026-11-03T00:25:12.975Z",
+    "genres": [
+      "pop",
+      "american"
+    ],
+    "descriptor": "American producer & songwriter"
   },
   "primitive heart": {
     "checkedAt": "2026-09-19T02:27:42.265Z",
@@ -6782,5 +6784,29 @@
     "wiki": "https://en.wikipedia.org/wiki/The_Glitch_Mob",
     "blurb": "The Glitch Mob is an American electronic music duo from Los Angeles, California.",
     "descriptor": "American electronic music duo"
+  },
+  "the matt o ree band": {
+    "checkedAt": "2026-11-03T00:25:05.994Z",
+    "wiki": "https://en.wikipedia.org/wiki/Matt_O'Ree",
+    "blurb": "Matt O'Ree is an American blues-rock guitarist, singer, and songwriter born and raised in Holmdel, New Jersey with his wife, Eryn Shewell-O'Ree.",
+    "descriptor": "American singer-songwriter (born 1972)"
+  },
+  "rick braun": {
+    "checkedAt": "2026-11-03T00:25:07.657Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rick_Braun",
+    "blurb": "Rick Braun is an American smooth jazz trumpet, flugelhorn, trombone and keyboards player, vocalist, composer, and record producer.",
+    "descriptor": "American jazz musician and composer"
+  },
+  "the the band band": {
+    "checkedAt": "2026-11-03T00:25:07.876Z",
+    "wiki": "https://en.wikipedia.org/wiki/Steve_Miller_Band",
+    "blurb": "The Steve Miller Band is an American rock band formed in San Francisco, California, in 1966.",
+    "descriptor": "American rock band"
+  },
+  "adam pascal": {
+    "checkedAt": "2026-11-03T00:25:09.409Z",
+    "wiki": "https://en.wikipedia.org/wiki/Hilotrons",
+    "blurb": "Hilotrons is a Canadian indie pop band from Ottawa, Ontario.",
+    "descriptor": "Canadian indie pop band"
   }
 }
