@@ -5242,7 +5242,7 @@
     "descriptor": "American songwriter and musician"
   },
   "jimmy kenny and the pirate beach band": {
-    "checkedAt": "2026-09-22T16:05:02.287Z",
+    "checkedAt": "2026-11-06T22:44:01.235Z",
     "wiki": "https://en.wikipedia.org/wiki/Jimmy_Buffett",
     "blurb": "James William Buffett was an American singer-songwriter, author, and businessman.",
     "descriptor": "American singer-songwriter (1946–2023)"
@@ -6925,5 +6925,17 @@
     "wiki": "https://en.wikipedia.org/wiki/Wisin",
     "blurb": "Juan Luis Morera Luna, known professionally as Wisin, is a Puerto Rican rapper, singer and record producer, best known as a member of the reggaeton duo Wisin & Yandel.",
     "descriptor": "Puerto Rican rapper (born 1978)"
+  },
+  "los tucanes de tijuana": {
+    "checkedAt": "2026-11-06T22:44:00.550Z",
+    "wiki": "https://en.wikipedia.org/wiki/Los_Tucanes_de_Tijuana",
+    "blurb": "Los Tucanes De Tijuana are a Mexican norteño band led by Mario Quintero Lara.",
+    "descriptor": "Mexican norteño band"
+  },
+  "damian lazarus": {
+    "checkedAt": "2026-11-06T22:44:00.959Z",
+    "wiki": "https://en.wikipedia.org/wiki/Damian_Lazarus",
+    "blurb": "Damian Lazarus is a British DJ and electronic music producer.",
+    "descriptor": "British DJ and producer"
   }
 }
