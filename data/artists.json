@@ -798,7 +798,7 @@
     "descriptor": "Australian rock band"
   },
   "all time low": {
-    "checkedAt": "2026-09-10T00:24:43.475Z"
+    "checkedAt": "2026-11-08T21:43:18.620Z"
   },
   "the prodigy": {
     "checkedAt": "2026-09-10T00:24:44.940Z",
@@ -1645,10 +1645,12 @@
     "descriptor": "American DJ and record producer"
   },
   "don omar": {
-    "checkedAt": "2026-09-10T00:59:03.823Z",
-    "wiki": "https://en.wikipedia.org/wiki/Don_Omar",
-    "blurb": "William Omar Landrón Rivera, known professionally as Don Omar, is a Puerto Rican rapper, singer, songwriter, record producer, and actor.",
-    "descriptor": "Puerto Rican rapper (born 1978)"
+    "checkedAt": "2026-11-08T21:43:21.869Z",
+    "genres": [
+      "reggaeton",
+      "latin urban"
+    ],
+    "descriptor": "William Omar Landrón Rivera"
   },
   "foster the people": {
     "checkedAt": "2026-09-10T00:59:04.099Z",
@@ -1786,7 +1788,7 @@
     "descriptor": "US country rocker, of The Rhythm Orchids"
   },
   "remi wolf": {
-    "checkedAt": "2026-09-10T01:00:43.751Z",
+    "checkedAt": "2026-11-08T21:43:20.092Z",
     "genres": [
       "alternative pop",
       "pop soul"
@@ -2116,7 +2118,7 @@
     "descriptor": "US group"
   },
   "raulin rodriguez": {
-    "checkedAt": "2026-09-10T01:04:50.919Z",
+    "checkedAt": "2026-11-08T21:43:17.132Z",
     "genres": [
       "latin",
       "bachata"
@@ -7369,5 +7371,411 @@
   "silverada": {
     "checkedAt": "2026-11-08T12:38:52.132Z",
     "descriptor": "fka Mike and the Moonpies"
+  },
+  "alan walker": {
+    "checkedAt": "2026-11-08T21:41:26.538Z",
+    "wiki": "https://en.wikipedia.org/wiki/Alan_Walker",
+    "blurb": "Alan Olav Walker is a Norwegian DJ and record producer.",
+    "descriptor": "Norwegian DJ and music producer (born 1997)"
+  },
+  "cloud nothings": {
+    "checkedAt": "2026-11-08T21:41:26.863Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cloud_Nothings",
+    "blurb": "Cloud Nothings is an American indie rock band from Cleveland, Ohio, United States, founded by singer-songwriter Dylan Baldi.",
+    "descriptor": "American indie rock band"
+  },
+  "dinosaur jr": {
+    "checkedAt": "2026-11-08T21:41:27.095Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dinosaur_Jr.",
+    "blurb": "Dinosaur Jr.",
+    "descriptor": "American rock band"
+  },
+  "olivia rodrigo": {
+    "checkedAt": "2026-11-08T21:41:27.325Z",
+    "wiki": "https://en.wikipedia.org/wiki/Olivia_Rodrigo",
+    "blurb": "Olivia Isabel Rodrigo is an American singer-songwriter and actress.",
+    "descriptor": "American singer-songwriter and actress (born 2003)"
+  },
+  "pablo albor n": {
+    "checkedAt": "2026-11-08T21:41:27.551Z",
+    "wiki": "https://en.wikipedia.org/wiki/Pablo_Albor%C3%A1n",
+    "blurb": "Pablo Moreno de Alborán Ferrándiz, popularly known as Pablo Alborán, is a Spanish musician, singer-songwriter and actor.",
+    "descriptor": "Spanish musician, singer and songwriter"
+  },
+  "the danish string quartet": {
+    "checkedAt": "2026-11-08T21:41:27.780Z",
+    "wiki": "https://en.wikipedia.org/wiki/Niels_Gade",
+    "blurb": "Niels Wilhelm Gade was a Danish composer, conductor, violinist, organist and teacher.",
+    "descriptor": "Danish composer, conductor, and music teacher (1817–1890)"
+  },
+  "artifakts": {
+    "checkedAt": "2026-11-08T21:41:28.553Z",
+    "wiki": "https://en.wikipedia.org/wiki/Artifakts_(bc)",
+    "blurb": "Artifakts [bc] is the fifth studio album by Canadian electronic music producer Richie Hawtin, and his fourth studio album under the alias Plastikman.",
+    "descriptor": "1998 studio album by Plastikman"
+  },
+  "chelsea cutler": {
+    "checkedAt": "2026-11-08T21:41:29.332Z",
+    "wiki": "https://en.wikipedia.org/wiki/Chelsea_Cutler",
+    "blurb": "Chelsea Emily Cutler is an American singer, songwriter, and producer from Westport, Connecticut.",
+    "descriptor": "American musician (born 1997)"
+  },
+  "fantas a": {
+    "checkedAt": "2026-11-08T21:41:29.865Z",
+    "genres": [
+      "r&b",
+      "pop"
+    ],
+    "descriptor": "US R&B singer Fantasia Monique Barrino"
+  },
+  "ingested": {
+    "checkedAt": "2026-11-08T21:41:31.671Z",
+    "genres": [
+      "brutal death metal",
+      "deathcore"
+    ],
+    "descriptor": "GB group"
+  },
+  "missio": {
+    "checkedAt": "2026-11-08T21:41:33.164Z",
+    "genres": [
+      "rock",
+      "indie rock"
+    ],
+    "descriptor": "US electronic duo"
+  },
+  "caskets": {
+    "checkedAt": "2026-11-08T21:41:39.196Z",
+    "genres": [
+      "metalcore",
+      "alternative rock"
+    ],
+    "descriptor": "English alternative metal group"
+  },
+  "cg5": {
+    "checkedAt": "2026-11-08T21:41:40.762Z",
+    "genres": [
+      "electropop",
+      "rock"
+    ],
+    "descriptor": "YouTuber, singer, songwriter, and music producer"
+  },
+  "effin": {
+    "checkedAt": "2026-11-08T21:41:42.591Z",
+    "genres": [
+      "dubstep",
+      "electronic"
+    ],
+    "descriptor": "artist"
+  },
+  "flo": {
+    "checkedAt": "2026-11-08T21:41:44.083Z",
+    "genres": [
+      "pop rap",
+      "dance-pop"
+    ],
+    "descriptor": "American rapper"
+  },
+  "liquid stranger": {
+    "checkedAt": "2026-11-08T21:41:49.856Z",
+    "genres": [
+      "dubstep",
+      "dub"
+    ],
+    "descriptor": "artist"
+  },
+  "rumbo tumba": {
+    "checkedAt": "2026-11-08T21:41:51.418Z"
+  },
+  "jeremy chan": {
+    "checkedAt": "2026-11-08T21:41:52.885Z",
+    "descriptor": "pianist"
+  },
+  "jon bryant": {
+    "checkedAt": "2026-11-08T21:41:54.374Z"
+  },
+  "nemzzz": {
+    "checkedAt": "2026-11-08T21:41:55.844Z",
+    "descriptor": "GB artist"
+  },
+  "chvrches": {
+    "checkedAt": "2026-11-08T21:41:57.334Z"
+  },
+  "emmaline": {
+    "checkedAt": "2026-11-08T21:41:58.802Z"
+  },
+  "ernest aines": {
+    "checkedAt": "2026-11-08T21:42:00.270Z",
+    "wiki": "https://en.wikipedia.org/wiki/Arthur_Cottrell",
+    "blurb": "Arthur Montrose Cottrell was an American football coach and a World War I veteran.",
+    "descriptor": "American football coach (1885–1918)"
+  },
+  "richard bona": {
+    "checkedAt": "2026-11-08T21:42:01.197Z",
+    "wiki": "https://en.wikipedia.org/wiki/Richard_Bona",
+    "blurb": "Richard Bona is a Cameroonian multi-instrumentalist and singer.",
+    "descriptor": "Cameroonian musician (born 1967)"
+  },
+  "twilight": {
+    "checkedAt": "2026-11-08T21:42:01.425Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jackson_Rathbone",
+    "blurb": "Monroe Jackson Rathbone V is an American actor, singer, and musician best known for his roles as Jasper Hale in The Twilight Saga and Sokka in the live-action The Last Airbender (2010).",
+    "descriptor": "American actor and musician"
+  },
+  "asaf avidan": {
+    "checkedAt": "2026-11-08T21:42:01.790Z",
+    "wiki": "https://en.wikipedia.org/wiki/Asaf_Avidan",
+    "blurb": "Asaf Avidan is an Israeli singer and songwriter, born in Jerusalem, Israel, raised in Jamaica and currently resides in France.",
+    "descriptor": "Israeli singer and songwriter (born 1980)"
+  },
+  "michael feinstein": {
+    "checkedAt": "2026-11-08T21:42:02.267Z",
+    "wiki": "https://en.wikipedia.org/wiki/Michael_Feinstein",
+    "blurb": "Michael Jay Feinstein is an American singer, pianist, and music revivalist.",
+    "descriptor": "American musician (born 1956)"
+  },
+  "doctor kr pula": {
+    "checkedAt": "2026-11-08T21:42:02.659Z",
+    "wiki": "https://en.wikipedia.org/wiki/Doctor_Kr%C3%A1pula",
+    "blurb": "Doctor Krápula is a Colombian ska punk band, made up of Mario Muñoz, David Jaramillo, Nicolás Cabrera, Sergio Acosta and Germán Martínez.",
+    "descriptor": "Colombian ska punk band"
+  },
+  "fake names": {
+    "checkedAt": "2026-11-08T21:42:02.928Z",
+    "descriptor": "group"
+  },
+  "jamie duffy": {
+    "checkedAt": "2026-11-08T21:42:04.439Z"
+  },
+  "man woman chainsaw": {
+    "checkedAt": "2026-11-08T21:42:05.908Z",
+    "genres": [
+      "indie rock",
+      "art punk"
+    ],
+    "descriptor": "London noise-pop band"
+  },
+  "claud": {
+    "checkedAt": "2026-11-08T21:42:07.401Z"
+  },
+  "dan reeder": {
+    "checkedAt": "2026-11-08T21:42:08.869Z"
+  },
+  "hans zimmer": {
+    "checkedAt": "2026-11-08T21:42:10.337Z"
+  },
+  "ikkimel": {
+    "checkedAt": "2026-11-08T21:42:11.807Z",
+    "genres": [
+      "hip hop",
+      "pop rap"
+    ],
+    "descriptor": "DE artist"
+  },
+  "nervosa": {
+    "checkedAt": "2026-11-08T21:42:13.298Z",
+    "genres": [
+      "thrash metal",
+      "brazil"
+    ],
+    "descriptor": "Brazilian thrash metal band"
+  },
+  "swimming paul": {
+    "checkedAt": "2026-11-08T21:42:14.791Z",
+    "genres": [
+      "dance",
+      "french house"
+    ],
+    "descriptor": "French DJ-producer"
+  },
+  "the munich philharmonic orchestra": {
+    "checkedAt": "2026-11-08T21:42:16.784Z"
+  },
+  "alleycvt": {
+    "checkedAt": "2026-11-08T21:42:18.253Z",
+    "genres": [
+      "electronic",
+      "dubstep"
+    ],
+    "descriptor": "artist"
+  },
+  "daniel donato": {
+    "checkedAt": "2026-11-08T21:42:19.746Z",
+    "genres": [
+      "psychedelic rock",
+      "jam band"
+    ],
+    "descriptor": "artist"
+  },
+  "jacques greene": {
+    "checkedAt": "2026-11-08T21:42:21.242Z",
+    "genres": [
+      "electronic",
+      "house"
+    ],
+    "descriptor": "Canadian house DJ/producer"
+  },
+  "vansire": {
+    "checkedAt": "2026-11-08T21:42:23.039Z",
+    "genres": [
+      "dream pop"
+    ],
+    "descriptor": "Dream pop project of Josh Augustin and Sam Winemiller from Rochester, Minnesota"
+  },
+  "whomadewho": {
+    "checkedAt": "2026-11-08T21:42:24.539Z",
+    "descriptor": "DK group"
+  },
+  "kenny garrett": {
+    "checkedAt": "2026-11-08T21:42:30.207Z",
+    "genres": [
+      "jazz",
+      "post-bop"
+    ],
+    "descriptor": "US artist"
+  },
+  "kevin griffin": {
+    "checkedAt": "2026-11-08T21:42:31.827Z",
+    "descriptor": "member of Better Than Ezra"
+  },
+  "zach seabaugh": {
+    "checkedAt": "2026-11-08T21:42:33.316Z",
+    "descriptor": "American Country Singer"
+  },
+  "david handler": {
+    "checkedAt": "2026-11-08T21:42:34.891Z"
+  },
+  "jesse harris": {
+    "checkedAt": "2026-11-08T21:42:36.361Z"
+  },
+  "thao the get down stay down": {
+    "checkedAt": "2026-11-08T21:42:37.830Z",
+    "genres": [
+      "alternative rock",
+      "folk rock"
+    ],
+    "descriptor": "US group"
+  },
+  "dame atlas": {
+    "checkedAt": "2026-11-08T21:42:39.323Z",
+    "descriptor": "artist"
+  },
+  "galdive": {
+    "checkedAt": "2026-11-08T21:42:40.813Z",
+    "genres": [
+      "indie pop",
+      "r&b"
+    ],
+    "descriptor": "ID group"
+  },
+  "james maddock": {
+    "checkedAt": "2026-11-08T21:42:42.302Z",
+    "descriptor": "GB artist"
+  },
+  "kronos quartet": {
+    "checkedAt": "2026-11-08T21:42:43.791Z",
+    "genres": [
+      "classical",
+      "contemporary classical"
+    ],
+    "descriptor": "US group"
+  },
+  "mormor": {
+    "checkedAt": "2026-11-08T21:42:45.618Z",
+    "genres": [
+      "pop",
+      "indie"
+    ],
+    "descriptor": "Seth Nyquist"
+  },
+  "emmet cohen": {
+    "checkedAt": "2026-11-08T21:42:47.238Z",
+    "genres": [
+      "jazz",
+      "post-bop"
+    ],
+    "descriptor": "US jazz pianist"
+  },
+  "little big": {
+    "checkedAt": "2026-11-08T21:42:48.726Z"
+  },
+  "luca fogale": {
+    "checkedAt": "2026-11-08T21:42:50.194Z",
+    "genres": [
+      "pop"
+    ],
+    "descriptor": "CA artist"
+  },
+  "red not chili peppers": {
+    "checkedAt": "2026-11-08T21:42:51.683Z",
+    "descriptor": "group"
+  },
+  "romare": {
+    "checkedAt": "2026-11-08T21:42:53.183Z",
+    "genres": [
+      "downtempo",
+      "house"
+    ],
+    "descriptor": "GB artist"
+  },
+  "shinedoe": {
+    "checkedAt": "2026-11-08T21:42:55.072Z",
+    "descriptor": "NL artist"
+  },
+  "vienna philharmonic": {
+    "checkedAt": "2026-11-08T21:42:56.836Z"
+  },
+  "beach vacation": {
+    "checkedAt": "2026-11-08T21:42:58.307Z",
+    "descriptor": "group"
+  },
+  "northlane": {
+    "checkedAt": "2026-11-08T21:42:59.974Z",
+    "wiki": "https://en.wikipedia.org/wiki/Northlane",
+    "blurb": "Northlane are an Australian heavy metal band from Blacktown, formed in 2009.",
+    "descriptor": "Australian heavy metal band"
+  },
+  "rhiannon giddens": {
+    "checkedAt": "2026-11-08T21:43:00.320Z",
+    "wiki": "https://en.wikipedia.org/wiki/Rhiannon_Giddens",
+    "blurb": "Rhiannon Giddens is an American musician, actress, and author known for her eclectic folk music.",
+    "descriptor": "American musician (born 1977)"
+  },
+  "ruby waters": {
+    "checkedAt": "2026-11-08T21:43:00.547Z",
+    "wiki": "https://en.wikipedia.org/wiki/Ruby_Waters",
+    "blurb": "Ruby Waters is a Canadian singer-songwriter.",
+    "descriptor": "Canadian singer-songwriter"
+  },
+  "surfer girl": {
+    "checkedAt": "2026-11-08T21:43:00.774Z",
+    "wiki": "https://en.wikipedia.org/wiki/Surfer_Girl",
+    "blurb": "Surfer Girl is the third album by the American rock band the Beach Boys, released September 16, 1963 on Capitol Records.",
+    "descriptor": "1963 album by the Beach Boys"
+  },
+  "veggi": {
+    "checkedAt": "2026-11-08T21:43:01.341Z"
+  },
+  "40 fingers": {
+    "checkedAt": "2026-11-08T21:43:04.386Z",
+    "descriptor": "IT group"
+  },
+  "nadine sierra": {
+    "checkedAt": "2026-11-08T21:43:10.541Z"
+  },
+  "otta": {
+    "checkedAt": "2026-11-08T21:43:12.082Z",
+    "descriptor": "artist"
+  },
+  "pepper": {
+    "checkedAt": "2026-11-08T21:43:13.708Z",
+    "genres": [
+      "jazz",
+      "cool jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "saul williams": {
+    "checkedAt": "2026-11-08T21:43:15.659Z"
   }
 }
