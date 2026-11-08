@@ -1861,10 +1861,7 @@
     "descriptor": "Norwegian jazz musician, teacher, and civil engineer"
   },
   "feeble little horse": {
-    "checkedAt": "2026-09-10T01:01:05.954Z",
-    "wiki": "https://en.wikipedia.org/wiki/Feeble_Little_Horse",
-    "blurb": "feeble little horse is an American indie rock band from Pittsburgh, Pennsylvania, that formed in 2021.",
-    "descriptor": "American indie rock band"
+    "checkedAt": "2026-11-08T12:38:53.646Z"
   },
   "foghat": {
     "checkedAt": "2026-09-10T01:01:06.231Z",
@@ -6937,5 +6934,440 @@
     "wiki": "https://en.wikipedia.org/wiki/Damian_Lazarus",
     "blurb": "Damian Lazarus is a British DJ and electronic music producer.",
     "descriptor": "British DJ and producer"
+  },
+  "reverend baron": {
+    "checkedAt": "2026-11-08T12:36:41.318Z",
+    "wiki": "https://en.wikipedia.org/wiki/Tiki_King",
+    "blurb": "James Patrick Baron, also known as Tiki King, is an artist, musician, and luthier.",
+    "descriptor": "American artist and musician"
+  },
+  "wycliffe gordon": {
+    "checkedAt": "2026-11-08T12:36:45.277Z",
+    "wiki": "https://en.wikipedia.org/wiki/Wycliffe_Gordon",
+    "blurb": "Wycliffe A.",
+    "descriptor": "American jazz musician, composer, and educator (b. 1967)"
+  },
+  "jimi jules": {
+    "checkedAt": "2026-11-08T12:36:45.503Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jimi_Jules",
+    "blurb": "Jimi Jules is a Swiss musician and DJ.",
+    "descriptor": "Swiss musician and DJ"
+  },
+  "gary smulyan": {
+    "checkedAt": "2026-11-08T12:36:45.730Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gary_Smulyan",
+    "blurb": "Gary Smulyan is an American jazz musician who plays baritone saxophone.",
+    "descriptor": "American jazz baritone saxophonist (born 1956)"
+  },
+  "greg abate": {
+    "checkedAt": "2026-11-08T12:36:45.956Z",
+    "wiki": "https://en.wikipedia.org/wiki/Greg_Abate",
+    "blurb": "Greg Abate is a jazz saxophonist, flautist, composer, and arranger.",
+    "descriptor": "American jazz saxophonist, flautist, and composer (born 1947)"
+  },
+  "kyle walker": {
+    "checkedAt": "2026-11-08T12:36:46.183Z",
+    "descriptor": "House"
+  },
+  "orama": {
+    "checkedAt": "2026-11-08T12:36:48.211Z",
+    "descriptor": "FI artist"
+  },
+  "sosa uk": {
+    "checkedAt": "2026-11-08T12:36:51.063Z"
+  },
+  "hendrik meurkens quartet": {
+    "checkedAt": "2026-11-08T12:36:52.554Z"
+  },
+  "nicole zuraitis": {
+    "checkedAt": "2026-11-08T12:36:54.023Z",
+    "descriptor": "artist"
+  },
+  "tessa souter": {
+    "checkedAt": "2026-11-08T12:36:55.780Z",
+    "genres": [
+      "jazz"
+    ],
+    "descriptor": "GB artist"
+  },
+  "chet doxas quartet": {
+    "checkedAt": "2026-11-08T12:36:57.293Z",
+    "descriptor": "group"
+  },
+  "jackson whalan": {
+    "checkedAt": "2026-11-08T12:37:00.119Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cecilie_Beck",
+    "blurb": "Cecilie Beck is a Danish musician and audiovisual artist based in New York City, United States.",
+    "descriptor": "Scandinavian musician and audiovisual artist"
+  },
+  "metalleg": {
+    "checkedAt": "2026-11-08T12:37:01.420Z",
+    "descriptor": "group"
+  },
+  "portugal the man": {
+    "checkedAt": "2026-11-08T12:37:03.780Z",
+    "wiki": "https://en.wikipedia.org/wiki/Portugal._The_Man",
+    "blurb": "Portugal.",
+    "descriptor": "American rock band"
+  },
+  "wynton marsalis": {
+    "checkedAt": "2026-11-08T12:37:04.007Z",
+    "wiki": "https://en.wikipedia.org/wiki/Wynton_Marsalis",
+    "blurb": "Wynton Learson Marsalis is an American trumpeter, composer, music instructor, and the artistic director of Jazz at Lincoln Center.",
+    "descriptor": "American jazz trumpeter (born 1961)"
+  },
+  "the world is a beautiful place i am no longer afraid to die": {
+    "checkedAt": "2026-11-08T12:37:04.233Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_World_Is_a_Beautiful_Place_%26_I_Am_No_Longer_Afraid_to_Die",
+    "blurb": "The World Is a Beautiful Place & I Am No Longer Afraid to Die is an American rock band formed in Willimantic, Connecticut, in 2009.",
+    "descriptor": "American emo band"
+  },
+  "dan nimmer trio": {
+    "checkedAt": "2026-11-08T12:37:04.457Z"
+  },
+  "shimza": {
+    "checkedAt": "2026-11-08T12:37:06.639Z",
+    "descriptor": "ZA artist"
+  },
+  "soul blind": {
+    "checkedAt": "2026-11-08T12:37:08.598Z",
+    "genres": [
+      "alternative rock",
+      "shoegaze"
+    ],
+    "descriptor": "shoegaze band from the Hudson Valley, NY"
+  },
+  "brandee younger": {
+    "checkedAt": "2026-11-08T12:37:10.996Z",
+    "genres": [
+      "jazz",
+      "contemporary jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "dj goldfinger": {
+    "checkedAt": "2026-11-08T12:37:13.021Z",
+    "descriptor": "Dutch DJ"
+  },
+  "keenan trevon": {
+    "checkedAt": "2026-11-08T12:37:15.553Z"
+  },
+  "whisper doll": {
+    "checkedAt": "2026-11-08T12:37:17.469Z",
+    "genres": [
+      "dream pop"
+    ],
+    "descriptor": "group"
+  },
+  "asbury park nj": {
+    "checkedAt": "2026-11-08T12:37:20.296Z"
+  },
+  "bria skonberg": {
+    "checkedAt": "2026-11-08T12:37:22.990Z",
+    "genres": [
+      "vocal jazz",
+      "jazz"
+    ],
+    "descriptor": "CA artist"
+  },
+  "ultra deluxe": {
+    "checkedAt": "2026-11-08T12:37:25.549Z",
+    "descriptor": "group"
+  },
+  "nicole moudaber": {
+    "checkedAt": "2026-11-08T12:37:27.410Z",
+    "genres": [
+      "house",
+      "techno"
+    ],
+    "descriptor": "GB artist"
+  },
+  "telemakus": {
+    "checkedAt": "2026-11-08T12:37:28.906Z",
+    "descriptor": "artist"
+  },
+  "human error club": {
+    "checkedAt": "2026-11-08T12:37:31.584Z",
+    "descriptor": "US group"
+  },
+  "albert lee": {
+    "checkedAt": "2026-11-08T12:37:34.377Z",
+    "genres": [
+      "folk"
+    ],
+    "descriptor": "guitarist"
+  },
+  "fatboy slim": {
+    "checkedAt": "2026-11-08T12:37:36.713Z",
+    "genres": [
+      "big beat",
+      "electronic"
+    ],
+    "descriptor": "GB artist"
+  },
+  "the flaming lips": {
+    "checkedAt": "2026-11-08T12:37:39.416Z",
+    "genres": [
+      "alternative rock",
+      "neo-psychedelia"
+    ],
+    "descriptor": "US group"
+  },
+  "j ember": {
+    "checkedAt": "2026-11-08T12:37:41.617Z",
+    "descriptor": "CA | pop"
+  },
+  "tmotv the music of tom verlaine": {
+    "checkedAt": "2026-11-08T12:37:43.422Z"
+  },
+  "kevin hill": {
+    "checkedAt": "2026-11-08T12:37:44.914Z",
+    "descriptor": "Singer, guitarist and drummer, member of French folk band Blindfox"
+  },
+  "bruce in the usa": {
+    "checkedAt": "2026-11-08T12:37:46.406Z",
+    "descriptor": "group"
+  },
+  "geminiidragon": {
+    "checkedAt": "2026-11-08T12:37:49.098Z",
+    "descriptor": "artist"
+  },
+  "jason isbell and the 400 unit": {
+    "checkedAt": "2026-11-08T12:37:50.589Z"
+  },
+  "mike stern": {
+    "checkedAt": "2026-11-08T12:37:52.061Z",
+    "genres": [
+      "jazz",
+      "jazz fusion"
+    ],
+    "descriptor": "US artist"
+  },
+  "philadelphia orchestra": {
+    "checkedAt": "2026-11-08T12:37:53.845Z",
+    "genres": [
+      "classical",
+      "symphony orchestra"
+    ],
+    "descriptor": "US"
+  },
+  "bella poarch": {
+    "checkedAt": "2026-11-08T12:37:55.341Z",
+    "genres": [
+      "pop",
+      "dark pop"
+    ],
+    "descriptor": "US artist"
+  },
+  "capyac": {
+    "checkedAt": "2026-11-08T12:37:57.295Z",
+    "descriptor": "group"
+  },
+  "female": {
+    "checkedAt": "2026-11-08T12:37:59.193Z",
+    "genres": [
+      "techno",
+      "industrial techno"
+    ],
+    "descriptor": "UK techno producer Peter Sutton"
+  },
+  "half step": {
+    "checkedAt": "2026-11-08T12:38:01.068Z",
+    "wiki": "https://en.wikipedia.org/wiki/Spencer_Albee",
+    "blurb": "Spencer Aaron Albee is an American musician, singer and songwriter from Portland, Maine.",
+    "descriptor": "American musician, producer, singer and songwriter"
+  },
+  "hot freaks": {
+    "checkedAt": "2026-11-08T12:38:01.719Z",
+    "wiki": "https://en.wikipedia.org/wiki/Bee_Thousand",
+    "blurb": "Bee Thousand is the seventh album by American indie rock band Guided by Voices, released on June 21, 1994, on Scat Records.",
+    "descriptor": "1994 studio album by Guided by Voices"
+  },
+  "klangkarussell": {
+    "checkedAt": "2026-11-08T12:38:01.946Z",
+    "wiki": "https://en.wikipedia.org/wiki/Klangkarussell",
+    "blurb": "Klangkarussell is an Austrian electronic music duo formed in 2011.",
+    "descriptor": "Austrian electronic music duo"
+  },
+  "cave in": {
+    "checkedAt": "2026-11-08T12:38:02.171Z",
+    "wiki": "https://en.wikipedia.org/wiki/Cave_In",
+    "blurb": "Cave In is an American rock band that formed in 1995 in Methuen, Massachusetts.",
+    "descriptor": "American rock band"
+  },
+  "dakha brakha": {
+    "checkedAt": "2026-11-08T12:38:02.399Z",
+    "wiki": "https://en.wikipedia.org/wiki/DakhaBrakha",
+    "blurb": "DakhaBrakha are a world music quartet formed in Kyiv, Ukraine.",
+    "descriptor": "Ukrainian folk music group"
+  },
+  "junction trio": {
+    "checkedAt": "2026-11-08T12:38:02.877Z",
+    "wiki": "https://en.wikipedia.org/wiki/Junction_Trio",
+    "blurb": "The Junction Trio is a classical \"supergroup\" composed of three already accomplished musicians."
+  },
+  "the met orchestra": {
+    "checkedAt": "2026-11-08T12:38:04.974Z"
+  },
+  "a trak": {
+    "checkedAt": "2026-11-08T12:38:08.097Z",
+    "genres": [
+      "hip hop",
+      "house"
+    ],
+    "descriptor": "CA artist"
+  },
+  "caroline shaw": {
+    "checkedAt": "2026-11-08T12:38:09.867Z",
+    "genres": [
+      "contemporary classical",
+      "women composers"
+    ],
+    "descriptor": "American composer"
+  },
+  "cautious clay": {
+    "checkedAt": "2026-11-08T12:38:11.368Z",
+    "genres": [
+      "r&b",
+      "alternative r&b"
+    ],
+    "descriptor": "American singer‐songwriter, musician, and record producer"
+  },
+  "french 79": {
+    "checkedAt": "2026-11-08T12:38:13.425Z",
+    "genres": [
+      "electronic",
+      "pop"
+    ],
+    "descriptor": "FR artist"
+  },
+  "john adams": {
+    "checkedAt": "2026-11-08T12:38:14.919Z",
+    "genres": [
+      "classical",
+      "contemporary classical"
+    ],
+    "descriptor": "American minimalist composer"
+  },
+  "la roux": {
+    "checkedAt": "2026-11-08T12:38:16.501Z"
+  },
+  "marian hill": {
+    "checkedAt": "2026-11-08T12:38:17.971Z",
+    "genres": [
+      "electropop"
+    ],
+    "descriptor": "duo"
+  },
+  "the lemonheads": {
+    "checkedAt": "2026-11-08T12:38:19.492Z"
+  },
+  "brass against": {
+    "checkedAt": "2026-11-08T12:38:20.961Z",
+    "genres": [
+      "brass band",
+      "rock"
+    ],
+    "descriptor": "US group"
+  },
+  "mitsuko uchida": {
+    "checkedAt": "2026-11-08T12:38:22.624Z"
+  },
+  "state radio": {
+    "checkedAt": "2026-11-08T12:38:24.094Z",
+    "genres": [
+      "rock and indie"
+    ],
+    "descriptor": "US group"
+  },
+  "portrayal of guilt": {
+    "checkedAt": "2026-11-08T12:38:25.584Z"
+  },
+  "the bronx wanderers": {
+    "checkedAt": "2026-11-08T12:38:27.052Z",
+    "descriptor": "group"
+  },
+  "the lovestruck balladeers": {
+    "checkedAt": "2026-11-08T12:38:28.542Z"
+  },
+  "the magical music of harry potter": {
+    "checkedAt": "2026-11-08T12:38:30.013Z"
+  },
+  "back alley": {
+    "checkedAt": "2026-11-08T12:38:31.559Z"
+  },
+  "karan aujla": {
+    "checkedAt": "2026-11-08T12:38:33.028Z",
+    "genres": [
+      "karanaujal"
+    ],
+    "descriptor": "Punjabi singer"
+  },
+  "starbenders": {
+    "checkedAt": "2026-11-08T12:38:34.523Z"
+  },
+  "bad suns": {
+    "checkedAt": "2026-11-08T12:38:35.992Z",
+    "genres": [
+      "indie rock",
+      "alternative rock"
+    ],
+    "descriptor": "US group"
+  },
+  "bo staloch": {
+    "checkedAt": "2026-11-08T12:38:37.905Z",
+    "descriptor": "artist"
+  },
+  "gabriel kahane": {
+    "checkedAt": "2026-11-08T12:38:39.645Z"
+  },
+  "girl ultra": {
+    "checkedAt": "2026-11-08T12:38:41.115Z",
+    "genres": [
+      "r&b"
+    ],
+    "descriptor": "Nan De Miguel"
+  },
+  "good boy daisy": {
+    "checkedAt": "2026-11-08T12:38:42.604Z"
+  },
+  "jon spencer": {
+    "checkedAt": "2026-11-08T12:38:44.075Z",
+    "genres": [
+      "rock",
+      "blues rock"
+    ],
+    "descriptor": "US rock band"
+  },
+  "mohini dey": {
+    "checkedAt": "2026-11-08T12:38:45.580Z"
+  },
+  "pigeon": {
+    "checkedAt": "2026-11-08T12:38:47.050Z",
+    "genres": [
+      "christian hip-hop",
+      "american"
+    ],
+    "descriptor": "artist"
+  },
+  "catherine russell": {
+    "checkedAt": "2026-11-08T12:38:48.541Z",
+    "genres": [
+      "jazz",
+      "blues"
+    ],
+    "descriptor": "jazz vocalist"
+  },
+  "ibeyi": {
+    "checkedAt": "2026-11-08T12:38:50.503Z",
+    "genres": [
+      "soul",
+      "contemporary r&b"
+    ],
+    "descriptor": "French musical duo"
+  },
+  "silverada": {
+    "checkedAt": "2026-11-08T12:38:52.132Z",
+    "descriptor": "fka Mike and the Moonpies"
   }
 }
