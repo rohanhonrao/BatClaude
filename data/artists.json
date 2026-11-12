@@ -7777,5 +7777,65 @@
   },
   "saul williams": {
     "checkedAt": "2026-11-08T21:43:15.659Z"
+  },
+  "vicente garcia": {
+    "checkedAt": "2026-11-12T14:31:18.775Z",
+    "wiki": "https://en.wikipedia.org/wiki/Vicente_Garc%C3%ADa_(musician)",
+    "blurb": "Vicente Luis García Guillén is a Dominican musician, singer and composer.",
+    "descriptor": "Dominican singer (born 1968)"
+  },
+  "sango": {
+    "checkedAt": "2026-11-12T14:31:19.647Z",
+    "wiki": "https://en.wikipedia.org/wiki/Sango_(musician)",
+    "blurb": "Kai Asa Savon Wright, known by his stage name Sango, is an American DJ and record producer from Seattle, Washington.",
+    "descriptor": "Musical artist"
+  },
+  "gavin sultan": {
+    "checkedAt": "2026-11-12T14:31:20.167Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jakko_Jakszyk",
+    "blurb": "Michael \"Jakko\" Jakszyk is an English musician, record producer, and actor.",
+    "descriptor": "British musician, record producer, and actor (born 1958)"
+  },
+  "mark william lewis": {
+    "checkedAt": "2026-11-12T14:31:22.187Z",
+    "genres": [
+      "neo-psychedelia",
+      "dream pop"
+    ],
+    "descriptor": "GB | singer/songwriter"
+  },
+  "lip critic": {
+    "checkedAt": "2026-11-12T14:31:24.985Z"
+  },
+  "james bruner": {
+    "checkedAt": "2026-11-12T14:31:26.536Z",
+    "descriptor": "artist"
+  },
+  "peter noone": {
+    "checkedAt": "2026-11-12T14:31:28.109Z",
+    "genres": [
+      "rock",
+      "pop"
+    ],
+    "descriptor": "UK singer/songwriter member of Herman's Hermits"
+  },
+  "ravi coltrane": {
+    "checkedAt": "2026-11-12T14:31:29.685Z",
+    "genres": [
+      "jazz",
+      "post-bop"
+    ],
+    "descriptor": "US artist"
+  },
+  "peter cincotti": {
+    "checkedAt": "2026-11-12T14:31:31.294Z",
+    "genres": [
+      "jazz and blues",
+      "jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "bulin 47": {
+    "checkedAt": "2026-11-12T14:31:32.864Z"
   }
 }
