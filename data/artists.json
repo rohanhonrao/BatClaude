@@ -5453,9 +5453,9 @@
     "blurb": "\nDiscography of musician, composer and producer Kabir Sehgal."
   },
   "local h": {
-    "checkedAt": "2026-09-30T21:51:53.028Z",
+    "checkedAt": "2026-11-14T22:00:47.332Z",
     "wiki": "https://en.wikipedia.org/wiki/Local_H",
-    "blurb": "Local H is an American rock band co-founded in 1990 in Zion, Illinois by guitarist and vocalist Scott Lucas, who has remained the band's sole consistent member.",
+    "blurb": "Local H is an American alternative rock band co-founded in 1987 in Zion, Illinois by guitarist and vocalist Scott Lucas, who has remained the band's sole consistent member.",
     "descriptor": "American rock band"
   },
   "marty dunstan": {
@@ -8152,5 +8152,11 @@
   },
   "teenage wrist": {
     "checkedAt": "2026-11-14T12:55:47.610Z"
+  },
+  "don miguelo": {
+    "checkedAt": "2026-11-14T22:00:46.699Z",
+    "wiki": "https://en.wikipedia.org/wiki/Don_Miguelo",
+    "blurb": "Miguel Ángel Valerio Lebrón, better known by his stage name Don Miguelo, is a Dominican rapper and singer.",
+    "descriptor": "Musical artist"
   }
 }
