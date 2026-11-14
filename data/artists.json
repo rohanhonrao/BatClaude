@@ -7945,5 +7945,101 @@
   "arian shafiee": {
     "checkedAt": "2026-11-13T13:47:17.489Z",
     "descriptor": "artist"
+  },
+  "cold weather company": {
+    "checkedAt": "2026-11-14T04:20:59.366Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jack_White",
+    "blurb": "John Anthony White is an American musician who was the guitarist and lead vocalist of the rock duo the White Stripes.",
+    "descriptor": "American musician (born 1975)"
+  },
+  "peter mazza trio": {
+    "checkedAt": "2026-11-14T04:21:00.132Z",
+    "wiki": "https://en.wikipedia.org/wiki/Reggie_Workman",
+    "blurb": "Reginald \"Reggie\" Workman is an American avant-garde jazz and hard bop double bassist, recognized for his work with both John Coltrane and Art Blakey, in addition to Alice Coltrane, Mal Waldron, Max Roach, Archie Shepp, Trio Three, Trio Tra",
+    "descriptor": "American jazz double bassist"
+  },
+  "harper o neill": {
+    "checkedAt": "2026-11-14T04:21:00.712Z",
+    "wiki": "https://en.wikipedia.org/wiki/Andrew_Winton",
+    "blurb": "Andrew Winton is an independent and solo Australian musician who combines acoustic guitar, lap slide, dobro and seven-string lap guitar/bass, with hollers and stomp.",
+    "descriptor": "Australian musician (born 1972)"
+  },
+  "outta pocket": {
+    "checkedAt": "2026-11-14T04:21:01.961Z",
+    "genres": [
+      "metal",
+      "hardcore punk"
+    ],
+    "descriptor": "Bay Area hardcore"
+  },
+  "clover": {
+    "checkedAt": "2026-11-14T04:21:05.703Z",
+    "genres": [
+      "rock",
+      "country rock"
+    ],
+    "descriptor": "60s/70s US country rock band"
+  },
+  "presley regier": {
+    "checkedAt": "2026-11-14T04:21:07.133Z",
+    "genres": [
+      "pop"
+    ],
+    "descriptor": "singer-songwriter and producer"
+  },
+  "annisokay": {
+    "checkedAt": "2026-11-14T04:21:08.617Z",
+    "genres": [
+      "metalcore",
+      "emo"
+    ],
+    "descriptor": "group"
+  },
+  "becca stevens": {
+    "checkedAt": "2026-11-14T04:21:10.047Z"
+  },
+  "grace potter": {
+    "checkedAt": "2026-11-14T04:21:11.456Z"
+  },
+  "stanley clarke": {
+    "checkedAt": "2026-11-14T04:21:12.864Z",
+    "genres": [
+      "jazz",
+      "jazz fusion"
+    ],
+    "descriptor": "US artist"
+  },
+  "vs self": {
+    "checkedAt": "2026-11-14T04:21:14.379Z",
+    "genres": [
+      "emo",
+      "screamo"
+    ],
+    "descriptor": "group"
+  },
+  "camoufly": {
+    "checkedAt": "2026-11-14T04:21:15.813Z",
+    "genres": [
+      "electronic",
+      "pop"
+    ],
+    "descriptor": "artist"
+  },
+  "ethan iverson": {
+    "checkedAt": "2026-11-14T04:21:17.249Z",
+    "genres": [
+      "free jazz",
+      "jazz"
+    ],
+    "descriptor": "US artist"
+  },
+  "trey magnifique": {
+    "checkedAt": "2026-11-14T04:21:18.684Z"
+  },
+  "jonathan moritz": {
+    "checkedAt": "2026-11-14T04:21:20.120Z"
+  },
+  "corduroy cadets": {
+    "checkedAt": "2026-11-14T04:21:21.531Z"
   }
 }
