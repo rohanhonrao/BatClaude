@@ -1839,10 +1839,12 @@
     "descriptor": "American jazz and gospel singer (born 1980)"
   },
   "lucinda williams": {
-    "checkedAt": "2026-09-10T01:01:02.992Z",
-    "wiki": "https://en.wikipedia.org/wiki/Lucinda_Williams",
-    "blurb": "Lucinda Gayl Williams is an American singer-songwriter and a solo guitarist.",
-    "descriptor": "American musician (born 1953)"
+    "checkedAt": "2026-11-14T12:55:49.205Z",
+    "genres": [
+      "country",
+      "folk"
+    ],
+    "descriptor": "US artist"
   },
   "seun kuti": {
     "checkedAt": "2026-09-10T01:01:03.270Z",
@@ -8041,5 +8043,114 @@
   },
   "corduroy cadets": {
     "checkedAt": "2026-11-14T04:21:21.531Z"
+  },
+  "orla gartland": {
+    "checkedAt": "2026-11-14T12:55:19.830Z",
+    "wiki": "https://en.wikipedia.org/wiki/Orla_Gartland",
+    "blurb": "Orla Joan Gartland is an Irish singer, songwriter and musician.",
+    "descriptor": "Irish singer, songwriter, musician"
+  },
+  "ciaran": {
+    "checkedAt": "2026-11-14T12:55:20.245Z",
+    "wiki": "https://en.wikipedia.org/wiki/The_Feeling",
+    "blurb": "The Feeling are an English rock/pop band from Horsham, Sussex.",
+    "descriptor": "English rock/pop band"
+  },
+  "romain garcia": {
+    "checkedAt": "2026-11-14T12:55:20.732Z",
+    "wiki": "https://en.wikipedia.org/wiki/Anjunabeats",
+    "blurb": "Anjunabeats is a British record label started in 2000 by producers Jonathan \"Jono\" Grant and Paavo Siljamäki of Above & Beyond.",
+    "descriptor": "British record label"
+  },
+  "trapped under ice": {
+    "checkedAt": "2026-11-14T12:55:21.005Z",
+    "wiki": "https://en.wikipedia.org/wiki/Trapped_Under_Ice",
+    "blurb": "Trapped Under Ice is an American hardcore punk band from Baltimore, Maryland that was formed in 2007.",
+    "descriptor": "American hardcore punk band"
+  },
+  "morgan garrett": {
+    "checkedAt": "2026-11-14T12:55:21.280Z",
+    "wiki": "https://en.wikipedia.org/wiki/InMe",
+    "blurb": "InMe are an English alternative rock and metal band originally formed in Brentwood, Essex in 1996.",
+    "descriptor": "British rock band"
+  },
+  "brown horse": {
+    "checkedAt": "2026-11-14T12:55:22.411Z",
+    "genres": [
+      "alternative country"
+    ],
+    "descriptor": "alt‐country band from Norwich, UK"
+  },
+  "jake minch": {
+    "checkedAt": "2026-11-14T12:55:24.913Z"
+  },
+  "vanessa collier": {
+    "checkedAt": "2026-11-14T12:55:26.503Z"
+  },
+  "cheetah chrome": {
+    "checkedAt": "2026-11-14T12:55:28.096Z",
+    "descriptor": "US artist"
+  },
+  "purity ring": {
+    "checkedAt": "2026-11-14T12:55:29.727Z",
+    "genres": [
+      "electronic",
+      "futurepop"
+    ],
+    "descriptor": "CA group"
+  },
+  "boundaries": {
+    "checkedAt": "2026-11-14T12:55:31.420Z",
+    "genres": [
+      "metalcore",
+      "beatdown hardcore"
+    ],
+    "descriptor": "metalcore band from Connecticut"
+  },
+  "libertango": {
+    "checkedAt": "2026-11-14T12:55:33.036Z"
+  },
+  "low gap": {
+    "checkedAt": "2026-11-14T12:55:34.629Z"
+  },
+  "marc broussard": {
+    "checkedAt": "2026-11-14T12:55:36.226Z",
+    "genres": [
+      "soul",
+      "rock"
+    ],
+    "descriptor": "US artist"
+  },
+  "jackie hill perry": {
+    "checkedAt": "2026-11-14T12:55:37.883Z"
+  },
+  "billy lockett": {
+    "checkedAt": "2026-11-14T12:55:39.580Z"
+  },
+  "lydia loveless": {
+    "checkedAt": "2026-11-14T12:55:41.171Z",
+    "genres": [
+      "pop",
+      "country"
+    ],
+    "descriptor": "US artist"
+  },
+  "noga erez": {
+    "checkedAt": "2026-11-14T12:55:42.784Z",
+    "genres": [
+      "electronic",
+      "pop"
+    ],
+    "descriptor": "IL artist"
+  },
+  "westend": {
+    "checkedAt": "2026-11-14T12:55:44.397Z"
+  },
+  "yanamaste": {
+    "checkedAt": "2026-11-14T12:55:45.991Z",
+    "descriptor": "Georgian techno producer"
+  },
+  "teenage wrist": {
+    "checkedAt": "2026-11-14T12:55:47.610Z"
   }
 }
