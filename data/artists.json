@@ -5569,34 +5569,27 @@
     "checkedAt": "2026-10-05T13:14:31.223Z"
   },
   "lcd soundsystem": {
-    "checkedAt": "2026-10-05T13:14:32.789Z",
-    "genres": [
-      "dance-punk",
-      "electronic"
-    ],
-    "descriptor": "US group"
+    "checkedAt": "2026-11-19T15:03:52.964Z",
+    "wiki": "https://en.wikipedia.org/wiki/LCD_Soundsystem",
+    "blurb": "LCD Soundsystem is an American rock band formed in 2002 in Brooklyn, New York, by James Murphy.",
+    "descriptor": "American rock band"
   },
   "labretta suede and the motel 6": {
-    "checkedAt": "2026-10-05T13:14:34.358Z",
+    "checkedAt": "2026-11-19T15:03:53.170Z",
     "descriptor": "NZ group"
   },
   "warboy": {
-    "checkedAt": "2026-10-05T13:14:35.971Z"
+    "checkedAt": "2026-11-19T15:03:54.606Z",
+    "descriptor": "NYHC and punk band"
   },
   "lucy dacus": {
-    "checkedAt": "2026-10-05T13:14:37.537Z",
-    "genres": [
-      "folk",
-      "indie rock"
-    ],
-    "descriptor": "US artist"
+    "checkedAt": "2026-11-19T15:03:56.047Z"
   },
   "storefront church": {
-    "checkedAt": "2026-10-05T13:14:39.108Z",
-    "descriptor": "artist"
+    "checkedAt": "2026-11-19T15:03:57.461Z"
   },
   "kim petras": {
-    "checkedAt": "2026-10-05T13:14:40.679Z",
+    "checkedAt": "2026-11-19T15:03:58.954Z",
     "genres": [
       "pop",
       "electronic"
@@ -8170,5 +8163,125 @@
     "wiki": "https://en.wikipedia.org/wiki/Luis_Vargas_(musician)",
     "blurb": "Luis Rafael Valdez Vargas is a Dominican musician and singer.",
     "descriptor": "Dominican musician (born 1961)"
+  },
+  "arlo mckinley": {
+    "checkedAt": "2026-11-19T15:03:20.551Z",
+    "wiki": "https://en.wikipedia.org/wiki/Arlo_McKinley",
+    "blurb": "Arlo McKinley is an American country singer and singer/songwriter.",
+    "descriptor": "American country musician"
+  },
+  "jorma kaukonen": {
+    "checkedAt": "2026-11-19T15:03:21.518Z",
+    "wiki": "https://en.wikipedia.org/wiki/Jorma_Kaukonen",
+    "blurb": "Jorma Ludwik Kaukonen Jr.",
+    "descriptor": "American guitarist (born 1940)"
+  },
+  "tezzus": {
+    "checkedAt": "2026-11-19T15:03:21.731Z",
+    "wiki": "https://en.wikipedia.org/wiki/Tezzus_%26_Diamond*",
+    "blurb": "Tezzus & Diamond* are an American hip-hop duo that was formed in Atlanta, Georgia in 2020.",
+    "descriptor": "American hip-hop duo"
+  },
+  "tv on the radio": {
+    "checkedAt": "2026-11-19T15:03:21.948Z",
+    "wiki": "https://en.wikipedia.org/wiki/TV_on_the_Radio",
+    "blurb": "TV on the Radio (TVOTR) is an American rock band from Brooklyn, New York, formed in 2001.",
+    "descriptor": "American rock band"
+  },
+  "bella kay": {
+    "checkedAt": "2026-11-19T15:03:22.164Z",
+    "wiki": "https://en.wikipedia.org/wiki/Bella_Kay",
+    "blurb": "Bella Kathleen Ann Williams, better known as Bella Kay, is an American indie pop singer-songwriter based in Orlando, Florida.",
+    "descriptor": "American singer-songwriter"
+  },
+  "maeta": {
+    "checkedAt": "2026-11-19T15:03:22.380Z"
+  },
+  "idan raichel": {
+    "checkedAt": "2026-11-19T15:03:25.379Z"
+  },
+  "mach hommy": {
+    "checkedAt": "2026-11-19T15:03:27.070Z",
+    "genres": [
+      "hip hop",
+      "hardcore hip hop"
+    ],
+    "descriptor": "Dumpmeister"
+  },
+  "nisa": {
+    "checkedAt": "2026-11-19T15:03:28.522Z"
+  },
+  "victor jones": {
+    "checkedAt": "2026-11-19T15:03:29.942Z"
+  },
+  "duckwrth": {
+    "checkedAt": "2026-11-19T15:03:31.370Z"
+  },
+  "ms lauryn hill": {
+    "checkedAt": "2026-11-19T15:03:32.793Z",
+    "genres": [
+      "hip hop",
+      "neo soul"
+    ],
+    "descriptor": "US artist"
+  },
+  "texas is the reason": {
+    "checkedAt": "2026-11-19T15:03:34.228Z"
+  },
+  "streetlamp": {
+    "checkedAt": "2026-11-19T15:03:35.649Z",
+    "descriptor": "US group"
+  },
+  "eugene tyler band": {
+    "checkedAt": "2026-11-19T15:03:37.100Z",
+    "descriptor": "group"
+  },
+  "jeremy pelt": {
+    "checkedAt": "2026-11-19T15:03:38.616Z",
+    "genres": [
+      "jazz",
+      "jazz fusion"
+    ],
+    "descriptor": "US artist"
+  },
+  "randy brecker": {
+    "checkedAt": "2026-11-19T15:03:40.057Z"
+  },
+  "60 juno": {
+    "checkedAt": "2026-11-19T15:03:41.472Z"
+  },
+  "dan bern": {
+    "checkedAt": "2026-11-19T15:03:42.895Z",
+    "genres": [
+      "folk"
+    ],
+    "descriptor": "US artist"
+  },
+  "aleksi": {
+    "checkedAt": "2026-11-19T15:03:44.333Z"
+  },
+  "messer chups": {
+    "checkedAt": "2026-11-19T15:03:45.750Z",
+    "genres": [
+      "surf rock",
+      "instrumental surf"
+    ],
+    "descriptor": "RU group"
+  },
+  "delvon lamarr organ trio": {
+    "checkedAt": "2026-11-19T15:03:47.273Z"
+  },
+  "the greyboy allstars": {
+    "checkedAt": "2026-11-19T15:03:48.689Z",
+    "genres": [
+      "acid jazz"
+    ],
+    "descriptor": "US group"
+  },
+  "red baraat": {
+    "checkedAt": "2026-11-19T15:03:50.127Z"
+  },
+  "bandits on the run": {
+    "checkedAt": "2026-11-19T15:03:51.542Z"
   }
 }
