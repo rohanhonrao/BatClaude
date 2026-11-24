@@ -533,10 +533,12 @@
     "descriptor": "Musical"
   },
   "dying fetus": {
-    "checkedAt": "2026-09-10T00:23:03.690Z",
-    "wiki": "https://en.wikipedia.org/wiki/Dying_Fetus",
-    "blurb": "Dying Fetus is an American death metal band from Greater Upper Marlboro, Maryland, formed in 1991.",
-    "descriptor": "American death metal band"
+    "checkedAt": "2026-11-24T16:51:26.975Z",
+    "genres": [
+      "brutal death metal",
+      "death metal"
+    ],
+    "descriptor": "United States brutal death metal/grindcore"
   },
   "galexy": {
     "checkedAt": "2026-09-10T00:23:03.920Z",
@@ -6027,34 +6029,34 @@
     "descriptor": "English musician and songwriter (born 1942)"
   },
   "meat puppets": {
-    "checkedAt": "2026-10-10T16:45:02.760Z",
-    "wiki": "https://en.wikipedia.org/wiki/Meat_Puppets",
-    "blurb": "Meat Puppets are an American rock band formed in January 1980 in Phoenix, Arizona.",
-    "descriptor": "American rock band"
+    "checkedAt": "2026-11-24T16:51:19.793Z"
   },
   "guy gerber": {
-    "checkedAt": "2026-10-10T16:45:02.983Z",
-    "wiki": "https://en.wikipedia.org/wiki/Guy_Gerber",
-    "blurb": "Guy Avraham Gerber, is an Israeli electronic DJ/producer and musician who works in the underground techno scene.",
-    "descriptor": "Israeli musical artist"
+    "checkedAt": "2026-11-24T16:51:21.210Z",
+    "genres": [
+      "house",
+      "techno"
+    ],
+    "descriptor": "IL artist"
   },
   "h l ne grimaud": {
-    "checkedAt": "2026-10-10T16:45:03.207Z",
-    "wiki": "https://en.wikipedia.org/wiki/H%C3%A9l%C3%A8ne_Grimaud",
-    "blurb": "Hélène Rose Paule Grimaud is a French classical pianist and the founder of the Wolf Conservation Center in South Salem, New York.",
-    "descriptor": "French pianist (born 1969)"
+    "checkedAt": "2026-11-24T16:51:22.651Z"
   },
   "sasha alex sloan": {
-    "checkedAt": "2026-10-10T16:45:03.431Z",
-    "wiki": "https://en.wikipedia.org/wiki/Sasha_Alex_Sloan",
-    "blurb": "Alexandra Artourovna Yatchenko, better known as Sasha Alex Sloan or simply Sasha Sloan, is an American singer-songwriter.",
-    "descriptor": "American singer-songwriter (born 1995)"
+    "checkedAt": "2026-11-24T16:51:24.065Z",
+    "genres": [
+      "pop",
+      "indie pop"
+    ],
+    "descriptor": "US singer and songwriter"
   },
   "sun kil moon": {
-    "checkedAt": "2026-10-10T16:45:03.654Z",
-    "wiki": "https://en.wikipedia.org/wiki/Sun_Kil_Moon",
-    "blurb": "Sun Kil Moon is an American folk rock act from San Francisco, California, founded in 2002.",
-    "descriptor": "American folk rock act"
+    "checkedAt": "2026-11-24T16:51:25.501Z",
+    "genres": [
+      "folk rock",
+      "contemporary folk"
+    ],
+    "descriptor": "American folk rock"
   },
   "pyrex": {
     "checkedAt": "2026-10-11T17:14:15.231Z",
@@ -8397,5 +8399,109 @@
   "kaiju big battel": {
     "checkedAt": "2026-11-23T04:58:42.744Z",
     "descriptor": "group"
+  },
+  "fred hammond": {
+    "checkedAt": "2026-11-24T16:50:53.589Z",
+    "wiki": "https://en.wikipedia.org/wiki/Fred_Hammond",
+    "blurb": "Frederick William Hammond is an American gospel singer, bass guitar player, and record producer.",
+    "descriptor": "American musician and record producer"
+  },
+  "the sergio mendes band": {
+    "checkedAt": "2026-11-24T16:50:54.447Z",
+    "wiki": "https://en.wikipedia.org/wiki/S%C3%A9rgio_Mendes",
+    "blurb": "Sérgio Santos Mendes was a Brazilian musician.",
+    "descriptor": "Brazilian musician (1941–2024)"
+  },
+  "wes parker": {
+    "checkedAt": "2026-11-24T16:50:55.058Z",
+    "wiki": "https://en.wikipedia.org/wiki/Hot_House_(composition)",
+    "blurb": "\"Hot House\" is a bebop standard, composed by American jazz musician Tadd Dameron in 1945.",
+    "descriptor": "Jazz composition by Tadd Dameron"
+  },
+  "johnnyswim": {
+    "checkedAt": "2026-11-24T16:50:55.736Z",
+    "wiki": "https://en.wikipedia.org/wiki/Johnnyswim",
+    "blurb": "Johnnyswim is an American folk, soul, blues, and pop music duo consisting of singer-songwriters Amanda Sudano and Abner Ramirez, formed in 2005 in Nashville, Tennessee.",
+    "descriptor": "American musical duo"
+  },
+  "jacob shipley": {
+    "checkedAt": "2026-11-24T16:50:56.463Z"
+  },
+  "adult dvd": {
+    "checkedAt": "2026-11-24T16:50:59.613Z"
+  },
+  "dan weintraub": {
+    "checkedAt": "2026-11-24T16:51:01.027Z",
+    "wiki": "https://en.wikipedia.org/wiki/Stefan_Weintraub",
+    "blurb": "Stefan Weintraub, nicknamed \"Steps\", was a German jazz musician, bandleader of the Weintraubs Syncopators and Australian mechanic.",
+    "descriptor": "German jazz musician"
+  },
+  "baileyrp": {
+    "checkedAt": "2026-11-24T16:51:02.397Z"
+  },
+  "wayv": {
+    "checkedAt": "2026-11-24T16:51:04.239Z",
+    "wiki": "https://en.wikipedia.org/wiki/WayV",
+    "blurb": "WayV is a Chinese boy band and the fourth overall sub-unit of the South Korean boy band NCT, managed by SM's Chinese sub-label, Label V.",
+    "descriptor": "Chinese boy band"
+  },
+  "gregory porter": {
+    "checkedAt": "2026-11-24T16:51:04.444Z",
+    "wiki": "https://en.wikipedia.org/wiki/Gregory_Porter",
+    "blurb": "Gregory Porter is an American singer, songwriter, and musician.",
+    "descriptor": "American singer and songwriter (born 1971)"
+  },
+  "lizzie berchie": {
+    "checkedAt": "2026-11-24T16:51:04.658Z",
+    "wiki": "https://en.wikipedia.org/wiki/British_soul",
+    "blurb": "British soul, Brit soul, or the British soul invasion, is soul music performed by British artists.",
+    "descriptor": "Music genre"
+  },
+  "nu genea": {
+    "checkedAt": "2026-11-24T16:51:05.284Z",
+    "wiki": "https://en.wikipedia.org/wiki/Nu_Genea",
+    "blurb": "Nu Genea, formerly Nu Guinea, are an Italian musical duo formed in 2014 consisting of musicians Massimo Di Lena and Lucio Aquilina.",
+    "descriptor": "Italian musical duo"
+  },
+  "paris jackson": {
+    "checkedAt": "2026-11-24T16:51:05.500Z",
+    "genres": [
+      "indie folk",
+      "nepo baby"
+    ],
+    "descriptor": "daughter of Michael Jackson"
+  },
+  "horse vision": {
+    "checkedAt": "2026-11-24T16:51:06.949Z"
+  },
+  "claire brooks": {
+    "checkedAt": "2026-11-24T16:51:08.385Z"
+  },
+  "holly belle": {
+    "checkedAt": "2026-11-24T16:51:09.802Z"
+  },
+  "jonah yano": {
+    "checkedAt": "2026-11-24T16:51:11.219Z",
+    "genres": [
+      "alternative r&b"
+    ],
+    "descriptor": "artist"
+  },
+  "roger eno": {
+    "checkedAt": "2026-11-24T16:51:12.656Z"
+  },
+  "lea michele": {
+    "checkedAt": "2026-11-24T16:51:14.096Z",
+    "descriptor": "US artist"
+  },
+  "mod sun": {
+    "checkedAt": "2026-11-24T16:51:15.532Z"
+  },
+  "ocula": {
+    "checkedAt": "2026-11-24T16:51:16.944Z",
+    "descriptor": "GB artist"
+  },
+  "ericdoa": {
+    "checkedAt": "2026-11-24T16:51:18.381Z"
   }
 }
