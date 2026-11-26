@@ -6070,24 +6070,22 @@
     "blurb": "Wu Kwang Soen Sa Nim (1950–present), born Richard Shrobe, is head Zen teacher at Chogye International Zen Center of New York, a practice center of the Kwan Um School of Zen."
   },
   "phantoms": {
-    "checkedAt": "2026-10-12T14:03:24.403Z",
+    "checkedAt": "2026-11-26T16:15:52.023Z",
     "wiki": "https://en.wikipedia.org/wiki/Freezepop",
     "blurb": "Freezepop is an American electronic band from Boston, Massachusetts, United States, formed in 1999 by Liz Enthusiasm, Sean T.",
     "descriptor": "American synthpop band"
   },
   "bike routes": {
-    "checkedAt": "2026-10-12T14:03:24.903Z"
+    "checkedAt": "2026-11-26T16:15:53.226Z"
   },
   "kyle watson": {
-    "checkedAt": "2026-10-12T14:03:27.359Z",
-    "genres": [
-      "pop",
-      "drum and bass"
-    ],
-    "descriptor": "house music"
+    "checkedAt": "2026-11-26T16:15:56.833Z",
+    "wiki": "https://en.wikipedia.org/wiki/Kyle_Watson",
+    "blurb": "Kyle Watson is a South African music producer and DJ.",
+    "descriptor": "South African DJ and music producer"
   },
   "ryan castro": {
-    "checkedAt": "2026-10-12T14:03:28.800Z",
+    "checkedAt": "2026-11-26T16:15:57.045Z",
     "genres": [
       "latin",
       "reggaeton"
@@ -6095,7 +6093,9 @@
     "descriptor": "CO artist"
   },
   "zo": {
-    "checkedAt": "2026-10-12T14:03:30.237Z",
+    "checkedAt": "2026-11-26T16:16:25.182Z",
+    "wiki": "https://en.wikipedia.org/wiki/Music_of_Ivory_Coast",
+    "blurb": "The music of Ivory Coast includes music genres of many ethnic communities, often characterised by vocal polyphony especially among the Baoulé, talking drums especially among the Nzema people and by the characteristic polyrhythms found in rh",
     "genres": [
       "trance",
       "drum and bass"
@@ -6103,12 +6103,10 @@
     "descriptor": "GB artist"
   },
   "fcukers": {
-    "checkedAt": "2026-10-12T14:03:31.675Z",
-    "genres": [
-      "electronic",
-      "electro house"
-    ],
-    "descriptor": "group"
+    "checkedAt": "2026-11-26T16:16:27.291Z",
+    "wiki": "https://en.wikipedia.org/wiki/Fcukers",
+    "blurb": "Fcukers is an American electronic band formed in New York City in 2022.",
+    "descriptor": "American electronic band"
   },
   "rocket from the crypt": {
     "checkedAt": "2026-10-13T13:24:27.028Z",
