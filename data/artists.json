@@ -6115,119 +6115,112 @@
     "descriptor": "American punk rock band"
   },
   "the fab faux": {
-    "checkedAt": "2026-10-13T13:24:27.320Z",
-    "wiki": "https://en.wikipedia.org/wiki/The_Fab_Faux",
-    "blurb": "The Fab Faux is an American musical tribute band performing the works of the Beatles.",
-    "descriptor": "New York-based Beatles tribute band"
+    "checkedAt": "2026-11-27T15:59:14.973Z",
+    "genres": [
+      "rock and roll",
+      "the beatles"
+    ],
+    "descriptor": "US group"
   },
   "phish": {
-    "checkedAt": "2026-10-13T13:24:27.548Z",
+    "checkedAt": "2026-11-27T15:59:16.429Z",
     "wiki": "https://en.wikipedia.org/wiki/Phish",
     "blurb": "Phish is an American rock band formed in Burlington, Vermont, in 1983.",
     "descriptor": "American rock band"
   },
   "parlour magic": {
-    "checkedAt": "2026-10-13T13:24:27.768Z",
-    "wiki": "https://en.wikipedia.org/wiki/Rob_Zabrecky",
-    "blurb": "Robert Zabrecky is an American actor, author, magician, lecturer, and songwriter.",
-    "descriptor": "American magician, actor, author and songwriter"
+    "checkedAt": "2026-11-27T15:59:16.636Z"
   },
   "jessie s girl": {
-    "checkedAt": "2026-10-13T13:24:30.153Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jessie's_Girl",
-    "blurb": "\"Jessie's Girl\" is a song written and performed by Australian singer Rick Springfield.",
-    "descriptor": "1981 single by Rick Springfield"
+    "checkedAt": "2026-11-27T15:59:18.059Z",
+    "descriptor": "group"
   },
   "max b": {
-    "checkedAt": "2026-10-13T13:24:30.383Z",
-    "wiki": "https://en.wikipedia.org/wiki/Max_B",
-    "blurb": "Charley Wingate, better known by his stage name Max B, is an American rapper, singer, and songwriter from Harlem, New York.",
-    "descriptor": "American rapper and originator of the wave movement in hip-hop"
+    "checkedAt": "2026-11-27T15:59:19.505Z",
+    "genres": [
+      "hip hop",
+      "east coast hip hop"
+    ],
+    "descriptor": "US rapper & Dipset crew member Charles Wingate"
   },
   "tesseract": {
-    "checkedAt": "2026-10-13T13:24:31.313Z",
-    "wiki": "https://en.wikipedia.org/wiki/Tesseract_(band)",
-    "blurb": "Tesseract are a British progressive metal band from Milton Keynes.",
-    "descriptor": "British progressive metal band"
+    "checkedAt": "2026-11-27T15:59:21.082Z",
+    "genres": [
+      "progressive metal",
+      "djent"
+    ],
+    "descriptor": "British djent band"
   },
   "the sound and vision of david bowie": {
-    "checkedAt": "2026-10-13T13:24:31.540Z"
+    "checkedAt": "2026-11-27T15:59:22.567Z"
   },
   "vision of david bowie": {
-    "checkedAt": "2026-10-13T13:24:40.054Z"
+    "checkedAt": "2026-11-27T15:59:23.992Z"
   },
   "sheherazaad": {
-    "checkedAt": "2026-10-13T13:24:46.129Z",
+    "checkedAt": "2026-11-27T15:59:25.463Z",
     "genres": [
       "contemporary folk",
       "folk"
     ],
-    "descriptor": "American performer-composer based in Brooklyn, NYC"
+    "descriptor": "American performer‐composer based in Brooklyn, NYC"
   },
   "y2k": {
-    "checkedAt": "2026-10-13T13:24:47.690Z",
+    "checkedAt": "2026-11-27T15:59:26.911Z",
     "genres": [
       "trap"
     ],
     "descriptor": "producer, remixer & songwriter"
   },
   "jess williamson": {
-    "checkedAt": "2026-10-13T13:24:49.175Z",
+    "checkedAt": "2026-11-27T15:59:28.360Z"
+  },
+  "the womack sisters": {
+    "checkedAt": "2026-11-27T15:59:29.783Z"
+  },
+  "tell me lies the fleetwood mac experience": {
+    "checkedAt": "2026-11-27T15:59:31.253Z"
+  },
+  "miguel atwood ferguson": {
+    "checkedAt": "2026-11-27T15:59:32.749Z",
     "genres": [
-      "folk",
-      "indie folk"
+      "electronic",
+      "classical"
     ],
     "descriptor": "US artist"
   },
-  "the womack sisters": {
-    "checkedAt": "2026-10-13T13:24:50.674Z",
-    "genres": [
-      "soul",
-      "r&b"
-    ],
-    "descriptor": "Sam Cooke granddaughters, nieces of Bobby Womack"
-  },
-  "tell me lies the fleetwood mac experience": {
-    "checkedAt": "2026-10-13T13:24:53.772Z"
-  },
-  "miguel atwood ferguson": {
-    "checkedAt": "2026-10-13T13:25:00.264Z",
-    "wiki": "https://en.wikipedia.org/wiki/Miguel_Atwood-Ferguson",
-    "blurb": "Miguel Atwood-Ferguson is an American multi-instrumentalist, session musician, arranger, composer, music director, producer, DJ, orchestral conductor and educator.",
-    "descriptor": "American violist (born 1980)"
-  },
   "thursday": {
-    "checkedAt": "2026-10-13T13:25:00.538Z",
-    "wiki": "https://en.wikipedia.org/wiki/Thursday_(band)",
-    "blurb": "Thursday is an American rock band formed in New Brunswick, New Jersey, in 1998.",
-    "descriptor": "American rock band"
+    "checkedAt": "2026-11-27T15:59:34.216Z"
   },
   "jon b": {
-    "checkedAt": "2026-10-13T13:25:00.910Z",
-    "wiki": "https://en.wikipedia.org/wiki/Jon_B.",
-    "blurb": "Jonathan David Buck is an American R&B singer, songwriter and record producer.",
-    "descriptor": "American R&B singer"
+    "checkedAt": "2026-11-27T15:59:35.638Z",
+    "genres": [
+      "contemporary r&b",
+      "hip hop rnb and dance hall"
+    ],
+    "descriptor": "US | R&B"
   },
   "dion timmer": {
-    "checkedAt": "2026-10-13T13:25:01.145Z",
-    "wiki": "https://en.wikipedia.org/wiki/Rescue_(Zeds_Dead_and_Dion_Timmer_song)",
-    "blurb": "\"Rescue\" is a song by Canadian electronic music duo Zeds Dead and Dutch electronic music producer Dion Timmer, featuring singer-songwriter Delaney Jane.",
-    "descriptor": "2019 single by Zeds Dead and Dion Timmer featuring Delaney Jane"
+    "checkedAt": "2026-11-27T15:59:37.084Z",
+    "genres": [
+      "dubstep",
+      "electronic"
+    ],
+    "descriptor": "Dubstep producer"
   },
   "yacht lobsters": {
-    "checkedAt": "2026-10-13T13:25:01.379Z",
+    "checkedAt": "2026-11-27T15:59:38.704Z",
     "descriptor": "group"
   },
   "eli escobar": {
-    "checkedAt": "2026-10-13T13:25:06.320Z",
-    "descriptor": "DJ, producer"
+    "checkedAt": "2026-11-27T15:59:41.730Z"
   },
   "the depeche mode experience": {
-    "checkedAt": "2026-10-13T13:25:07.808Z",
+    "checkedAt": "2026-11-27T15:59:43.155Z",
     "descriptor": "French tribute band"
   },
   "wolves in the throne room": {
-    "checkedAt": "2026-10-13T13:25:09.297Z",
+    "checkedAt": "2026-11-27T15:59:44.943Z",
     "genres": [
       "atmospheric black metal",
       "black metal"
@@ -6235,30 +6228,28 @@
     "descriptor": "US black metal"
   },
   "hans williams": {
-    "checkedAt": "2026-10-13T13:25:10.786Z",
+    "checkedAt": "2026-11-27T15:59:46.733Z",
     "descriptor": "artist"
   },
   "star moles": {
-    "checkedAt": "2026-10-13T13:25:14.006Z",
+    "checkedAt": "2026-11-27T15:59:48.180Z",
     "descriptor": "artist"
   },
   "bronwyn": {
-    "checkedAt": "2026-10-13T13:25:15.498Z",
-    "descriptor": "group"
+    "checkedAt": "2026-11-27T15:59:51.751Z"
   },
   "bronwyn keith hynes": {
-    "checkedAt": "2026-10-13T13:25:16.988Z",
+    "checkedAt": "2026-11-27T15:59:53.175Z",
     "genres": [
       "bluegrass"
     ],
     "descriptor": "artist"
   },
   "kindred the family soul": {
-    "checkedAt": "2026-10-13T13:25:18.489Z",
-    "descriptor": "US group"
+    "checkedAt": "2026-11-27T15:59:54.628Z"
   },
   "everyone asked about you": {
-    "checkedAt": "2026-10-13T13:25:25.238Z",
+    "checkedAt": "2026-11-27T15:59:56.050Z",
     "genres": [
       "emo",
       "midwest emo"
@@ -6266,12 +6257,7 @@
     "descriptor": "US group"
   },
   "kavita shah": {
-    "checkedAt": "2026-10-13T13:25:26.809Z",
-    "genres": [
-      "jazz",
-      "world fusion"
-    ],
-    "descriptor": "artist"
+    "checkedAt": "2026-11-27T15:59:57.747Z"
   },
   "troye sivan": {
     "checkedAt": "2026-10-14T16:25:26.487Z",
@@ -8513,5 +8499,109 @@
     "wiki": "https://en.wikipedia.org/wiki/Tony_Vega",
     "blurb": "Tony Vega Cesar is a Puerto Rican salsa singer.",
     "descriptor": "Puerto Rican singer (born 1957)"
+  },
+  "darius": {
+    "checkedAt": "2026-11-27T15:58:48.285Z",
+    "wiki": "https://en.wikipedia.org/wiki/Randy_Jackson",
+    "blurb": "Randall Darius Jackson is an American record executive, television presenter and musician, best known as a judge on American Idol from 2002 to 2013.",
+    "descriptor": "American record executive, television presenter and musician (born 1956)"
+  },
+  "alice phoebe lou": {
+    "checkedAt": "2026-11-27T15:58:48.789Z",
+    "wiki": "https://en.wikipedia.org/wiki/Alice_Phoebe_Lou",
+    "blurb": "Alice Phoebe Lou is a South African musician and singer.",
+    "descriptor": "South African musician (born 1993)"
+  },
+  "baauer": {
+    "checkedAt": "2026-11-27T15:58:49.003Z",
+    "wiki": "https://en.wikipedia.org/wiki/Baauer",
+    "blurb": "Harry Bauer Rodrigues, known professionally as Baauer, is an American record producer and DJ, best known for his double platinum song \"Harlem Shake\".",
+    "descriptor": "American record producer"
+  },
+  "goldfish": {
+    "checkedAt": "2026-11-27T15:58:49.218Z",
+    "wiki": "https://en.wikipedia.org/wiki/Goldfish_(band)",
+    "blurb": "GoldFish is an electronic music duo originating from Cape Town, South Africa, now residing in San Diego, California consisting of Dominic Peters and David Poole.",
+    "descriptor": "South African electronic music duo"
+  },
+  "dare": {
+    "checkedAt": "2026-11-27T15:58:49.543Z"
+  },
+  "dj adoni": {
+    "checkedAt": "2026-11-27T15:58:51.854Z",
+    "descriptor": "artist"
+  },
+  "kancheli": {
+    "checkedAt": "2026-11-27T15:58:53.310Z",
+    "descriptor": "producer and DJ"
+  },
+  "popcaan": {
+    "checkedAt": "2026-11-27T15:58:54.754Z",
+    "wiki": "https://en.wikipedia.org/wiki/Popcaan",
+    "blurb": "Andrae Hugh Sutherland, known professionally as Popcaan, is a Jamaican dancehall singer.",
+    "descriptor": "Jamaican dancehall singer (born 1988)"
+  },
+  "sasha": {
+    "checkedAt": "2026-11-27T15:58:54.962Z",
+    "genres": [
+      "electronic",
+      "breakbeat"
+    ],
+    "descriptor": "UK DJ/producer Alexander Paul Coe"
+  },
+  "cory henry the funk apostles": {
+    "checkedAt": "2026-11-27T15:58:56.441Z",
+    "genres": [
+      "jazz",
+      "funk"
+    ],
+    "descriptor": "US group"
+  },
+  "ink": {
+    "checkedAt": "2026-11-27T15:59:01.450Z",
+    "wiki": "https://en.wikipedia.org/wiki/Dougie_Poynter",
+    "blurb": "Dougie Lee Poynter is an English musician, songwriter, fashion model, aspiring clothing designer and children's author.",
+    "descriptor": "English musician (born 1987)"
+  },
+  "nappy roots": {
+    "checkedAt": "2026-11-27T15:59:02.539Z",
+    "wiki": "https://en.wikipedia.org/wiki/Nappy_Roots",
+    "blurb": "Nappy Roots is an American alternative Southern rap group.",
+    "descriptor": "American alternative rap band"
+  },
+  "stare directly into the sun": {
+    "checkedAt": "2026-11-27T15:59:02.757Z",
+    "wiki": "https://en.wikipedia.org/wiki/Alex_Turner",
+    "blurb": "Alexander David Turner is an English singer, songwriter and guitarist, and the frontman of the rock band Arctic Monkeys.",
+    "descriptor": "British indie rock musician (born 1986)"
+  },
+  "cohort b": {
+    "checkedAt": "2026-11-27T15:59:03.759Z",
+    "wiki": "https://en.wikipedia.org/wiki/Fizzyology",
+    "blurb": "Fizzyology is a collaborative studio album by American rappers Lil Fame and Termanology.",
+    "descriptor": "2012 studio album by Lil Fame and Termanology"
+  },
+  "sullivan fortner trio": {
+    "checkedAt": "2026-11-27T15:59:04.908Z"
+  },
+  "obituary": {
+    "checkedAt": "2026-11-27T15:59:06.354Z"
+  },
+  "res": {
+    "checkedAt": "2026-11-27T15:59:07.776Z"
+  },
+  "oran etkin": {
+    "checkedAt": "2026-11-27T15:59:09.202Z",
+    "descriptor": "US artist"
+  },
+  "stout": {
+    "checkedAt": "2026-11-27T15:59:10.678Z",
+    "descriptor": "Ph.D. and Author"
+  },
+  "michael kanan": {
+    "checkedAt": "2026-11-27T15:59:12.127Z"
+  },
+  "qirl": {
+    "checkedAt": "2026-11-27T15:59:13.551Z"
   }
 }
